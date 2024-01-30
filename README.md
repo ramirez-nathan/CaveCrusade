@@ -5,14 +5,19 @@
             [Rachel Lee](https://github.com/rache11ee)
 
 ## Project Description
- > Your project description should summarize the project you are proposing. Be sure to include: 
- > * Why is it important or interesting to you? 
- > * What languages/tools/technologies do you plan to use? (This list may change over the course of the project) 
- > * What will be the input/output of your project?
- > * What are the features that the project provides?
- > This description should be in enough detail that the TA/instructor can determine the complexity of the project and if it is sufficient for the team members to complete in the time allotted. 
- > 
- > You also need to set up an empty project board using GitHub projects (board view with default columns). Make sure you add the board under your project repository. You should also have a Product Backlog and In testing columns added. All columns should be in the right order.
+ > **Cake Crusade: Rise of the Pastry Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of delicious monsters to defeat Baker the Wizard, an evil magician who plans to take over the kingdom with an army of mouthwatering monsters! Fight your way to the end of his dungeon using an array of weapons to recover the Whisk of Wonder that was stolen from your kingdom! 
+ >
+ > The project aims to captivate players through an immersive storyline, strategic gameplay, and a visually appealing environment.
+ >
+ > Tools & Technologies:
+ > * Visual Studio Code
+ > * SFML C++ Library
+ >
+ >Features:
+> * Immersive movement and combat system
+> * Unique monsters and bosses
+> * Dungeon-crawling gameplayorder.
+>   
  > ## Phase II
  > In addition to completing the "User Interface Specification" and "Class Diagram" sections below, you will need to:
  > * Create an "Epic" (note) for each feature. Place these epics in the `Product Backlog` column
