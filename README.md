@@ -16,7 +16,7 @@
  >Features:
 > * Immersive movement and combat system
 > * Unique monsters and bosses
-> * Dungeon-crawling gameplay.
+> * Dungeon-crawling gameplay
 >   
  > ## Phase II
  > In addition to completing the "User Interface Specification" and "Class Diagram" sections below, you will need to:
