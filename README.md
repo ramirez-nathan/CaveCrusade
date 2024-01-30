@@ -1,4 +1,4 @@
-# Cake Crusade
+# Cake Crusade: Rise of the Pastry Master
  > Authors: [Nathan Ramirez](https://github.com/ramirez-nathan), 
             [Russell Ly](https://github.com/Ampherost), 
             [Alexis Manalastas](https://github.com/amana032), 
