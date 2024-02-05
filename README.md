@@ -11,7 +11,7 @@
 The project aims to captivate players through an immersive storyline, strategic gameplay, and a visually appealing environment.
 
  Tools & Technologies:
-* Visual Studio Code
+* Visual Studio
 * SFML C++ Library
 
  Features:
