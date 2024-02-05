@@ -14,6 +14,16 @@ The project aims to captivate players through an immersive storyline, strategic 
 * Visual Studio
 * SFML C++ Library
 
+ Inputs:
+* Keyboard input for player movement and actions
+* Mouse input for navigating menus and interacting with in game elements
+
+ Outputs:
+* Rendered graphics and animations displayed on the game window using SFML
+* Game sound effects and music
+* Information about player's status, like health and weapon equipped
+* In-game text for dialogue and game events 
+
  Features:
  * Immersive movement and combat system
  * Unique monsters and bosses
