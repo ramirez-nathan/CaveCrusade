@@ -1,23 +1,24 @@
 # Cake Crusade: Rise of the Pastry Master
- > Authors: [Nathan Ramirez](https://github.com/ramirez-nathan), 
+ Authors: [Nathan Ramirez](https://github.com/ramirez-nathan), 
             [Russell Ly](https://github.com/Ampherost), 
             [Alexis Manalastas](https://github.com/amana032), 
             [Rachel Lee](https://github.com/rache11ee)
 
 ## Project Description
- > **Cake Crusade: Rise of the Pastry Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of delicious monsters to defeat Baker the Wizard, an evil magician who plans to take over the kingdom with an army of mouthwatering monsters! Fight your way to the end of his dungeon using an array of weapons to recover the Whisk of Wonder that was stolen from your kingdom! 
- >
- > The project aims to captivate players through an immersive storyline, strategic gameplay, and a visually appealing environment.
- >
- > Tools & Technologies:
- > * Visual Studio Code
- > * SFML C++ Library
- >
- >Features:
-> * Immersive movement and combat system
-> * Unique monsters and bosses
-> * Dungeon-crawling gameplay
->   
+ **Cake Crusade: Rise of the Pastry Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of delicious monsters to defeat Baker the Wizard, an evil magician who plans to take over the kingdom with an army of mouthwatering monsters! Fight your way to the end of his dungeon using an array of weapons to recover the Whisk of Wonder that 
+ was stolen from your kingdom! 
+
+The project aims to captivate players through an immersive storyline, strategic gameplay, and a visually appealing environment.
+
+ Tools & Technologies:
+* Visual Studio Code
+* SFML C++ Library
+
+ Features:
+ * Immersive movement and combat system
+ * Unique monsters and bosses
+ * Dungeon-crawling gameplay
+   
  > ## Phase II
  > In addition to completing the "User Interface Specification" and "Class Diagram" sections below, you will need to:
  > * Create an "Epic" (note) for each feature. Place these epics in the `Product Backlog` column
