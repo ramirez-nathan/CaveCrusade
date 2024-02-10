@@ -40,22 +40,21 @@ The project aims to captivate players through an immersive storyline, strategic 
  >   * The second check-in should be scheduled with a reader. During that meeting you will discuss:
  >     * The tasks you are planning for the first sprint
  >     * How work will be divided between the team members
+## User Interface Specification
+ > Include a navigation diagram for your screens and the layout of each of those screens as desribed below. For all the layouts/diagrams, you can use any tool such as PowerPoint or a drawing program. (Specification requirement is adapted from [this template](https://redirect.cs.umbc.edu/~mgrass2/cmsc345/Template_UI.doc))
 
 ### Navigation Diagram
+> Draw a diagram illustrating how the user can navigate from one screen to another. Here is an [example](https://creately.com/diagram/example/ikfqudv82/user-navigation-diagram-classic?r=v). It can be useful to label each symbol that represents a screen so that you can reference the screens in the next section or the rest of the document if necessary. Give a brief description of what the diagram represents.
+
 ![NavigationDiagram](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/4f71f844-6aaa-457a-b4aa-285a62cca0ec)
 
 ### Screen Layouts
-Start Screen:
-![CakeCrusadeStartScreen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/04672150-48c8-4f90-b208-026b84f8847f)
-
-Menu Screen: 
-![CakeCrusadeMenuScreen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/99c0eaeb-a8a6-4b30-8d0e-24a48d2c6bed)
-
-In-Game Screen:
-![CakeCrusadeInGameScreen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/6cd9e566-1971-4390-891e-0a0d6bc4eecc)
+> Include the layout of each of your screens. The layout should describe the screen’s major components such as menus and prompts for user inputs and expected output, or any graphical user interface components if applicable (e.g. buttons, text boxes, etc). Explain what is on the layout, and the purpose of each menu item, button, etc. If many screens share the same layout, start by describing the general layout and then list the screens that will be using that layout and the differences between each of them.
 
 ## Class Diagram
-![ClassDiagram](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/6cf787cc-ad69-446d-bb2f-3ce8ed7717de)
+ > Include a **class diagram(s)** for your project and a **description** of the diagram(s). Your class diagram(s) should include all the main classes you plan for the project. This should be in sufficient detail that another group could pick up the project this point and successfully complete it. Use proper UML notation (as discussed in the course slides).
+
+ ![ClassDiagram](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/6cf787cc-ad69-446d-bb2f-3ce8ed7717de)
 
  > ## Phase III 
  > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on week 8 during lab time.
