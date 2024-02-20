@@ -3,6 +3,7 @@
 #include <vector>
 #include <math.h>
 #include "TileMap.cpp"
+#include "Player.cpp"
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
@@ -41,7 +42,7 @@ sf::Sprite& createArrowSprite(const sf::Texture& arrowTexture, const sf::Vector2
 }
 // --------------------- ARROW SPRITE FUNCTIONS -------------------------
 
-
+ 
 // SFML Experimenting --- Shapes ---
 int main()
 {
@@ -49,7 +50,7 @@ int main()
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::RenderWindow window(sf::VideoMode(1024, 512), "Cake Crusade", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(1408, 704), "Cake Crusade", sf::Style::Default, settings);
     window.setFramerateLimit(360);
 
     //-------------------------------- INITIALIZE --------------------------------
@@ -61,17 +62,20 @@ int main()
     // define the level with an array of tile indices
     const int level[] =
     {
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 4, 5, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
     };
     TileMap map;
-    if (!map.load("assets/tilemap/tileset.png", sf::Vector2u(16, 16), level, 16, 8))
+    if (!map.load("assets/tilemap/tileset.png", sf::Vector2u(16, 16), level, 22, 11)) 
         return -1;
     // ------------------------------- TILEMAP ----------------------------------
 
@@ -134,7 +138,7 @@ int main()
 
     // ------------------------------------------ LOAD ---------------------------------
 
-    
+
     //main game loop
     while (window.isOpen())
     {
@@ -189,6 +193,7 @@ int main()
             sf::Sprite& arrowSprite = createArrowSprite(arrowTexture, playerSprite.getPosition(), arrowDirection);
             arrowSprites.push_back(arrowSprite);
         }
+
         // LOOPS THROUGH VECTOR, UPDATES DIRECTION AND POSITION FOR EACH ARROW SPRITE
         for (size_t i = 0; i < arrowSprites.size(); i++)
         {
@@ -211,6 +216,6 @@ int main()
         window.display();
         //-------------------------------- DRAW --------------------------------
     }
-
+    
     return 0;
 }
