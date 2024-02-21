@@ -150,10 +150,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="Math.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Player.h" />
+    <ClCompile Include="Player.hpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Soldier.cpp" />
     <ClCompile Include="TileMap.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Arrow.hpp" />
+    <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="Math.hpp" />
+    <ClInclude Include="Object.hpp" />
+    <ClInclude Include="Soldier.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
