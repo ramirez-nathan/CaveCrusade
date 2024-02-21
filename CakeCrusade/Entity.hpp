@@ -25,6 +25,6 @@ public:
 
 
     // Functions
-    void attackMove();
+    virtual void attackMove();
 
 };
