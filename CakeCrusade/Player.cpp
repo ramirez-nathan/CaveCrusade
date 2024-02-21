@@ -2,7 +2,7 @@
 #include "Math.hpp"
 
 Player::Player(float h, float d) 
-   : Entity(h, d), playerSpeed(1.0f), maxFireRate(150), fireRateTimer(0)
+   : Entity(h, d), playerSpeed(0.5f), maxFireRate(150), fireRateTimer(0)
 {
 }
 
@@ -12,7 +12,6 @@ Player::~Player()
 
 void Player::Initialize()
 {
-    playerSprite.setOrigin(playerSprite.getLocalBounds().width / 2.f, playerSprite.getLocalBounds().height / 2.f);
     size = sf::Vector2i(32, 32);
 }
 
@@ -29,6 +28,8 @@ void Player::Load()
     playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
     // set spawn position
     playerSprite.setPosition(sf::Vector2f(600, 300));
+    // set origin at middle of sprite
+    playerSprite.setOrigin(playerSprite.getLocalBounds().width / 2.f, playerSprite.getLocalBounds().height / 2.f);
     // change sprite scale
     playerSprite.scale(sf::Vector2f(3, 3));
 }
@@ -87,10 +88,11 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
 
         /*if (enemy.health > 0)
         {
-            if (Math::DidRectCollide(bullets[i].GetGlobalBounds(), enemy.sprite.getGlobalBounds()))
+            // implement this when collision is finished 
+            if (Math::DidRectCollide(arrows[i].GetGlobalBounds(), enemy.sprite.getGlobalBounds()))
             {
-                skeleton.ChangeHealth(-10);
-                bullets.erase(bullets.begin() + i);
+                soldier.ChangeHealth(-10);
+                arrows.erase(arrows.begin() + i);
             }
         }*/
     }

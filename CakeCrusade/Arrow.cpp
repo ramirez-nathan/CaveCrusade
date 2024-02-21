@@ -28,7 +28,7 @@ sf::Sprite& Arrow::createArrowSprite(const sf::Texture& arrowTexture, const sf::
     arrowSprite.setTexture(arrowTexture);
     arrowSprite.setScale(3.f, 3.f);
     arrowSprite.setPosition(position);
-    // set origin at 
+    // set origin at middle of sprite
     arrowSprite.setOrigin(arrowSprite.getLocalBounds().width / 2.f, arrowSprite.getLocalBounds().height / 2.f);
     // sets orientation to direction it was shot at
     arrowSprite.setRotation(atan2(direction.y, direction.x) * 180.0f / M_PI + 90.0f);
