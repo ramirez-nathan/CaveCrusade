@@ -28,7 +28,7 @@ void Player::Load()
     // grab the idle texture image from spritesheet
     playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
     // set spawn position
-    playerSprite.setPosition(sf::Vector2f(500, 200));
+    playerSprite.setPosition(sf::Vector2f(600, 300));
     // change sprite scale
     playerSprite.scale(sf::Vector2f(3, 3));
 }
@@ -36,13 +36,14 @@ void Player::Load()
 // takes parameters - deltatime, any specified entity (by upcasting), and mouseposition
 void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition)
 {
-    sf::Vector2f position = playerSprite.getPosition();
+    
     // WASD MOVEMENT
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         XIndex = 0;
         YIndex = 1;
         playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+        sf::Vector2f position = playerSprite.getPosition();
         playerSprite.setPosition(position + sf::Vector2f(0, -1) * playerSpeed * (float)deltaTime);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
@@ -50,6 +51,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         XIndex = 0;
         YIndex = 0;
         playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+        sf::Vector2f position = playerSprite.getPosition();
         playerSprite.setPosition(position + sf::Vector2f(0, 1) * playerSpeed * (float)deltaTime);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -57,6 +59,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         XIndex = 0;
         YIndex = 2;
         playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+        sf::Vector2f position = playerSprite.getPosition();
         playerSprite.setPosition(position + sf::Vector2f(-1, 0) * playerSpeed * (float)deltaTime);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -64,6 +67,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         XIndex = 0;
         YIndex = 3;
         playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+        sf::Vector2f position = playerSprite.getPosition();
         playerSprite.setPosition(position + sf::Vector2f(1, 0) * playerSpeed * (float)deltaTime);
     }
     //---------------------------------------------- ARROWS -------------------------------------------------
