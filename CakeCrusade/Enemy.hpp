@@ -4,10 +4,9 @@
 #include "Entity.hpp"
 
 class Enemy : public Entity {
-private:
-
-
 public:
+	Enemy(float h, float d, float def);
+	virtual void attackMove() override;
 	void getKnockedBack();
-	virtual void target() = 0;
+	void target();
 };
