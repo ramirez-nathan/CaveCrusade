@@ -6,18 +6,25 @@ class Entity {
 protected:
     float health;
     float damage;
+    float defense;
 
 public:
-    Entity(float h, float d) 
-       : health(h), damage(d) 
-    {
-    }
+    Entity(float h, float d, float def);
+  
 
     // Getters
-    float getHealth() const { return health; }
-    float getDamage() const { return damage; }
+    float getHealth() const;
+    float getDamage() const;
+    float getDefense() const;
+
 
     // Setters
-    void setHealth(float& h) { health = h; }
-    void setDamage(float& d) { damage = d; }
+    void setHealth(float& h);
+    void setDamage(float& d);
+    void setDefense(float& def);
+
+
+    // Functions
+    void attackMove();
+
 };
