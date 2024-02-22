@@ -9,7 +9,7 @@ protected:
     float defense;
 
 public:
-    Entity(float h, float d, float def);
+    Entity(float h, float dmg, float def);
   
 
     // Getters
@@ -20,7 +20,7 @@ public:
 
     // Setters
     void setHealth(float& h);
-    void setDamage(float& d);
+    void setDamage(float& dmg);
     void setDefense(float& def);
 
 
