@@ -61,7 +61,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         }   
     }
 
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //(0,0)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //(0,0)
     {
         SpriteX = 0;
         SpriteY = 0;
@@ -81,7 +81,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         }
     }
 
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // (0,2)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // (0,2)
     {
         SpriteX = 0;
         SpriteY = 2;
@@ -102,7 +102,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         
     }
 
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //(0,3)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //(0,3)
     {
         SpriteX = 0;
         SpriteY = 3;
