@@ -19,8 +19,8 @@ private:
 
 	float playerSpeed;
 
-	int XIndex = 0;
-	int YIndex = 0;
+	int SpriteX = 0;
+	int SpriteY = 0;
 
 	// size vector, width and height, gets set in initialize function
 	sf::Vector2i size;
@@ -35,6 +35,6 @@ public:
 	
 	void Initialize();
 	void Load();
-	void Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition);
+	void Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]); // 
 	void Draw(sf::RenderWindow& window);
 };

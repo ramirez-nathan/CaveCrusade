@@ -1,8 +1,10 @@
 #include "Player.hpp"
 #include "Math.hpp"
+#include <math.h>
+#include <ostream>
 
 Player::Player(float h, float d) 
-   : Entity(h, d), playerSpeed(0.5f), maxFireRate(150), fireRateTimer(0)
+   : Entity(h, d), playerSpeed(0.5f), maxFireRate(300), fireRateTimer(0)
 {
 }
 
@@ -25,7 +27,7 @@ void Player::Load()
     // set texture
     playerSprite.setTexture(texture);
     // grab the idle texture image from spritesheet
-    playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+    playerSprite.setTextureRect(sf::IntRect(SpriteX * size.x, SpriteY * size.y, size.x, size.y));
     // set spawn position
     playerSprite.setPosition(sf::Vector2f(600, 300));
     // set origin at middle of sprite
@@ -35,42 +37,92 @@ void Player::Load()
 }
 
 // takes parameters - deltatime, any specified entity (by upcasting), and mouseposition
-void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition)
+void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos 
 {
-    
+   
     // WASD MOVEMENT
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //(0,1)
     {
-        XIndex = 0;
-        YIndex = 1;
-        playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+        SpriteX = 0;
+        SpriteY = 1;
+        playerSprite.setTextureRect(sf::IntRect(SpriteX * size.x, SpriteY * size.y, size.x, size.y));
+        
         sf::Vector2f position = playerSprite.getPosition();
-        playerSprite.setPosition(position + sf::Vector2f(0, -1) * playerSpeed * (float)deltaTime);
+        sf::Vector2f movement(0, -1 * playerSpeed * static_cast<float>(deltaTime));
+
+        int playerX = floor(position.x / 64); // col
+        int playerY = floor(position.y / 64); // row
+
+        sf::Vector2f future = position + movement;
+
+        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);;
+        if (!(level[futurePos] == 1)) {
+            playerSprite.setPosition(position + movement);
+        }   
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //(0,0)
     {
-        XIndex = 0;
-        YIndex = 0;
-        playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+        SpriteX = 0;
+        SpriteY = 0;
+        playerSprite.setTextureRect(sf::IntRect(SpriteX * size.x, SpriteY * size.y, size.x, size.y));
+
         sf::Vector2f position = playerSprite.getPosition();
-        playerSprite.setPosition(position + sf::Vector2f(0, 1) * playerSpeed * (float)deltaTime);
+        sf::Vector2f movement(0, 1 * playerSpeed * static_cast<float>(deltaTime));
+
+        int playerX = floor(position.x / 64); // col
+        int playerY = floor(position.y / 64); // row
+
+        sf::Vector2f future = position + movement;
+
+        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);;
+        if (!(level[futurePos] == 1)) {
+            playerSprite.setPosition(position + movement);
+        }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // (0,2)
     {
-        XIndex = 0;
-        YIndex = 2;
-        playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+        SpriteX = 0;
+        SpriteY = 2;
+        playerSprite.setTextureRect(sf::IntRect(SpriteX * size.x, SpriteY * size.y, size.x, size.y));
+
         sf::Vector2f position = playerSprite.getPosition();
-        playerSprite.setPosition(position + sf::Vector2f(-1, 0) * playerSpeed * (float)deltaTime);
+        sf::Vector2f movement(-1 * playerSpeed * static_cast<float>(deltaTime), 0);
+
+        int playerX = floor(position.x / 64); // col
+        int playerY = floor(position.y / 64); // row
+
+        sf::Vector2f future = position + movement;
+
+        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);;
+        if (!(level[futurePos] == 1)) {
+            playerSprite.setPosition(position + movement);
+        }   
+        
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //(0,3)
     {
-        XIndex = 0;
-        YIndex = 3;
-        playerSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+        SpriteX = 0;
+        SpriteY = 3;
+        playerSprite.setTextureRect(sf::IntRect(SpriteX * size.x, SpriteY * size.y, size.x, size.y));
+        
         sf::Vector2f position = playerSprite.getPosition();
-        playerSprite.setPosition(position + sf::Vector2f(1, 0) * playerSpeed * (float)deltaTime);
+        sf::Vector2f movement(1 * playerSpeed * static_cast<float>(deltaTime), 0);
+
+        int playerX = floor(position.x / 64); // col
+        int playerY = floor(position.y / 64); // row
+
+        sf::Vector2f future = position + movement;
+
+        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);;
+        if (!(level[futurePos] == 1)) {
+            playerSprite.setPosition(position + movement);
+        }
+
     }
+
     //---------------------------------------------- ARROWS -------------------------------------------------
     fireRateTimer += deltaTime;
 

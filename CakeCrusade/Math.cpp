@@ -1,4 +1,5 @@
 #include "Math.hpp"
+#include "Player.hpp"
 
 // normalize vector function; divides x and y by the magnitude
 sf::Vector2f Math::NormalizeVector(sf::Vector2f vector)
@@ -12,4 +13,7 @@ sf::Vector2f Math::NormalizeVector(sf::Vector2f vector)
 
 	return normalizedVector;
 }
+
+//todo: tile collision
+
 
