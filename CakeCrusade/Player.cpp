@@ -16,7 +16,7 @@ Player::~Player()
 
 void Player::Initialize()
 {
-    size = sf::Vector2i(32, 32);
+    setSize(sf::Vector2i(32,32));
 }
 
 void Player::Load() 
@@ -29,11 +29,11 @@ void Player::Load()
     // set texture
     playerSprite.setTexture(texture);
     // grab the idle texture image from spritesheet
-    playerSprite.setTextureRect(sf::IntRect(SpriteX * size.x, SpriteY * size.y, size.x, size.y));
+    playerSprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
     // set spawn position
     playerSprite.setPosition(sf::Vector2f(600, 300));
     // set origin at middle of sprite
-    playerSprite.setOrigin(playerSprite.getLocalBounds().width / 2.f, playerSprite.getLocalBounds().height / 2.f);
+    playerSprite.setOrigin(playerSprite.getLocalBounds().width / 2.f, playerSprite.getLocalBounds().height / 2.f + 12);
     // change sprite scale
     playerSprite.scale(sf::Vector2f(3, 3));
 }
@@ -48,8 +48,8 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     {
         SpriteX = 0;
         SpriteY = 1;
-        playerSprite.setTextureRect(sf::IntRect(SpriteX * size.x, SpriteY * size.y, size.x, size.y));
-        
+        playerSprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+
         sf::Vector2f position = playerSprite.getPosition();
         sf::Vector2f movement(0, -1 * playerSpeed * static_cast<float>(deltaTime));
 
@@ -68,7 +68,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     {
         SpriteX = 0;
         SpriteY = 0;
-        playerSprite.setTextureRect(sf::IntRect(SpriteX * size.x, SpriteY * size.y, size.x, size.y));
+        playerSprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
 
         sf::Vector2f position = playerSprite.getPosition();
         sf::Vector2f movement(0, 1 * playerSpeed * static_cast<float>(deltaTime));
@@ -88,7 +88,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     {
         SpriteX = 0;
         SpriteY = 2;
-        playerSprite.setTextureRect(sf::IntRect(SpriteX * size.x, SpriteY * size.y, size.x, size.y));
+        playerSprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
 
         sf::Vector2f position = playerSprite.getPosition();
         sf::Vector2f movement(-1 * playerSpeed * static_cast<float>(deltaTime), 0);
@@ -109,8 +109,8 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     {
         SpriteX = 0;
         SpriteY = 3;
-        playerSprite.setTextureRect(sf::IntRect(SpriteX * size.x, SpriteY * size.y, size.x, size.y));
-        
+        playerSprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+
         sf::Vector2f position = playerSprite.getPosition();
         sf::Vector2f movement(1 * playerSpeed * static_cast<float>(deltaTime), 0);
 
@@ -140,13 +140,12 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     for (size_t i = 0; i < arrows.size(); i++)
     {
         arrows[i].Update(deltaTime);
-
-        /*if (enemy.health > 0)
+        /*if (enemy.getHealth() > 0)
         {
             // implement this when collision is finished 
-            if (Math::DidRectCollide(arrows[i].GetGlobalBounds(), enemy.sprite.getGlobalBounds()))
+            if (Math::DidRectCollide(arrows[i].GetGlobalBounds(), enemy.soldierSprite.getGlobalBounds()))
             {
-                soldier.ChangeHealth(-10);
+                enemy.ChangeHealth(-10);
                 arrows.erase(arrows.begin() + i);
             }
         }*/

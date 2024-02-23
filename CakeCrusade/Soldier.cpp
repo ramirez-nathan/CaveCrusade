@@ -10,15 +10,9 @@ Soldier::~Soldier()
 {
 }
 
-void Soldier::ChangeHealth(float hp)
-{
-	health += hp;
-}
-
 void Soldier::Initialize()
 {
-	soldierSprite.setOrigin(soldierSprite.getLocalBounds().width / 2.f, soldierSprite.getLocalBounds().height / 2.f);
-	size = sf::Vector2i(32, 32);
+    setSize(sf::Vector2i(32, 32));
 }
 
 void Soldier::Load() {
@@ -27,14 +21,16 @@ void Soldier::Load() {
     {
         std::cerr << "Soldier texture failed to load!" << std::endl;
     }
-    XIndex = 0;
-    YIndex = 0;
+    SpriteX = 0;
+    SpriteY = 0;
     // set texture
     soldierSprite.setTexture(texture);
     // grab the idle texture image from spritesheet
-    soldierSprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
+    soldierSprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
     // set spawn position
     soldierSprite.setPosition(sf::Vector2f(500, 200));
+    // set origin at middle of sprite
+    soldierSprite.setOrigin(soldierSprite.getLocalBounds().width / 2.f, soldierSprite.getLocalBounds().height / 2.f);
     // change sprite scale
     soldierSprite.scale(sf::Vector2f(3, 3));
 }
@@ -43,8 +39,8 @@ void Soldier::Update(double deltaTime)
 {
     if (health > 0)
     {
-        /*boundingRectangle.setPosition(sprite.getPosition());
-        healthText.setPosition(sprite.getPosition()); */
+        /*boundingRectangle.setPosition(soldierSprite.getPosition());
+        healthText.setPosition(soldierSprite.getPosition()); */
     }
 }
 

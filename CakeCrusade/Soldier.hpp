@@ -10,18 +10,16 @@ class Soldier : public Entity
 private:
 	sf::Texture texture;
 
-	int XIndex = 0;
-	int YIndex = 0;
+	int SpriteX = 0;
+	int SpriteY = 0;
 
 public:
 	sf::Sprite soldierSprite;
-	sf::Vector2i size;
 public:
 	Soldier(float h, float d);
 	~Soldier();
 
-	void ChangeHealth(float hp);
-
+	sf::Sprite& getSprite() { return soldierSprite; }
 	void Initialize();
 	void Load();
 	void Update(double deltaTime);

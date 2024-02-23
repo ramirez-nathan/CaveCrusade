@@ -22,8 +22,7 @@ private:
 	int SpriteX = 0;
 	int SpriteY = 0;
 
-	// size vector, width and height, gets set in initialize function
-	sf::Vector2i size;
+	
 
 
 public:

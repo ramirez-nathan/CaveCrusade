@@ -23,6 +23,9 @@ public:
 	void Initialize(const sf::Vector2f& position, const sf::Vector2f& target, float speed);
 	void Update(double deltaTime);
 	void Draw(sf::RenderWindow& window);
+
+	// need this helper function for grabbing global bounds at arrows[i]
+	inline const sf::FloatRect& GetGlobalBounds() { return arrowSprite.getGlobalBounds(); }  
 };
 
 #endif 
