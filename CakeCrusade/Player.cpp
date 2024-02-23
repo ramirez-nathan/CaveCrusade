@@ -16,7 +16,7 @@ Player::~Player()
 
 void Player::Initialize()
 {
-    setSize(sf::Vector2i(32,32));
+    size = sf::Vector2i(32, 32);
 }
 
 void Player::Load() 
@@ -27,15 +27,15 @@ void Player::Load()
         std::cerr << "Player texture failed to load!" << std::endl;
     }
     // set texture
-    playerSprite.setTexture(texture);
+    sprite.setTexture(texture);
     // grab the idle texture image from spritesheet
-    playerSprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+    sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
     // set spawn position
-    playerSprite.setPosition(sf::Vector2f(600, 300));
+    sprite.setPosition(sf::Vector2f(600, 300));
     // set origin at middle of sprite
-    playerSprite.setOrigin(playerSprite.getLocalBounds().width / 2.f, playerSprite.getLocalBounds().height / 2.f + 12);
+    sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f + 12);
     // change sprite scale
-    playerSprite.scale(sf::Vector2f(3, 3));
+    sprite.scale(sf::Vector2f(3, 3));
 }
 
 // takes parameters - deltatime, any specified entity (by upcasting), and mouseposition
@@ -48,9 +48,9 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     {
         SpriteX = 0;
         SpriteY = 1;
-        playerSprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+        sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
 
-        sf::Vector2f position = playerSprite.getPosition();
+        sf::Vector2f position = sprite.getPosition();
         sf::Vector2f movement(0, -1 * playerSpeed * static_cast<float>(deltaTime));
 
         int playerX = floor(position.x / 64); // col
@@ -60,7 +60,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
 
         int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);;
         if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
-            playerSprite.setPosition(position + movement);
+            sprite.setPosition(position + movement);
         }   
     }
 
@@ -68,9 +68,9 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     {
         SpriteX = 0;
         SpriteY = 0;
-        playerSprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+        sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
 
-        sf::Vector2f position = playerSprite.getPosition();
+        sf::Vector2f position = sprite.getPosition();
         sf::Vector2f movement(0, 1 * playerSpeed * static_cast<float>(deltaTime));
 
         int playerX = floor(position.x / 64); // col
@@ -80,7 +80,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
 
         int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
         if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
-            playerSprite.setPosition(position + movement);
+            sprite.setPosition(position + movement);
         }
     }
 
@@ -88,9 +88,9 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     {
         SpriteX = 0;
         SpriteY = 2;
-        playerSprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+        sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
 
-        sf::Vector2f position = playerSprite.getPosition();
+        sf::Vector2f position = sprite.getPosition();
         sf::Vector2f movement(-1 * playerSpeed * static_cast<float>(deltaTime), 0);
 
         int playerX = floor(position.x / 64); // col
@@ -100,7 +100,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
 
         int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);;
         if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
-            playerSprite.setPosition(position + movement);
+            sprite.setPosition(position + movement);
         }   
         
     }
@@ -109,9 +109,9 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     {
         SpriteX = 0;
         SpriteY = 3;
-        playerSprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+        sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
 
-        sf::Vector2f position = playerSprite.getPosition();
+        sf::Vector2f position = sprite.getPosition();
         sf::Vector2f movement(1 * playerSpeed * static_cast<float>(deltaTime), 0);
 
         int playerX = floor(position.x / 64); // col
@@ -121,7 +121,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
 
         int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);;
         if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
-            playerSprite.setPosition(position + movement);
+            sprite.setPosition(position + movement);
         }
 
     }
@@ -133,22 +133,22 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     {
         arrows.push_back(Arrow());
         int i = arrows.size() - 1;
-        arrows[i].Initialize(playerSprite.getPosition(), mousePosition, 0.5f);
+        arrows[i].Initialize(sprite.getPosition(), mousePosition, 0.5f);
         fireRateTimer = 0;
     }
 
     for (size_t i = 0; i < arrows.size(); i++)
     {
         arrows[i].Update(deltaTime);
-        /*if (enemy.getHealth() > 0)
+        if (enemy.getHealth() > 0)
         {
             // implement this when collision is finished 
-            if (Math::DidRectCollide(arrows[i].GetGlobalBounds(), enemy.soldierSprite.getGlobalBounds()))
+            if (Math::DidRectCollide(arrows[i].GetGlobalBounds(), enemy.getSprite().getGlobalBounds()))
             {
-                enemy.ChangeHealth(-10);
+                enemy.ChangeHealth(-15);
                 arrows.erase(arrows.begin() + i);
             }
-        }*/
+        }
     }
 
     //---------------------------------------------- ARROWS -------------------------------------------------
@@ -158,7 +158,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
 
 void Player::Draw(sf::RenderWindow& window)
 {
-    window.draw(playerSprite);
+    window.draw(sprite);
 
     // draw each arrow sprite in vector
     for (size_t i = 0; i < arrows.size(); i++)

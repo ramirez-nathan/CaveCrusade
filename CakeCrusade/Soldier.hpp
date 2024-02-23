@@ -13,13 +13,15 @@ private:
 	int SpriteX = 0;
 	int SpriteY = 0;
 
+	float soldierSpeed;
+
 public:
-	sf::Sprite soldierSprite;
+	//sf::Sprite soldierSprite;
 public:
 	Soldier(float h, float d);
 	~Soldier();
 
-	sf::Sprite& getSprite() { return soldierSprite; }
+	 
 	void Initialize();
 	void Load();
 	void Update(double deltaTime);
