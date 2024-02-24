@@ -76,7 +76,7 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-        soldier.Update(deltaTime);
+        soldier.Update(deltaTime, player.getSprite().getPosition(), level);
         player.Update(deltaTime, soldier, mousePosition, level); // update here
         //-------------------------------- UPDATE --------------------------------
 

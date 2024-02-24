@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Entity.hpp"
+#include "Math.hpp"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ public:
 	 
 	void Initialize();
 	void Load();
-	void Update(double deltaTime, Entity& player, int level[]);
+	void Update(double deltaTime, const sf::Vector2f& target, int level[]);
 	void Draw(sf::RenderWindow& window);
 
 };

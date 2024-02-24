@@ -2,7 +2,7 @@
 #include <iostream>
 
 Soldier::Soldier(float h, float d) 
-	: Entity(h, d), soldierSpeed(0.25f)
+	: Entity(h, d), soldierSpeed(0.2f)
 {
 }
 
@@ -43,12 +43,24 @@ void Soldier::Load()
     // set hitbox origin to middle
     boundingRectangle.setOrigin(boundingRectangle.getLocalBounds().width / 2.f, boundingRectangle.getLocalBounds().height / 2.f);
 }
-
-void Soldier::Update(double deltaTime, Entity& player, int level[])
+// takes parameters : delta time, player position, level
+void Soldier::Update(double deltaTime, const sf::Vector2f& target, int level[])
 {
-
+    vector<int> walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
     if (health > 0)
     {
+        direction = Math::NormalizeVector(target - sprite.getPosition());
+
+        sf::Vector2f position = sprite.getPosition();
+        sf::Vector2f movement(direction * soldierSpeed * static_cast<float>(deltaTime));
+        
+        sf::Vector2f future = position + movement;
+
+        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
+        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+            sprite.setPosition(position + movement);
+        }
+
         boundingRectangle.setPosition(sprite.getPosition());
     }
 }

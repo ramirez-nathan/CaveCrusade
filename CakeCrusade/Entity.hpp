@@ -18,7 +18,7 @@ protected:
 
     sf::Sprite sprite;
     sf::RectangleShape boundingRectangle;
-    vector<int> walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
+    
 
 public:
     Entity(float h, float d) 
