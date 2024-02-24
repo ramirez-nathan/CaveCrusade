@@ -6,7 +6,7 @@
 
 
 Player::Player(float h, float d) 
-   : Entity(h, d), playerSpeed(0.5f), maxFireRate(300), fireRateTimer(0)
+   : Entity(h, d), playerSpeed(0.35f), maxFireRate(300), fireRateTimer(0)
 {
 }
 
@@ -16,6 +16,10 @@ Player::~Player()
 
 void Player::Initialize()
 {
+    boundingRectangle.setFillColor(sf::Color::Transparent);
+    boundingRectangle.setOutlineColor(sf::Color::Red);
+    boundingRectangle.setOutlineThickness(1);
+
     size = sf::Vector2i(32, 32);
 }
 
@@ -36,13 +40,15 @@ void Player::Load()
     sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f + 12);
     // change sprite scale
     sprite.scale(sf::Vector2f(3, 3));
+    // wrap the hitbox around the player
+    boundingRectangle.setSize(sf::Vector2f(size.x * sprite.getScale().x, size.y * sprite.getScale().y));
+    // set hitbox origin to middle
+    boundingRectangle.setOrigin(boundingRectangle.getLocalBounds().width / 2.f, boundingRectangle.getLocalBounds().height / 2.f);
 }
 
 // takes parameters - deltatime, any specified entity (by upcasting), and mouseposition
 void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos 
 {
-    vector<int> walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
-    
     // WASD MOVEMENT
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //(0,1)
     {
@@ -152,14 +158,14 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     }
 
     //---------------------------------------------- ARROWS -------------------------------------------------
-
+    boundingRectangle.setPosition(sprite.getPosition());
 
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
     window.draw(sprite);
-
+    window.draw(boundingRectangle);
     // draw each arrow sprite in vector
     for (size_t i = 0; i < arrows.size(); i++)
         arrows[i].Draw(window);

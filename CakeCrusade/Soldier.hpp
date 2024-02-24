@@ -9,6 +9,8 @@ class Soldier : public Entity
 {
 private:
 	sf::Texture texture;
+	sf::Vector2f direction;
+
 
 	int SpriteX = 0;
 	int SpriteY = 0;
@@ -24,7 +26,7 @@ public:
 	 
 	void Initialize();
 	void Load();
-	void Update(double deltaTime);
+	void Update(double deltaTime, Entity& player, int level[]);
 	void Draw(sf::RenderWindow& window);
 
 };
