@@ -30,7 +30,7 @@ public:
 	sf::Sprite playerSprite;
 
 public:
-	Player(float h, float d);
+	Player(float h, float dmg, float def);
 	~Player();
 	
 	void Initialize();

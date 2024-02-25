@@ -1,8 +1,8 @@
 #include "Player.hpp"
 #include "Math.hpp"
 
-Player::Player(float h, float d) 
-   : Entity(h, d), playerSpeed(0.5f), maxFireRate(150), fireRateTimer(0)
+Player::Player(float h, float dmg, float def) 
+   : Entity(h, def, dmg), playerSpeed(0.5f), maxFireRate(150), fireRateTimer(0)
 {
 }
 
