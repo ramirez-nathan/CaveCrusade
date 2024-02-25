@@ -6,6 +6,7 @@
 #include "TileMap.cpp"
 #include "Player.hpp"
 #include "Soldier.hpp"
+#include "Enemy.hpp"
 
 using namespace std; 
 
