@@ -110,3 +110,7 @@ void Player::Draw(sf::RenderWindow& window)
     for (size_t i = 0; i < arrows.size(); i++)
         arrows[i].Draw(window);
 }
+
+void Player::attackMove() {
+    // Implement how the enemy attacks
+}

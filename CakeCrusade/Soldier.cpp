@@ -55,3 +55,7 @@ void Soldier::Draw(sf::RenderWindow& window)
         window.draw(soldierSprite);
     }
 }
+
+void Soldier::attackMove() {
+    // Implement how the enemy attacks
+}
