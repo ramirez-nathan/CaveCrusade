@@ -28,7 +28,7 @@ public:
 
 
     // Functions
-    virtual void attackMove();
+    virtual void attackMove() = 0;
     bool loadTexture(const std::string& texturePath);
 
     // Set the position of the entity
