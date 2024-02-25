@@ -31,4 +31,13 @@ public:
     virtual void attackMove();
     bool loadTexture(const std::string& texturePath);
 
+    // Set the position of the entity
+    void setPosition(const sf::Vector2f& position);
+
+    // Get the current position of the entity
+    const sf::Vector2f& getPosition() const;
+
+    // Draw the entity to the render window
+    void draw(sf::RenderWindow& window) const;
+
 };
