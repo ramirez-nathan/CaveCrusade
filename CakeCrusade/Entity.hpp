@@ -12,6 +12,7 @@ protected:
 
 public:
     Entity(float h, float dmg, float def);
+    virtual ~Entity() = default;
   
 
     // Getters
