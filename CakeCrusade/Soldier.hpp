@@ -26,5 +26,6 @@ public:
 	void Load();
 	void Update(double deltaTime);
 	void Draw(sf::RenderWindow& window);
+	virtual void attackMove() override;
 
 };
