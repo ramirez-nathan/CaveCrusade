@@ -1,8 +1,8 @@
 #include "Soldier.hpp"
 #include <iostream>
 
-Soldier::Soldier(float h, float d) 
-	: Entity(h, d)
+Soldier::Soldier(float h, float dmg, float def) 
+	: Entity(h, dmg, def)
 {
 }
 

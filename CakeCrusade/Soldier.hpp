@@ -17,7 +17,7 @@ public:
 	sf::Sprite soldierSprite;
 	sf::Vector2i size;
 public:
-	Soldier(float h, float d);
+	Soldier(float h, float dmg, float def);
 	~Soldier();
 
 	void ChangeHealth(float hp);

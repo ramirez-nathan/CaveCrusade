@@ -17,8 +17,8 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1408, 704), "Cake Crusade", sf::Style::Default, settings);
     window.setFramerateLimit(360);
 
-    Player player(200, 25);
-    Soldier soldier(75, 50);
+    Player player(200, 50, 25);
+    Soldier soldier(75, 50, 50);
     //-------------------------------- INITIALIZE --------------------------------
     player.Initialize();
     soldier.Initialize();
