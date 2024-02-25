@@ -1,6 +1,6 @@
 #include "Enemy.hpp"
 
-Enemy::Enemy(float h, float d, float def) : Entity(h, d, def) {
+Enemy::Enemy(float h, float dmg, float def) : Entity(h, dmg, def) {
     // Constructor implementation can initialize any additional members here
 }
 
