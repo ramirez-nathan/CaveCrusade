@@ -7,6 +7,8 @@ protected:
     float health;
     float damage;
     float defense;
+    sf::Sprite sprite;
+    sf::Texture texture;
 
 public:
     Entity(float h, float dmg, float def);
