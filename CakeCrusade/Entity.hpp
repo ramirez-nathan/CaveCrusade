@@ -28,5 +28,6 @@ public:
 
     // Functions
     virtual void attackMove();
+    bool loadTexture(const std::string& texturePath);
 
 };
