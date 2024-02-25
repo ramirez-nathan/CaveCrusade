@@ -16,3 +16,12 @@ void Entity::setDefense(float& def) { this->defense = def; }
 void Entity::attackMove() {
     // Implementation here
 }
+
+bool Entity::loadTexture(const std::string& texturePath) {
+    if (!texture.loadFromFile(texturePath)) {
+        std::cerr << "Failed to load texture from " << texturePath << std::endl;
+        return false;
+    }
+    sprite.setTexture(texture);
+    return true;
+}
