@@ -13,9 +13,7 @@ void Entity::setHealth(float& h) { this->health = h; }
 void Entity::setDamage(float& dmg) { this->damage = dmg; }
 void Entity::setDefense(float& def) { this->defense = def; }
 
-void Entity::attackMove() {
-    // Implementation here
-}
+
 
 bool Entity::loadTexture(const std::string& texturePath) {
     if (!texture.loadFromFile(texturePath)) {
