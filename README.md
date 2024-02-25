@@ -25,9 +25,9 @@ The project aims to captivate players through an immersive storyline, strategic 
 * In-game text for dialogue and game events 
 
  Features:
- * Immersive movement and combat system
- * Unique monsters and bosses
- * Dungeon-crawling gameplay
+ * Immersive movement and combat system --> Movement will be done using WASD controls to get around the tile map(s) and the player will be able to fight against the opponent with a weapon of choice.
+ * Unique monsters and bosses --> Enemies and the Boss will be distinguishable in terms of their looks as well as what types of attacks will be executed against the player.
+ * Dungeon-crawling gameplay --> The hero encounters and fights against opponents in a dungeon environment to advance through different rooms to get the Whisk of Wonder.
 
 ### Navigation Diagram
 ![NavigationDiagram](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/4f71f844-6aaa-457a-b4aa-285a62cca0ec)
