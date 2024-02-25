@@ -9,4 +9,5 @@ public:
 	virtual void attackMove() override;
 	void getKnockedBack();
 	void target();
+	virtual ~Enemy() = default;
 };
