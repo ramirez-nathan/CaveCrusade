@@ -21,7 +21,7 @@ private:
 public:
 	//sf::Sprite soldierSprite;
 public:
-	Soldier(float h, float d);
+	Soldier(float h, float dmg, float def);
 	~Soldier();
 
 	 
@@ -29,5 +29,6 @@ public:
 	void Load();
 	void Update(double deltaTime, const sf::Vector2f& target, int level[]);
 	void Draw(sf::RenderWindow& window);
+	virtual void attackMove() override;
 
 };

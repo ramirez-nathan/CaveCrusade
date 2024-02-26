@@ -25,11 +25,12 @@ public:
 	//sf::Sprite playerSprite;
 
 public:
-	Player(float h, float d);
+	Player(float h, float dmg, float def);
 	~Player();
 	
 	void Initialize();
 	void Load();
 	void Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]); 
 	void Draw(sf::RenderWindow& window);
+	virtual void attackMove() override;
 };

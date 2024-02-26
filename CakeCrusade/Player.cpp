@@ -4,9 +4,8 @@
 #include <ostream>
 #include <algorithm>    // std::find
 
-
-Player::Player(float h, float d) 
-   : Entity(h, d), playerSpeed(0.40f), maxFireRate(300), fireRateTimer(0)
+Player::Player(float h, float dmg, float def) 
+   : Entity(h, def, dmg), playerSpeed(0.5f), maxFireRate(150), fireRateTimer(0)
 {
 }
 
@@ -171,4 +170,8 @@ void Player::Draw(sf::RenderWindow& window)
     // draw each arrow sprite in vector
     for (size_t i = 0; i < arrows.size(); i++)
         arrows[i].Draw(window);
+}
+
+void Player::attackMove() {
+    // Implement how the enemy attacks
 }

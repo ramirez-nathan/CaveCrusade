@@ -1,8 +1,8 @@
 #include "Soldier.hpp"
 #include <iostream>
 
-Soldier::Soldier(float h, float d) 
-	: Entity(h, d), soldierSpeed(0.2f)
+Soldier::Soldier(float h, float dmg, float def) 
+	: Entity(h, dmg, def)
 {
 }
 
@@ -72,4 +72,8 @@ void Soldier::Draw(sf::RenderWindow& window)
         window.draw(sprite);
         window.draw(boundingRectangle);
     }
+}
+
+void Soldier::attackMove() {
+    // Implement how the enemy attacks
 }
