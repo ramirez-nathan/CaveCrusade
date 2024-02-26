@@ -1,0 +1,3 @@
+[submodule "CakeCrusade/CakeCrusadeGTest/googletest"]
+	path = CakeCrusade/CakeCrusadeGTest/googletest
+	url = https://github.com/google/googletest.git
