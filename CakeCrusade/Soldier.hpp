@@ -9,7 +9,6 @@ using namespace std;
 class Soldier : public Entity
 {
 private:
-	sf::Texture texture;
 	sf::Vector2f direction;
 
 
@@ -18,8 +17,6 @@ private:
 
 	float soldierSpeed;
 
-public:
-	//sf::Sprite soldierSprite;
 public:
 	Soldier(float h, float dmg, float def);
 	~Soldier();

@@ -5,7 +5,7 @@
 #include <algorithm>    // std::find
 
 Player::Player(float h, float dmg, float def) 
-   : Entity(h, def, dmg), playerSpeed(0.5f), maxFireRate(150), fireRateTimer(0)
+   : Entity(h, def, dmg), playerSpeed(0.4f), maxFireRate(300), fireRateTimer(0)
 {
 }
 

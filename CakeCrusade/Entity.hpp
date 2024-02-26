@@ -19,7 +19,6 @@ protected:
     // size vector, width and height, gets set in initialize function
     sf::Vector2i size;
 
-    sf::Sprite sprite;
     sf::RectangleShape boundingRectangle;
     
 
@@ -29,9 +28,9 @@ public:
   
 
     // Getters
-    float getHealth() const;
-    float getDamage() const;
-    float getDefense() const;
+    float getHealth() const { return health; }
+    float getDamage() const { return damage; }
+    float getDefense() const { return defense; }
     int getSizeX() const { return size.x; } 
     int getSizeY() const { return size.y; } 
     sf::Sprite& getSprite() { return sprite; }
@@ -39,9 +38,9 @@ public:
 
     // Setters
     void ChangeHealth(float hp) { health += hp; } 
-    void setHealth(float& h);
-    void setDamage(float& dmg);
-    void setDefense(float& def);
+    void setHealth(float& h) { this->health = h; }
+    void setDamage(float& dmg) { this->damage = dmg; }
+    void setDefense(float& def) { this->defense = def; }
 
     //void setSize(sf::Vector2i newSize) { size = newSize; } // dont think I need this
 
