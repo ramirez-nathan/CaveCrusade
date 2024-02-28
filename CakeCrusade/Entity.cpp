@@ -30,14 +30,14 @@ void Entity::Initialize()
 void Entity::Load(const std::string& spritePath)
 {
     // check if texture loaded correctly
-    if (!texture.loadFromFile(spritePath))
-    {
+     if (!texture.loadFromFile(spritePath))
+     {
         std::cerr << "Sprite texture failed to load!" << std::endl;
-    }
+     }
     SpriteX = 0;
     SpriteY = 0;
     // set texture
-    sprite.setTexture(texture);
+     sprite.setTexture(texture);
     // grab the idle texture image from spritesheet
     sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
     // set spawn position

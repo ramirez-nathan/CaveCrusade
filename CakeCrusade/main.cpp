@@ -31,6 +31,7 @@ int main()
 
     player.Load();
     soldier.Load();
+    enemyA.loadTexture("assets/enemies/skelly/idle/skull_idle.png");
     enemyA.Load("assets/enemies/skelly/idle/skull_idle.png");
 
     // ------------------------------- TILEMAP ----------------------------------
@@ -82,7 +83,7 @@ int main()
 
         soldier.Update(deltaTime, player.getSprite().getPosition(), level);
         enemyA.Update(deltaTime, player.getSprite().getPosition(), level);
-        player.Update(deltaTime, soldier, mousePosition, level); // update here
+        player.Update(deltaTime, enemyA, mousePosition, level); // update here
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
@@ -90,6 +91,7 @@ int main()
         window.draw(map);
         soldier.Draw(window);
         player.Draw(window);
+        enemyA.Draw(window);
         window.display();
         //-------------------------------- DRAW --------------------------------
     }
