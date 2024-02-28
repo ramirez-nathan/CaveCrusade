@@ -9,9 +9,11 @@ void Enemy::attackMove() {
 
 }
 
-bool canAttack() {
-    // checks to see if enemy is in range to attack
+bool Enemy::canAttack() const
+{
+    return false;
 }
+
 
 void Enemy::getKnockedBack() {
     // Implement the logic for getting knocked back
