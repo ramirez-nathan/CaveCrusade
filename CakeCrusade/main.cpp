@@ -18,8 +18,8 @@ int main()
     window.setFramerateLimit(360);
 
     Player player(200, 50, 50, 10);
-    Soldier soldier(300, 50, 50, 5);
-    Enemy enemyA(100, 20, 20, 5);
+    Soldier soldier(300, 50, 50, 1);
+    Enemy enemyA(100, 20, 20, 0.2);
     //-------------------------------- INITIALIZE --------------------------------
     player.Initialize();
     soldier.Initialize();
@@ -33,6 +33,8 @@ int main()
     soldier.Load();
     enemyA.loadTexture("assets/enemies/skelly/idle/skull_idle.png");
     enemyA.Load("assets/enemies/skelly/idle/skull_idle.png");
+    
+    
 
     // ------------------------------- TILEMAP ----------------------------------
     // define the level with an array of tile indices
