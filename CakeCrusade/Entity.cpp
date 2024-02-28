@@ -24,12 +24,12 @@ void Entity::Initialize()
     size = sf::Vector2i(32, 32);
 }
 
-void Entity::Load()
+void Entity::Load(const std::string& spritePath)
 {
     // check if texture loaded correctly
-    if (!texture.loadFromFile("assets/enemies/evil_soldier/textures/evil_soldier_idle.png"))
+    if (!texture.loadFromFile("spritePath"))
     {
-        std::cerr << "Soldier texture failed to load!" << std::endl;
+        std::cerr << "Sprite texture failed to load!" << std::endl;
     }
     SpriteX = 0;
     SpriteY = 0;
