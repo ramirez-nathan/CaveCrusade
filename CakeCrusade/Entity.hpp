@@ -20,7 +20,7 @@ protected:
     sf::Vector2i size;
 
     sf::RectangleShape boundingRectangle;
-    
+    sf::Vector2f movement;
 
 public:
     Entity(float h, float dmg, float def);
@@ -34,6 +34,8 @@ public:
     int getSizeX() const { return size.x; } 
     int getSizeY() const { return size.y; } 
     sf::Sprite& getSprite() { return sprite; }
+    sf::RectangleShape& getBoundingRect() { return boundingRectangle; }
+    sf::Vector2f& getMovement() { return movement; }
 
 
     // Setters

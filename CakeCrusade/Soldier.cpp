@@ -44,7 +44,7 @@ void Soldier::Load()
     boundingRectangle.setOrigin(boundingRectangle.getLocalBounds().width / 2.f, boundingRectangle.getLocalBounds().height / 2.f);
 }
 // takes parameters : delta time, player position, level
-void Soldier::Update(double deltaTime, const sf::Vector2f& target, int level[])
+void Soldier::Update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[])
 {
     vector<int> walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
     if (health > 0)
@@ -52,15 +52,21 @@ void Soldier::Update(double deltaTime, const sf::Vector2f& target, int level[])
         direction = Math::NormalizeVector(target - sprite.getPosition());
 
         sf::Vector2f position = sprite.getPosition();
-        sf::Vector2f movement(direction * soldierSpeed * static_cast<float>(deltaTime));
+        movement = (direction * soldierSpeed * static_cast<float>(deltaTime));
         
         sf::Vector2f future = position + movement;
-
+        sf::FloatRect soldierHitbox = boundingRectangle.getGlobalBounds();
+        sf::FloatRect playerHitbox = player.getBoundingRect().getGlobalBounds();
         int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
-        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+        if ((std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+            sprite.setPosition(position);
+        }
+        else if (Math::DidRectCollide(soldierHitbox, playerHitbox)) {
+            sprite.setPosition(position);
+        }
+        else {
             sprite.setPosition(position + movement);
         }
-
         boundingRectangle.setPosition(sprite.getPosition());
     }
 }

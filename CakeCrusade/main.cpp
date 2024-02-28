@@ -54,6 +54,7 @@ int main()
     
     // ---------------------------- TESTING -----------------------------
 
+    
     cout << "Player's size vector is: " << player.getSizeX() << ", " << player.getSizeY() << endl;
     cout << "Soldier's size vector is: " << soldier.getSizeX() << ", " << soldier.getSizeY() << endl;
 
@@ -77,8 +78,8 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-        soldier.Update(deltaTime, player.getSprite().getPosition(), level);
-        player.Update(deltaTime, soldier, mousePosition, level); // update here
+        soldier.Update(deltaTime, player, player.getSprite().getPosition(), level);
+        player.Update(deltaTime, player, soldier, mousePosition, level); // update here
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
