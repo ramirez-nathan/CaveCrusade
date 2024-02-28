@@ -5,31 +5,38 @@
 #include <vector>
 #include <ostream>
 
-class Entity {
-private:
-    
+using namespace std;
 
+class Entity {
 protected:
+    // Every entity should have health, damage, defense, speed, a sprite, texture, and a hitbox
     float health;
     float damage;
     float defense;
+    float entitySpeed;
     sf::Sprite sprite;
     sf::Texture texture;
 
     // size vector, width and height, gets set in initialize function
     sf::Vector2i size;
 
+    sf::Vector2f direction;
+
     sf::RectangleShape boundingRectangle;
     int SpriteX = 0;
     int SpriteY = 0;
-    float entitySpeed;
+    
     
 
 public:
-    Entity(float h, float dmg, float def);
+    // Our constructor, we define our health, damage, and defense values here
+    Entity(float h, float dmg, float def, float spd);
+    // Our destructor
     virtual ~Entity() = default;
+    // Sets up the hitboxes for our entities
     virtual void Initialize();
-    virtual void Load();
+    // Loads in the sprite to be displayed
+    virtual void Load(const std::string& spritePath);
     virtual void Update(double deltaTime, const sf::Vector2f& target, int level[]);
     virtual void Draw(sf::RenderWindow& window);
 

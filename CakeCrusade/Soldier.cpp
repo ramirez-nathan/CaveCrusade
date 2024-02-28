@@ -43,6 +43,8 @@ void Soldier::Load()
     // set hitbox origin to middle
     boundingRectangle.setOrigin(boundingRectangle.getLocalBounds().width / 2.f, boundingRectangle.getLocalBounds().height / 2.f);
 }
+
+
 // takes parameters : delta time, player position, level
 void Soldier::Update(double deltaTime, const sf::Vector2f& target, int level[])
 {

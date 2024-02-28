@@ -3,8 +3,8 @@
 #include <iostream>
 
 // Entity 
-Entity::Entity(float h, float dmg, float def)
-    : health(h), damage(dmg), defense(def) {}
+Entity::Entity(float h, float dmg, float def, float spd)
+    : health(h), damage(dmg), defense(def), entitySpeed(spd) {}
 
 bool Entity::loadTexture(const std::string& texturePath) {
     if (!texture.loadFromFile(texturePath)) {
@@ -48,28 +48,29 @@ void Entity::Load(const std::string& spritePath)
     // set hitbox origin to middle
     boundingRectangle.setOrigin(boundingRectangle.getLocalBounds().width / 2.f, boundingRectangle.getLocalBounds().height / 2.f);
 }
-// takes parameters : delta time, player position, level
 
-//void Entity::Update(double deltaTime, const sf::Vector2f& target, int level[])
-//{
-//    vector<int> walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
-//    if (health > 0)
-//    {
-//        direction = Math::NormalizeVector(target - sprite.getPosition());
-//
-//        sf::Vector2f position = sprite.getPosition();
-//        sf::Vector2f movement(direction * soldierSpeed * static_cast<float>(deltaTime));
-//
-//        sf::Vector2f future = position + movement;
-//
-//        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
-//        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
-//            sprite.setPosition(position + movement);
-//        }
-//
-//        boundingRectangle.setPosition(sprite.getPosition());
-//    }
-//}
+
+// takes parameters : delta time, player position, level
+void Entity::Update(double deltaTime, const sf::Vector2f& target, int level[])
+{
+    vector<int> walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
+    if (health > 0)
+    {
+        direction = Math::NormalizeVector(target - sprite.getPosition());
+
+        sf::Vector2f position = sprite.getPosition();
+        sf::Vector2f movement(direction * entitySpeed * static_cast<float>(deltaTime));
+
+        sf::Vector2f future = position + movement;
+
+        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
+        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+            sprite.setPosition(position + movement);
+        }
+
+        boundingRectangle.setPosition(sprite.getPosition());
+    }
+}
 
 void Entity::Draw(sf::RenderWindow& window)
 {
