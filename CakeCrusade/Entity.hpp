@@ -20,11 +20,19 @@ protected:
     sf::Vector2i size;
 
     sf::RectangleShape boundingRectangle;
+    int SpriteX = 0;
+    int SpriteY = 0;
+    float entitySpeed;
     
 
 public:
     Entity(float h, float dmg, float def);
     virtual ~Entity() = default;
+    virtual void Initialize();
+    virtual void Load();
+    virtual void Update(double deltaTime, const sf::Vector2f& target, int level[]);
+    virtual void Draw(sf::RenderWindow& window);
+
   
 
     // Getters

@@ -18,7 +18,8 @@ int main()
     window.setFramerateLimit(360);
 
     Player player(200, 50, 50);
-    Soldier soldier(75, 50, 50);
+    Soldier soldier(300, 50, 50);
+    // Enemy enemyA(100, 20, 20);
     //-------------------------------- INITIALIZE --------------------------------
     player.Initialize();
     soldier.Initialize();
