@@ -4,7 +4,10 @@
 
 // Entity 
 Entity::Entity(float h, float dmg, float def, float spd)
-    : health(h), damage(dmg), defense(def), entitySpeed(spd) {}
+    : health(h), damage(dmg), defense(def), entitySpeed(spd)
+{
+}
+
 
 bool Entity::loadTexture(const std::string& texturePath) {
     if (!texture.loadFromFile(texturePath)) {
