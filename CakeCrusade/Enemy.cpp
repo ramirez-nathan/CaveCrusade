@@ -6,6 +6,11 @@ Enemy::Enemy(float h, float dmg, float def, float spd) : Entity(h, dmg, def, spd
 
 void Enemy::attackMove() {
     // Implement how the enemy attacks
+
+}
+
+bool canAttack() {
+    // checks to see if enemy is in range to attack
 }
 
 void Enemy::getKnockedBack() {

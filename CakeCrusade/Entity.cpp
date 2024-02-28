@@ -21,7 +21,7 @@ bool Entity::loadTexture(const std::string& texturePath) {
 void Entity::Initialize()
 {
     boundingRectangle.setFillColor(sf::Color::Transparent);
-    boundingRectangle.setOutlineColor(sf::Color::Blue);
+    boundingRectangle.setOutlineColor(sf::Color::Red);
     boundingRectangle.setOutlineThickness(1);
 
     size = sf::Vector2i(32, 32);
