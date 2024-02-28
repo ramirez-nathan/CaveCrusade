@@ -28,4 +28,5 @@ public:
 	void Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]); 
 	void Draw(sf::RenderWindow& window);
 	virtual void attackMove() override;
+	void HandleMovement(double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls);
 };
