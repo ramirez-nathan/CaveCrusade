@@ -27,7 +27,7 @@ void Entity::Initialize()
 void Entity::Load(const std::string& spritePath)
 {
     // check if texture loaded correctly
-    if (!texture.loadFromFile("spritePath"))
+    if (!texture.loadFromFile(spritePath))
     {
         std::cerr << "Sprite texture failed to load!" << std::endl;
     }
