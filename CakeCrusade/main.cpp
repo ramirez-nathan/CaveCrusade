@@ -19,10 +19,11 @@ int main()
 
     Player player(200, 50, 50);
     Soldier soldier(300, 50, 50);
-    // Enemy enemyA(100, 20, 20);
+    Enemy enemyA(100, 20, 20);
     //-------------------------------- INITIALIZE --------------------------------
     player.Initialize();
     soldier.Initialize();
+    enemyA.Initialize();
 
     //-------------------------------- INITIALIZE --------------------------------
     
@@ -30,6 +31,7 @@ int main()
 
     player.Load();
     soldier.Load();
+    enemyA.Load("assets/enemies/skelly/idle/skull_idle.png");
 
     // ------------------------------- TILEMAP ----------------------------------
     // define the level with an array of tile indices
