@@ -119,7 +119,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         if (enemy.getHealth() > 0)
         {
             // implement this when collision is finished 
-            if (Math::DidRectCollide(arrows[i].GetGlobalBounds(), enemy.getSprite().getGlobalBounds()))
+            if (Math::didRectCollide(arrows[i].GetGlobalBounds(), enemy.getSprite().getGlobalBounds()))
             {
                 enemy.ChangeHealth(-15);
                 arrows.erase(arrows.begin() + i);

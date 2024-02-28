@@ -49,7 +49,7 @@ void Soldier::Update(double deltaTime, const sf::Vector2f& target, int level[])
     vector<int> walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
     if (health > 0)
     {
-        direction = Math::NormalizeVector(target - sprite.getPosition());
+        direction = Math::normalizeVector(target - sprite.getPosition());
 
         sf::Vector2f position = sprite.getPosition();
         sf::Vector2f movement(direction * soldierSpeed * static_cast<float>(deltaTime));

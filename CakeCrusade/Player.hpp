@@ -24,7 +24,7 @@ public:
 	~Player();
 	
 	void Initialize();
-	void Load();
+	void Load(); 
 	void Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]); 
 	void Draw(sf::RenderWindow& window);
 	virtual void attackMove() override;
