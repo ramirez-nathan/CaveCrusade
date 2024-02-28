@@ -46,8 +46,9 @@ void Player::Load()
 }
 
 // takes parameters - deltatime, any specified entity (by upcasting), mouseposition, and level
-void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
+void Player::Update(double deltaTime, Entity& player, Entity& enemy, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
 {
+    boundingRectangle.setPosition(sprite.getPosition());
     vector<int> walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
     // WASD MOVEMENT
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //(0,1)
@@ -57,17 +58,32 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
 
         sf::Vector2f position = sprite.getPosition();
-        sf::Vector2f movement(0, -1 * playerSpeed * static_cast<float>(deltaTime));
+        movement = sf::Vector2f(0, -1 * playerSpeed * static_cast<float>(deltaTime));
 
         int playerX = floor(position.x / 64); // col
         int playerY = floor(position.y / 64); // row
+        sf::FloatRect playerHitbox = boundingRectangle.getGlobalBounds();
+        sf::FloatRect enemyHitbox = enemy.getBoundingRect().getGlobalBounds();
 
         sf::Vector2f future = position + movement;
 
         int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
-        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+        
+        //Math::Collider(player, enemy, level);
+        if ((std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+            sprite.setPosition(position);
+        }
+        else if (Math::DidRectCollide(playerHitbox, enemyHitbox)) {
+            boundingRectangle.setPosition(future); // move boundingRect
+            playerHitbox = boundingRectangle.getGlobalBounds(); // re-initialize playerHitbox
+            if (!(Math::DidRectCollide(enemyHitbox, playerHitbox)))
+                sprite.setPosition(future);
+            else
+                sprite.setPosition(position);
+        }
+        else {
             sprite.setPosition(position + movement);
-        }   
+        }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //(0,0)
@@ -77,15 +93,29 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
 
         sf::Vector2f position = sprite.getPosition();
-        sf::Vector2f movement(0, 1 * playerSpeed * static_cast<float>(deltaTime));
+        movement = sf::Vector2f(0, -1 * playerSpeed * static_cast<float>(deltaTime));
 
         int playerX = floor(position.x / 64); // col
         int playerY = floor(position.y / 64); // row
+        sf::FloatRect playerHitbox = boundingRectangle.getGlobalBounds();
+        sf::FloatRect enemyHitbox = enemy.getBoundingRect().getGlobalBounds();
 
         sf::Vector2f future = position + movement;
 
         int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
-        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+        //Math::Collider(player, enemy, level);
+        if ((std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+            sprite.setPosition(position);
+        }
+        else if (Math::DidRectCollide(playerHitbox, enemyHitbox)) {
+            boundingRectangle.setPosition(future); // move boundingRect
+            playerHitbox = boundingRectangle.getGlobalBounds(); // re-initialize playerHitbox
+            if (!(Math::DidRectCollide(enemyHitbox, playerHitbox)))
+                sprite.setPosition(future);
+            else
+                sprite.setPosition(position);
+        }
+        else {
             sprite.setPosition(position + movement);
         }
     }
@@ -97,18 +127,31 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
 
         sf::Vector2f position = sprite.getPosition();
-        sf::Vector2f movement(-1 * playerSpeed * static_cast<float>(deltaTime), 0);
+        movement = sf::Vector2f(0, -1 * playerSpeed * static_cast<float>(deltaTime));
 
         int playerX = floor(position.x / 64); // col
         int playerY = floor(position.y / 64); // row
+        sf::FloatRect playerHitbox = boundingRectangle.getGlobalBounds();
+        sf::FloatRect enemyHitbox = enemy.getBoundingRect().getGlobalBounds();
 
         sf::Vector2f future = position + movement;
 
-        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);;
-        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
+        //Math::Collider(player, enemy, level);
+        if ((std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+            sprite.setPosition(position);
+        }
+        else if (Math::DidRectCollide(playerHitbox, enemyHitbox)) {
+            boundingRectangle.setPosition(future); // move boundingRect
+            playerHitbox = boundingRectangle.getGlobalBounds(); // re-initialize playerHitbox
+            if (!(Math::DidRectCollide(enemyHitbox, playerHitbox)))
+                sprite.setPosition(future);
+            else
+                sprite.setPosition(position);
+        }
+        else {
             sprite.setPosition(position + movement);
-        }   
-        
+        }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //(0,3)
@@ -118,18 +161,31 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
 
         sf::Vector2f position = sprite.getPosition();
-        sf::Vector2f movement(1 * playerSpeed * static_cast<float>(deltaTime), 0);
+        movement = sf::Vector2f(0, -1 * playerSpeed * static_cast<float>(deltaTime));
 
         int playerX = floor(position.x / 64); // col
         int playerY = floor(position.y / 64); // row
+        sf::FloatRect playerHitbox = boundingRectangle.getGlobalBounds();
+        sf::FloatRect enemyHitbox = enemy.getBoundingRect().getGlobalBounds();
 
         sf::Vector2f future = position + movement;
 
-        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);;
-        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
+        //Math::Collider(player, enemy, level);
+        if ((std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
+            sprite.setPosition(position);
+        }
+        else if (Math::DidRectCollide(playerHitbox, enemyHitbox)) {
+            boundingRectangle.setPosition(future); // move boundingRect
+            playerHitbox = boundingRectangle.getGlobalBounds(); // re-initialize playerHitbox
+            if (!(Math::DidRectCollide(enemyHitbox, playerHitbox)))
+                sprite.setPosition(future);
+            else
+                sprite.setPosition(position);
+        }
+        else {
             sprite.setPosition(position + movement);
         }
-
     }
 
     //---------------------------------------------- ARROWS -------------------------------------------------
