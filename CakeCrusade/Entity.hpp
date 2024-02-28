@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <math.h>
+#include "Math.hpp"
 #include <vector>
 #include <ostream>
 
