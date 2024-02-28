@@ -42,7 +42,7 @@ void Arrow::Initialize(const sf::Vector2f& position, const sf::Vector2f& target,
     // set arrow texture
     const sf::Texture& texture = getArrowTexture();
     // set arrow direction
-    direction = Math::NormalizeVector(target - position);
+    direction = Math::normalizeVector(target - position);
     // set arrow sprite & its position
     arrowSprite = createArrowSprite(texture, position, direction);
     arrowSprite.setPosition(position);

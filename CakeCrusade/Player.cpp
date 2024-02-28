@@ -81,7 +81,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
 {
     vector<int> walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
     // WASD MOVEMENT
-
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         sf::Vector2f movement(0, -1 * playerSpeed * static_cast<float>(deltaTime));
         HandleMovement(deltaTime, movement, SpriteX, SpriteY, 1, level, walls);
@@ -101,7 +101,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         sf::Vector2f movement(1 * playerSpeed * static_cast<float>(deltaTime), 0);
         HandleMovement(deltaTime, movement, SpriteX, SpriteY, 3, level, walls);
     }
-
+    
     //---------------------------------------------- ARROWS -------------------------------------------------
     fireRateTimer += deltaTime;
 
@@ -119,7 +119,7 @@ void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
         if (enemy.getHealth() > 0)
         {
             // implement this when collision is finished 
-            if (Math::DidRectCollide(arrows[i].GetGlobalBounds(), enemy.getSprite().getGlobalBounds()))
+            if (Math::didRectCollide(arrows[i].GetGlobalBounds(), enemy.getSprite().getGlobalBounds()))
             {
                 enemy.ChangeHealth(-15);
                 arrows.erase(arrows.begin() + i);

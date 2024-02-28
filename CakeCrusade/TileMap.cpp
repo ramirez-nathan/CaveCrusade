@@ -6,7 +6,7 @@ public:
 
     bool load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height)
     {
-        int scale = 4;
+        int Scale = 4;
 
         // load the tileset texture
         if (!m_tileset.loadFromFile(tileset))
@@ -21,20 +21,20 @@ public:
             for (unsigned int j = 0; j < height; ++j)
             {
                 // get the current tile number
-                int tileNumber = tiles[i + j * width];
+                int TileNumber = tiles[i + j * width];
 
                 // find its position in the tileset texture
-                int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
-                int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
+                int tu = TileNumber % (m_tileset.getSize().x / tileSize.x);
+                int tv = TileNumber / (m_tileset.getSize().x / tileSize.x);
 
                 // get a pointer to the current tile's quad
                 sf::Vertex* quad = &m_vertices[(i + j * width) * 4];
 
                 // define its 4 corners with doubled size
-                quad[0].position = sf::Vector2f(i * tileSize.x * scale, j * tileSize.y * scale);
-                quad[1].position = sf::Vector2f((i + 1) * tileSize.x * scale, j * tileSize.y * scale);
-                quad[2].position = sf::Vector2f((i + 1) * tileSize.x * scale, (j + 1) * tileSize.y * scale);
-                quad[3].position = sf::Vector2f(i * tileSize.x * scale, (j + 1) * tileSize.y * scale);
+                quad[0].position = sf::Vector2f(i * tileSize.x * Scale, j * tileSize.y * Scale);
+                quad[1].position = sf::Vector2f((i + 1) * tileSize.x * Scale, j * tileSize.y * Scale);
+                quad[2].position = sf::Vector2f((i + 1) * tileSize.x * Scale, (j + 1) * tileSize.y * Scale);
+                quad[3].position = sf::Vector2f(i * tileSize.x * Scale, (j + 1) * tileSize.y * Scale);
 
                 // define its 4 texture coordinates
                 quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);

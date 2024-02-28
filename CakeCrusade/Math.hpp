@@ -7,7 +7,7 @@
 class Math
 {
 public:
-	static sf::Vector2f NormalizeVector(sf::Vector2f vector); // used for projectile direction vector
-	static bool DidRectCollide(sf::FloatRect rect1, sf::FloatRect rect2); // AABB Collision function
+	static sf::Vector2f normalizeVector(sf::Vector2f vector); // used for projectile direction vector
+	static bool didRectCollide(sf::FloatRect rect1, sf::FloatRect rect2); // AABB Collision function
 
 };
