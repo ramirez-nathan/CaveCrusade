@@ -1,7 +1,7 @@
 #include "Arrow.hpp"
 #include "Math.hpp"
 
-Arrow::Arrow() 
+Arrow::Arrow()
     : m_speed(0.0f)
 {
 }
@@ -38,14 +38,14 @@ sf::Sprite& Arrow::createArrowSprite(const sf::Texture& arrowTexture, const sf::
 
 // takes parameters: player position, mouseposition, arrow speed
 void Arrow::Initialize(const sf::Vector2f& position, const sf::Vector2f& target, float speed) {
-	m_speed = speed;
+    m_speed = speed;
     // set arrow texture
     const sf::Texture& texture = getArrowTexture();
     // set arrow direction
     direction = Math::NormalizeVector(target - position);
     // set arrow sprite & its position
     arrowSprite = createArrowSprite(texture, position, direction);
-	arrowSprite.setPosition(position);
+    arrowSprite.setPosition(position);
 }
 
 void Arrow::Update(double deltaTime)
@@ -54,5 +54,5 @@ void Arrow::Update(double deltaTime)
 }
 void Arrow::Draw(sf::RenderWindow& window)
 {
-	window.draw(arrowSprite);
+    window.draw(arrowSprite);
 }

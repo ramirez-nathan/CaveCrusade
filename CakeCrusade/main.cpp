@@ -8,7 +8,7 @@
 #include "Soldier.hpp"
 #include "Enemy.hpp"
 
-using namespace std; 
+using namespace std;
 
 int main()
 {
@@ -24,7 +24,7 @@ int main()
     soldier.Initialize();
 
     //-------------------------------- INITIALIZE --------------------------------
-    
+
     // ------------------------------------------ LOAD ---------------------------------
 
     player.Load();
@@ -48,13 +48,12 @@ int main()
     };
 
     TileMap map;
-    if (!map.load("assets/tilemap/tileset.png", sf::Vector2u(16, 16), level, 22, 11)) 
+    if (!map.load("assets/tilemap/tileset.png", sf::Vector2u(16, 16), level, 22, 11))
         return -1;
     // ------------------------------- TILEMAP ----------------------------------
-    
+
     // ---------------------------- TESTING -----------------------------
 
-    
     cout << "Player's size vector is: " << player.getSizeX() << ", " << player.getSizeY() << endl;
     cout << "Soldier's size vector is: " << soldier.getSizeX() << ", " << soldier.getSizeY() << endl;
 
@@ -78,8 +77,8 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-        soldier.Update(deltaTime, player, player.getSprite().getPosition(), level);
-        player.Update(deltaTime, player, soldier, mousePosition, level); // update here
+        soldier.Update(deltaTime, player.getSprite().getPosition(), level);
+        player.Update(deltaTime, soldier, mousePosition, level); // update here
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
@@ -91,6 +90,6 @@ int main()
         //-------------------------------- DRAW --------------------------------
     }
 
-    
+
     return 0;
 }

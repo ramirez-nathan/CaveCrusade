@@ -8,7 +8,7 @@ using namespace std;
 
 class Player : public Entity
 {
-protected:
+private:
 	vector<Arrow> arrows;
 
 	float maxFireRate;
@@ -23,10 +23,10 @@ public:
 	Player(float h, float dmg, float def);
 	~Player();
 
-
 	void Initialize();
 	void Load();
-	void Update(double deltaTime, Entity& player, Entity& enemy, sf::Vector2f& mousePosition, int level[]); 
+	void Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]);
 	void Draw(sf::RenderWindow& window);
 	virtual void attackMove() override;
+	void HandleMovement(double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls);
 };

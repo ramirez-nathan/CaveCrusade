@@ -7,7 +7,7 @@
 
 class Entity {
 private:
-    
+
 
 protected:
     float health;
@@ -20,26 +20,24 @@ protected:
     sf::Vector2i size;
 
     sf::RectangleShape boundingRectangle;
-    sf::Vector2f movement;
+
 
 public:
     Entity(float h, float dmg, float def);
     virtual ~Entity() = default;
-  
+
 
     // Getters
     float getHealth() const { return health; }
     float getDamage() const { return damage; }
     float getDefense() const { return defense; }
-    int getSizeX() const { return size.x; } 
-    int getSizeY() const { return size.y; } 
+    int getSizeX() const { return size.x; }
+    int getSizeY() const { return size.y; }
     sf::Sprite& getSprite() { return sprite; }
-    sf::RectangleShape& getBoundingRect() { return boundingRectangle; }
-    sf::Vector2f& getMovement() { return movement; }
 
 
     // Setters
-    void ChangeHealth(float hp) { health += hp; } 
+    void ChangeHealth(float hp) { health += hp; }
     void setHealth(float& h) { this->health = h; }
     void setDamage(float& dmg) { this->damage = dmg; }
     void setDefense(float& def) { this->defense = def; }

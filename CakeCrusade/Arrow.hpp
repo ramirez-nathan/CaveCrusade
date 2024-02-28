@@ -11,7 +11,7 @@ private:
 
 	float m_speed;
 
-public: 
+public:
 	sf::Sprite arrowSprite;
 public:
 	Arrow();
@@ -25,7 +25,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 
 	// need this helper function for grabbing global bounds at arrows[i]
-	inline const sf::FloatRect& GetGlobalBounds() { return arrowSprite.getGlobalBounds(); }  
+	inline const sf::FloatRect& GetGlobalBounds() { return arrowSprite.getGlobalBounds(); }
 };
 
 #endif 

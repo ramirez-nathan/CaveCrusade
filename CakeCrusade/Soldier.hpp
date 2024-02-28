@@ -8,7 +8,7 @@ using namespace std;
 
 class Soldier : public Entity
 {
-protected:
+private:
 	sf::Vector2f direction;
 
 
@@ -16,7 +16,6 @@ protected:
 	int SpriteY = 0;
 
 	float soldierSpeed;
-	
 
 public:
 	Soldier(float h, float dmg, float def);
@@ -25,7 +24,7 @@ public:
 
 	void Initialize();
 	void Load();
-	void Update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[]);
+	void Update(double deltaTime, const sf::Vector2f& target, int level[]);
 	void Draw(sf::RenderWindow& window);
 	virtual void attackMove() override;
 
