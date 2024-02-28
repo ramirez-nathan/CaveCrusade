@@ -20,7 +20,7 @@ private:
 	int SpriteY = 0;
 
 public:
-	Player(float h, float dmg, float def);
+	Player(float h, float dmg, float def, float spd);
 	~Player();
 	
 	void Initialize();
