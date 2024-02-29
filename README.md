@@ -25,9 +25,9 @@ The project aims to captivate players through an immersive storyline, strategic 
 * In-game text for dialogue and game events 
 
  Features:
- * Immersive movement and combat system
- * Unique monsters and bosses
- * Dungeon-crawling gameplay
+ * Immersive movement and combat system --> Movement will be done using WASD controls to get around the tile map(s) and the player will be able to fight against the opponent with a weapon of choice.
+ * Unique monsters and bosses --> Enemies and the Boss will be distinguishable in terms of their looks as well as what types of attacks will be executed against the player.
+ * Dungeon-crawling gameplay --> The hero encounters and fights against opponents in a dungeon environment to advance through different rooms to get the Whisk of Wonder.
 
 ### Navigation Diagram
 ![NavigationDiagram](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/4f71f844-6aaa-457a-b4aa-285a62cca0ec)
@@ -44,6 +44,24 @@ In-Game Screen:
 
 ## Class Diagram
 ![ClassDiagram](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/5583aa95-3710-4f55-8bc1-31e19227c9af)
+
+| Class | Description |
+| --- | --- |
+| `Main` | Depends on Map; Main screen for creating and calling other classes |
+| `Object` | Depends on Main; Template for objects in the game |
+| `Entity` | Inherits from Object; Template for entities |
+| `Player` | Inherits from Entity; Sets player weapon, powerup, and moveset |
+| `Enemy` | Inherits from Entity; Sets enemy target and knockback |
+| `Interactable` | Inherits from Object, Associates with Entity; Template for interactable objects |
+| `Heart` | Inherits from Interactable; Contains health value |
+| `Chest` | Inherits from Interactable; Contains chest contents |
+| `Main Menu` | Depends on Main; Template for Menus |
+| `Start Screen` | Inherits from Main Menu; Can start and quit |
+| `Options`| Inherits from Start Screen; Has window, sound, and control options |
+| `Map` | Depends on TileMap; Contains level templates |
+| `Tilemap` | SFML map drawing |
+| `Sounds` | Associated with Main; Sound Effects |
+
 
  > ## Phase III 
  > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on week 8 during lab time.
