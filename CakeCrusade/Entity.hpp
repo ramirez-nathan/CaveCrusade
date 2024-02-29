@@ -38,7 +38,7 @@ public:
     virtual void Initialize();
     // void Load();
     // Loads in the sprite to be displayed
-    void Load();
+    virtual void Load();
     virtual void Update(double deltaTime, const sf::Vector2f& target, int level[]);
     virtual void Draw(sf::RenderWindow& window);
 

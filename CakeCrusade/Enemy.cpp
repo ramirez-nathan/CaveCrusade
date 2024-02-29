@@ -23,6 +23,11 @@ bool Enemy::canAttack(const sf::Vector2f& playerPosition, float attackRange) con
     return distance <= attackRange;
 }
 
+void Enemy::attackAnimation()
+{
+    
+}
+
 
 void Enemy::getKnockedBack() {
     // Implement the logic for getting knocked back
