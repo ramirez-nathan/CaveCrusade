@@ -3,10 +3,11 @@
 #include <vector>
 #include <math.h>
 
-#include "TileMap.cpp"
+#include "TileMap.hpp"
 #include "Player.hpp"
 #include "Soldier.hpp"
 #include "Enemy.hpp"
+#include "GameState.hpp"
 
 using namespace std; 
 
@@ -32,24 +33,10 @@ int main()
 
     // ------------------------------- TILEMAP ----------------------------------
     // define the level with an array of tile indices
-    int level[] =
-    {
-        6, 7, 7, 7, 7, 7, 7, 7, 8, 18, 18, 18, 18, 6, 7, 7, 7, 7, 7, 7, 7, 8,
-        9, 0, 0, 0, 0, 0, 0, 0, 10, 18, 18, 18, 18, 9, 0, 0, 0, 0, 0, 0, 0, 10,
-        9, 0, 0, 0, 0, 0, 2, 3, 14, 7, 7, 7, 7, 15, 0, 0, 0, 0, 0, 0, 0, 10,
-        9, 0, 0, 0, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10,
-        9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 10,
-        9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 4, 5, 0, 0, 10,
-        9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10,
-        9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10,
-        9, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 10,
-        9, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 0, 0, 0, 10,
-        11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13,
-    };
+    
+    GameState state;
+    state.loadLevel();
 
-    TileMap map;
-    if (!map.load("assets/tilemap/tileset.png", sf::Vector2u(16, 16), level, 22, 11)) 
-        return -1;
     // ------------------------------- TILEMAP ----------------------------------
     
     // ---------------------------- TESTING -----------------------------
@@ -77,13 +64,14 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-        soldier.Update(deltaTime, player.getSprite().getPosition(), level);
-        player.Update(deltaTime, soldier, mousePosition, level); // update here
+        soldier.Update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
+        player.Update(deltaTime, soldier, mousePosition, state.CurrentLevel); // update here
+
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
         window.clear();
-        window.draw(map);
+        window.draw(state.Map);
         soldier.Draw(window);
         player.Draw(window);
         window.display();
