@@ -53,7 +53,7 @@ In-Game Screen:
 | `Soldier` | Inherits from Enemy; Unique enemy type that chases player |
 | `Skeleton` | Inherits from Enemy; Unique enemy type that shoots arrows at player |
 | `Slime` | Inherits from Enemy; Unique enemy type that spawns weaker slimes upon death. |
-| `Interactable` | Inherits from Object, Associates with Entity; Template for interactable objects |
+| `Interactable` | Associates with Entity; Template for interactable objects |
 | `Heart` | Inherits from Interactable; Contains health value |
 | `Chest` | Inherits from Interactable; Contains chest contents |
 | `Main Menu` | Depends on Main; Template for Menus |
