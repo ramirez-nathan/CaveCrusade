@@ -37,7 +37,7 @@ public:
     // Sets up the hitboxes for our entities
     virtual void Initialize();
     // Loads in the sprite to be displayed
-    virtual void Load(const std::string& spritePath);
+    virtual void Load();
     virtual void Update(double deltaTime, const sf::Vector2f& target, int level[]);
     virtual void Draw(sf::RenderWindow& window);
 

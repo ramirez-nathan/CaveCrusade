@@ -34,9 +34,9 @@ int main()
     player.Load();
     soldier.Load();
     enemyA.loadTexture("assets/enemies/skelly/idle/skull_idle.png");
-    enemyA.Load("assets/enemies/skelly/idle/skull_idle.png");
+    enemyA.Load();
     slimey.loadTexture("assets/enemies/Slime/slime_idle.png");
-    slimey.Load("assets/enemies/Slime/slime_idle.png");
+    slimey.Load();
     
 
     // ------------------------------- TILEMAP ----------------------------------
