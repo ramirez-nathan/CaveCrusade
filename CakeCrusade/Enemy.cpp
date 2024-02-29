@@ -9,10 +9,18 @@ void Enemy::attackMove() {
 
 }
 
-bool Enemy::canAttack() const
+bool Enemy::canAttack(const sf::Vector2f& playerPosition, float attackRange) const
 {
+    // Get the enemy's current position from its sprite
+    sf::Vector2f enemyPosition = sprite.getPosition();
 
-    return false;
+    // Calculate the distance between the enemy and the player
+    float dx = playerPosition.x - enemyPosition.x;
+    float dy = playerPosition.y - enemyPosition.y;
+    float distance = std::sqrt(dx * dx + dy * dy);
+
+    // Check if the distance is within the specified attack range
+    return distance <= attackRange;
 }
 
 
