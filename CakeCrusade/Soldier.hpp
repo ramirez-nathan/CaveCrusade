@@ -25,6 +25,7 @@ public:
 	void initialize();
 	void load();
 	void update(double deltaTime, const sf::Vector2f& target, int level[]);
+	void handleMovement(double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int level[], vector<int>& walls);
 	void drawSoldier(sf::RenderWindow& window);
 	virtual void attackMove() override;
 

@@ -21,15 +21,9 @@ void Soldier::initialize()
 
 void Soldier::load()
 {
-    // check if texture loaded correctly
-    if (!Texture.loadFromFile("assets/enemies/evil_soldier/textures/evil_soldier_idle.png"))
-    {
-        std::cerr << "Soldier texture failed to load!" << std::endl;
-    }
+    loadTexture("assets/enemies/evil_soldier/textures/evil_soldier_idle.png");
     SpriteX = 0;
     SpriteY = 0;
-    // set texture
-    Sprite.setTexture(Texture);
     // grab the idle texture image from spritesheet
     Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
     // set spawn position
@@ -43,23 +37,46 @@ void Soldier::load()
     // set hitbox origin to middle
     BoundingRectangle.setOrigin(BoundingRectangle.getLocalBounds().width / 2.f, BoundingRectangle.getLocalBounds().height / 2.f);
 }
+
+void Soldier::handleMovement(double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int level[], vector<int>& walls)
+{
+    sf::Vector2f Position = Sprite.getPosition();
+    sf::Vector2f Future = Position + movement;
+
+    // Additional code for WASD movements
+    if ((movement.x == 0.f && movement.y > 0.f) || ((movement.x > 0.f || movement.x < 0.f) && movement.y > 100.0f)) { // Looking Down, Looking Down Diagonally
+        spriteX = 0;
+        spriteY = 0;
+    }
+    else if ((movement.x > 0.f && movement.y == 0.f) || (movement.x > 0.f && (-100.0f <= movement.y <= 100.0f))) { // Looking Right, Looking Right Diagonally
+        spriteX = 0;
+        spriteY = 3; 
+    }
+    else if ((movement.x < 0.f && movement.y == 0.f) || (movement.x < 0.f && (-100.0f <= movement.y <= 100.0f))) { // Looking Left, Looking Left Diagonally
+        spriteX = 0;
+        spriteY = 2; 
+    }
+    else if ((movement.x == 0.f && movement.y < 0.f) || ((movement.x > 0.f || movement.x < 0.f) && movement.y < -100.0f)) { // Looking Up, Looking Up Diagonally
+        spriteX = 0;
+        spriteY = 1;
+    }
+
+    Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
+
+    int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
+    if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
+        Sprite.setPosition(Position + movement);
+    }
+}
+
 // takes parameters : delta time, player position, level
 void Soldier::update(double deltaTime, const sf::Vector2f& target, int level[])
 {
-    vector<int> Walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
     if (Health > 0)
     {
         Direction = Math::normalizeVector(target - Sprite.getPosition());
-
-        sf::Vector2f Position = Sprite.getPosition();
         sf::Vector2f Movement(Direction * SoldierSpeed * static_cast<float>(deltaTime));
-
-        sf::Vector2f Future = Position + Movement;
-
-        int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
-        if (!(std::find(Walls.begin(), Walls.end(), level[FuturePos]) != Walls.end())) {
-            Sprite.setPosition(Position + Movement);
-        }
+        handleMovement(deltaTime, Movement, SpriteX, SpriteY, level, Walls);
 
         BoundingRectangle.setPosition(Sprite.getPosition());
     }

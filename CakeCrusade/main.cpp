@@ -43,6 +43,7 @@ int main()
 
     cout << "Player's size vector is: " << player.getSizeX() << ", " << player.getSizeY() << endl;
     cout << "Soldier's size vector is: " << soldier.getSizeX() << ", " << soldier.getSizeY() << endl;
+    player.attackMove();
 
     // ---------------------------- TESTING -----------------------------
 

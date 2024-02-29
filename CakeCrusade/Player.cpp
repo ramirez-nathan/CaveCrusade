@@ -24,13 +24,7 @@ void Player::initialize()
 
 void Player::load()
 {
-    // check if texture loaded correctly
-    if (!Texture.loadFromFile("assets/player/textures/player_idle.png"))
-    {
-        std::cerr << "Player texture failed to load!" << std::endl;
-    }
-    // set texture
-    Sprite.setTexture(Texture);
+    loadTexture("assets/player/textures/player_idle.png");
     // grab the idle texture image from spritesheet
     Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
     // set spawn position
@@ -79,7 +73,6 @@ void Player::handleMovement(double deltaTime, sf::Vector2f& movement, int& sprit
 // takes parameters - deltatime, any specified entity (by upcasting), mouseposition, and level
 void Player::update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
 {
-    vector<int> Walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
     // WASD MOVEMENT
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
@@ -103,6 +96,14 @@ void Player::update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     }
     
     //---------------------------------------------- ARROWS -------------------------------------------------
+    handleArrow(deltaTime, enemy, mousePosition, FireRateTimer, MaxFireRate, level, Walls);
+    //---------------------------------------------- ARROWS -------------------------------------------------
+    BoundingRectangle.setPosition(Sprite.getPosition());
+
+}
+
+void Player::handleArrow(const double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls) 
+{
     FireRateTimer += deltaTime;
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && FireRateTimer >= MaxFireRate)
@@ -115,7 +116,7 @@ void Player::update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
 
     for (size_t i = 0; i < Arrows.size(); i++)
     {
-        if (Arrows[i].didArrowHitWall(deltaTime, Walls, level)) 
+        if (Arrows[i].didArrowHitWall(deltaTime, walls, level))
         {
             Arrows.erase(Arrows.begin() + i);
         }
@@ -126,17 +127,13 @@ void Player::update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
                 // implement this when collision is finished
                 if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), enemy.getSprite().getGlobalBounds()))
                 {
-                    enemy.ChangeHealth(-15);
+                    enemy.changeHealth(-15);
                     Arrows.erase(Arrows.begin() + i);
                     cout << "Soldier's health is: " << enemy.getHealth() << endl;
                 }
             }
         }
     }
-
-    //---------------------------------------------- ARROWS -------------------------------------------------
-    BoundingRectangle.setPosition(Sprite.getPosition());
-
 }
 
 void Player::drawPlayer(sf::RenderWindow& window)
@@ -149,5 +146,5 @@ void Player::drawPlayer(sf::RenderWindow& window)
 }
 
 void Player::attackMove() {
-    // Implement how the enemy attacks
+    cout << "attack works!" << endl;
 }

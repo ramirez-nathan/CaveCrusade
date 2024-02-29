@@ -5,6 +5,8 @@
 #include <vector>
 #include <ostream>
 
+using namespace std;
+
 class Entity {
 protected:
     float Health;
@@ -17,6 +19,7 @@ protected:
     sf::Vector2i Size;
 
     sf::RectangleShape BoundingRectangle;
+    vector<int> Walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
 
 
 public:
@@ -34,20 +37,19 @@ public:
 
 
     // Setters
-    void ChangeHealth(float hp) { Health += hp; }
+    void changeHealth(float hp) { Health += hp; }
     void setHealth(float& h) { this->Health = h; }
     void setDamage(float& dmg) { this->Damage = dmg; }
     void setDefense(float& def) { this->Defense = def; }
 
-    //void setSize(sf::Vector2i newSize) { size = newSize; } // dont think I need this
 
     //TODO: Virtual Function for Load()
 
     // Functions
     virtual void attackMove() = 0;
-    bool loadTexture(const std::string& texturePath);
+    void loadTexture(const std::string& texturePath);
 
     // Draw the entity to the render window
-    //void draw(sf::RenderWindow& window) const;
+    //virtual void draw(sf::RenderWindow& window) = 0;
 
 };
