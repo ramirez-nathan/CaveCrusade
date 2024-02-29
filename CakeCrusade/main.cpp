@@ -9,7 +9,7 @@
 #include "Enemy.hpp"
 #include "GameState.hpp"
 
-using namespace std; 
+using namespace std;
 
 int main()
 {
@@ -21,15 +21,15 @@ int main()
     Player player(200, 50, 50);
     Soldier soldier(75, 50, 50);
     //-------------------------------- INITIALIZE --------------------------------
-    player.Initialize();
-    soldier.Initialize();
+    player.initialize();
+    soldier.initialize();
 
     //-------------------------------- INITIALIZE --------------------------------
-    
+
     // ------------------------------------------ LOAD ---------------------------------
 
-    player.Load();
-    soldier.Load();
+    player.load();
+    soldier.load();
 
     // ------------------------------- TILEMAP ----------------------------------
     // define the level with an array of tile indices
@@ -38,7 +38,7 @@ int main()
     state.loadLevel();
 
     // ------------------------------- TILEMAP ----------------------------------
-    
+
     // ---------------------------- TESTING -----------------------------
 
     cout << "Player's size vector is: " << player.getSizeX() << ", " << player.getSizeY() << endl;
@@ -64,20 +64,19 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-        soldier.Update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
-        player.Update(deltaTime, soldier, mousePosition, state.CurrentLevel); // update here
-
+        soldier.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
+        player.update(deltaTime, soldier, mousePosition, state.CurrentLevel); // update here
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
         window.clear();
         window.draw(state.Map);
-        soldier.Draw(window);
-        player.Draw(window);
+        soldier.drawSoldier(window);
+        player.drawPlayer(window);
         window.display();
         //-------------------------------- DRAW --------------------------------
     }
 
-    
+
     return 0;
 }

@@ -3,14 +3,14 @@
 
 // Entity 
 Entity::Entity(float h, float dmg, float def)
-    : health(h), damage(dmg), defense(def) {}
+    : Health(h), Damage(dmg), Defense(def) {}
 
 bool Entity::loadTexture(const std::string& texturePath) {
-    if (!texture.loadFromFile(texturePath)) {
+    if (!Texture.loadFromFile(texturePath)) {
         std::cerr << "Failed to load texture from " << texturePath << std::endl;
         return false;
     }
-    sprite.setTexture(texture);
+    Sprite.setTexture(Texture);
     return true;
 }
 

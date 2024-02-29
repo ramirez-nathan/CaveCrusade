@@ -25,5 +25,3 @@ bool Math::didRectCollide(sf::FloatRect rect1, sf::FloatRect rect2)
 
 	return false;
 }
-
-

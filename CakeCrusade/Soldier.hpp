@@ -9,23 +9,23 @@ using namespace std;
 class Soldier : public Entity
 {
 private:
-	sf::Vector2f direction;
+	sf::Vector2f Direction;
 
 
 	int SpriteX = 0;
 	int SpriteY = 0;
 
-	float soldierSpeed;
+	float SoldierSpeed;
 
 public:
 	Soldier(float h, float dmg, float def);
 	~Soldier();
 
-	 
-	void Initialize();
-	void Load();
-	void Update(double deltaTime, const sf::Vector2f& target, int level[]);
-	void Draw(sf::RenderWindow& window);
+
+	void initialize();
+	void load();
+	void update(double deltaTime, const sf::Vector2f& target, int level[]);
+	void drawSoldier(sf::RenderWindow& window);
 	virtual void attackMove() override;
 
 };
