@@ -20,10 +20,12 @@ int main()
     Player player(200, 50, 50, 10);
     Soldier soldier(300, 50, 50, 0.3);
     Enemy enemyA(100, 20, 20, 0.2);
+    Enemy slimey(50, 10, 5, 0.05);
     //-------------------------------- INITIALIZE --------------------------------
     player.Initialize();
     soldier.Initialize();
     enemyA.Initialize();
+    slimey.Initialize();
 
     //-------------------------------- INITIALIZE --------------------------------
     
@@ -33,7 +35,8 @@ int main()
     soldier.Load();
     enemyA.loadTexture("assets/enemies/skelly/idle/skull_idle.png");
     enemyA.Load("assets/enemies/skelly/idle/skull_idle.png");
-    
+    slimey.loadTexture("assets/enemies/Slime/slime_idle.png");
+    slimey.Load("assets/enemies/Slime/slime_idle.png");
     
 
     // ------------------------------- TILEMAP ----------------------------------
@@ -94,6 +97,7 @@ int main()
         soldier.Draw(window);
         player.Draw(window);
         enemyA.Draw(window);
+        slimey.Draw(window);
         window.display();
         //-------------------------------- DRAW --------------------------------
     }
