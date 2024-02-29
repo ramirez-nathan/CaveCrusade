@@ -42,7 +42,7 @@ In-Game Screen:
 ![CakeCrusadeInGameScreen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/6cd9e566-1971-4390-891e-0a0d6bc4eecc)
 
 ## Class Diagram
-![ClassDiagram](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/5583aa95-3710-4f55-8bc1-31e19227c9af)
+![CakeCrusadeUML](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/da454239-e67f-4412-91af-c28893160b8a)
 
 | Class | Description |
 | --- | --- |
