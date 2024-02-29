@@ -5,13 +5,12 @@
             [Rachel Lee](https://github.com/rache11ee)
 
 ## Project Description
- **Cake Crusade: Rise of the Pastry Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of delicious monsters to defeat Baker the Wizard, an evil magician who plans to take over the kingdom with an army of mouthwatering monsters! Fight your way to the end of his dungeon using an array of weapons to recover the Whisk of Wonder that 
- was stolen from your kingdom! 
+ **Cake Crusade: Rise of the Pastry Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of delicious monsters to defeat Baker the Wizard, an evil magician who plans to take over the kingdom with an army of mouthwatering monsters! Fight your way to the end of his dungeon using an array of weapons to recover the Whisk of Wonder that was stolen from your kingdom! 
 
 The project aims to captivate players through an immersive storyline, strategic gameplay, and a visually appealing environment.
 
  Tools & Technologies:
-* Visual Studio
+* Visual Studio Community
 * SFML C++ Library
 
  Inputs:
@@ -48,17 +47,19 @@ In-Game Screen:
 | Class | Description |
 | --- | --- |
 | `Main` | Depends on Map; Main screen for creating and calling other classes |
-| `Object` | Depends on Main; Template for objects in the game |
 | `Entity` | Inherits from Object; Template for entities |
 | `Player` | Inherits from Entity; Sets player weapon, powerup, and moveset |
 | `Enemy` | Inherits from Entity; Sets enemy target and knockback |
+| `Soldier` | Inherits from Enemy; Unique enemy type that chases player |
+| `Skeleton` | Inherits from Enemy; Unique enemy type that shoots arrows at player |
+| `Slime` | Inherits from Enemy; Unique enemy type that spawns weaker slimes upon death. |
 | `Interactable` | Inherits from Object, Associates with Entity; Template for interactable objects |
 | `Heart` | Inherits from Interactable; Contains health value |
 | `Chest` | Inherits from Interactable; Contains chest contents |
 | `Main Menu` | Depends on Main; Template for Menus |
 | `Start Screen` | Inherits from Main Menu; Can start and quit |
 | `Options`| Inherits from Start Screen; Has window, sound, and control options |
-| `Map` | Depends on TileMap; Contains level templates |
+| `GameState` | Depends on TileMap; Contains level templates and updates the level |
 | `Tilemap` | SFML map drawing |
 | `Sounds` | Associated with Main; Sound Effects |
 
