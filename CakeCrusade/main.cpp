@@ -37,7 +37,8 @@ int main()
     enemyA.Load();
     slimey.loadTexture("assets/enemies/Slime/slime_idle.png");
     slimey.Load();
-    
+    enemyA.changePosition(200.0f, 500.0f);
+    slimey.changePosition(1000.0f, 500.0f);
 
     // ------------------------------- TILEMAP ----------------------------------
     // define the level with an array of tile indices
@@ -87,9 +88,9 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-        soldier.Update(deltaTime, player.getSprite().getPosition(), level);
-        enemyA.Update(deltaTime, player.getSprite().getPosition(), level);
-        slimey.Update(deltaTime, player.getSprite().getPosition(), level);
+        //soldier.Update(deltaTime, player.getSprite().getPosition(), level);
+        //enemyA.Update(deltaTime, player.getSprite().getPosition(), level);
+        //slimey.Update(deltaTime, player.getSprite().getPosition(), level);
         player.Update(deltaTime, enemyA, mousePosition, level); // update here
         //-------------------------------- UPDATE --------------------------------
 

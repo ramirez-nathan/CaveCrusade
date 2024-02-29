@@ -18,6 +18,11 @@ bool Entity::loadTexture(const std::string& texturePath) {
     return true;
 }
 
+void Entity::changePosition(float x, float y)
+{
+    sprite.setPosition(sf::Vector2f(x, y));
+}
+
 void Entity::Initialize()
 {
     boundingRectangle.setFillColor(sf::Color::Transparent);

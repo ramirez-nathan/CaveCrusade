@@ -65,6 +65,7 @@ public:
     // Functions
     virtual void attackMove() = 0;
     bool loadTexture(const std::string& texturePath);
+    void changePosition(float x, float y);
 
     // Draw the entity to the render window
     //void draw(sf::RenderWindow& window) const;
