@@ -37,6 +37,7 @@ int main()
     enemyA.Load();
     slimey.loadTexture("assets/enemies/Slime/slime_idle.png");
     slimey.Load();
+   
     
 
     // ------------------------------- TILEMAP ----------------------------------

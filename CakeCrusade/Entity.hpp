@@ -36,8 +36,9 @@ public:
     virtual ~Entity() = default;
     // Sets up the hitboxes for our entities
     virtual void Initialize();
+    // void Load();
     // Loads in the sprite to be displayed
-    virtual void Load();
+    void Load();
     virtual void Update(double deltaTime, const sf::Vector2f& target, int level[]);
     virtual void Draw(sf::RenderWindow& window);
 
@@ -65,6 +66,8 @@ public:
     // Functions
     virtual void attackMove() = 0;
     bool loadTexture(const std::string& texturePath);
+    void changePosition(float x, float y);
+
 
     // Draw the entity to the render window
     //void draw(sf::RenderWindow& window) const;
