@@ -46,7 +46,7 @@ In-Game Screen:
 
 | Class | Description |
 | --- | --- |
-| `Main` | Depends on Map; Main screen for creating and calling other classes |
+| `Main` | Depends on GameState, Entity, & Interactable; Main screen for creating and calling other classes |
 | `Entity` | Inherits from Object; Template for entities |
 | `Player` | Inherits from Entity; Sets player weapon, powerup, and moveset |
 | `Enemy` | Inherits from Entity; Sets enemy target and knockback |
