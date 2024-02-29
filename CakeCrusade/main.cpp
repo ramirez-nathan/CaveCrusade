@@ -65,6 +65,7 @@ int main()
 
     cout << "Player's size vector is: " << player.getSizeX() << ", " << player.getSizeY() << endl;
     cout << "Soldier's size vector is: " << soldier.getSizeX() << ", " << soldier.getSizeY() << endl;
+    
 
     // ---------------------------- TESTING -----------------------------
 
@@ -88,6 +89,7 @@ int main()
 
         soldier.Update(deltaTime, player.getSprite().getPosition(), level);
         enemyA.Update(deltaTime, player.getSprite().getPosition(), level);
+        slimey.Update(deltaTime, player.getSprite().getPosition(), level);
         player.Update(deltaTime, enemyA, mousePosition, level); // update here
         //-------------------------------- UPDATE --------------------------------
 
