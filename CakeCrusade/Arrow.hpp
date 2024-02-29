@@ -3,16 +3,18 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <math.h>
+#include <vector>
 
 class Arrow
 {
 private:
-	sf::Vector2f direction;
+	sf::Vector2f Direction;
 
-	float m_speed;
+	float ArrowSpeed;
 
 public:
-	sf::Sprite arrowSprite;
+	sf::Sprite ArrowSprite;
 public:
 	Arrow();
 	~Arrow();
@@ -20,12 +22,13 @@ public:
 	sf::Texture& getArrowTexture();
 	sf::Sprite& createArrowSprite(const sf::Texture& arrowTexture, const sf::Vector2f& position, const sf::Vector2f& direction);
 
-	void Initialize(const sf::Vector2f& position, const sf::Vector2f& target, float speed);
-	void Update(double deltaTime);
-	void Draw(sf::RenderWindow& window);
+	void initialize(const sf::Vector2f& position, const sf::Vector2f& target, float speed);
+	bool didArrowHitWall(double deltatime, const std::vector<int>& walls, const int level[]);
+	void update(double deltaTime);
+	void drawArrow(sf::RenderWindow& window);
 
 	// need this helper function for grabbing global bounds at arrows[i]
-	inline const sf::FloatRect& GetGlobalBounds() { return arrowSprite.getGlobalBounds(); }
+	inline const sf::FloatRect& getArrowGlobalBounds() { return ArrowSprite.getGlobalBounds(); }
 };
 
 #endif 

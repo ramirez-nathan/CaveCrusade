@@ -6,20 +6,17 @@
 #include <ostream>
 
 class Entity {
-private:
-
-
 protected:
-    float health;
-    float damage;
-    float defense;
-    sf::Sprite sprite;
-    sf::Texture texture;
+    float Health;
+    float Damage;
+    float Defense;
+    sf::Sprite Sprite;
+    sf::Texture Texture;
 
     // size vector, width and height, gets set in initialize function
-    sf::Vector2i size;
+    sf::Vector2i Size;
 
-    sf::RectangleShape boundingRectangle;
+    sf::RectangleShape BoundingRectangle;
 
 
 public:
@@ -28,19 +25,19 @@ public:
 
 
     // Getters
-    float getHealth() const { return health; }
-    float getDamage() const { return damage; }
-    float getDefense() const { return defense; }
-    int getSizeX() const { return size.x; }
-    int getSizeY() const { return size.y; }
-    sf::Sprite& getSprite() { return sprite; }
+    float getHealth() const { return Health; }
+    float getDamage() const { return Damage; }
+    float getDefense() const { return Defense; }
+    int getSizeX() const { return Size.x; }
+    int getSizeY() const { return Size.y; }
+    sf::Sprite& getSprite() { return Sprite; }
 
 
     // Setters
-    void ChangeHealth(float hp) { health += hp; }
-    void setHealth(float& h) { this->health = h; }
-    void setDamage(float& dmg) { this->damage = dmg; }
-    void setDefense(float& def) { this->defense = def; }
+    void ChangeHealth(float hp) { Health += hp; }
+    void setHealth(float& h) { this->Health = h; }
+    void setDamage(float& dmg) { this->Damage = dmg; }
+    void setDefense(float& def) { this->Defense = def; }
 
     //void setSize(sf::Vector2i newSize) { size = newSize; } // dont think I need this
 

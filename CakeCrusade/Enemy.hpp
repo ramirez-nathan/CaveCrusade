@@ -6,8 +6,8 @@
 class Enemy : public Entity {
 public:
 	Enemy(float h, float dmg, float def);
+	virtual ~Enemy() = default;
 	virtual void attackMove() override;
 	void getKnockedBack();
 	void target();
-	virtual ~Enemy() = default;
 };
