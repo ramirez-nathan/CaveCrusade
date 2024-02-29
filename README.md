@@ -50,9 +50,9 @@ In-Game Screen:
 | `Entity` | Inherits from Object; Template for entities |
 | `Player` | Inherits from Entity; Sets player weapon, powerup, and moveset |
 | `Enemy` | Inherits from Entity; Sets enemy target and knockback |
-| `Soldier` | Inherits from Enemy; Unique enemy type that chases player |
-| `Skeleton` | Inherits from Enemy; Unique enemy type that shoots arrows at player |
-| `Slime` | Inherits from Enemy; Unique enemy type that spawns weaker slimes upon death. |
+<!-- | `Soldier` | Inherits from Enemy; Unique enemy type that chases player |  -->
+<!-- | `Skeleton` | Inherits from Enemy; Unique enemy type that shoots arrows at player |  -->
+<!-- | `Slime` | Inherits from Enemy; Unique enemy type that spawns weaker slimes upon death. |  -->
 | `Interactable` | Associates with Entity; Template for interactable objects |
 | `Heart` | Inherits from Interactable; Contains health value |
 | `Chest` | Inherits from Interactable; Contains chest contents |
