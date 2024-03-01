@@ -18,9 +18,9 @@ int main()
     window.setFramerateLimit(360);
 
     Player player(200, 50, 50, 10);
-    Soldier soldier(300, 50, 50, 0.3);
-    Enemy enemyA(100, 20, 20, 0.2);
-    Enemy slimey(50, 10, 5, 0.05);
+    Soldier soldier(300, 50, 50, 0.1);
+    Enemy enemyA(100, 20, 20, 0.05);
+    Enemy slimey(50, 10, 5, 0.02);
     //-------------------------------- INITIALIZE --------------------------------
     player.Initialize();
     soldier.Initialize();
@@ -88,9 +88,9 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-        //soldier.Update(deltaTime, player.getSprite().getPosition(), level);
-        //enemyA.Update(deltaTime, player.getSprite().getPosition(), level);
-        //slimey.Update(deltaTime, player.getSprite().getPosition(), level);
+        soldier.Update(deltaTime, player.getSprite().getPosition(), level);
+        enemyA.Update(deltaTime, player.getSprite().getPosition(), level);
+        slimey.Update(deltaTime, player.getSprite().getPosition(), level);
         player.Update(deltaTime, enemyA, mousePosition, level); // update here
         //-------------------------------- UPDATE --------------------------------
 

@@ -82,11 +82,6 @@ void Entity::Draw(sf::RenderWindow& window)
     }
 }
 
-void Entity::changePosition(float x, float y)
-{
-    sprite.setPosition(sf::Vector2f(x, y));
-}
-
 
 /*void Entity::draw(sf::RenderWindow& window) const {
     window.draw(sprite);

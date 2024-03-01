@@ -2,7 +2,7 @@
 #include <iostream>
 
 Soldier::Soldier(float h, float dmg, float def, float spd) 
-	: Entity(h, dmg, def, spd), soldierSpeed(0.3f)
+	: Entity(h, dmg, def, spd), soldierSpeed(0.1f)
 {
 }
 
