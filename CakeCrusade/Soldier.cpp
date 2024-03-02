@@ -38,34 +38,39 @@ void Soldier::load()
     BoundingRectangle.setOrigin(BoundingRectangle.getLocalBounds().width / 2.f, BoundingRectangle.getLocalBounds().height / 2.f);
 }
 
-void Soldier::handleMovement(double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int level[], vector<int>& walls)
+void Soldier::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls)
 {
     sf::Vector2f Position = Sprite.getPosition();
-    sf::Vector2f Future = Position + movement;
+    sf::Vector2f Movement(Direction * SoldierSpeed * static_cast<float>(deltaTime));
+    sf::Vector2f Future = Position + Movement;
 
     // Additional code for WASD movements
-    if ((movement.x == 0.f && movement.y > 0.f) || ((movement.x > 0.f || movement.x < 0.f) && movement.y > 100.0f)) { // Looking Down, Looking Down Diagonally
-        spriteX = 0;
-        spriteY = 0;
+    if ((direction.x == 0.f && direction.y > 0.f) || (direction.x != 0.f && direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
+        spriteX = 0; 
+        spriteY = 0; 
+
     }
-    else if ((movement.x > 0.f && movement.y == 0.f) || (movement.x > 0.f && (-100.0f <= movement.y <= 100.0f))) { // Looking Right, Looking Right Diagonally
-        spriteX = 0;
+    else if ((direction.x > 0.f && direction.y == 0.f) || (direction.x > 0.f && (-0.50f <= direction.y && direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
+        spriteX = 0; 
         spriteY = 3; 
+        
     }
-    else if ((movement.x < 0.f && movement.y == 0.f) || (movement.x < 0.f && (-100.0f <= movement.y <= 100.0f))) { // Looking Left, Looking Left Diagonally
+    else if ((direction.x < 0.f && direction.y == 0.f) || (direction.x < 0.f && (-0.5f <= direction.y && direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
         spriteX = 0;
         spriteY = 2; 
+        
     }
-    else if ((movement.x == 0.f && movement.y < 0.f) || ((movement.x > 0.f || movement.x < 0.f) && movement.y < -100.0f)) { // Looking Up, Looking Up Diagonally
+    else if ((direction.x == 0.f && direction.y < 0.f) || (direction.x != 0.f && direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
         spriteX = 0;
         spriteY = 1;
-    }
+        
+    } 
 
     Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
-
+    
     int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
     if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
-        Sprite.setPosition(Position + movement);
+        Sprite.setPosition(Position + Movement);
     }
 }
 
@@ -75,8 +80,7 @@ void Soldier::update(double deltaTime, const sf::Vector2f& target, int level[])
     if (Health > 0)
     {
         Direction = Math::normalizeVector(target - Sprite.getPosition());
-        sf::Vector2f Movement(Direction * SoldierSpeed * static_cast<float>(deltaTime));
-        handleMovement(deltaTime, Movement, SpriteX, SpriteY, level, Walls);
+        handleMovement(deltaTime, Direction, SpriteX, SpriteY, level, Walls);
 
         BoundingRectangle.setPosition(Sprite.getPosition());
     }
