@@ -11,25 +11,23 @@ using namespace std;
 class Entity {
 protected:
     // Every entity should have health, damage, defense, speed, a sprite, texture, and a hitbox
-    float health;
-    float damage;
-    float defense;
-    float entitySpeed;
-    sf::Sprite sprite;
-    sf::Texture texture;
+    float Health;
+    float Damage;
+    float Defense;
+    float EntitySpeed;
+    sf::Sprite Sprite;
+    sf::Texture Texture;
 
     // size vector, width and height, gets set in initialize function
     sf::Vector2i Size;
 
-    sf::Vector2f direction;
+    sf::Vector2f Direction;
 
-    sf::RectangleShape boundingRectangle;
     int SpriteX = 0;
     int SpriteY = 0;
     
     sf::RectangleShape BoundingRectangle;
     vector<int> Walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
-    // new code?
 
     
 
@@ -42,11 +40,13 @@ public:
 
     // void Load();
     // Loads in the sprite to be displayed
-    virtual void Load();
-    virtual void Update(double deltaTime, const sf::Vector2f& target, int level[]);
-    virtual void Draw(sf::RenderWindow& window);
+    virtual void load();
+    virtual void initialize();
+    virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls);
+    virtual void update(double deltaTime, const sf::Vector2f& target, int level[]);
+    virtual void draw(sf::RenderWindow& window);
 
-  
+    
 
     // Getters
     float getHealth() const { return Health; }
@@ -68,8 +68,8 @@ public:
 
     // Functions
     virtual void attackMove() = 0;
-    bool loadTexture(const std::string& texturePath);
 
+    void changePosition(float x, float y);
     void loadTexture(const std::string& texturePath);
     //virtual void draw(sf::RenderWindow& window) = 0;
 
