@@ -4,7 +4,7 @@
 
 // Entity 
 Entity::Entity(float h, float dmg, float def, float spd)
-    : health(h), damage(dmg), defense(def), entitySpeed(spd)
+    : Health(h), Damage(dmg), Defense(def), EntitySpeed(spd)
 {
 }
 
@@ -18,65 +18,90 @@ void Entity::loadTexture(const std::string& texturePath) {
 
 void Entity::changePosition(float x, float y)
 {
-    sprite.setPosition(sf::Vector2f(x, y));
+    Sprite.setPosition(sf::Vector2f(x, y));
 }
 
-void Entity::Initialize()
+void Entity::initialize()
 {
-    boundingRectangle.setFillColor(sf::Color::Transparent);
-    boundingRectangle.setOutlineColor(sf::Color::Red);
-    boundingRectangle.setOutlineThickness(1);
+    BoundingRectangle.setFillColor(sf::Color::Transparent);
+    BoundingRectangle.setOutlineColor(sf::Color::Red);
+    BoundingRectangle.setOutlineThickness(1);
 
-    size = sf::Vector2i(32, 32);
+    Size = sf::Vector2i(32, 32);
 }
 
-void Entity::Load()
+void Entity::load()
 {
     SpriteX = 0;
     SpriteY = 0;
     // grab the idle texture image from spritesheet
-    sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+    Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
     // set spawn position
-    sprite.setPosition(sf::Vector2f(500, 200));
+    Sprite.setPosition(sf::Vector2f(500, 200));
     // set origin at middle of sprite
-    sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f);
+    Sprite.setOrigin(Sprite.getLocalBounds().width / 2.f, Sprite.getLocalBounds().height / 2.f);
     // change sprite scale
-    sprite.scale(sf::Vector2f(3, 3));
+    Sprite.scale(sf::Vector2f(3, 3));
     // wrap the hitbox around the soldier
-    boundingRectangle.setSize(sf::Vector2f(size.x * sprite.getScale().x, size.y * sprite.getScale().y));
+    BoundingRectangle.setSize(sf::Vector2f(Size.x * Sprite.getScale().x, Size.y * Sprite.getScale().y));
     // set hitbox origin to middle
-    boundingRectangle.setOrigin(boundingRectangle.getLocalBounds().width / 2.f, boundingRectangle.getLocalBounds().height / 2.f);
+    BoundingRectangle.setOrigin(BoundingRectangle.getLocalBounds().width / 2.f, BoundingRectangle.getLocalBounds().height / 2.f);
 }
 
-
-// takes parameters : delta time, player position, level
-void Entity::Update(double deltaTime, const sf::Vector2f& target, int level[])
+void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls)
 {
-    vector<int> walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
-    if (health > 0)
-    {
-        direction = Math::NormalizeVector(target - sprite.getPosition());
+    sf::Vector2f Position = Sprite.getPosition();
+    sf::Vector2f Movement(Direction * EntitySpeed * static_cast<float>(deltaTime));
+    sf::Vector2f Future = Position + Movement;
 
-        sf::Vector2f position = sprite.getPosition();
-        sf::Vector2f movement(direction * entitySpeed * static_cast<float>(deltaTime));
+    // Additional code for WASD movements
+    if ((direction.x == 0.f && direction.y > 0.f) || (direction.x != 0.f && direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
+        spriteX = 0;
+        spriteY = 0;
 
-        sf::Vector2f future = position + movement;
+    }
+    else if ((direction.x > 0.f && direction.y == 0.f) || (direction.x > 0.f && (-0.50f <= direction.y && direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
+        spriteX = 0;
+        spriteY = 3;
 
-        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
-        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
-            sprite.setPosition(position + movement);
-        }
+    }
+    else if ((direction.x < 0.f && direction.y == 0.f) || (direction.x < 0.f && (-0.5f <= direction.y && direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
+        spriteX = 0;
+        spriteY = 2;
 
-        boundingRectangle.setPosition(sprite.getPosition());
+    }
+    else if ((direction.x == 0.f && direction.y < 0.f) || (direction.x != 0.f && direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
+        spriteX = 0;
+        spriteY = 1;
+
+    }
+
+    Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
+
+    int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
+    if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
+        Sprite.setPosition(Position + Movement);
     }
 }
 
-void Entity::Draw(sf::RenderWindow& window)
+// takes parameters : delta time, player position, level
+void Entity::update(double deltaTime, const sf::Vector2f& target, int level[])
 {
-    if (health > 0)
+    if (Health > 0)
     {
-        window.draw(sprite);
-        window.draw(boundingRectangle);
+        Direction = Math::normalizeVector(target - Sprite.getPosition());
+        handleMovement(deltaTime, Direction, SpriteX, SpriteY, level, Walls);
+
+        BoundingRectangle.setPosition(Sprite.getPosition());
+    }
+}
+
+void Entity::draw(sf::RenderWindow& window)
+{
+    if (Health > 0)
+    {
+        window.draw(Sprite);
+        window.draw(BoundingRectangle);
     }
 }
 
