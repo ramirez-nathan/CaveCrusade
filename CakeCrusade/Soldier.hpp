@@ -18,7 +18,7 @@ private:
 	float SoldierSpeed;
 
 public:
-	Soldier(float h, float dmg, float def);
+	Soldier(float h, float dmg, float def, float spd);
 	~Soldier();
 
 

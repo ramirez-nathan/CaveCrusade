@@ -4,8 +4,8 @@
 #include <ostream>
 #include <algorithm>    // std::find
 
-Player::Player(float h, float dmg, float def)
-    : Entity(h, def, dmg), PlayerSpeed(0.4f), MaxFireRate(300), FireRateTimer(0)
+Player::Player(float h, float dmg, float def, float spd) 
+   : Entity(h, def, dmg, spd), playerSpeed(0.4f), maxFireRate(300), fireRateTimer(0)
 {
 }
 

@@ -18,17 +18,28 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1408, 704), "Cake Crusade", sf::Style::Default, settings);
     window.setFramerateLimit(360);
 
-    Player player(200.f, 50.f, 50.f);
-    Soldier soldier(75.f, 50.f, 50.f);
+    Player player(200, 50, 50, 10);
+    Soldier soldier(300, 50, 50, 0.1);
+    Enemy enemyA(100, 20, 20, 0.05);
+    Enemy slimey(50, 10, 5, 0.02);
     //-------------------------------- INITIALIZE --------------------------------
-    player.initialize();
-    soldier.initialize();
+    player.Initialize();
+    soldier.Initialize();
+    enemyA.Initialize();
+    slimey.Initialize();
+
     //-------------------------------- INITIALIZE --------------------------------
 
     // ------------------------------------------ LOAD ---------------------------------
 
-    player.load();
-    soldier.load();
+    player.Load();
+    soldier.Load();
+    enemyA.loadTexture("assets/enemies/skelly/idle/skull_idle.png");
+    enemyA.Load();
+    slimey.loadTexture("assets/enemies/Slime/slime_idle.png");
+    slimey.Load();
+    enemyA.changePosition(200.0f, 500.0f);
+    slimey.changePosition(1000.0f, 500.0f);
 
     // ------------------------------- TILEMAP ----------------------------------
     // define the level with an array of tile indices
@@ -64,12 +75,21 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
+        soldier.Update(deltaTime, player.getSprite().getPosition(), level);
+        enemyA.Update(deltaTime, player.getSprite().getPosition(), level);
+        slimey.Update(deltaTime, player.getSprite().getPosition(), level);
+        player.Update(deltaTime, enemyA, mousePosition, level); // update here
         soldier.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
         player.update(deltaTime, soldier, mousePosition, state.CurrentLevel); // update here
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
         window.clear();
+        window.draw(map);
+        soldier.Draw(window);
+        player.Draw(window);
+        enemyA.Draw(window);
+        slimey.Draw(window);
         window.draw(state.Map);
         soldier.drawSoldier(window);
         player.drawPlayer(window);
