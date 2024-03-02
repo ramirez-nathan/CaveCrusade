@@ -5,7 +5,7 @@
 #include <algorithm>    // std::find
 
 Player::Player(float h, float dmg, float def, float spd) 
-   : Entity(h, def, dmg, spd), playerSpeed(0.4f), maxFireRate(300), fireRateTimer(0)
+   : Entity(h, def, dmg, spd), MaxFireRate(300), FireRateTimer(0)
 {
 }
 
@@ -41,8 +41,8 @@ void Player::load()
 
 // Separate function for handling player movement
 void Player::handleMovement(double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls) {
-    sf::Vector2f position = Sprite.getPosition();
-    sf::Vector2f future = position + movement;
+    sf::Vector2f Position = Sprite.getPosition();
+    sf::Vector2f Future = Position + movement;
 
     // Additional code for WASD movements
     if (direction == 1) {
@@ -64,45 +64,45 @@ void Player::handleMovement(double deltaTime, sf::Vector2f& movement, int& sprit
 
     Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
 
-    int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
-    if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
-        Sprite.setPosition(position + movement);
+    int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
+    if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
+        Sprite.setPosition(Position + movement);
     }
 }
 
 // takes parameters - deltatime, any specified entity (by upcasting), mouseposition, and level
-void Player::update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
+void Player::update(double deltaTime, Entity& soldier, Entity& skeleton, Entity& slime, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
 {
     // WASD MOVEMENT
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        sf::Vector2f movement(0, -1 * PlayerSpeed * static_cast<float>(deltaTime));
+        sf::Vector2f movement(0, -1 * EntitySpeed * static_cast<float>(deltaTime));
         handleMovement(deltaTime, movement, SpriteX, SpriteY, 1, level, Walls);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        sf::Vector2f movement(0, 1 * PlayerSpeed * static_cast<float>(deltaTime));
+        sf::Vector2f movement(0, 1 * EntitySpeed * static_cast<float>(deltaTime));
         handleMovement(deltaTime, movement, SpriteX, SpriteY, 0, level, Walls);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        sf::Vector2f movement(-1 * PlayerSpeed * static_cast<float>(deltaTime), 0);
+        sf::Vector2f movement(-1 * EntitySpeed * static_cast<float>(deltaTime), 0);
         handleMovement(deltaTime, movement, SpriteX, SpriteY, 2, level, Walls);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        sf::Vector2f movement(1 * PlayerSpeed * static_cast<float>(deltaTime), 0);
+        sf::Vector2f movement(1 * EntitySpeed * static_cast<float>(deltaTime), 0);
         handleMovement(deltaTime, movement, SpriteX, SpriteY, 3, level, Walls);
     }
     
     //---------------------------------------------- ARROWS -------------------------------------------------
-    handleArrow(deltaTime, enemy, mousePosition, FireRateTimer, MaxFireRate, level, Walls);
+    handleArrow(deltaTime, soldier, skeleton, slime, mousePosition, FireRateTimer, MaxFireRate, level, Walls);
     //---------------------------------------------- ARROWS -------------------------------------------------
     BoundingRectangle.setPosition(Sprite.getPosition());
 
 }
 
-void Player::handleArrow(const double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls) 
+void Player::handleArrow(const double deltaTime, Entity& soldier, Entity& skeleton, Entity& slime, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls) 
 {
     FireRateTimer += deltaTime;
 
@@ -122,14 +122,34 @@ void Player::handleArrow(const double deltaTime, Entity& enemy, sf::Vector2f& mo
         }
         else {
             Arrows[i].update(deltaTime);
-            if (enemy.getHealth() > 0)
+            if (soldier.getHealth() > 0 && Arrows.size() != 0)
             {
                 // implement this when collision is finished
-                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), enemy.getSprite().getGlobalBounds()))
+                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), soldier.getSprite().getGlobalBounds()))
                 {
-                    enemy.changeHealth(-15);
+                    soldier.changeHealth(-25);
                     Arrows.erase(Arrows.begin() + i);
-                    cout << "Soldier's health is: " << enemy.getHealth() << endl;
+                    cout << "Soldier's health is: " << soldier.getHealth() << endl;
+                }
+            }
+            if (skeleton.getHealth() > 0 && Arrows.size() != 0)
+            {
+                // implement this when collision is finished
+                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), skeleton.getSprite().getGlobalBounds()))
+                {
+                    skeleton.changeHealth(-25);
+                    Arrows.erase(Arrows.begin() + i);
+                    cout << "Skeleton's health is: " << skeleton.getHealth() << endl;
+                }
+            }
+            if (slime.getHealth() > 0 && Arrows.size() != 0)
+            {
+                // implement this when collision is finished
+                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), slime.getSprite().getGlobalBounds()))
+                {
+                    slime.changeHealth(-25);
+                    Arrows.erase(Arrows.begin() + i);
+                    cout << "Slime's health is: " << slime.getHealth() << endl;
                 }
             }
         }
@@ -146,5 +166,5 @@ void Player::drawPlayer(sf::RenderWindow& window)
 }
 
 void Player::attackMove() {
-    cout << "attack works!" << endl;
+    cout << "Player attack works!" << endl;
 }
