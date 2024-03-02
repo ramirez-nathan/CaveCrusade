@@ -55,10 +55,12 @@ public:
     int getSizeX() const { return Size.x; }
     int getSizeY() const { return Size.y; }
     sf::Sprite& getSprite() { return Sprite; }
+    sf::RectangleShape& getHitBox() { return BoundingRectangle; }
 
 
     // Setters
     void changeHealth(float hp) { Health += hp; }
+    void changeDefense(float def) { Defense += def; }
     void setHealth(float& h) { this->Health = h; }
     void setDamage(float& dmg) { this->Damage = dmg; }
     void setDefense(float& def) { this->Defense = def; }
