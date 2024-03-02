@@ -81,7 +81,7 @@ int main()
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
         soldier.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
-        skeleton.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
+        skeleton.update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
         slime.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
         //soldier2.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
         player.update(deltaTime, soldier, skeleton, slime, mousePosition, state.CurrentLevel); 
@@ -97,10 +97,14 @@ int main()
         //soldier2.draw(window);
         player.drawPlayer(window);
 
+        if (player.getHealth() <= 0) {
+            break;
+        }
         window.display();
+
         //-------------------------------- DRAW --------------------------------
     }
-
+    cout << "You died! " << endl;
 
     return 0;
 }
