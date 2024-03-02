@@ -40,7 +40,7 @@ void Player::load()
 }
 
 // Separate function for handling player movement
-void Player::handleMovement(double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls) {
+void Player::handleMovement(const double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls) {
     sf::Vector2f Position = Sprite.getPosition();
     sf::Vector2f Future = Position + movement;
 
@@ -71,35 +71,35 @@ void Player::handleMovement(double deltaTime, sf::Vector2f& movement, int& sprit
 }
 
 // takes parameters - deltatime, any specified entity (by upcasting), mouseposition, and level
-void Player::update(double deltaTime, Entity& soldier, Entity& skeleton, Entity& slime, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
+void Player::update(const double deltaTime, Entity& soldier, Entity& skeleton, Entity& slime, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
 {
-    // WASD MOVEMENT
-    
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        sf::Vector2f movement(0, -1 * EntitySpeed * static_cast<float>(deltaTime));
-        handleMovement(deltaTime, movement, SpriteX, SpriteY, 1, level, Walls);
-    }
+    if (Health > 0) 
+    {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+            sf::Vector2f movement(0, -1 * EntitySpeed * static_cast<float>(deltaTime));
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, 1, level, Walls);
+        }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        sf::Vector2f movement(0, 1 * EntitySpeed * static_cast<float>(deltaTime));
-        handleMovement(deltaTime, movement, SpriteX, SpriteY, 0, level, Walls);
-    }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            sf::Vector2f movement(0, 1 * EntitySpeed * static_cast<float>(deltaTime));
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, 0, level, Walls);
+        }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        sf::Vector2f movement(-1 * EntitySpeed * static_cast<float>(deltaTime), 0);
-        handleMovement(deltaTime, movement, SpriteX, SpriteY, 2, level, Walls);
-    }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            sf::Vector2f movement(-1 * EntitySpeed * static_cast<float>(deltaTime), 0);
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, 2, level, Walls);
+        }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        sf::Vector2f movement(1 * EntitySpeed * static_cast<float>(deltaTime), 0);
-        handleMovement(deltaTime, movement, SpriteX, SpriteY, 3, level, Walls);
-    }
-    
-    //---------------------------------------------- ARROWS -------------------------------------------------
-    handleArrow(deltaTime, soldier, skeleton, slime, mousePosition, FireRateTimer, MaxFireRate, level, Walls);
-    //---------------------------------------------- ARROWS -------------------------------------------------
-    BoundingRectangle.setPosition(Sprite.getPosition());
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            sf::Vector2f movement(1 * EntitySpeed * static_cast<float>(deltaTime), 0);
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, 3, level, Walls);
+        }
 
+        //---------------------------------------------- ARROWS -------------------------------------------------
+        handleArrow(deltaTime, soldier, skeleton, slime, mousePosition, FireRateTimer, MaxFireRate, level, Walls);
+        //---------------------------------------------- ARROWS -------------------------------------------------
+        BoundingRectangle.setPosition(Sprite.getPosition());
+    }
 }
 
 void Player::handleArrow(const double deltaTime, Entity& soldier, Entity& skeleton, Entity& slime, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls) 
@@ -125,9 +125,14 @@ void Player::handleArrow(const double deltaTime, Entity& soldier, Entity& skelet
             if (soldier.getHealth() > 0 && Arrows.size() > 0)
             {
                 // implement this when collision is finished
-                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), soldier.getSprite().getGlobalBounds()))
+                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), soldier.getHitBox().getGlobalBounds()))
                 {
-                    soldier.changeHealth(-25);
+                    if (soldier.getDefense() > 0) {
+                        soldier.changeDefense(-25);
+                    }
+                    else {
+                        soldier.changeHealth(-25);
+                    }
                     Arrows.erase(Arrows.begin() + i);
                     cout << "Soldier's health is: " << soldier.getHealth() << endl;
                     continue;
@@ -136,9 +141,14 @@ void Player::handleArrow(const double deltaTime, Entity& soldier, Entity& skelet
             if (skeleton.getHealth() > 0 && Arrows.size() > 0)
             {
                 // implement this when collision is finished
-                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), skeleton.getSprite().getGlobalBounds()))
+                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), skeleton.getHitBox().getGlobalBounds()))
                 {
-                    skeleton.changeHealth(-25);
+                    if (skeleton.getDefense() > 0) {
+                        skeleton.changeDefense(-25);
+                    }
+                    else {
+                        skeleton.changeHealth(-25);
+                    }
                     Arrows.erase(Arrows.begin() + i);
                     cout << "Skeleton's health is: " << skeleton.getHealth() << endl;
                     continue;
@@ -147,9 +157,14 @@ void Player::handleArrow(const double deltaTime, Entity& soldier, Entity& skelet
             if (slime.getHealth() > 0 && Arrows.size() > 0)
             {
                 // implement this when collision is finished
-                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), slime.getSprite().getGlobalBounds()))
+                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), slime.getHitBox().getGlobalBounds()))
                 {
-                    slime.changeHealth(-25);
+                    if (slime.getDefense() > 0) {
+                        slime.changeDefense(-25);
+                    }
+                    else {
+                        slime.changeHealth(-25);
+                    }
                     Arrows.erase(Arrows.begin() + i);
                     cout << "Slime's health is: " << slime.getHealth() << endl;
                     continue;
@@ -161,11 +176,13 @@ void Player::handleArrow(const double deltaTime, Entity& soldier, Entity& skelet
 
 void Player::drawPlayer(sf::RenderWindow& window)
 {
-    window.draw(Sprite);
-    window.draw(BoundingRectangle);
-    // draw each arrow sprite in vector
-    for (size_t i = 0; i < Arrows.size(); i++)
-        Arrows[i].drawArrow(window);
+    if (Health > 0) {
+        window.draw(Sprite);
+        window.draw(BoundingRectangle);
+        // draw each arrow sprite in vector
+        for (size_t i = 0; i < Arrows.size(); i++)
+            Arrows[i].drawArrow(window);
+    }
 }
 
 void Player::attackMove() {
