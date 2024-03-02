@@ -12,7 +12,7 @@ void Enemy::attackMove() {
 bool Enemy::canAttack(const sf::Vector2f& playerPosition, float attackRange) const
 {
     // Get the enemy's current position from its sprite
-    sf::Vector2f enemyPosition = sprite.getPosition();
+    sf::Vector2f enemyPosition = Sprite.getPosition();
 
     // Calculate the distance between the enemy and the player
     float dx = playerPosition.x - enemyPosition.x;
