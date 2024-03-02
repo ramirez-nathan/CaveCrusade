@@ -122,7 +122,7 @@ void Player::handleArrow(const double deltaTime, Entity& soldier, Entity& skelet
         }
         else {
             Arrows[i].update(deltaTime);
-            if (soldier.getHealth() > 0 && Arrows.size() != 0)
+            if (soldier.getHealth() > 0 && Arrows.size() > 0)
             {
                 // implement this when collision is finished
                 if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), soldier.getSprite().getGlobalBounds()))
@@ -130,9 +130,10 @@ void Player::handleArrow(const double deltaTime, Entity& soldier, Entity& skelet
                     soldier.changeHealth(-25);
                     Arrows.erase(Arrows.begin() + i);
                     cout << "Soldier's health is: " << soldier.getHealth() << endl;
+                    continue;
                 }
             }
-            if (skeleton.getHealth() > 0 && Arrows.size() != 0)
+            if (skeleton.getHealth() > 0 && Arrows.size() > 0)
             {
                 // implement this when collision is finished
                 if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), skeleton.getSprite().getGlobalBounds()))
@@ -140,9 +141,10 @@ void Player::handleArrow(const double deltaTime, Entity& soldier, Entity& skelet
                     skeleton.changeHealth(-25);
                     Arrows.erase(Arrows.begin() + i);
                     cout << "Skeleton's health is: " << skeleton.getHealth() << endl;
+                    continue;
                 }
             }
-            if (slime.getHealth() > 0 && Arrows.size() != 0)
+            if (slime.getHealth() > 0 && Arrows.size() > 0)
             {
                 // implement this when collision is finished
                 if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), slime.getSprite().getGlobalBounds()))
@@ -150,6 +152,7 @@ void Player::handleArrow(const double deltaTime, Entity& soldier, Entity& skelet
                     slime.changeHealth(-25);
                     Arrows.erase(Arrows.begin() + i);
                     cout << "Slime's health is: " << slime.getHealth() << endl;
+                    continue;
                 }
             }
         }
