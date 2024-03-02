@@ -7,6 +7,8 @@
 #include "Player.hpp"
 #include "Soldier.hpp"
 #include "Enemy.hpp"
+#include "Slime.hpp"
+#include "Skeleton.hpp"
 #include "GameState.hpp"
 
 using namespace std;
@@ -18,29 +20,32 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1408, 704), "Cake Crusade", sf::Style::Default, settings);
     window.setFramerateLimit(360);
 
-    Player player(200, 50, 50, 10);
-    Soldier soldier(300, 50, 50, 0.1);
-    Enemy enemyA(100, 20, 20, 0.05);
-    Enemy slimey(50, 10, 5, 0.02);
+    Player player(200.f, 50.f, 50.f, 0.4f);
+    Soldier soldier(200.f, 50.f, 50.f, 0.15f);
+    Skeleton skeleton(150.f, 20.f, 20.f, 0.075f);
+    Slime slime(300.f, 10.f, 5.f, 0.035f);
+    //Enemy soldier2(300.f, 50.f, 50.f, 0.15f);
     //-------------------------------- INITIALIZE --------------------------------
-    player.Initialize();
-    soldier.Initialize();
-    enemyA.Initialize();
-    slimey.Initialize();
-
-    //-------------------------------- INITIALIZE --------------------------------
+    player.initialize();
+    soldier.initialize();
+    skeleton.initialize();
+    slime.initialize();
+    //soldier2.initialize();
 
     // ------------------------------------------ LOAD ---------------------------------
-
-    player.Load();
-    soldier.Load();
-    enemyA.loadTexture("assets/enemies/skelly/idle/skull_idle.png");
-    enemyA.Load();
-    slimey.loadTexture("assets/enemies/Slime/slime_idle.png");
-    slimey.Load();
-    enemyA.changePosition(200.0f, 500.0f);
-    slimey.changePosition(1000.0f, 500.0f);
-
+    player.load();
+    soldier.loadTexture("assets/enemies/evil_soldier/textures/evil_soldier_idle.png");
+    soldier.load();
+    skeleton.loadTexture("assets/enemies/skelly/idle/skull_idle.png");
+    skeleton.load();
+    slime.loadTexture("assets/enemies/Slime/slime_idle.png");
+    slime.load();
+    //soldier2.loadTexture("assets/enemies/evil_soldier/textures/evil_soldier_idle.png");
+    //soldier2.load();
+    soldier.changePosition(1200.f, 600.f);
+    skeleton.changePosition(200.0f, 500.0f);
+    slime.changePosition(1000.0f, 500.0f);
+    //soldier2.changePosition(250.f, 100.f);
     // ------------------------------- TILEMAP ----------------------------------
     // define the level with an array of tile indices
     
@@ -75,24 +80,23 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-        soldier.Update(deltaTime, player.getSprite().getPosition(), level);
-        enemyA.Update(deltaTime, player.getSprite().getPosition(), level);
-        slimey.Update(deltaTime, player.getSprite().getPosition(), level);
-        player.Update(deltaTime, enemyA, mousePosition, level); // update here
         soldier.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
-        player.update(deltaTime, soldier, mousePosition, state.CurrentLevel); // update here
+        skeleton.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
+        slime.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
+        //soldier2.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
+        player.update(deltaTime, soldier, skeleton, slime, mousePosition, state.CurrentLevel); 
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
         window.clear();
-        window.draw(map);
-        soldier.Draw(window);
-        player.Draw(window);
-        enemyA.Draw(window);
-        slimey.Draw(window);
+
         window.draw(state.Map);
-        soldier.drawSoldier(window);
+        soldier.draw(window);
+        skeleton.draw(window);
+        slime.draw(window);
+        //soldier2.draw(window);
         player.drawPlayer(window);
+
         window.display();
         //-------------------------------- DRAW --------------------------------
     }
