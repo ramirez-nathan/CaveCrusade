@@ -1,17 +1,23 @@
 #include "Math.hpp"
 #include "Player.hpp"
 
-// normalize vector function; divides x and y by the magnitude
 sf::Vector2f Math::normalizeVector(sf::Vector2f vector)
 {
-	float Magnitude = std::sqrt(vector.x * vector.x + vector.y * vector.y);
+    float Magnitude = std::sqrt(vector.x * vector.x + vector.y * vector.y);
 
-	sf::Vector2f NormalizedVector;
-
-	NormalizedVector.x = vector.x / Magnitude;
-	NormalizedVector.y = vector.y / Magnitude;
-
-	return NormalizedVector;
+    // Avoid division by zero
+    if (Magnitude != 0.0f)
+    {
+        sf::Vector2f NormalizedVector;
+        NormalizedVector.x = vector.x / Magnitude;
+        NormalizedVector.y = vector.y / Magnitude;
+        return NormalizedVector;
+    }
+    else
+    {
+        // Handle the case when the magnitude is zero (e.g., return a default vector)
+        return sf::Vector2f(0.0f, 0.0f);
+    }
 }
 
 // AABB Collision function
