@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Arrow.hpp"
 #include "Entity.hpp"
+#include "memory"
 
 using namespace std;
 
@@ -23,9 +24,9 @@ public:
 
 	void initialize() override;
 	void load() override; 
-	void update(const double deltaTime, Entity& soldier, Entity& skeleton, Entity& slime, sf::Vector2f& mousePosition, int level[]); 
+	void playerUpdate(const double deltaTime, vector<unique_ptr<Entity>>& enemies, sf::Vector2f& mousePosition, int level[]);
 	void drawPlayer(sf::RenderWindow& window);
 	virtual void attackMove() override;
-	void handleArrow(const double deltaTime, Entity& soldier, Entity& skeleton, Entity& slime, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls);
+	void handleArrow(const double deltaTime, vector<unique_ptr<Entity>>& enemies, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls);
 	void handleMovement(const double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls);
 };
