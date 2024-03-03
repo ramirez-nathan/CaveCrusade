@@ -5,6 +5,7 @@
 #include "Math.hpp"
 #include <vector>
 #include <ostream>
+#include <memory>
 
 using namespace std;
 
@@ -43,8 +44,9 @@ public:
     virtual void load();
     virtual void initialize();
     virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls);
-    virtual void update(double deltaTime, const sf::Vector2f& target, int level[]);
+    virtual void update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[]);
     virtual void draw(sf::RenderWindow& window);
+    virtual bool isDead(const unique_ptr<Entity>& entity);
 
     
 
