@@ -6,7 +6,7 @@
 //todo: tile collision
 
 
-sf::Vector2f Math::NormalizeVector(sf::Vector2f vector)
+sf::Vector2f Math::normalizeVector(sf::Vector2f vector)
 {
     float Magnitude = std::sqrt(vector.x * vector.x + vector.y * vector.y);
 
