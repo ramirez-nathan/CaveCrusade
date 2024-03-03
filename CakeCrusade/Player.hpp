@@ -9,12 +9,10 @@ using namespace std;
 class Player : public Entity
 {
 private:
-	vector<Arrow> arrows;
+	vector<Arrow> Arrows;
 
-	float maxFireRate;
-	double fireRateTimer;
-
-	float playerSpeed;
+	float MaxFireRate;
+	double FireRateTimer;
 
 	int SpriteX = 0;
 	int SpriteY = 0;
@@ -22,10 +20,12 @@ private:
 public:
 	Player(float h, float dmg, float def, float spd);
 	~Player();
-	
-	void Initialize();
-	void Load();
-	void Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]); 
-	void Draw(sf::RenderWindow& window);
+
+	void initialize() override;
+	void load() override; 
+	void update(const double deltaTime, Entity& soldier, Entity& skeleton, Entity& slime, sf::Vector2f& mousePosition, int level[]); 
+	void drawPlayer(sf::RenderWindow& window);
 	virtual void attackMove() override;
+	void handleArrow(const double deltaTime, Entity& soldier, Entity& skeleton, Entity& slime, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls);
+	void handleMovement(const double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls);
 };

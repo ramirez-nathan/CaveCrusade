@@ -5,7 +5,7 @@
 #include <algorithm>    // std::find
 
 Player::Player(float h, float dmg, float def, float spd) 
-   : Entity(h, def, dmg, spd), playerSpeed(2.0f), maxFireRate(300), fireRateTimer(0)
+   : Entity(h, def, dmg, spd), MaxFireRate(300), FireRateTimer(0)
 {
 }
 
@@ -13,165 +13,178 @@ Player::~Player()
 {
 }
 
-void Player::Initialize()
+void Player::initialize()
 {
-    boundingRectangle.setFillColor(sf::Color::Transparent);
-    boundingRectangle.setOutlineColor(sf::Color::Red);
-    boundingRectangle.setOutlineThickness(1);
+    BoundingRectangle.setFillColor(sf::Color::Transparent);
+    BoundingRectangle.setOutlineColor(sf::Color::Red);
+    BoundingRectangle.setOutlineThickness(1);
 
-    size = sf::Vector2i(32, 32);
+    Size = sf::Vector2i(32, 32);
 }
 
-void Player::Load() 
+void Player::load()
 {
-    // check if texture loaded correctly
-    if (!texture.loadFromFile("assets/player/textures/player_idle.png"))
-    {
-        std::cerr << "Player texture failed to load!" << std::endl;
-    }
-    // set texture
-    sprite.setTexture(texture);
+    loadTexture("assets/player/textures/player_idle.png");
     // grab the idle texture image from spritesheet
-    sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+    Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
     // set spawn position
-    sprite.setPosition(sf::Vector2f(600, 300));
+    Sprite.setPosition(sf::Vector2f(600, 300));
     // set origin at middle of sprite
-    sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f + 12);
+    Sprite.setOrigin(Sprite.getLocalBounds().width / 2.f, Sprite.getLocalBounds().height / 2.f + 12);
     // change sprite scale
-    sprite.scale(sf::Vector2f(3, 3));
+    Sprite.scale(sf::Vector2f(3, 3));
     // wrap the hitbox around the player
-    boundingRectangle.setSize(sf::Vector2f(size.x * sprite.getScale().x, size.y * sprite.getScale().y));
+    BoundingRectangle.setSize(sf::Vector2f(Size.x * Sprite.getScale().x, Size.y * Sprite.getScale().y));
     // set hitbox origin to middle
-    boundingRectangle.setOrigin(boundingRectangle.getLocalBounds().width / 2.f, boundingRectangle.getLocalBounds().height / 2.f);
+    BoundingRectangle.setOrigin(BoundingRectangle.getLocalBounds().width / 2.f, BoundingRectangle.getLocalBounds().height / 2.f);
+}
+
+// Separate function for handling player movement
+void Player::handleMovement(const double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls) {
+    sf::Vector2f Position = Sprite.getPosition();
+    sf::Vector2f Future = Position + movement;
+
+    // Additional code for WASD movements
+    if (direction == 1) {
+        spriteX = 0;
+        spriteY = 1;
+    }
+    else if (direction == 0) {
+        spriteX = 0;
+        spriteY = 0;
+    }
+    else if (direction == 2) {
+        spriteX = 0;
+        spriteY = 2;
+    }
+    else if (direction == 3) {
+        spriteX = 0;
+        spriteY = 3;
+    }
+
+    Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
+
+    int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
+    if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
+        Sprite.setPosition(Position + movement);
+    }
 }
 
 // takes parameters - deltatime, any specified entity (by upcasting), mouseposition, and level
-void Player::Update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
+void Player::update(const double deltaTime, Entity& soldier, Entity& skeleton, Entity& slime, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
 {
-    vector<int> walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
-    // WASD MOVEMENT
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //(0,1)
+    if (Health > 0) 
     {
-        SpriteX = 0;
-        SpriteY = 1;
-        sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
-
-        sf::Vector2f position = sprite.getPosition();
-        sf::Vector2f movement(0, -1 * playerSpeed * static_cast<float>(deltaTime));
-
-        int playerX = floor(position.x / 64); // col
-        int playerY = floor(position.y / 64); // row
-
-        sf::Vector2f future = position + movement;
-
-        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
-        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
-            sprite.setPosition(position + movement);
-        }   
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //(0,0)
-    {
-        SpriteX = 0;
-        SpriteY = 0;
-        sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
-
-        sf::Vector2f position = sprite.getPosition();
-        sf::Vector2f movement(0, 1 * playerSpeed * static_cast<float>(deltaTime));
-
-        int playerX = floor(position.x / 64); // col
-        int playerY = floor(position.y / 64); // row
-
-        sf::Vector2f future = position + movement;
-
-        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
-        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
-            sprite.setPosition(position + movement);
-        }
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // (0,2)
-    {
-        SpriteX = 0;
-        SpriteY = 2;
-        sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
-
-        sf::Vector2f position = sprite.getPosition();
-        sf::Vector2f movement(-1 * playerSpeed * static_cast<float>(deltaTime), 0);
-
-        int playerX = floor(position.x / 64); // col
-        int playerY = floor(position.y / 64); // row
-
-        sf::Vector2f future = position + movement;
-
-        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);;
-        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
-            sprite.setPosition(position + movement);
-        }   
-        
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //(0,3)
-    {
-        SpriteX = 0;
-        SpriteY = 3;
-        sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
-
-        sf::Vector2f position = sprite.getPosition();
-        sf::Vector2f movement(1 * playerSpeed * static_cast<float>(deltaTime), 0);
-
-        int playerX = floor(position.x / 64); // col
-        int playerY = floor(position.y / 64); // row
-
-        sf::Vector2f future = position + movement;
-
-        int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);;
-        if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
-            sprite.setPosition(position + movement);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+            sf::Vector2f movement(0, -1 * EntitySpeed * static_cast<float>(deltaTime));
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, 1, level, Walls);
         }
 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            sf::Vector2f movement(0, 1 * EntitySpeed * static_cast<float>(deltaTime));
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, 0, level, Walls);
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            sf::Vector2f movement(-1 * EntitySpeed * static_cast<float>(deltaTime), 0);
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, 2, level, Walls);
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            sf::Vector2f movement(1 * EntitySpeed * static_cast<float>(deltaTime), 0);
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, 3, level, Walls);
+        }
+
+        //---------------------------------------------- ARROWS -------------------------------------------------
+        handleArrow(deltaTime, soldier, skeleton, slime, mousePosition, FireRateTimer, MaxFireRate, level, Walls);
+        //---------------------------------------------- ARROWS -------------------------------------------------
+        BoundingRectangle.setPosition(Sprite.getPosition());
+    }
+}
+
+void Player::handleArrow(const double deltaTime, Entity& soldier, Entity& skeleton, Entity& slime, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls) 
+{
+    FireRateTimer += deltaTime;
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && FireRateTimer >= MaxFireRate)
+    {
+        Arrows.push_back(Arrow());
+        int i = Arrows.size() - 1;
+        Arrows[i].initialize(Sprite.getPosition(), mousePosition, 0.5f);
+        FireRateTimer = 0;
     }
 
-    //---------------------------------------------- ARROWS -------------------------------------------------
-    fireRateTimer += deltaTime;
-
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && fireRateTimer >= maxFireRate)
+    for (size_t i = 0; i < Arrows.size(); i++)
     {
-        arrows.push_back(Arrow());
-        int i = arrows.size() - 1;
-        arrows[i].Initialize(sprite.getPosition(), mousePosition, 0.5f);
-        fireRateTimer = 0;
-    }
-
-    for (size_t i = 0; i < arrows.size(); i++)
-    {
-        arrows[i].Update(deltaTime);
-        if (enemy.getHealth() > 0)
+        if (Arrows[i].didArrowHitWall(deltaTime, walls, level))
         {
-            // implement this when collision is finished 
-            if (Math::DidRectCollide(arrows[i].GetGlobalBounds(), enemy.getSprite().getGlobalBounds()))
+            Arrows.erase(Arrows.begin() + i);
+        }
+        else {
+            Arrows[i].update(deltaTime);
+            if (soldier.getHealth() > 0 && Arrows.size() > 0)
             {
-                enemy.ChangeHealth(-15);
-                arrows.erase(arrows.begin() + i);
-                cout << "Soldier's health is: " << enemy.getHealth() << endl;
+                // implement this when collision is finished
+                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), soldier.getHitBox().getGlobalBounds()))
+                {
+                    if (soldier.getDefense() > 0) {
+                        soldier.changeDefense(-25);
+                    }
+                    else {
+                        soldier.changeHealth(-25);
+                    }
+                    Arrows.erase(Arrows.begin() + i);
+                    cout << "Soldier's health is: " << soldier.getHealth() << endl;
+                    continue;
+                }
+            }
+            if (skeleton.getHealth() > 0 && Arrows.size() > 0)
+            {
+                // implement this when collision is finished
+                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), skeleton.getHitBox().getGlobalBounds()))
+                {
+                    if (skeleton.getDefense() > 0) {
+                        skeleton.changeDefense(-25);
+                    }
+                    else {
+                        skeleton.changeHealth(-25);
+                    }
+                    Arrows.erase(Arrows.begin() + i);
+                    cout << "Skeleton's health is: " << skeleton.getHealth() << endl;
+                    continue;
+                }
+            }
+            if (slime.getHealth() > 0 && Arrows.size() > 0)
+            {
+                // implement this when collision is finished
+                if (Math::didRectCollide(Arrows[i].getArrowGlobalBounds(), slime.getHitBox().getGlobalBounds()))
+                {
+                    if (slime.getDefense() > 0) {
+                        slime.changeDefense(-25);
+                    }
+                    else {
+                        slime.changeHealth(-25);
+                    }
+                    Arrows.erase(Arrows.begin() + i);
+                    cout << "Slime's health is: " << slime.getHealth() << endl;
+                    continue;
+                }
             }
         }
     }
-
-    //---------------------------------------------- ARROWS -------------------------------------------------
-    boundingRectangle.setPosition(sprite.getPosition());
-
 }
 
-void Player::Draw(sf::RenderWindow& window)
+void Player::drawPlayer(sf::RenderWindow& window)
 {
-    window.draw(sprite);
-    window.draw(boundingRectangle);
-    // draw each arrow sprite in vector
-    for (size_t i = 0; i < arrows.size(); i++)
-        arrows[i].Draw(window);
+    if (Health > 0) {
+        window.draw(Sprite);
+        window.draw(BoundingRectangle);
+        // draw each arrow sprite in vector
+        for (size_t i = 0; i < Arrows.size(); i++)
+            Arrows[i].drawArrow(window);
+    }
 }
 
 void Player::attackMove() {
-    // Implement how the enemy attacks
+    cout << "Player attack works!" << endl;
 }

@@ -1,37 +1,10 @@
-// Entity.cpp
-#include "Entity.hpp"
+#include "Slime.hpp"
 #include <iostream>
 
-// Entity 
-Entity::Entity(float h, float dmg, float def, float spd)
-    : Health(h), Damage(dmg), Defense(def), EntitySpeed(spd)
-{
-}
+Slime::Slime(float h, float dmg, float def, float spd) 
+	: Entity(h, dmg, def, spd) {}
 
-
-void Entity::loadTexture(const std::string& texturePath) {
-    if (!Texture.loadFromFile(texturePath)) {
-        std::cerr << "Failed to load texture from " << texturePath << std::endl;
-    }
-    Sprite.setTexture(Texture);
-}
-
-void Entity::changePosition(float x, float y)
-{
-    Sprite.setPosition(sf::Vector2f(x, y));
-}
-
-void Entity::initialize()
-{
-    BoundingRectangle.setFillColor(sf::Color::Transparent);
-    BoundingRectangle.setOutlineColor(sf::Color::Red);
-    BoundingRectangle.setOutlineThickness(1);
-
-    Size = sf::Vector2i(32, 32);
-}
-
-void Entity::load()
-{
+void Slime::load() {
     SpriteX = 0;
     SpriteY = 0;
     // grab the idle texture image from spritesheet
@@ -41,14 +14,22 @@ void Entity::load()
     // set origin at middle of sprite
     Sprite.setOrigin(Sprite.getLocalBounds().width / 2.f, Sprite.getLocalBounds().height / 2.f);
     // change sprite scale
-    Sprite.scale(sf::Vector2f(3, 3));
+    Sprite.scale(sf::Vector2f(4, 4));
     // wrap the hitbox around the soldier
     BoundingRectangle.setSize(sf::Vector2f(Size.x * Sprite.getScale().x, Size.y * Sprite.getScale().y));
     // set hitbox origin to middle
     BoundingRectangle.setOrigin(BoundingRectangle.getLocalBounds().width / 2.f, BoundingRectangle.getLocalBounds().height / 2.f);
 }
 
-void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls)
+void Slime::initialize() {
+    BoundingRectangle.setFillColor(sf::Color::Transparent);
+    BoundingRectangle.setOutlineColor(sf::Color::Red);
+    BoundingRectangle.setOutlineThickness(1);
+
+    Size = sf::Vector2i(32, 16);
+}
+
+void Slime::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls)
 {
     sf::Vector2f Position = Sprite.getPosition();
     sf::Vector2f Movement(Direction * EntitySpeed * static_cast<float>(deltaTime));
@@ -56,23 +37,23 @@ void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spri
 
     // Additional code for WASD movements
     if ((direction.x == 0.f && direction.y > 0.f) || (direction.x != 0.f && direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
-        spriteX = 0;
+        spriteX = 1;
         spriteY = 0;
 
     }
     else if ((direction.x > 0.f && direction.y == 0.f) || (direction.x > 0.f && (-0.50f <= direction.y && direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
-        spriteX = 0;
-        spriteY = 3;
+        spriteX = 2;
+        spriteY = 0;
 
     }
     else if ((direction.x < 0.f && direction.y == 0.f) || (direction.x < 0.f && (-0.5f <= direction.y && direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
         spriteX = 0;
-        spriteY = 2;
+        spriteY = 0;
 
     }
     else if ((direction.x == 0.f && direction.y < 0.f) || (direction.x != 0.f && direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
-        spriteX = 0;
-        spriteY = 1;
+        spriteX = 3;
+        spriteY = 0;
 
     }
 
@@ -84,28 +65,6 @@ void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spri
     }
 }
 
-// takes parameters : delta time, player position, level
-void Entity::update(double deltaTime, const sf::Vector2f& target, int level[])
-{
-    if (Health > 0)
-    {
-        Direction = Math::normalizeVector(target - Sprite.getPosition());
-        handleMovement(deltaTime, Direction, SpriteX, SpriteY, level, Walls);
-
-        BoundingRectangle.setPosition(Sprite.getPosition());
-    }
+void Slime::attackMove() {
+    cout << "Slime attack works!" << endl;
 }
-
-void Entity::draw(sf::RenderWindow& window)
-{
-    if (Health > 0)
-    {
-        window.draw(Sprite);
-        window.draw(BoundingRectangle);
-    }
-}
-
-
-/*void Entity::draw(sf::RenderWindow& window) const {
-    window.draw(sprite);
-}*/

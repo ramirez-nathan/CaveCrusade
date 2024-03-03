@@ -27,7 +27,7 @@ sf::Vector2f Math::NormalizeVector(sf::Vector2f vector)
 
 
 // AABB Collision function
-bool Math::DidRectCollide(sf::FloatRect rect1, sf::FloatRect rect2)
+bool Math::didRectCollide(sf::FloatRect rect1, sf::FloatRect rect2)
 {
 	if (rect1.left + rect1.width > rect2.left &&
 		rect2.left + rect1.width > rect1.left &&
@@ -37,5 +37,3 @@ bool Math::DidRectCollide(sf::FloatRect rect1, sf::FloatRect rect2)
 
 	return false;
 }
-
-

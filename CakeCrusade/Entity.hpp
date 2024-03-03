@@ -11,22 +11,24 @@ using namespace std;
 class Entity {
 protected:
     // Every entity should have health, damage, defense, speed, a sprite, texture, and a hitbox
-    float health;
-    float damage;
-    float defense;
-    float entitySpeed;
-    sf::Sprite sprite;
-    sf::Texture texture;
+    float Health;
+    float Damage;
+    float Defense;
+    float EntitySpeed;
+    sf::Sprite Sprite;
+    sf::Texture Texture;
 
     // size vector, width and height, gets set in initialize function
-    sf::Vector2i size;
+    sf::Vector2i Size;
 
-    sf::Vector2f direction;
+    sf::Vector2f Direction;
 
-    sf::RectangleShape boundingRectangle;
     int SpriteX = 0;
     int SpriteY = 0;
     
+    sf::RectangleShape BoundingRectangle;
+    vector<int> Walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
+
     
 
 public:
@@ -34,42 +36,43 @@ public:
     Entity(float h, float dmg, float def, float spd);
     // Our destructor
     virtual ~Entity() = default;
-    // Sets up the hitboxes for our entities
-    virtual void Initialize();
-    // void Load();
-    // Loads in the sprite to be displayed
-    virtual void Load();
-    virtual void Update(double deltaTime, const sf::Vector2f& target, int level[]);
-    virtual void Draw(sf::RenderWindow& window);
-
   
 
+    // void Load();
+    // Loads in the sprite to be displayed
+    virtual void load();
+    virtual void initialize();
+    virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls);
+    virtual void update(double deltaTime, const sf::Vector2f& target, int level[]);
+    virtual void draw(sf::RenderWindow& window);
+
+    
+
     // Getters
-    float getHealth() const { return health; }
-    float getDamage() const { return damage; }
-    float getDefense() const { return defense; }
-    int getSizeX() const { return size.x; } 
-    int getSizeY() const { return size.y; } 
-    sf::Sprite& getSprite() { return sprite; }
+    float getHealth() const { return Health; }
+    float getDamage() const { return Damage; }
+    float getDefense() const { return Defense; }
+    int getSizeX() const { return Size.x; }
+    int getSizeY() const { return Size.y; }
+    sf::Sprite& getSprite() { return Sprite; }
+    sf::RectangleShape& getHitBox() { return BoundingRectangle; }
 
 
     // Setters
-    void ChangeHealth(float hp) { health += hp; } 
-    void setHealth(float& h) { this->health = h; }
-    void setDamage(float& dmg) { this->damage = dmg; }
-    void setDefense(float& def) { this->defense = def; }
+    void changeHealth(float hp) { Health += hp; }
+    void changeDefense(float def) { Defense += def; }
+    void setHealth(float& h) { this->Health = h; }
+    void setDamage(float& dmg) { this->Damage = dmg; }
+    void setDefense(float& def) { this->Defense = def; }
 
-    //void setSize(sf::Vector2i newSize) { size = newSize; } // dont think I need this
 
     //TODO: Virtual Function for Load()
 
     // Functions
     virtual void attackMove() = 0;
-    bool loadTexture(const std::string& texturePath);
+
     void changePosition(float x, float y);
-
-
-    // Draw the entity to the render window
-    //void draw(sf::RenderWindow& window) const;
+    void loadTexture(const std::string& texturePath);
+    //virtual void draw(sf::RenderWindow& window) = 0;
 
 };
