@@ -5,12 +5,11 @@ Slime::Slime(float h, float dmg, float def, float spd)
 	: Entity(h, dmg, def, spd) {}
 
 void Slime::load() {
+    loadTexture("assets/enemies/Slime/slime_idle.png");
     SpriteX = 0;
     SpriteY = 0;
     // grab the idle texture image from spritesheet
     Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
-    // set spawn position
-    Sprite.setPosition(sf::Vector2f(500, 200));
     // set origin at middle of sprite
     Sprite.setOrigin(Sprite.getLocalBounds().width / 2.f, Sprite.getLocalBounds().height / 2.f);
     // change sprite scale
@@ -18,7 +17,7 @@ void Slime::load() {
     // wrap the hitbox around the soldier
     BoundingRectangle.setSize(sf::Vector2f(Size.x * Sprite.getScale().x, Size.y * Sprite.getScale().y));
     // set hitbox origin to middle
-    BoundingRectangle.setOrigin(BoundingRectangle.getLocalBounds().width / 2.f, BoundingRectangle.getLocalBounds().height / 2.f);
+    BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f);
 }
 
 void Slime::initialize() {
