@@ -1,27 +1,46 @@
 //psudo-ish code for enemy class
 #include "Enemy.hpp"
 
-Enemy::Enemy(float h, float dmg, float def, float spd) : Entity(h, dmg, def, spd) {
+Enemy::Enemy(float h, float dmg, float def) : Entity(h, dmg, def) {
     // Constructor implementation can initialize any additional members here
-    : Health(h), Damage(dmg), Defense(def) {}
+    //:Health(h), Damage(dmg), Defense(def) {}
 }
 
-void Enemy::attackMove(player) {
-    // Implement how the enemy attacks
-    player.getPosition();
-    enemyPosition = getPosition();
-    playerPosition - enemyPosition;
+void Enemy::attackMove() {
+    //Implement how the enemy attacks
 
+    //if (distance between the two is 0) {
+        //player.ChangeHealth();
+        //player.setDamage();
+        //player.setDefense();
+    //}
+}
+
+bool Enemy::canAttack(const sf::Vector2f& playerPosition, float attackRange) const
+{
+    // Get the enemy's current position from its sprite
+    sf::Vector2f enemyPosition = sprite.getPosition();
+
+    //Calculate the distance between the enemy and the player
+    float dx = playerPosition.x - enemyPosition.x;
+    float dy = playerPosition.y - enemyPosition.y;
+    float distance = std::sqrt(dx * dx + dy * dy);
+
+    //Check if the distance is within the specified attack range
+    return distance <= attackRange;
 }
 
 void Enemy::getKnockedBack() {
-    // Implement the logic for getting knocked back
-    sf::Vector2f currentPosition = sprite.getPosition();
-    knockbackDirection =
-        sf::Vector2f newPosition = sf::Vector2f(currentPosition.x + knockbackDirection, currentPosition.y)
+   //Implement the logic for getting knocked back
+   if (canAttack() == true) {
+        sf::Vector2f currentPosition = sprite.getPosition();
+        sf::Vector2f knockbackDirection = sprite.currentPosition() - sprite.playerPosition();
+        sf::Vector2f newPosition = sf::Vector2f(currentPosition - knockbackDirection);
         sprite.setPosition(newPosition);
+   }
 }
 
 void Enemy::target() {
     // Implement the logic for targeting
+
 }
