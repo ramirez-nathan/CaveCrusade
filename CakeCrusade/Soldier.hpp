@@ -12,5 +12,7 @@ public:
 	Soldier(float h, float dmg, float def, float spd);
 	~Soldier() = default;
 	virtual void attackMove() override;
+	virtual void load() override;
+
 
 };

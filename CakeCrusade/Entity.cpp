@@ -36,8 +36,6 @@ void Entity::load()
     SpriteY = 0;
     // grab the idle texture image from spritesheet
     Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
-    // set spawn position
-    Sprite.setPosition(sf::Vector2f(500, 200));
     // set origin at middle of sprite
     Sprite.setOrigin(Sprite.getLocalBounds().width / 2.f, Sprite.getLocalBounds().height / 2.f);
     // change sprite scale
@@ -45,7 +43,7 @@ void Entity::load()
     // wrap the hitbox around the soldier
     BoundingRectangle.setSize(sf::Vector2f(Size.x * Sprite.getScale().x, Size.y * Sprite.getScale().y));
     // set hitbox origin to middle
-    BoundingRectangle.setOrigin(BoundingRectangle.getLocalBounds().width / 2.f, BoundingRectangle.getLocalBounds().height / 2.f);
+    BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f);
 }
 
 void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls)
@@ -84,8 +82,8 @@ void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spri
     }
 }
 
-// takes parameters : delta time, player position, level
-void Entity::update(double deltaTime, const sf::Vector2f& target, int level[])
+// takes parameters : delta time, player, player position, level
+void Entity::update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[])
 {
     if (Health > 0)
     {
@@ -94,6 +92,15 @@ void Entity::update(double deltaTime, const sf::Vector2f& target, int level[])
 
         BoundingRectangle.setPosition(Sprite.getPosition());
     }
+}
+
+bool Entity::isDead(const unique_ptr<Entity>& entity)
+{
+    if (!entity->getHealth() > 0)
+    {
+        return true;
+    }
+    return false;
 }
 
 void Entity::draw(sf::RenderWindow& window)

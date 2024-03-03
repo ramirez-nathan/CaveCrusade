@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+#include <memory>
 
 #include "TileMap.hpp"
 #include "Player.hpp"
@@ -20,32 +21,46 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1408, 704), "Cake Crusade", sf::Style::Default, settings);
     window.setFramerateLimit(360);
 
+   
+
     Player player(200.f, 50.f, 50.f, 0.4f);
-    Soldier soldier(200.f, 50.f, 50.f, 0.15f);
-    Skeleton skeleton(150.f, 20.f, 20.f, 0.075f);
-    Slime slime(300.f, 10.f, 5.f, 0.035f);
-    //Enemy soldier2(300.f, 50.f, 50.f, 0.15f);
+    vector<unique_ptr<Entity>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
+    try {
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f));
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f)); // give diff speeds to avoid complete overlapping
+        enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
+        enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
+        enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); 
+        enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); 
+    }
+    catch (const bad_alloc& e) {
+        std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+        return 1; 
+    }
     //-------------------------------- INITIALIZE --------------------------------
     player.initialize();
-    soldier.initialize();
-    skeleton.initialize();
-    slime.initialize();
-    //soldier2.initialize();
+    player.load();
+    for (auto& enemy : enemies) {
+        enemy->initialize();
+        enemy->load();
+    }
 
     // ------------------------------------------ LOAD ---------------------------------
-    player.load();
-    soldier.loadTexture("assets/enemies/evil_soldier/textures/evil_soldier_idle.png");
-    soldier.load();
-    skeleton.loadTexture("assets/enemies/skelly/idle/skull_idle.png");
-    skeleton.load();
-    slime.loadTexture("assets/enemies/Slime/slime_idle.png");
-    slime.load();
-    //soldier2.loadTexture("assets/enemies/evil_soldier/textures/evil_soldier_idle.png");
-    //soldier2.load();
-    soldier.changePosition(1200.f, 600.f);
-    skeleton.changePosition(200.0f, 500.0f);
-    slime.changePosition(1000.0f, 500.0f);
-    //soldier2.changePosition(250.f, 100.f);
+
+    // Set positions for each entity in the vector
+    vector<sf::Vector2f> enemyPositions = {
+        sf::Vector2f(1200.f, 600.f), // Soldier1 position
+        sf::Vector2f(1300.f, 100.f), // Soldier2 position
+        sf::Vector2f(1100.f,351.f), // Skeleton1 position
+        sf::Vector2f(200.0f, 500.0f), // Skeleton2 position
+        sf::Vector2f(100.0f, 100.f), // Slime1 position
+        sf::Vector2f(1000.0f, 500.0f) // Slime2 position
+    };
+
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        enemies[i]->changePosition(enemyPositions[i].x, enemyPositions[i].y);
+    }
+
     // ------------------------------- TILEMAP ----------------------------------
     // define the level with an array of tile indices
     
@@ -56,8 +71,8 @@ int main()
 
     // ---------------------------- TESTING -----------------------------
 
-    cout << "Player's size vector is: " << player.getSizeX() << ", " << player.getSizeY() << endl;
-    cout << "Soldier's size vector is: " << soldier.getSizeX() << ", " << soldier.getSizeY() << endl;
+    /*cout << "Player's size vector is: " << player.getSizeX() << ", " << player.getSizeY() << endl;
+    cout << "Soldier's size vector is: " << soldier.getSizeX() << ", " << soldier.getSizeY() << endl;*/
     player.attackMove();
 
     // ---------------------------- TESTING -----------------------------
@@ -80,23 +95,31 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-        soldier.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
-        skeleton.update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
-        slime.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
-        //soldier2.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
-        player.update(deltaTime, soldier, skeleton, slime, mousePosition, state.CurrentLevel); 
+        for (auto& enemy : enemies) {
+            enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
+        }
+
+        player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel); 
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
         window.clear();
 
         window.draw(state.Map);
-        soldier.draw(window);
-        skeleton.draw(window);
-        slime.draw(window);
-        //soldier2.draw(window);
+        for (const auto& enemy : enemies) {
+            enemy->draw(window);
+        }
         player.drawPlayer(window);
 
+        enemies.erase( // Some genie code for erasing enemies from the vector
+            std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
+                enemies.begin(),
+                enemies.end(),
+                [&](const auto& enemy) { return enemy->isDead(enemy); }
+            ),
+            enemies.end() // the 2nd parameter; tells where to end the erasing
+        );
+        
         if (player.getHealth() <= 0) {
             break;
         }
