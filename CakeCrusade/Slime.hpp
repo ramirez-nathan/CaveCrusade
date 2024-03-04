@@ -3,6 +3,8 @@
 #include <iostream>
 #include "Entity.hpp"
 #include "Math.hpp"
+#include "Enemy.hpp"
+
 
 using namespace std;
 
