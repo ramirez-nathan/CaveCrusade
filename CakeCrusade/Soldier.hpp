@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Soldier : public Entity
+class Soldier : public Enemy
 {
 public:
 	Soldier(float h, float dmg, float def, float spd);
