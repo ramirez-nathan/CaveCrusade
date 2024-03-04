@@ -1,8 +1,8 @@
 #include "Soldier.hpp"
 #include <iostream>
 
-Soldier::Soldier(float h, float dmg, float def, float spd) 
-	: Enemy(h, dmg, def, spd)
+Soldier::Soldier(float h, float dmg, float def, float spd, float rng)
+	: Enemy(h, dmg, def, spd), meleeRange(rng)
 {
 }
 

@@ -13,7 +13,7 @@ private:
 	float meleeRange;
 
 public:
-	Soldier(float h, float dmg, float def, float spd);
+	Soldier(float h, float dmg, float def, float spd, float rng);
 	~Soldier() = default;
 	virtual void attackMove(const double deltaTime, Entity& player) override;
 	virtual void load() override;
