@@ -79,7 +79,7 @@ void Player::handleMovement(double deltaTime, sf::Vector2f& movement, int& sprit
 // takes parameters - deltatime, any specified entity (by upcasting), mouseposition, and level
 void Player::update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
 {
-    vector<int> Walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34 };
+    vector<int> Walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 28, 29, 30, 31, 32, 33, 34 };
     // WASD MOVEMENT
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
@@ -150,4 +150,17 @@ void Player::drawPlayer(sf::RenderWindow& window)
 
 void Player::attackMove() {
     // Implement how the enemy attacks
+}
+
+bool Player::isTouchingDoor(int level[])
+{
+    sf::Vector2f position = Sprite.getPosition();
+    
+    int currPos = floor(position.y / 64) * 22 + floor(position.x / 64);
+
+    if (level[currPos] == 25 || level[currPos] == 26 || level[currPos] == 27) {
+        return true;
+    }
+
+    return false;
 }

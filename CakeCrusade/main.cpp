@@ -66,6 +66,15 @@ int main()
 
         soldier.update(deltaTime, player.getSprite().getPosition(), state.CurrentLevel);
         player.update(deltaTime, soldier, mousePosition, state.CurrentLevel); // update here
+        player.isTouchingDoor(state.CurrentLevel);
+
+        
+        if (player.isTouchingDoor(state.CurrentLevel)) {
+            state.changeLevel("1b");
+            state.loadLevel();
+        }
+        
+
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------

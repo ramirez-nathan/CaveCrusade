@@ -29,4 +29,5 @@ public:
 	void drawPlayer(sf::RenderWindow& window);
 	virtual void attackMove() override;
 	void handleMovement(double deltaTime, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls);
+	bool isTouchingDoor(int level[]);
 };
