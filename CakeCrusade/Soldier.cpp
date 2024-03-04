@@ -12,3 +12,8 @@ void Soldier::load()
 	Entity::load();
 }
 
+void Soldier::attackMove(const double deltaTime, Entity& player) 
+{
+
+}
+

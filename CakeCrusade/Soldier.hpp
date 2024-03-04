@@ -12,7 +12,7 @@ class Soldier : public Enemy
 public:
 	Soldier(float h, float dmg, float def, float spd);
 	~Soldier() = default;
-	//virtual void attackMove(const double deltaTime, Entity& player) override;
+	virtual void attackMove(const double deltaTime, Entity& player) override;
 	virtual void load() override;
 
 
