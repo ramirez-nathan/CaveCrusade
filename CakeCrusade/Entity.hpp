@@ -52,5 +52,4 @@ public:
 
     // Draw the entity to the render window
     //void draw(sf::RenderWindow& window) const;
-
 };

@@ -32,9 +32,11 @@ bool Enemy::canAttack(const sf::Vector2f& playerPosition, float attackRange) con
 
 void Enemy::getKnockedBack() {
    //Implement the logic for getting knocked back
-   if (canAttack() == true) {
+   if (canAttack(sprite.getPosition(), 3) == true) {
+        
         sf::Vector2f currentPosition = sprite.getPosition();
-        sf::Vector2f knockbackDirection = sprite.currentPosition() - sprite.playerPosition();
+        sf::Vector2f knockbackDirection = currentPosition;
+            //sprite.playerPosition();
         sf::Vector2f newPosition = sf::Vector2f(currentPosition - knockbackDirection);
         sprite.setPosition(newPosition);
    }
