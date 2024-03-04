@@ -48,3 +48,8 @@ void Enemy::getKnockedBack() {
     
 }
 
+void Enemy::isAttacked()
+{
+
+}
+

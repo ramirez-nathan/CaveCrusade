@@ -13,6 +13,7 @@ public:
 	bool canAttack(const sf::Vector2f& playerPosition, float attackRange) const;
 	void attackAnimation();
 	void getKnockedBack();
+	void isAttacked();
 	virtual bool isDead(const unique_ptr<Enemy>& entity);
 	virtual ~Enemy() = default;
 };
