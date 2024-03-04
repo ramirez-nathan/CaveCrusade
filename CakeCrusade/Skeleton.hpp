@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Skeleton : public Entity
+class Skeleton : public Enemy
 {
 private:
 	vector<Arrow> Arrows;
