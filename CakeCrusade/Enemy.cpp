@@ -10,6 +10,7 @@ void Enemy::attackMove(const double deltaTime, Entity& player)
     if (canAttack(player.getSprite().getPosition(), 75) && AttackTimer >= MaxAttackRate) {
         player.changeHealth(-20);
         cout << "You've been hit!" << endl;
+        cout << "Player's health is now " << player.getHealth() << endl;
         AttackTimer = 0;
     }
 }

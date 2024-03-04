@@ -86,6 +86,7 @@ void Skeleton::handleArrow(const double deltaTime, Entity& player, const sf::Vec
 
                 // erase the arrow from the vector
                 Arrows.erase(Arrows.begin() + (i - 1));
+                cout << "You've been hit by an arrow!" << endl;
                 cout << "Player's health is: " << player.getHealth() << endl;
             }
         }
