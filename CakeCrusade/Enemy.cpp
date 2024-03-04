@@ -4,9 +4,14 @@ Enemy::Enemy(float h, float dmg, float def, float spd) : Entity(h, dmg, def, spd
     // Constructor implementation can initialize any additional members here
 }
 
-void Enemy::attackMove() {
-    // Implement how the enemy attacks
-
+void Enemy::attackMove(const double deltaTime, Entity& player) 
+{
+    AttackTimer += deltaTime;
+    if (canAttack(player.getSprite().getPosition(), 75) && AttackTimer >= MaxAttackRate) {
+        player.changeHealth(-20);
+        cout << "You've been hit!" << endl;
+        AttackTimer = 0;
+    }
 }
 
 bool Enemy::canAttack(const sf::Vector2f& playerPosition, float attackRange) const
@@ -25,16 +30,21 @@ bool Enemy::canAttack(const sf::Vector2f& playerPosition, float attackRange) con
 
 void Enemy::attackAnimation()
 {
-    
+    cout << "Animation works!" << endl;
+}
+
+bool Enemy::isDead(const unique_ptr<Enemy>& entity)
+{
+    if (!entity->getHealth() > 0)
+    {
+        return true;
+    }
+    return false;
 }
 
 
 void Enemy::getKnockedBack() {
     // Implement the logic for getting knocked back
     
-}
-
-void Enemy::target() {
-    // Implement the logic for targeting
 }
 

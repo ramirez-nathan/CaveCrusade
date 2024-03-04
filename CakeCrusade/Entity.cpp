@@ -94,15 +94,6 @@ void Entity::update(double deltaTime, Entity& player, const sf::Vector2f& target
     }
 }
 
-bool Entity::isDead(const unique_ptr<Entity>& entity)
-{
-    if (!entity->getHealth() > 0)
-    {
-        return true;
-    }
-    return false;
-}
-
 void Entity::draw(sf::RenderWindow& window)
 {
     if (Health > 0)

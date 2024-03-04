@@ -4,12 +4,15 @@
 #include "Entity.hpp"
 
 class Enemy : public Entity {
+private:
+	const float MaxAttackRate = 1000.f;
+	float AttackTimer = 0.0f;
 public:
 	Enemy(float h, float dmg, float def, float spd);
-	virtual void attackMove() override;
+	virtual void attackMove(const double deltaTime, Entity& player) override;
 	bool canAttack(const sf::Vector2f& playerPosition, float attackRange) const;
 	void attackAnimation();
 	void getKnockedBack();
-	void target();
+	virtual bool isDead(const unique_ptr<Enemy>& entity);
 	virtual ~Enemy() = default;
 };
