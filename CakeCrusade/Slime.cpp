@@ -64,6 +64,6 @@ void Slime::handleMovement(double deltaTime, sf::Vector2f& direction, int& sprit
     }
 }
 
-void Slime::attackMove() {
+/*void Slime::attackMove() {
     cout << "Slime attack works!" << endl;
-}
+}*/

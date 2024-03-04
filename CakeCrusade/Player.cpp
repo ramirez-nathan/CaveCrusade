@@ -71,7 +71,7 @@ void Player::handleMovement(const double deltaTime, sf::Vector2f& movement, int&
 }
 
 // takes parameters - deltatime, any specified entity (by upcasting), mouseposition, and level
-void Player::playerUpdate(const double deltaTime, vector<unique_ptr<Entity>>& enemies, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
+void Player::playerUpdate(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
 {
     if (Health > 0) 
     {
@@ -102,7 +102,7 @@ void Player::playerUpdate(const double deltaTime, vector<unique_ptr<Entity>>& en
     }
 }
 
-void Player::handleArrow(const double deltaTime, vector<unique_ptr<Entity>>& enemies, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls)
+void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls)
 {
     FireRateTimer += deltaTime;
 
@@ -160,6 +160,6 @@ void Player::drawPlayer(sf::RenderWindow& window)
     }
 }
 
-void Player::attackMove() {
-    cout << "Player attack works!" << endl;
+void Player::attackMove(const double deltaTime, Entity& enemy) {
+    cout << "HAZZAAHH" << endl;
 }

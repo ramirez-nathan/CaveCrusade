@@ -12,6 +12,3 @@ void Soldier::load()
 	Entity::load();
 }
 
-void Soldier::attackMove() {
-    // Implement how the enemy attacks
-}

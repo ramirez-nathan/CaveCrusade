@@ -46,9 +46,7 @@ public:
     virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls);
     virtual void update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[]);
     virtual void draw(sf::RenderWindow& window);
-    virtual bool isDead(const unique_ptr<Entity>& entity);
 
-    
 
     // Getters
     float getHealth() const { return Health; }
@@ -69,10 +67,8 @@ public:
 
 
     //TODO: Virtual Function for Load()
-
+    virtual void attackMove(const double deltaTime, Entity&) = 0;
     // Functions
-    virtual void attackMove() = 0;
-
     void changePosition(float x, float y);
     void loadTexture(const std::string& texturePath);
     //virtual void draw(sf::RenderWindow& window) = 0;

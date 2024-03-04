@@ -1,7 +1,7 @@
 #include "Skeleton.hpp"
 
 Skeleton::Skeleton(float h, float dmg, float def, float spd)
-	: Enemy(h, dmg, def, spd), MaxFireRate(1100), FireRateTimer(0) {}
+	: Enemy(h, dmg, def, spd), MaxFireRate(1100.f), FireRateTimer(0) {}
 
 void Skeleton::load()
 {
@@ -101,8 +101,4 @@ void Skeleton::draw(sf::RenderWindow& window) {
         for (size_t i = 0; i < Arrows.size(); i++)
             Arrows[i].drawArrow(window);
     }
-}
-
-void Skeleton::attackMove() {
-    cout << "Skeleton attack works!" << endl;
 }
