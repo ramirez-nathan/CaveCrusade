@@ -23,7 +23,8 @@ protected:
     sf::Vector2i Size;
 
     sf::Vector2f Direction;
-
+    
+    float frameAnimationPause = 250.f; // quarter of a second
     int SpriteX = 0;
     int SpriteY = 0;
     

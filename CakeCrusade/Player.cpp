@@ -163,3 +163,39 @@ void Player::drawPlayer(sf::RenderWindow& window)
 void Player::attackMove(const double deltaTime, Entity& enemy) {
     cout << "HAZZAAHH" << endl;
 }
+
+void Player::arrowShootAnimation(const double deltaTime, const string& texturePath, sf::Vector2f& direction) {
+    timer += deltaTime;
+    loadTexture(texturePath);
+    if (timer >= frameAnimationPause)
+    {
+        // Reset the timer
+        timer -= frameAnimationPause;
+        // Additional code for WASD movements
+        if ((direction.x == 0.f && direction.y > 0.f) || (direction.x != 0.f && direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
+            ArrowSpriteX = 0;
+            ArrowSpriteY = 0;
+
+        }
+        else if ((direction.x > 0.f && direction.y == 0.f) || (direction.x > 0.f && (-0.50f <= direction.y && direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
+            ArrowSpriteX = 0;
+            ArrowSpriteY = 2; // CHANGE WHEN FIXED
+
+        }
+        else if ((direction.x < 0.f && direction.y == 0.f) || (direction.x < 0.f && (-0.5f <= direction.y && direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
+            ArrowSpriteX = 0;
+            ArrowSpriteY = 2;
+
+        }
+        else if ((direction.x == 0.f && direction.y < 0.f) || (direction.x != 0.f && direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
+            ArrowSpriteX = 0;
+            ArrowSpriteY = 1;
+
+        }
+        Sprite.setTextureRect(sf::IntRect(ArrowSpriteX * getSizeX(), ArrowSpriteY * getSizeY(), getSizeX(), getSizeY()));
+        ArrowSpriteX++;
+    }
+    if (ArrowSpriteX > 1) {
+        ArrowSpriteX = 0;
+    }
+}
