@@ -45,16 +45,18 @@ bool Enemy::isDead(const unique_ptr<Enemy>& entity)
 
 void Enemy::getKnockedBack() {
     // Implement the logic for getting knocked back
+    if (isAttacked()) {
+        cout << "attacked" << endl;
+        // implement position change
+
+    }
     
 }
 
-void Enemy::isAttacked()
-{
-    
-}
 
-bool Enemy::healthDecreased(const Enemy& enemy) const
+
+bool Enemy::isAttacked() const
 {
-    return enemy.getHealth() < Health;
+    return this->getHealth() < this->MaxHealth;
 }
 
