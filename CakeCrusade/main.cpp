@@ -24,7 +24,7 @@ int main()
    
 
     Player player(200.f, 50.f, 50.f, 0.4f);
-    vector<unique_ptr<Entity>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
+    vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
     try {
         enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f));
         enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f)); // give diff speeds to avoid complete overlapping
@@ -73,8 +73,7 @@ int main()
 
     /*cout << "Player's size vector is: " << player.getSizeX() << ", " << player.getSizeY() << endl;
     cout << "Soldier's size vector is: " << soldier.getSizeX() << ", " << soldier.getSizeY() << endl;*/
-    player.attackMove();
-
+    
     // ---------------------------- TESTING -----------------------------
 
     // ------------------------------------------ LOAD ---------------------------------
@@ -97,6 +96,7 @@ int main()
 
         for (auto& enemy : enemies) {
             enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
+            enemy->attackMove(deltaTime, player);
         }
 
         player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel); 
