@@ -3,10 +3,11 @@
 #include <iostream>
 #include "Arrow.hpp"
 #include "Entity.hpp"
+#include "Enemy.hpp"
 
 using namespace std;
 
-class Skeleton : public Entity
+class Skeleton : public Enemy
 {
 private:
 	vector<Arrow> Arrows;

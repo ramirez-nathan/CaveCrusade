@@ -1,6 +1,11 @@
 #include "Math.hpp"
 #include "Player.hpp"
 
+// normalize vector function; divides x and y by the magnitude
+
+//todo: tile collision
+
+
 sf::Vector2f Math::normalizeVector(sf::Vector2f vector)
 {
     float Magnitude = std::sqrt(vector.x * vector.x + vector.y * vector.y);
@@ -19,6 +24,7 @@ sf::Vector2f Math::normalizeVector(sf::Vector2f vector)
         return sf::Vector2f(0.0f, 0.0f);
     }
 }
+
 
 // AABB Collision function
 bool Math::didRectCollide(sf::FloatRect rect1, sf::FloatRect rect2)

@@ -2,7 +2,7 @@
 #include <iostream>
 
 Slime::Slime(float h, float dmg, float def, float spd) 
-	: Entity(h, dmg, def, spd) {}
+	: Enemy(h, dmg, def, spd) {}
 
 void Slime::load() {
     loadTexture("assets/enemies/Slime/slime_idle.png");

@@ -3,10 +3,12 @@
 #include <iostream>
 #include "Entity.hpp"
 #include "Math.hpp"
+#include "Enemy.hpp"
+
 
 using namespace std;
 
-class Slime : public Entity
+class Slime : public Enemy
 {
 public:
 	Slime(float h, float dmg, float def, float spd);
