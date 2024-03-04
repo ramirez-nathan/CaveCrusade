@@ -9,6 +9,9 @@ using namespace std;
 
 class Soldier : public Enemy
 {
+private:
+	float meleeRange;
+
 public:
 	Soldier(float h, float dmg, float def, float spd);
 	~Soldier() = default;
