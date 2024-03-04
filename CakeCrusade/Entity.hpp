@@ -13,6 +13,7 @@ class Entity {
 protected:
     // Every entity should have health, damage, defense, speed, a sprite, texture, and a hitbox
     float Health;
+    float MaxHealth;
     float Damage;
     float Defense;
     float EntitySpeed;

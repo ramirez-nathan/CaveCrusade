@@ -4,7 +4,7 @@
 
 // Entity 
 Entity::Entity(float h, float dmg, float def, float spd)
-    : Health(h), Damage(dmg), Defense(def), EntitySpeed(spd)
+    : Health(h), Damage(dmg), Defense(def), EntitySpeed(spd), MaxHealth(h)
 {
 }
 

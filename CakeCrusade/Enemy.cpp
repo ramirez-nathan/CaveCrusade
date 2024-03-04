@@ -50,6 +50,11 @@ void Enemy::getKnockedBack() {
 
 void Enemy::isAttacked()
 {
+    
+}
 
+bool Enemy::healthDecreased(const Enemy& enemy) const
+{
+    return enemy.getHealth() < Health;
 }
 
