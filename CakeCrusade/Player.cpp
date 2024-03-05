@@ -112,6 +112,9 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
         int i = Arrows.size() - 1;
         Arrows[i].initialize(Sprite.getPosition(), mousePosition, 0.5f);
         FireRateTimer = 0;
+        /*loadTexture("assets/player/textures/player_attacking_bow.png"); // working on this 
+        arrowShootAnimation(deltaTime, mousePosition);
+        arrowShootAnimation(deltaTime, mousePosition);*/ 
     }
 
     // iterate through the arrows in reverse order
@@ -164,13 +167,10 @@ void Player::attackMove(const double deltaTime, Entity& enemy) {
     cout << "HAZZAAHH" << endl;
 }
 
-void Player::arrowShootAnimation(const double deltaTime, const string& texturePath, sf::Vector2f& direction) {
+/*void Player::arrowShootAnimation(const double deltaTime, sf::Vector2f& direction) {
     timer += deltaTime;
-    loadTexture(texturePath);
     if (timer >= frameAnimationPause)
     {
-        // Reset the timer
-        timer -= frameAnimationPause;
         // Additional code for WASD movements
         if ((direction.x == 0.f && direction.y > 0.f) || (direction.x != 0.f && direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
             ArrowSpriteX = 0;
@@ -179,7 +179,7 @@ void Player::arrowShootAnimation(const double deltaTime, const string& texturePa
         }
         else if ((direction.x > 0.f && direction.y == 0.f) || (direction.x > 0.f && (-0.50f <= direction.y && direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
             ArrowSpriteX = 0;
-            ArrowSpriteY = 2; // CHANGE WHEN FIXED
+            ArrowSpriteY = 2; 
 
         }
         else if ((direction.x < 0.f && direction.y == 0.f) || (direction.x < 0.f && (-0.5f <= direction.y && direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
@@ -194,8 +194,10 @@ void Player::arrowShootAnimation(const double deltaTime, const string& texturePa
         }
         Sprite.setTextureRect(sf::IntRect(ArrowSpriteX * getSizeX(), ArrowSpriteY * getSizeY(), getSizeX(), getSizeY()));
         ArrowSpriteX++;
+        // Reset the timer
+        timer = 0;
     }
     if (ArrowSpriteX > 1) {
         ArrowSpriteX = 0;
     }
-}
+}*/

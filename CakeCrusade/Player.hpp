@@ -27,7 +27,7 @@ public:
 
 	void initialize() override;
 	void load() override; 
-	void arrowShootAnimation(const double deltaTime, const string& texturePath, sf::Vector2f& direction);
+	// void arrowShootAnimation(const double deltaTime, sf::Vector2f& direction); // WIP
 	void playerUpdate(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, int level[]);
 	void drawPlayer(sf::RenderWindow& window);
 	virtual void attackMove(const double deltaTime, Entity& enemy) override;
