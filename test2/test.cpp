@@ -2,12 +2,12 @@
 
 
 TEST(EntityTest, ChangeHealth) {
-    Entity entity(100, 10, 5); // Creating an instance of the Entity class
+    Entity entity(60,100, 10, 5); // Creating an instance of the Entity class
     float initialHealth = entity.getHealth();
 
     // Change the health by a certain amount
     float healthChange = -20; // Decreasing health
-    entity.ChangeHealth(healthChange);
+    entity.changeHealth(healthChange);
 
     // Check if the health has changed correctly
     float expectedHealth = initialHealth + healthChange;
