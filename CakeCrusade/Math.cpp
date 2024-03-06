@@ -2,23 +2,32 @@
 #include "Player.hpp"
 
 // normalize vector function; divides x and y by the magnitude
-sf::Vector2f Math::NormalizeVector(sf::Vector2f vector)
-{
-	float m = std::sqrt(vector.x * vector.x + vector.y * vector.y);
-
-	sf::Vector2f normalizedVector;
-
-	normalizedVector.x = vector.x / m;
-	normalizedVector.y = vector.y / m;
-
-	return normalizedVector;
-}
 
 //todo: tile collision
 
 
+sf::Vector2f Math::normalizeVector(sf::Vector2f vector)
+{
+    float Magnitude = std::sqrt(vector.x * vector.x + vector.y * vector.y);
+
+    // Avoid division by zero
+    if (Magnitude != 0.0f)
+    {
+        sf::Vector2f NormalizedVector;
+        NormalizedVector.x = vector.x / Magnitude;
+        NormalizedVector.y = vector.y / Magnitude;
+        return NormalizedVector;
+    }
+    else
+    {
+        // Handle the case when the magnitude is zero (e.g., return a default vector)
+        return sf::Vector2f(0.0f, 0.0f);
+    }
+}
+
+
 // AABB Collision function
-bool Math::DidRectCollide(sf::FloatRect rect1, sf::FloatRect rect2)
+bool Math::didRectCollide(sf::FloatRect rect1, sf::FloatRect rect2)
 {
 	if (rect1.left + rect1.width > rect2.left &&
 		rect2.left + rect1.width > rect1.left &&
@@ -28,5 +37,3 @@ bool Math::DidRectCollide(sf::FloatRect rect1, sf::FloatRect rect2)
 
 	return false;
 }
-
-

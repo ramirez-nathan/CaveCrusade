@@ -5,13 +5,12 @@
             [Rachel Lee](https://github.com/rache11ee)
 
 ## Project Description
- **Cake Crusade: Rise of the Pastry Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of delicious monsters to defeat Baker the Wizard, an evil magician who plans to take over the kingdom with an army of mouthwatering monsters! Fight your way to the end of his dungeon using an array of weapons to recover the Whisk of Wonder that 
- was stolen from your kingdom! 
+ **Cake Crusade: Rise of the Pastry Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of delicious monsters to defeat Baker the Wizard, an evil magician who plans to take over the kingdom with an army of mouthwatering monsters! Fight your way to the end of his dungeon using an array of weapons to recover the Whisk of Wonder that was stolen from your kingdom! 
 
 The project aims to captivate players through an immersive storyline, strategic gameplay, and a visually appealing environment.
 
  Tools & Technologies:
-* Visual Studio
+* Visual Studio Community
 * SFML C++ Library
 
  Inputs:
@@ -43,45 +42,23 @@ In-Game Screen:
 ![CakeCrusadeInGameScreen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/6cd9e566-1971-4390-891e-0a0d6bc4eecc)
 
 ## Class Diagram
-![ClassDiagram](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/5583aa95-3710-4f55-8bc1-31e19227c9af)
+![CakeCrusadeUML](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/da454239-e67f-4412-91af-c28893160b8a)
 
 | Class | Description |
 | --- | --- |
-| `Main` | Depends on Map; Main screen for creating and calling other classes |
-| `Object` | Depends on Main; Template for objects in the game |
+| `Main` | Depends on GameState, Entity, & Interactable; Main screen for creating and calling other classes |
 | `Entity` | Inherits from Object; Template for entities |
 | `Player` | Inherits from Entity; Sets player weapon, powerup, and moveset |
 | `Enemy` | Inherits from Entity; Sets enemy target and knockback |
-| `Interactable` | Inherits from Object, Associates with Entity; Template for interactable objects |
+| `Interactable` | Associates with Entity; Template for interactable objects |
 | `Heart` | Inherits from Interactable; Contains health value |
 | `Chest` | Inherits from Interactable; Contains chest contents |
 | `Main Menu` | Depends on Main; Template for Menus |
 | `Start Screen` | Inherits from Main Menu; Can start and quit |
 | `Options`| Inherits from Start Screen; Has window, sound, and control options |
-| `Map` | Depends on TileMap; Contains level templates |
+| `GameState` | Depends on TileMap; Contains level templates and updates the level |
 | `Tilemap` | SFML map drawing |
 | `Sounds` | Associated with Main; Sound Effects |
-
-
- > ## Phase III 
- > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on week 8 during lab time.
- 
- > BEFORE the meeting you should do the following:
- > * Update your class diagram from Phase II to include any feedback you received from your TA/grader.
- > * Considering the SOLID design principles, reflect back on your class diagram and think about how you can use the SOLID principles to improve your design. You should then update the README.md file by adding the following:
- >   * A new class diagram incorporating your changes after considering the SOLID principles.
- >   * For each update in your class diagram, you must explain in 3-4 sentences:
- >     * What SOLID principle(s) did you apply?
- >     * How did you apply it? i.e. describe the change.
- >     * How did this change help you write better code?
- > * Perform a new sprint plan like you did in Phase II.
- > * You should also make sure that your README file (and Project board) are up-to-date reflecting the current status of your project and the most recent class diagram. Previous versions of the README file should still be visible through your commit history.
- 
-> During the meeting with your reader you will discuss: 
- > * How effective your last sprint was (each member should talk about what they did)
- > * Any tasks that did not get completed last sprint, and how you took them into consideration for this sprint
- > * Any bugs you've identified and created issues for during the sprint. Do you plan on fixing them in the next sprint or are they lower priority?
- > * What tasks you are planning for this next sprint.
 
  
  > ## Final deliverable

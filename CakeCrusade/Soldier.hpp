@@ -3,29 +3,21 @@
 #include <iostream>
 #include "Entity.hpp"
 #include "Math.hpp"
+#include "Enemy.hpp"
 
 using namespace std;
 
-class Soldier : public Entity
+class Soldier : public Enemy
 {
 private:
-	sf::Vector2f direction;
-
-
-	int SpriteX = 0;
-	int SpriteY = 0;
-
-	float soldierSpeed;
+	float meleeRange;
 
 public:
-	Soldier(float h, float dmg, float def);
-	~Soldier();
+	Soldier(float h, float dmg, float def, float spd, float rng);
+	~Soldier() = default;
+	virtual void attackMove(const double deltaTime, Entity& player) override;
+	virtual void load() override;
+	bool canAttack(const sf::Vector2f& playerPosition) const;
 
-	 
-	void Initialize();
-	void Load();
-	void Update(double deltaTime, const sf::Vector2f& target, int level[]);
-	void Draw(sf::RenderWindow& window);
-	virtual void attackMove() override;
 
 };
