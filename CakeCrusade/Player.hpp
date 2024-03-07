@@ -32,6 +32,8 @@ public:
 	void load() override; 
 	void arrowShootAnimation(const double deltaTime, int& direction); // WIP
 	void playerUpdate(const double deltaTime, sf::Clock& animationClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, int level[]);
+	// void arrowShootAnimation(const double deltaTime, sf::Vector2f& direction); // WIP
+	bool isTouchingDoor(int level[]);
 	void drawPlayer(sf::RenderWindow& window);
 	virtual void attackMove(const double deltaTime, Entity& enemy) override;
 	void handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, int& playerDirection, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls);
