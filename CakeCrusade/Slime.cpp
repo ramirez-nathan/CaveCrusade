@@ -15,9 +15,9 @@ void Slime::load() {
     // change sprite scale
     Sprite.scale(sf::Vector2f(4, 4));
     // wrap the hitbox around the soldier
-    BoundingRectangle.setSize(sf::Vector2f(Size.x * Sprite.getScale().x, Size.y * Sprite.getScale().y));
+    BoundingRectangle.setSize(sf::Vector2f((Size.x - 6) * (Sprite.getScale().x - 1), (Size.y + 3) * (Sprite.getScale().y - 1)));
     // set hitbox origin to middle
-    BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f);
+    BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f - 5);
 }
 
 void Slime::initialize() {
