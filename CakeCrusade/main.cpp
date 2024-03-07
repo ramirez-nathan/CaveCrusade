@@ -11,6 +11,7 @@
 #include "Slime.hpp"
 #include "Skeleton.hpp"
 #include "GameState.hpp"
+#include "Boss.hpp"
 
 using namespace std;
 
@@ -26,12 +27,13 @@ int main()
     Player player(200.f, 50.f, 50.f, 0.4f);
     vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
     try {
-        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.1f));
-        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 0.1f)); // give diff speeds to avoid complete overlapping
-        enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
-        enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
-        enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); 
-        enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); 
+        //enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.1f));
+        //enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 0.1f)); // give diff speeds to avoid complete overlapping
+        //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
+        //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
+        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); 
+        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); 
+        enemies.push_back(make_unique<Boss>(350.f, 30.f, 30.f, 0.2f));
     }
     catch (const bad_alloc& e) {
         std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -49,12 +51,13 @@ int main()
 
     // Set positions for each entity in the vector
     vector<sf::Vector2f> enemyPositions = {
-        sf::Vector2f(1200.f, 600.f), // Soldier1 position
-        sf::Vector2f(1300.f, 100.f), // Soldier2 position
-        sf::Vector2f(1100.f,351.f), // Skeleton1 position
-        sf::Vector2f(200.0f, 500.0f), // Skeleton2 position
-        sf::Vector2f(100.0f, 100.f), // Slime1 position
-        sf::Vector2f(1000.0f, 500.0f) // Slime2 position
+       // sf::Vector2f(1200.f, 600.f), // Soldier1 position
+        //sf::Vector2f(1300.f, 100.f), // Soldier2 position
+        //sf::Vector2f(1100.f,351.f), // Skeleton1 position
+        //sf::Vector2f(200.0f, 500.0f), // Skeleton2 position
+        //sf::Vector2f(100.0f, 100.f), // Slime1 position
+        //sf::Vector2f(1000.0f, 500.0f), // Slime2 position
+        sf::Vector2f(700.f, 350.0f) // Boss position
     };
 
     for (size_t i = 0; i < enemies.size(); ++i) {
@@ -98,6 +101,8 @@ int main()
             enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
             enemy->attackMove(deltaTime, player);
         }
+     
+        
 
         player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel); 
         //-------------------------------- UPDATE --------------------------------
@@ -110,6 +115,7 @@ int main()
             enemy->draw(window);
         }
         player.drawPlayer(window);
+
 
         enemies.erase( // Some genie code for erasing enemies from the vector
             std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)

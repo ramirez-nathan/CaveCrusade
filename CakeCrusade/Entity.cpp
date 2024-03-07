@@ -103,9 +103,9 @@ void Entity::draw(sf::RenderWindow& window)
     }
 }
 
-void Entity::attackAnimation(const double deltaTime, const string& texturePath) {
+//void Entity::attackAnimation(const double deltaTime, const string& texturePath) {
     // nothin
-}
+//}
 
 /*void Entity::draw(sf::RenderWindow& window) const {
     window.draw(sprite);
