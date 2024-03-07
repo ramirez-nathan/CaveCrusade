@@ -20,10 +20,14 @@ int main()
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(1408, 704), "Cake Crusade", sf::Style::Default, settings);
     window.setFramerateLimit(360);
+    auto icon = sf::Image();
+    if (!icon.loadFromFile("assets/icon.png"))
+    {
+        std::cerr << "Failed to load icon from " << "assets/icon.png" << std::endl;
+    }
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-   
-
-    Player player(300.f, 200.f, 50.f, 0.4f);
+    Player player(300.f, 50.f, 150.f, 0.4f);
     vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
     try {
         enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f));
@@ -37,6 +41,7 @@ int main()
         std::cerr << "Memory allocation failed: " << e.what() << std::endl;
         return 1; 
     }
+    int InitialAmtOfEnemies = enemies.size();
     //-------------------------------- INITIALIZE --------------------------------
     player.initialize();
     player.load();
@@ -54,7 +59,7 @@ int main()
         sf::Vector2f(1100.f,351.f), // Skeleton1 position
         sf::Vector2f(200.0f, 500.0f), // Skeleton2 position
         sf::Vector2f(100.0f, 100.f), // Slime1 position
-        sf::Vector2f(1000.0f, 500.0f) // Slime2 position
+        sf::Vector2f(1000.0f, 500.0f) // Slime2 position 
     };
 
     for (size_t i = 0; i < enemies.size(); ++i) {
@@ -77,12 +82,14 @@ int main()
     // ---------------------------- TESTING -----------------------------
 
     // ------------------------------------------ LOAD ---------------------------------
-    sf::Clock clock;
-    sf::Clock animationClock;
+    sf::Clock GameStateClock;
+    sf::Clock PlayerIdleClock;
+    sf::Clock PlayerShootClock;
+    sf::Clock PlayerWalkClock;
     //main game loop
     while (window.isOpen())
     {
-        sf::Time deltaTimeTimer = clock.restart();
+        sf::Time deltaTimeTimer = GameStateClock.restart();
         double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0;
         //-------------------------------- UPDATE --------------------------------
 
@@ -99,7 +106,7 @@ int main()
             enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
             enemy->attackMove(deltaTime, player);
         }
-        player.playerUpdate(deltaTime, animationClock, enemies, mousePosition, state.CurrentLevel); 
+        player.playerUpdate(deltaTime, PlayerIdleClock, PlayerShootClock, enemies, mousePosition, state.CurrentLevel); 
         
         player.isTouchingDoor(state.CurrentLevel);
 
@@ -129,7 +136,7 @@ int main()
             ),
             enemies.end() // the 2nd parameter; tells where to end the erasing
         );
-        
+        player.changeAmmo(5 * (InitialAmtOfEnemies - enemies.size()));
         if (player.getHealth() <= 0) {
             break;
         }
@@ -137,7 +144,7 @@ int main()
 
         //-------------------------------- DRAW --------------------------------
     }
-    cout << "You died! " << endl;
+    std::cout << "You died! " << endl;
 
     return 0;
 }
