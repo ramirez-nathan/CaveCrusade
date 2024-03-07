@@ -78,6 +78,7 @@ int main()
 
     // ------------------------------------------ LOAD ---------------------------------
     sf::Clock clock;
+    sf::Clock animationClock;
     //main game loop
     while (window.isOpen())
     {
@@ -98,8 +99,9 @@ int main()
             enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
             enemy->attackMove(deltaTime, player);
         }
-
-        player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel); 
+        player.playerUpdate(deltaTime, animationClock, enemies, mousePosition, state.CurrentLevel); 
+        
+        
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------

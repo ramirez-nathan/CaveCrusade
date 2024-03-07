@@ -62,7 +62,7 @@ void Player::handleMovement(const double deltaTime, sf::Vector2f& movement, int&
         spriteY = 3;
     }
 
-    Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
+    
 
     int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
     if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
@@ -71,38 +71,51 @@ void Player::handleMovement(const double deltaTime, sf::Vector2f& movement, int&
 }
 
 // takes parameters - deltatime, any specified entity (by upcasting), mouseposition, and level
-void Player::playerUpdate(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
+void Player::playerUpdate(const double deltaTime, sf::Clock& animationClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
 {
+    int PlayerDirection;
     if (Health > 0) 
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { // up
             sf::Vector2f movement(0, -1 * EntitySpeed * static_cast<float>(deltaTime));
-            handleMovement(deltaTime, movement, SpriteX, SpriteY, 1, level, Walls);
+            PlayerDirection = 1;
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, PlayerDirection, level, Walls);
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) { // down
             sf::Vector2f movement(0, 1 * EntitySpeed * static_cast<float>(deltaTime));
-            handleMovement(deltaTime, movement, SpriteX, SpriteY, 0, level, Walls);
+            PlayerDirection = 0;
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, PlayerDirection, level, Walls);
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { // left
             sf::Vector2f movement(-1 * EntitySpeed * static_cast<float>(deltaTime), 0);
-            handleMovement(deltaTime, movement, SpriteX, SpriteY, 2, level, Walls);
+            PlayerDirection = 2;
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, PlayerDirection, level, Walls);
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { // right
             sf::Vector2f movement(1 * EntitySpeed * static_cast<float>(deltaTime), 0);
-            handleMovement(deltaTime, movement, SpriteX, SpriteY, 3, level, Walls);
+            PlayerDirection = 3;
+            handleMovement(deltaTime, movement, SpriteX, SpriteY, PlayerDirection, level, Walls);
         }
-
+        if (animationClock.getElapsedTime().asSeconds() > 0.5f) {
+            if (SpriteX == 1)
+                SpriteX = 0;
+            else
+                SpriteX += 1;
+            animationClock.restart();
+        }
+        
+        Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
         //---------------------------------------------- ARROWS -------------------------------------------------
-        handleArrow(deltaTime, enemies, mousePosition, FireRateTimer, MaxFireRate, level, Walls);
+        handleArrow(deltaTime, enemies, mousePosition, PlayerDirection, FireRateTimer, MaxFireRate, level, Walls);
         //---------------------------------------------- ARROWS -------------------------------------------------
         BoundingRectangle.setPosition(Sprite.getPosition());
     }
 }
 
-void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls)
+void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, int& playerDirection, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls)
 {
     FireRateTimer += deltaTime;
 
@@ -112,9 +125,6 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
         int i = Arrows.size() - 1;
         Arrows[i].initialize(Sprite.getPosition(), mousePosition, 0.5f);
         FireRateTimer = 0;
-        /*loadTexture("assets/player/textures/player_attacking_bow.png"); // working on this 
-        arrowShootAnimation(deltaTime, mousePosition);
-        arrowShootAnimation(deltaTime, mousePosition);*/ 
     }
 
     // iterate through the arrows in reverse order
@@ -167,37 +177,38 @@ void Player::attackMove(const double deltaTime, Entity& enemy) {
     cout << "HAZZAAHH" << endl;
 }
 
-/*void Player::arrowShootAnimation(const double deltaTime, sf::Vector2f& direction) {
-    timer += deltaTime;
-    if (timer >= frameAnimationPause)
-    {
+void Player::arrowShootAnimation(const double deltaTime, int& direction) { // literal junk code, i cant figure out animations
+    //timer += deltaTime;
+    //if (timer >= frameAnimationPause)
+    //{
         // Additional code for WASD movements
-        if ((direction.x == 0.f && direction.y > 0.f) || (direction.x != 0.f && direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
-            ArrowSpriteX = 0;
-            ArrowSpriteY = 0;
+    if (direction == 0) { // Looking Down, Looking Down Diagonally
+        ArrowSpriteX = 0;
+        ArrowSpriteY = 0;
 
-        }
-        else if ((direction.x > 0.f && direction.y == 0.f) || (direction.x > 0.f && (-0.50f <= direction.y && direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
-            ArrowSpriteX = 0;
-            ArrowSpriteY = 2; 
-
-        }
-        else if ((direction.x < 0.f && direction.y == 0.f) || (direction.x < 0.f && (-0.5f <= direction.y && direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
-            ArrowSpriteX = 0;
-            ArrowSpriteY = 2;
-
-        }
-        else if ((direction.x == 0.f && direction.y < 0.f) || (direction.x != 0.f && direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
-            ArrowSpriteX = 0;
-            ArrowSpriteY = 1;
-
-        }
-        Sprite.setTextureRect(sf::IntRect(ArrowSpriteX * getSizeX(), ArrowSpriteY * getSizeY(), getSizeX(), getSizeY()));
-        ArrowSpriteX++;
-        // Reset the timer
-        timer = 0;
     }
+    else if (direction == 3) { // Looking Right, Looking Right Diagonally
+        ArrowSpriteX = 0;
+        ArrowSpriteY = 2;
+
+        }
+    else if (direction == 2) { // Looking Left, Looking Left Diagonally
+        ArrowSpriteX = 0;
+        ArrowSpriteY = 2;
+
+    }
+    else if (direction == 1) { // Looking Up, Looking Up Diagonally
+        ArrowSpriteX = 0;
+        ArrowSpriteY = 1;
+
+    }
+    Sprite.setTextureRect(sf::IntRect(ArrowSpriteX * getSizeX(), ArrowSpriteY * getSizeY(), getSizeX(), getSizeY()));
+    ArrowSpriteX++;
+        // Reset the timer
+        //timer = 0;
+    //}
     if (ArrowSpriteX > 1) {
         ArrowSpriteX = 0;
     }
-}*/
+    animationOccured = true;
+} 
