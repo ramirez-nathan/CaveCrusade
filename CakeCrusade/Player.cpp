@@ -5,7 +5,7 @@
 #include <algorithm>    // std::find
 
 Player::Player(float h, float dmg, float def, float spd) 
-   : Entity(h, def, dmg, spd), MaxFireRate(300), FireRateTimer(0)
+   : Entity(h, def, dmg, spd), MaxFireRate(500), FireRateTimer(0)
 {
 }
 
@@ -126,7 +126,7 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
             Arrows.erase(Arrows.begin() + (i - 1));
             continue;
         }
-
+        // update arrow position
         Arrows[i - 1].update(deltaTime); 
 
         // check for collisions with enemies
@@ -201,3 +201,16 @@ void Player::attackMove(const double deltaTime, Entity& enemy) {
         ArrowSpriteX = 0;
     }
 }*/
+
+bool Player::isTouchingDoor(int level[])
+{
+    sf::Vector2f position = Sprite.getPosition();
+    
+    int currPos = floor(position.y / 64) * 22 + floor(position.x / 64);
+
+    if (level[currPos] == 25 || level[currPos] == 26 || level[currPos] == 27) {
+        return true;
+    }
+
+    return false;
+}
