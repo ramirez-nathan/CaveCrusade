@@ -48,10 +48,7 @@ void Enemy::getKnockedBack() {
     // Implement the logic for getting knocked back
     if (isAttacked()) {
         cout << "attacked" << endl;
-        // implement position change
-         // Calculate the knockback position
-            // Here, we normalize the lastAttackDirection vector and multiply by the knockbackDistance
-            // Normalize the direction vector
+       
         sf::Vector2f normalizedDirection = lastAttackDirection / std::sqrt(lastAttackDirection.x * lastAttackDirection.x + lastAttackDirection.y * lastAttackDirection.y);
         // Calculate the new position
         sf::Vector2f newPosition = Sprite.getPosition() - normalizedDirection * knockbackDistance;

@@ -8,7 +8,7 @@ private:
 	const float MaxAttackRate = 1000.f;
 	float AttackTimer = 0.0f;
 	sf::Vector2f lastAttackDirection; // Vector representing the direction of the last attack
-	float knockbackDistance; // Distance to knock back
+	const float knockbackDistance = 50.0f; // Distance to knock back
 
 public:
 	Enemy(float h, float dmg, float def, float spd);
