@@ -39,7 +39,7 @@ public:
     Entity(float h, float dmg, float def, float spd);
     // Our destructor
     virtual ~Entity() = default;
-  
+    
 
     // void Load();
     // Loads in the sprite to be displayed
