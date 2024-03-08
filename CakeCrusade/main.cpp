@@ -15,7 +15,7 @@ int main()
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::RenderWindow window(sf::VideoMode(1408, 704), "Cake Crusade", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(1472, 896), "Cake Crusade", sf::Style::Default, settings);
     window.setFramerateLimit(360);
 
     Player player(200, 50, 50);
@@ -73,7 +73,6 @@ int main()
             state.changeLevel("1b");
             state.loadLevel();
         }
-        
 
         //-------------------------------- UPDATE --------------------------------
 

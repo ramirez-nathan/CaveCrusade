@@ -55,7 +55,7 @@ bool Arrow::didArrowHitWall(double deltaTime, const std::vector<int>& walls, con
     sf::Vector2f Movement = Direction * ArrowSpeed * (float)deltaTime;
 
     sf::Vector2f Future = Position + Movement;
-    int futurePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
+    int futurePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
     if ((std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
         return true;
     }

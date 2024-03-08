@@ -70,7 +70,7 @@ void Player::handleMovement(double deltaTime, sf::Vector2f& movement, int& sprit
 
     Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
 
-    int futurePos = floor(future.y / 64) * 22 + floor(future.x / 64);
+    int futurePos = floor(future.y / 64) * 23 + floor(future.x / 64);
     if (!(std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
         Sprite.setPosition(position + movement);
     }
@@ -82,6 +82,14 @@ void Player::update(double deltaTime, Entity& enemy, sf::Vector2f& mousePosition
     vector<int> Walls{ 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 28, 29, 30, 31, 32, 33, 34 };
     // WASD MOVEMENT
     
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::J)) {
+        sf::Vector2f position = Sprite.getPosition();
+        cout << position.x << endl;
+        cout << position.y << endl;
+    }
+
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         sf::Vector2f movement(0, -1 * PlayerSpeed * static_cast<float>(deltaTime));
         handleMovement(deltaTime, movement, SpriteX, SpriteY, 1, level, Walls);
@@ -156,7 +164,7 @@ bool Player::isTouchingDoor(int level[])
 {
     sf::Vector2f position = Sprite.getPosition();
     
-    int currPos = floor(position.y / 64) * 22 + floor(position.x / 64);
+    int currPos = floor(position.y / 64) * 23 + floor(position.x / 64);
 
     if (level[currPos] == 25 || level[currPos] == 26 || level[currPos] == 27) {
         return true;

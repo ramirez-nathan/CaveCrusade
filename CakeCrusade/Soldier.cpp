@@ -56,7 +56,7 @@ void Soldier::update(double deltaTime, const sf::Vector2f& target, int level[])
 
         sf::Vector2f Future = Position + Movement;
 
-        int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
+        int FuturePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
         if (!(std::find(Walls.begin(), Walls.end(), level[FuturePos]) != Walls.end())) {
             Sprite.setPosition(Position + Movement);
         }
