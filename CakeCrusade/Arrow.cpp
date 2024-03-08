@@ -15,7 +15,7 @@ Arrow::~Arrow()
 sf::Texture& Arrow::getArrowTexture()
 {
     static sf::Texture ArrowTexture;
-    if (!ArrowTexture.loadFromFile("assets/player/textures/arrow.png")) {
+    if (!ArrowTexture.loadFromFile("assets/player/textures/new_arrow.png")) {
         std::cerr << "Arrow texture failed to load!" << std::endl;
     }
     // returns arrow texture

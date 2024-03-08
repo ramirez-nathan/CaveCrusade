@@ -3,29 +3,17 @@
 #include <iostream>
 #include "Entity.hpp"
 #include "Math.hpp"
+#include "Enemy.hpp"
 
 using namespace std;
 
-class Soldier : public Entity
+class Soldier : public Enemy
 {
-private:
-	sf::Vector2f Direction;
-
-
-	int SpriteX = 0;
-	int SpriteY = 0;
-
-	float SoldierSpeed;
-
 public:
-	Soldier(float h, float dmg, float def);
-	~Soldier();
+	Soldier(float h, float dmg, float def, float spd);
+	~Soldier() = default;
+	//virtual void attackMove(const double deltaTime, Entity& player) override;
+	virtual void load() override;
 
-
-	void initialize();
-	void load();
-	void update(double deltaTime, const sf::Vector2f& target, int level[]);
-	void drawSoldier(sf::RenderWindow& window);
-	virtual void attackMove() override;
 
 };

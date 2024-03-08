@@ -158,6 +158,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player.hpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Soldier.cpp" />
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
@@ -168,6 +170,8 @@
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="Object.hpp" />
+    <ClInclude Include="Skeleton.hpp" />
+    <ClInclude Include="Slime.hpp" />
     <ClInclude Include="Soldier.hpp" />
     <ClInclude Include="TileMap.hpp" />
   </ItemGroup>
