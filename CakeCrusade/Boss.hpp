@@ -16,5 +16,7 @@ public:
 	virtual void initialize() override;
 	void load();
 	virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls) override;
+	void handleRocks(const double deltaTime, Entity& player, const sf::Vector2f& target, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls);
+	void transparency(double deltaTime);
 };
 

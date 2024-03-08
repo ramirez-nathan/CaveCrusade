@@ -22,7 +22,8 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1408, 704), "Cake Crusade", sf::Style::Default, settings);
     window.setFramerateLimit(360);
 
-   
+    Boss Boss(350.f, 30.f, 30.f, 0.2f);
+    Boss.load();
 
     Player player(200.f, 50.f, 50.f, 0.4f);
     vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
@@ -33,7 +34,7 @@ int main()
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); 
-        enemies.push_back(make_unique<Boss>(350.f, 30.f, 30.f, 0.2f));
+        //enemies.push_back(make_unique<Boss>(350.f, 30.f, 30.f, 0.2f));
     }
     catch (const bad_alloc& e) {
         std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -105,16 +106,22 @@ int main()
         
 
         player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel); 
+        
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
+
         window.clear();
 
+        Boss.transparency(deltaTime);
+        window.draw(Boss.getSprite());
+         
         window.draw(state.Map);
         for (const auto& enemy : enemies) {
             enemy->draw(window);
         }
         player.drawPlayer(window);
+
 
 
         enemies.erase( // Some genie code for erasing enemies from the vector

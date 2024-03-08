@@ -3,5 +3,6 @@
   <Executable>C:\Users\User\source\repos\CS100 Final Project\x64\Debug\test2.exe</Executable>
   <TestDurations>
     <TestDuration Test="TestCaseName.TestName" Duration="1" />
+    <TestDuration Test="SimpleTest.testing" Duration="1" />
   </TestDurations>
 </GtaTestDurations>
