@@ -76,7 +76,7 @@ void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spri
 
     Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
 
-    int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
+    int FuturePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
     if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
         Sprite.setPosition(Position + Movement);
     }

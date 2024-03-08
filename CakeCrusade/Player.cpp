@@ -70,7 +70,7 @@ void Player::handleMovement(const double deltaTime, bool& isMoving, sf::Clock& w
         spriteY = 3;
     }
 
-    int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
+    int FuturePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
     if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
         Sprite.setPosition(Position + movement);
     }
