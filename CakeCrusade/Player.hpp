@@ -20,14 +20,13 @@ private:
 	bool IsAttacking = false;
 	bool AttackingAnimationComplete = false;
 
-
 	bool IsMoving = false;
+	bool WalkingAnimationComplete = true;
 
 	bool ShootingArrow = false;
 	bool ShootingAnimationComplete = true;
 	bool FinishedBowAnimation = false;
 
-	bool WalkingAnimationComplete = true;
 	int PlayerDirection = 0;
 
 	bool UpdateHandlingComplete = true;
