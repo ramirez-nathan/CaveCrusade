@@ -18,6 +18,8 @@ private:
 	double FireRateTimer;
 
 	bool IsAttacking = false;
+	bool AttackingAnimationComplete = false;
+
 
 	bool IsMoving = false;
 
