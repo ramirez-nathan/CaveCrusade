@@ -1,5 +1,6 @@
 #include "TileMap.hpp"
 #include <string>
+#include "Player.hpp"
 
 using namespace std;
 
@@ -8,7 +9,7 @@ public:
     GameState();
 
     bool loadLevel();
-    void changeLevel(string levelName);
+    void changeLevel(string levelName, Player& p);
     string tileset;
     string CurrLevelName;
 

@@ -21,11 +21,11 @@ bool GameState::loadLevel()
         return true;
 }
 
-void GameState::changeLevel(string levelName)
+void GameState::changeLevel(string levelName, Player& p)
 {
     /*---------------------------------------------- Level 1 -------------------------------------------------*/
     
-    if (levelName == "1a") {
+    if (levelName == "debug") {
         int NewLevel[23 * 14] =
         {
              18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -48,7 +48,7 @@ void GameState::changeLevel(string levelName)
 
     }
 
-    else if (levelName == "1b") {
+    else if (levelName == "1a") {
         int NewLevel[23 * 14] =
         {
              18,  18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -68,6 +68,9 @@ void GameState::changeLevel(string levelName)
         };
 
         std::copy(std::begin(NewLevel), std::end(NewLevel), std::begin(CurrentLevel));
+
+        CurrLevelName = "1b";
+        p.changePosition(1250.f, 750.f);
     }
 
     /*---------------------------------------------- Level 2 -------------------------------------------------*/

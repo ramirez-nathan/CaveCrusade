@@ -110,9 +110,8 @@ int main()
         player.playerUpdate(deltaTime, PlayerIdleClock, PlayerShootClock, PlayerWalkClock, enemies, mousePosition, state.CurrentLevel); 
         
         if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
-            state.changeLevel("1b");
+            state.changeLevel(state.CurrLevelName, player);
             state.loadLevel();
-            player.changePosition(1250.f, 750.f);
         }
 
         //-------------------------------- UPDATE --------------------------------
