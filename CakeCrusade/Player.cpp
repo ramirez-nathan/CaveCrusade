@@ -294,7 +294,7 @@ void Player::swingingAnimation(sf::Clock& attackingClock, sf::Vector2f mouseDire
             AttackingSpriteY = 0;
         }
         else if ((mouseDirection.x > 0.f && mouseDirection.y == 0.f) || (mouseDirection.x > 0.f && (-0.50f <= mouseDirection.y && mouseDirection.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
-            AttackingSpriteY = 2;
+            AttackingSpriteY = 3;
         }
         else if ((mouseDirection.x < 0.f && mouseDirection.y == 0.f) || (mouseDirection.x < 0.f && (-0.5f <= mouseDirection.y && mouseDirection.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
             AttackingSpriteY = 2; // ----------------- CHANGE WHEN FIXED ----------------
