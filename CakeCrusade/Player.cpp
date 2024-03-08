@@ -70,7 +70,7 @@ void Player::handleMovement(const double deltaTime, bool& isMoving, sf::Clock& w
         spriteY = 3;
     }
 
-    int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
+    int FuturePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
     if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
         Sprite.setPosition(Position + movement);
     }
@@ -81,6 +81,12 @@ void Player::playerUpdate(const double deltaTime, sf::Clock& idleAnimationClock,
 {
     if (Health > 0) 
     {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::J)) {
+            sf::Vector2f position = Sprite.getPosition();
+            cout << position.x << endl;
+            cout << position.y << endl;
+        }
+        
         UpdateHandlingComplete = false;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
             sf::Vector2f movement(0, -1 * EntitySpeed * static_cast<float>(deltaTime));
@@ -288,7 +294,7 @@ bool Player::isTouchingDoor(int level[])
 {
     sf::Vector2f position = Sprite.getPosition();
     
-    int currPos = floor(position.y / 64) * 22 + floor(position.x / 64);
+    int currPos = floor(position.y / 64) * 23 + floor(position.x / 64);
 
     if (level[currPos] == 25 || level[currPos] == 26 || level[currPos] == 27) {
         return true;

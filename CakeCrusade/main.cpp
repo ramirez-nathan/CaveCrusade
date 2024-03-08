@@ -18,7 +18,7 @@ int main()
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::RenderWindow window(sf::VideoMode(1408, 704), "Cake Crusade", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(1472, 896), "Cake Crusade", sf::Style::Default, settings);
     window.setFramerateLimit(360);
     auto icon = sf::Image();
     if (!icon.loadFromFile("assets/icon.png"))
@@ -109,14 +109,10 @@ int main()
         }
         player.playerUpdate(deltaTime, PlayerIdleClock, PlayerShootClock, PlayerWalkClock, enemies, mousePosition, state.CurrentLevel); 
         
-        player.isTouchingDoor(state.CurrentLevel);
-
-        
         if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
-            state.changeLevel("1b");
+            state.changeLevel(state.CurrLevelName, player);
             state.loadLevel();
         }
-        
 
         //-------------------------------- UPDATE --------------------------------
 
