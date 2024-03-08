@@ -5,7 +5,7 @@
 #include <algorithm>    // std::find
 
 Player::Player(float h, float dmg, float def, float spd) 
-   : Entity(h, dmg, def, spd), MaxFireRate(500), FireRateTimer(0), MaxSwingRate(200), SwingRateTimer(0)
+   : Entity(h, dmg, def, spd), MaxFireRate(500), FireRateTimer(0), MaxSwingRate(300), SwingRateTimer(0)
 {
 }
 
@@ -159,7 +159,7 @@ void Player::playerUpdate(const double deltaTime, sf::Clock& idleAnimationClock,
         }
         IsMoving = false; // set it back to false after the movement to reset the bool for next loop
         //------------------------------------- LOAD CORRECT TEXTURE -----------------------------------
-        Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY())); // might have to change for attacking sprite 
+        //Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY())); // might have to change for attacking sprite 
         //Sprite.setTextureRect(sf::IntRect(SpriteX * (getSizeX() + 16), SpriteY * (getSizeY() + 16), (getSizeX() + 16), (getSizeY() + 16))); // for the 48x48 attacking sprites
         BoundingRectangle.setPosition(Sprite.getPosition());
     }
@@ -168,7 +168,7 @@ void Player::playerUpdate(const double deltaTime, sf::Clock& idleAnimationClock,
 void Player::handleArrow(const double deltaTime, sf::Clock& shootingClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls)
 {
     FireRateTimer += deltaTime;
-
+    
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && FireRateTimer >= MaxFireRate && Ammo > 0 && !IsAttacking) 
     { 
         ShootingArrow = true; 
@@ -222,14 +222,14 @@ void Player::handleArrow(const double deltaTime, sf::Clock& shootingClock, vecto
 void Player::handleSword(const double deltaTime, sf::Clock& attackingClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& SwingRateTimer, const float& MaxSwingRate) 
 {
     SwingRateTimer += deltaTime;
+    swingingAnimation(attackingClock, mousePosition);
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && SwingRateTimer >= MaxSwingRate) 
     {
         IsAttacking = true;
-        swingingAnimation(attackingClock, mousePosition);
         if (IsAttacking) {
            for (size_t j = 0; j < enemies.size(); ++j) {
                if (enemies[j]->getHealth() > 0) {
-                   if (canAttack(enemies[j]->getSprite().getPosition(), 75, mousePosition)) {
+                   if (canAttack(enemies[j]->getSprite().getPosition(), 100, mousePosition)) {
                        if (enemies[j]->getDefense() > 0) {
                            enemies[j]->changeDefense(-40); // Arrow dmg is 40
                        }
@@ -243,7 +243,6 @@ void Player::handleSword(const double deltaTime, sf::Clock& attackingClock, vect
            }
            SwingRateTimer = 0;
         }
-        
     }
 }
 
@@ -254,6 +253,7 @@ void Player::attackMove(const double deltaTime, Entity& enemy) {
 
 bool Player::canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf::Vector2f mouseDirection)
 {
+    mouseDirection = Math::normalizeVector(mouseDirection - Sprite.getPosition());
     // Calculate the angle between the player's facing direction and the direction towards the mouse
     float Angle = atan2(mouseDirection.y, mouseDirection.x);
 
@@ -332,7 +332,7 @@ void Player::arrowShootAnimation(sf::Clock& shootingClock, sf::Vector2f mouseDir
             ShootingSpriteY = 0;
         }
         else if ((mouseDirection.x > 0.f && mouseDirection.y == 0.f) || (mouseDirection.x > 0.f && (-0.50f <= mouseDirection.y && mouseDirection.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
-            ShootingSpriteY = 2; // CHANGE WHEN FIXED
+            ShootingSpriteY = 3; 
         }
         else if ((mouseDirection.x < 0.f && mouseDirection.y == 0.f) || (mouseDirection.x < 0.f && (-0.5f <= mouseDirection.y && mouseDirection.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
             ShootingSpriteY = 2;
