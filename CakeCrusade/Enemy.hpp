@@ -15,7 +15,7 @@ public:
 	virtual void attackMove(const double deltaTime, Entity& player) override;
 	bool canAttack(const sf::Vector2f& playerPosition, float attackRange) const;
 	void attackAnimation();
-	void getKnockedBack();
+	void getKnockedBack(const sf::Vector2f& attackerPosition);
 	bool isAttacked() const;
 	virtual bool isDead(const unique_ptr<Enemy>& entity);
 	virtual ~Enemy() = default;
