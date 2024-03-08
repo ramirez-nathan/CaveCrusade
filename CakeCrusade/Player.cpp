@@ -391,7 +391,7 @@ void Player::drawPlayer(sf::RenderWindow& window)
 {
     if (Health > 0) {
         window.draw(Sprite);
-        window.draw(BoundingRectangle);
+        //window.draw(BoundingRectangle);
         // draw each arrow sprite in vector
         for (size_t i = 0; i < Arrows.size(); i++)
             Arrows[i].drawArrow(window);

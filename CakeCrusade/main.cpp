@@ -31,7 +31,7 @@ int main()
     player.changeAmmo(20);
     vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
     try {
-        //enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f));
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f));
         //enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f)); // give diff speeds to avoid complete overlapping
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
@@ -55,7 +55,7 @@ int main()
 
     // Set positions for each entity in the vector
     vector<sf::Vector2f> enemyPositions = {
-        //sf::Vector2f(1200.f, 600.f), // Soldier1 position 
+        sf::Vector2f(1200.f, 600.f), // Soldier1 position 
         //sf::Vector2f(1300.f, 300.f), // Soldier2 position 
         //sf::Vector2f(1100.f, 351.f), // Skeleton1 position 
         //sf::Vector2f(200.0f, 500.0f), // Skeleton2 position 

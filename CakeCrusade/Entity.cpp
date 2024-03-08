@@ -99,7 +99,7 @@ void Entity::draw(sf::RenderWindow& window)
     if (Health > 0)
     {
         window.draw(Sprite);
-        window.draw(BoundingRectangle);
+        //window.draw(BoundingRectangle);
     }
 }
 
