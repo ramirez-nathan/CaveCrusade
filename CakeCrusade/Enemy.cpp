@@ -44,30 +44,7 @@ bool Enemy::isDead(const unique_ptr<Enemy>& entity)
 }
 
 
-void Enemy::getKnockedBack(const sf::Vector2f& attackerPosition) {
-    // Calculate the direction of the knockback
-    sf::Vector2f attackDirection = Sprite.getPosition() - attackerPosition;
-    float magnitude = std::sqrt(attackDirection.x * attackDirection.x + attackDirection.y * attackDirection.y);
 
-    // Check if an attack actually occurred and if the magnitude is not zero (to avoid division by zero)
-    if (isAttacked() && magnitude > 0.0f) {
-        sf::Vector2f normalizedDirection = attackDirection / magnitude;
-
-        // Calculate the new position using the knockback distance
-        sf::Vector2f newPosition = Sprite.getPosition() + normalizedDirection * knockbackDistance; // knockback moves the enemy away, so it's `+`, not `-`
-
-        // Set the enemy's position to the new position to simulate knockback
-        Sprite.setPosition(newPosition);
-        std::cout << "Enemy was knocked back." << std::endl;
-    }
-}
-
-
-
-bool Enemy::isAttacked() const
-{
-    return this->getHealth() < this->MaxHealth;
-}
 
 
 
