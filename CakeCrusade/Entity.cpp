@@ -94,6 +94,7 @@ void Entity::update(double deltaTime, Entity& player, const sf::Vector2f& target
     }
 }
 
+
 void Entity::draw(sf::RenderWindow& window)
 {
     if (Health > 0)
