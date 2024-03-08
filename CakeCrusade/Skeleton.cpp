@@ -1,7 +1,7 @@
 #include "Skeleton.hpp"
 
 Skeleton::Skeleton(float h, float dmg, float def, float spd)
-	: Enemy(h, dmg, def, spd), MaxFireRate(1100.f), FireRateTimer(0) {}
+	: Enemy(h, dmg, def, spd), MaxFireRate(1800.f), FireRateTimer(0) {}
 
 void Skeleton::load()
 {
