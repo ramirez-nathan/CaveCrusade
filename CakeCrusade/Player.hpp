@@ -65,6 +65,7 @@ public:
 	void handleArrow(const double deltaTime, sf::Clock& shootingClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls);
 	void handleMovement(const double deltaTime, bool& isMoving, sf::Clock& walkingClock, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls);
 	bool isTouchingDoor(int level[]);
+	bool isTouchingStair(int level[]);
 	void drawPlayer(sf::RenderWindow& window);
 	virtual void attackMove(const double deltaTime, Entity& enemy) override;
 	//--------------------------- HELPER FUNCTIONS ---------------------------

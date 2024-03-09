@@ -9,7 +9,7 @@ public:
     GameState();
 
     bool loadLevel();
-    void changeLevel(string levelName, Player& p);
+    void changeLevel(string levelName, Player& p, string type); 
     string tileset;
     string CurrLevelName;
 

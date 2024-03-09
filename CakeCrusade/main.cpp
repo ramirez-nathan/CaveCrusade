@@ -110,7 +110,12 @@ int main()
         player.playerUpdate(deltaTime, PlayerIdleClock, PlayerShootClock, PlayerWalkClock, enemies, mousePosition, state.CurrentLevel); 
         
         if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
-            state.changeLevel(state.CurrLevelName, player);
+            state.changeLevel(state.CurrLevelName, player, "door");
+            state.loadLevel();
+        }
+
+        if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
+            state.changeLevel(state.CurrLevelName, player, "stair");
             state.loadLevel();
         }
 
