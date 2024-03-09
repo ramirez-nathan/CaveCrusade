@@ -9,7 +9,7 @@ public:
     GameState();
 
     bool loadLevel();
-    void changeLevel(string levelName, Player& p);
+    void changeLevel(string levelName, Player& p, vector<unique_ptr<Enemy>>& enemies);
     string tileset;
     string CurrLevelName;
 

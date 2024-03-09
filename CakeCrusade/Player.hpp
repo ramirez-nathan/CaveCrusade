@@ -12,6 +12,7 @@ class Player : public Entity
 {
 private:
 	vector<Arrow> Arrows;
+	const string PlayerArrowPath = "assets/player/textures/new_arrow.png";
 	sf::Texture ShootingTexture;
 	sf::Texture WalkingTexture;
 	sf::Texture AttackingTexture;
@@ -46,6 +47,7 @@ private:
 
 	int WalkingSpriteX = 0;
 	int WalkingSpriteY = 0;
+
 
 protected:
 	int Ammo = 0;

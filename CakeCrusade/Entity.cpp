@@ -49,7 +49,7 @@ void Entity::load()
 void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls)
 {
     sf::Vector2f Position = Sprite.getPosition();
-    sf::Vector2f Movement(Direction * EntitySpeed * static_cast<float>(deltaTime));
+    sf::Vector2f Movement(Direction * EntitySpeed * static_cast<float>(deltaTime)); 
     sf::Vector2f Future = Position + Movement;
 
     // Additional code for WASD movements
@@ -77,7 +77,7 @@ void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spri
     Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
 
     int FuturePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
-    if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
+    if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) { 
         Sprite.setPosition(Position + Movement);
     }
 }

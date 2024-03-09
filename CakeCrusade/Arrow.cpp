@@ -12,10 +12,10 @@ Arrow::~Arrow()
 }
 
 // initializes and loads the arrow texture
-sf::Texture& Arrow::getArrowTexture()
+sf::Texture& Arrow::getArrowTexture(const string& texturePath)
 {
     static sf::Texture ArrowTexture;
-    if (!ArrowTexture.loadFromFile("assets/player/textures/new_arrow.png")) {
+    if (!ArrowTexture.loadFromFile(texturePath)) {
         std::cerr << "Arrow texture failed to load!" << std::endl;
     }
     // returns arrow texture
@@ -38,10 +38,10 @@ sf::Sprite& Arrow::createArrowSprite(const sf::Texture& arrowTexture, const sf::
 }
 
 // takes parameters: player position, mouseposition, arrow speed
-void Arrow::initialize(const sf::Vector2f& position, const sf::Vector2f& target, float speed) {
+void Arrow::initialize(const sf::Vector2f& position, const sf::Vector2f& target, float speed, const string& texturePath) {
     ArrowSpeed = speed;
     // set arrow texture
-    const sf::Texture& Texture = getArrowTexture();
+    const sf::Texture& Texture = getArrowTexture(texturePath);
     // set arrow direction
     Direction = Math::normalizeVector(target - position);
     // set arrow sprite & its position

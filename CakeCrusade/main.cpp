@@ -32,17 +32,17 @@ int main()
     vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
     try {
         enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f));
-        //enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f)); // give diff speeds to avoid complete overlapping
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f)); // give diff speeds to avoid complete overlapping
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
-        enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); 
+        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */
     }
     catch (const bad_alloc& e) {
         std::cerr << "Memory allocation failed: " << e.what() << std::endl;
         return 1; 
     }
-    int InitialAmtOfEnemies = enemies.size();
+    
     //-------------------------------- INITIALIZE --------------------------------
     player.initialize();
     player.load();
@@ -54,17 +54,18 @@ int main()
     // ------------------------------------------ LOAD ---------------------------------
 
     // Set positions for each entity in the vector
-    vector<sf::Vector2f> enemyPositions = {
-        sf::Vector2f(1200.f, 600.f), // Soldier1 position 
-        //sf::Vector2f(1300.f, 300.f), // Soldier2 position 
+    vector<sf::Vector2f> enemyPositions1a = {
+        sf::Vector2f(360.f, 411.f), // Soldier1 position 
+        sf::Vector2f(1150.f, 411.f), // Soldier2 position 
         //sf::Vector2f(1100.f, 351.f), // Skeleton1 position 
         //sf::Vector2f(200.0f, 500.0f), // Skeleton2 position 
-        sf::Vector2f(500.0f, 300.f), // Slime1 position 
+        //sf::Vector2f(500.0f, 300.f), // Slime1 position 
         //sf::Vector2f(1000.0f, 500.0f) // Slime2 position 
     };
+    player.changePosition(738, 662);
 
     for (size_t i = 0; i < enemies.size(); ++i) {
-        enemies[i]->changePosition(enemyPositions[i].x, enemyPositions[i].y);
+        enemies[i]->changePosition(enemyPositions1a[i].x, enemyPositions1a[i].y);
     }
 
     // ------------------------------- TILEMAP ----------------------------------
@@ -118,7 +119,7 @@ int main()
         }
 
         if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
-            state.changeLevel(state.CurrLevelName, player);
+            state.changeLevel(state.CurrLevelName, player, enemies);
             state.loadLevel();
         }
 

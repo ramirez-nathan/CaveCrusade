@@ -1,6 +1,12 @@
 #include "GameState.hpp"
 #include <string> 
 #include <algorithm>
+#include "Enemy.hpp"
+#include "Player.hpp"
+#include "Soldier.hpp"
+#include "Enemy.hpp"
+#include "Slime.hpp"
+#include "Skeleton.hpp"
 
 using namespace std;
 
@@ -21,7 +27,7 @@ bool GameState::loadLevel()
         return true;
 }
 
-void GameState::changeLevel(string levelName, Player& p)
+void GameState::changeLevel(string levelName, Player& p, vector<unique_ptr<Enemy>>& enemies)
 {
     /*---------------------------------------------- Level 1 -------------------------------------------------*/
     
@@ -71,7 +77,25 @@ void GameState::changeLevel(string levelName, Player& p)
 
         CurrLevelName = "1b";
         p.changePosition(1250.f, 750.f);
-    }
+        try { 
+            enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f)); // give diff speeds to avoid complete overlapping
+            enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
+        } 
+        catch (const bad_alloc& e) { 
+            std::cerr << "Memory allocation failed: " << e.what() << std::endl; 
+        } 
+        vector<sf::Vector2f> enemyPositions1b = { 
+            sf::Vector2f(1170.f, 261.f), // Soldier1 position 
+            sf::Vector2f(484.f, 586.f), // Skeleton1 position 
+        }; 
+        for (size_t i = 0; i < enemies.size(); ++i) { 
+            enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y); 
+        } 
+        for (auto& enemy : enemies) {
+            enemy->initialize();
+            enemy->load();
+        }
+    } 
 
     /*---------------------------------------------- Level 2 -------------------------------------------------*/
 

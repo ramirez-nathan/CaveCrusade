@@ -58,7 +58,7 @@ void Skeleton::handleArrow(const double deltaTime, Entity& player, const sf::Vec
     {
         Arrows.push_back(Arrow());
         int i = Arrows.size() - 1;
-        Arrows[i].initialize(Sprite.getPosition(), target, 0.5f);
+        Arrows[i].initialize(Sprite.getPosition(), target, 0.5f, SkeletonArrowPath);
         FireRateTimer = 0;
     }
     // iterate through the arrows in reverse order

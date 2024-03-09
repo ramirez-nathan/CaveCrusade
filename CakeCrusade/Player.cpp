@@ -5,7 +5,7 @@
 #include <algorithm>    // std::find
 
 Player::Player(float h, float dmg, float def, float spd) 
-   : Entity(h, dmg, def, spd), MaxFireRate(500), FireRateTimer(0), MaxSwingRate(300), SwingRateTimer(0)
+   : Entity(h, dmg, def, spd), MaxFireRate(500), FireRateTimer(0), MaxSwingRate(200), SwingRateTimer(0)
 {
 }
 
@@ -176,7 +176,7 @@ void Player::handleArrow(const double deltaTime, sf::Clock& shootingClock, vecto
         if (ShootingAnimationComplete) { // once the first animation finishes, the arrow will be pushed into the vector and drawn 
             Arrows.push_back(Arrow()); 
             int i = Arrows.size() - 1; 
-            Arrows[i].initialize(Sprite.getPosition(), mousePosition, 0.5f); 
+            Arrows[i].initialize(Sprite.getPosition(), mousePosition, 0.5f, PlayerArrowPath); 
             Ammo--;
             cout << "Your Ammo is: " << Ammo << endl;
             FireRateTimer = 0; 
@@ -272,16 +272,16 @@ bool Player::canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf:
     bool IsInRange = Distance <= attackRange;
 
     // Check if the enemy is within the cone angle in each direction
-    if ((mouseDirection.x == 0.f && mouseDirection.y > 0.f) || (mouseDirection.x != 0.f && mouseDirection.y > 0.5f)) { // Looking Down, Looking Down Diagonally
+    if (AttackingSpriteY == 0) { // Looking Down, Looking Down Diagonally
         return IsInRange && abs(Angle) <= DownConeAngle / 2;
     }
-    else if ((mouseDirection.x > 0.f && mouseDirection.y == 0.f) || (mouseDirection.x > 0.f && (-0.50f <= mouseDirection.y && mouseDirection.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
+    else if (AttackingSpriteY == 3) { // Looking Right, Looking Right Diagonally
         return IsInRange && abs(Angle) <= RightConeAngle / 2;
     }
-    else if ((mouseDirection.x < 0.f && mouseDirection.y == 0.f) || (mouseDirection.x < 0.f && (-0.5f <= mouseDirection.y && mouseDirection.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
+    else if (AttackingSpriteY == 2) { // Looking Left, Looking Left Diagonally
         return IsInRange && abs(Angle) <= LeftConeAngle / 2;
     }
-    else if ((mouseDirection.x == 0.f && mouseDirection.y < 0.f) || (mouseDirection.x != 0.f && mouseDirection.y < -0.5f)) { // Looking Up, Looking Up Diagonally
+    else if (AttackingSpriteY == 1) { // Looking Up, Looking Up Diagonally
         return IsInRange && abs(Angle) <= UpConeAngle / 2;
     }
     return false; // Default case, should not happen if all directions are covered

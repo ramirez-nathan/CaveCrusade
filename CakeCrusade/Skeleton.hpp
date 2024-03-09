@@ -11,7 +11,7 @@ class Skeleton : public Enemy
 {
 private:
 	vector<Arrow> Arrows;
-
+	const string SkeletonArrowPath = "assets/enemies/skelly/attacking/arrow.png";
 	float MaxFireRate;
 	double FireRateTimer;
 
