@@ -93,7 +93,8 @@ void Entity::update(double deltaTime, sf::Clock& idleAnimationClock, Entity& pla
         BoundingRectangle.setPosition(Sprite.getPosition());
     }
 
-    if (!IsMoving) { // also check if not shootingarrow
+    
+    if (IsMoving) { // also check if not shootingarrow
         if (idleAnimationClock.getElapsedTime().asSeconds() > 0.5f) {
             if (SpriteX == 1)
                 SpriteX = 0;
@@ -119,7 +120,7 @@ void Entity::draw(sf::RenderWindow& window)
     window.draw(sprite);
 }*/
 
-void Entity::getKnockedBack(const sf::Vector2f& attackerPosition) {
+void Entity::getKnockedBack(const sf::Vector2f& attackerPosition, int level[], vector<int>& walls) {
     // Calculate the direction of the knockback
     sf::Vector2f attackDirection = Sprite.getPosition() - attackerPosition;
     float magnitude = std::sqrt(attackDirection.x * attackDirection.x + attackDirection.y * attackDirection.y);
@@ -132,6 +133,14 @@ void Entity::getKnockedBack(const sf::Vector2f& attackerPosition) {
         sf::Vector2f newPosition = Sprite.getPosition() + normalizedDirection * knockbackDistance; // knockback moves the enemy away, so it's `+`, not `-`
 
         // Set the enemy's position to the new position to simulate knockback
+
+        int futurePosX = floor(newPosition.x / 64);
+        int futurePosY = floor(newPosition.y / 64);
+        int FuturePos = futurePosY + futurePosX;
+
+        if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
+
+        }
         Sprite.setPosition(newPosition);
         std::cout << "Enemy was knocked back." << std::endl;
     }

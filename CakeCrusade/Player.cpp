@@ -181,11 +181,11 @@ void Player::handleArrow(const double deltaTime, sf::Clock& shootingClock, vecto
                 {
                     if (enemies[j]->getDefense() > 0) {
                         enemies[j]->changeDefense(-40);
-                        enemies[j]->getKnockedBack(Sprite.getPosition());
+                        enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                     }
                     else {
                         enemies[j]->changeHealth(-40);
-                        enemies[j]->getKnockedBack(Sprite.getPosition());
+                        enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                     }
 
                     // erase the arrow from the vector

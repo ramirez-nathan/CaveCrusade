@@ -51,7 +51,7 @@ public:
     virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls);
     virtual void update(double deltaTime, sf::Clock& idleAnimationClock, Entity& player, const sf::Vector2f& target, int level[]);
     virtual void draw(sf::RenderWindow& window);
-    void getKnockedBack(const sf::Vector2f& attackerPosition);
+    void getKnockedBack(const sf::Vector2f& attackerPosition, int level[], vector<int>& walls);
     bool isAttacked() const;
 
 
