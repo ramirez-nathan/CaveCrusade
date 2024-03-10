@@ -21,7 +21,7 @@ bool GameState::loadLevel() // Checks if the new level has been successfully loa
         return true;
 }
 
-void GameState::changeLevel(string levelName, Player& p, string type) // Changes the level based on door type and current level
+void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s) // Changes the level based on door type and current level
 {
     /*---------------------------------------------- Level 1 -------------------------------------------------*/
     
@@ -104,6 +104,8 @@ void GameState::changeLevel(string levelName, Player& p, string type) // Changes
 
         else if (levelName == "1d") {
             tileset = "assets/tilemap/tileset2.png"; // changes level color !! :)
+
+            s.loadMusic("sound/music/icycave.wav");
             
             int NewLevel[23 * 14] =
             {

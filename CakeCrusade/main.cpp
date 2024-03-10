@@ -11,6 +11,7 @@
 #include "Slime.hpp"
 #include "Skeleton.hpp"
 #include "GameState.hpp"
+#include "SoundFx.hpp"
 
 using namespace std;
 
@@ -87,6 +88,9 @@ int main()
     sf::Clock PlayerIdleClock;
     sf::Clock PlayerShootClock;
     sf::Clock PlayerWalkClock;
+
+    SoundFx musicState;
+
     //main game loop
     while (window.isOpen())
     {
@@ -125,12 +129,12 @@ int main()
         }
 
         if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
-            state.changeLevel(state.CurrLevelName, player, "door");
+            state.changeLevel(state.CurrLevelName, player, "door", musicState);
             state.loadLevel();
         }
 
         if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
-            state.changeLevel(state.CurrLevelName, player, "stair");
+            state.changeLevel(state.CurrLevelName, player, "stair", musicState);
             state.loadLevel();
         }
 
