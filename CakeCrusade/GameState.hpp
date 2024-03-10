@@ -10,6 +10,7 @@ public:
 
     bool loadLevel();
     void changeLevel(string levelName, Player& p, string type); 
+    bool hasSpikes;
     string tileset;
     string CurrLevelName;
 

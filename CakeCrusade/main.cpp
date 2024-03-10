@@ -109,6 +109,21 @@ int main()
         }
         player.playerUpdate(deltaTime, PlayerIdleClock, PlayerShootClock, PlayerWalkClock, enemies, mousePosition, state.CurrentLevel); 
         
+        //cout << state.hasSpikes << endl;
+
+        if (enemies.size() == 0 && state.hasSpikes == true) {
+            cout << "running" << endl;
+
+            for (int i = 0; i < 322; i++) {
+                if (state.CurrentLevel[i] == 48) {
+                    state.CurrentLevel[i] = 49;
+                }
+            }
+
+            state.hasSpikes = false;
+            state.loadLevel();
+        }
+
         if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
             state.changeLevel(state.CurrLevelName, player, "door");
             state.loadLevel();
