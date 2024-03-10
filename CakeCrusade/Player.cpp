@@ -205,9 +205,11 @@ void Player::handleArrow(const double deltaTime, sf::Clock& shootingClock, vecto
                 {
                     if (enemies[j]->getDefense() > 0) {
                         enemies[j]->changeDefense(-40); // Arrow dmg is 40
+                        enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                     }
                     else {
                         enemies[j]->changeHealth(-40);
+                        enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                         enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                     }
 
