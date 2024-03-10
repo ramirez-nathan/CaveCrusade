@@ -120,31 +120,44 @@ void Entity::draw(sf::RenderWindow& window)
     window.draw(sprite);
 }*/
 
+
 void Entity::getKnockedBack(const sf::Vector2f& attackerPosition, int level[], vector<int>& walls) {
-    // Calculate the direction of the knockback
-    sf::Vector2f attackDirection = Sprite.getPosition() - attackerPosition;
+    sf::Vector2f currentPosition = Sprite.getPosition();
+    sf::Vector2f attackDirection = currentPosition - attackerPosition;
     float magnitude = std::sqrt(attackDirection.x * attackDirection.x + attackDirection.y * attackDirection.y);
 
-    // Check if an attack actually occurred and if the magnitude is not zero (to avoid division by zero)
     if (isAttacked() && magnitude > 0.0f) {
         sf::Vector2f normalizedDirection = attackDirection / magnitude;
 
-        // Calculate the new position using the knockback distance
-        sf::Vector2f newPosition = Sprite.getPosition() + normalizedDirection * knockbackDistance; // knockback moves the enemy away, so it's `+`, not `-`
+        // Define the increment for each step (smaller values for higher precision)
+        float stepSize = 5.0f; // Adjust based on your needs
+        int steps = static_cast<int>(knockbackDistance / stepSize);
+        sf::Vector2f increment = normalizedDirection * stepSize;
 
-        // Set the enemy's position to the new position to simulate knockback
+        // Move in increments, checking for collisions at each step
+        for (int i = 0; i < steps; ++i) {
+            sf::Vector2f testPosition = currentPosition + increment;
 
-        int futurePosX = floor(newPosition.x / 64);
-        int futurePosY = floor(newPosition.y / 64);
-        int FuturePos = futurePosY + futurePosX;
+            int futurePosX = floor(testPosition.x / 64);
+            int futurePosY = floor(testPosition.y / 64);
+            int futurePosIndex = futurePosY * 22 + futurePosX; // Adjust the 22 based on your level width
 
-        if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
-            Sprite.setPosition(newPosition);
+            if (std::find(walls.begin(), walls.end(), level[futurePosIndex]) == walls.end()) {
+                // No collision, update currentPosition
+                currentPosition = testPosition;
+            }
+            else {
+                // Collision detected, stop the movement
+                break;
+            }
         }
-        
-        std::cout << "Enemy was knocked back." << std::endl;
+
+        // Set the final position after checking for collisions
+        Sprite.setPosition(currentPosition);
+        std::cout << "Entity was knocked back with collision checking." << std::endl;
     }
 }
+
 
 
 
