@@ -1,7 +1,7 @@
 #include "Skeleton.hpp"
 
 Skeleton::Skeleton(float h, float dmg, float def, float spd)
-	: Enemy(h, dmg, def, spd), MaxFireRate(1100.f), FireRateTimer(0) {}
+	: Enemy(h, dmg, def, spd), MaxFireRate(1800.f), FireRateTimer(0) {}
 
 void Skeleton::load()
 {
@@ -58,7 +58,7 @@ void Skeleton::handleArrow(const double deltaTime, Entity& player, const sf::Vec
     {
         Arrows.push_back(Arrow());
         int i = Arrows.size() - 1;
-        Arrows[i].initialize(Sprite.getPosition(), target, 0.5f);
+        Arrows[i].initialize(Sprite.getPosition(), target, 0.5f, SkeletonArrowPath);
         FireRateTimer = 0;
     }
     // iterate through the arrows in reverse order

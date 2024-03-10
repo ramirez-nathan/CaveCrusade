@@ -5,7 +5,7 @@ Enemy::Enemy(float h, float dmg, float def, float spd) : Entity(h, dmg, def, spd
 }
 
 void Enemy::attackMove(const double deltaTime, Entity& player) 
-{
+{ 
     AttackTimer += deltaTime;
     if (canAttack(player.getSprite().getPosition(), 50) && AttackTimer >= MaxAttackRate) {
         player.changeHealth(-Damage);
@@ -13,7 +13,7 @@ void Enemy::attackMove(const double deltaTime, Entity& player)
         cout << "Player's health is now " << player.getHealth() << endl;
         AttackTimer = 0;
     }
-}
+} 
 
 bool Enemy::canAttack(const sf::Vector2f& playerPosition, float attackRange) const
 {
@@ -36,7 +36,11 @@ void Enemy::attackAnimation()
 
 bool Enemy::isDead(const unique_ptr<Enemy>& entity)
 {
-    if (!entity->getHealth() > 0)
+    // if dead then call death animation first 
+    // implement checking if death animation is finished yet 
+    // maybe make another boolean called isReadyToDie() in which you call that function for the erasing enemies in main.cpp
+    // and then have isDead be called at the end of the enemy update loop, in which if dead it would call the deathAnimation() function
+    if (entity->getHealth() <= 0)
     {
         return true;
     }

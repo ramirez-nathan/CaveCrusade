@@ -37,19 +37,19 @@ void Entity::load()
     // grab the idle texture image from spritesheet
     Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
     // set origin at middle of sprite
-    Sprite.setOrigin(Sprite.getLocalBounds().width / 2.f, Sprite.getLocalBounds().height / 2.f);
+    Sprite.setOrigin(Sprite.getLocalBounds().width / 2.f, Sprite.getLocalBounds().height / 2.f + 14);
     // change sprite scale
     Sprite.scale(sf::Vector2f(3, 3));
     // wrap the hitbox around the soldier
-    BoundingRectangle.setSize(sf::Vector2f(Size.x * (Sprite.getScale().x - 1), Size.y * (Sprite.getScale().y - 1)));
+    BoundingRectangle.setSize(sf::Vector2f(Size.x * (Sprite.getScale().x - 1.2), Size.y * (Sprite.getScale().y - 1.1)));
     // set hitbox origin to middle
-    BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f - 12);
+    BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f + 26);
 }
 
 void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls)
 {
     sf::Vector2f Position = Sprite.getPosition();
-    sf::Vector2f Movement(Direction * EntitySpeed * static_cast<float>(deltaTime));
+    sf::Vector2f Movement(Direction * EntitySpeed * static_cast<float>(deltaTime)); 
     sf::Vector2f Future = Position + Movement;
 
     // Additional code for WASD movements
@@ -76,8 +76,8 @@ void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spri
 
     Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
 
-    int FuturePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
-    if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
+    int FuturePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
+    if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) { 
         Sprite.setPosition(Position + Movement);
     }
 }
@@ -111,7 +111,7 @@ void Entity::draw(sf::RenderWindow& window)
     if (Health > 0)
     {
         window.draw(Sprite);
-        window.draw(BoundingRectangle);
+        //window.draw(BoundingRectangle);
     }
 }
 
