@@ -18,6 +18,7 @@ public:
 	virtual void attackMove(const double deltaTime, Entity& player) override;
 	virtual void load() override;
 	bool canAttack(const sf::Vector2f& playerPosition) const;
+	virtual void attackAnimation() override;
 
 
 };

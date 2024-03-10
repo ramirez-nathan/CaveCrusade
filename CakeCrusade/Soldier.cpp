@@ -31,3 +31,8 @@ bool Soldier::canAttack(const sf::Vector2f& playerPosition) const
     // Check if the distance is within the specified attack range
     return distance <= this->meleeRange;
 }
+
+void Soldier::attackAnimation()
+{
+
+}

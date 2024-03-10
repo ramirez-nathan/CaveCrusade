@@ -103,3 +103,8 @@ void Skeleton::draw(sf::RenderWindow& window) {
             Arrows[i].drawArrow(window);
     }
 }
+
+void Skeleton::attackAnimation()
+{
+
+}
