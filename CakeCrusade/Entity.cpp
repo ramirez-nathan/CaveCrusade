@@ -139,9 +139,9 @@ void Entity::getKnockedBack(const sf::Vector2f& attackerPosition, int level[], v
         int FuturePos = futurePosY + futurePosX;
 
         if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
-
+            Sprite.setPosition(newPosition);
         }
-        Sprite.setPosition(newPosition);
+        
         std::cout << "Enemy was knocked back." << std::endl;
     }
 }
