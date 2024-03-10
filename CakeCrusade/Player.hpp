@@ -18,7 +18,7 @@ private:
 	double FireRateTimer;
 	int Ammo = 20;
 
-	bool IsMoving = false;
+	
 	bool ShootingArrow = false;
 	bool ShootingAnimationComplete = true;
 	bool FinishedAnimation = false;

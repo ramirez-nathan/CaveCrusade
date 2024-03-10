@@ -19,6 +19,7 @@ protected:
     float EntitySpeed;
     sf::Sprite Sprite;
     sf::Texture Texture;
+    bool IsMoving = false;
 
     // size vector, width and height, gets set in initialize function
     sf::Vector2i Size;
@@ -48,7 +49,7 @@ public:
     virtual void load();
     virtual void initialize();
     virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls);
-    virtual void update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[]);
+    virtual void update(double deltaTime, sf::Clock& idleAnimationClock, Entity& player, const sf::Vector2f& target, int level[]);
     virtual void draw(sf::RenderWindow& window);
     void getKnockedBack(const sf::Vector2f& attackerPosition);
     bool isAttacked() const;

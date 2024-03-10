@@ -83,7 +83,7 @@ void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spri
 }
 
 // takes parameters : delta time, player, player position, level
-void Entity::update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[])
+void Entity::update(double deltaTime, sf::Clock& idleAnimationClock, Entity& player, const sf::Vector2f& target, int level[])
 {
     if (Health > 0)
     {
@@ -91,6 +91,16 @@ void Entity::update(double deltaTime, Entity& player, const sf::Vector2f& target
         handleMovement(deltaTime, Direction, SpriteX, SpriteY, level, Walls);
 
         BoundingRectangle.setPosition(Sprite.getPosition());
+    }
+
+    if (!IsMoving) { // also check if not shootingarrow
+        if (idleAnimationClock.getElapsedTime().asSeconds() > 0.5f) {
+            if (SpriteX == 1)
+                SpriteX = 0;
+            else
+                SpriteX += 1;
+            idleAnimationClock.restart();
+        }
     }
 }
 

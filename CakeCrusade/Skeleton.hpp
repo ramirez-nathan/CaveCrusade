@@ -21,6 +21,6 @@ public:
 	virtual void load() override;
 	virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls) override;
 	void handleArrow(const double deltaTime, Entity& player, const sf::Vector2f& target, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls);
-	virtual void update(const double deltaTime, Entity& player, const sf::Vector2f& target, int level[]) override;
+	virtual void update(const double deltaTime, sf::Clock& idleAnimationClock, Entity& player, const sf::Vector2f& target, int level[]) override;
 	virtual void draw(sf::RenderWindow& window) override;
 };

@@ -38,7 +38,7 @@ void Skeleton::handleMovement(double deltaTime, sf::Vector2f& direction, int& sp
 }
 
 // takes parameters : delta time, player position, level
-void Skeleton::update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[])
+void Skeleton::update(double deltaTime, sf::Clock& idleAnimationClock, Entity& player, const sf::Vector2f& target, int level[])
 {
     if (Health > 0)
     {

@@ -86,6 +86,7 @@ int main()
     sf::Clock PlayerIdleClock;
     sf::Clock PlayerShootClock;
     sf::Clock PlayerWalkClock;
+    sf::Clock EnemyIdleClock;
     //main game loop
     while (window.isOpen())
     {
@@ -103,7 +104,7 @@ int main()
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
         for (auto& enemy : enemies) {
-            enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
+            enemy->update(deltaTime, EnemyIdleClock, player, player.getSprite().getPosition(), state.CurrentLevel);
             enemy->attackMove(deltaTime, player);
         }
         player.playerUpdate(deltaTime, PlayerIdleClock, PlayerShootClock, enemies, mousePosition, state.CurrentLevel); 
