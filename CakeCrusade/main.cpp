@@ -89,6 +89,7 @@ int main()
     sf::Clock PlayerShootClock;
     sf::Clock PlayerWalkClock;
     sf::Clock PlayerAttackingClock;
+    sf::Clock EnemyIdleClock;
     //main game loop
     while (window.isOpen())
     {
