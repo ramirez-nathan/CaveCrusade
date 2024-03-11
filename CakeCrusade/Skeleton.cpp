@@ -65,7 +65,7 @@ void Skeleton::handleArrow(const double deltaTime, Entity& player, const sf::Vec
     // iterate through the arrows in reverse order
     for (size_t i = SkellyArrows.size(); i > 0; i--)
     {
-        if (SkellyArrows[i - 1].didArrowHitWall(deltaTime, walls, level))
+        if (SkellyArrows[i - 1].didArrowHitWall(deltaTime, ArrowWalls, level))
         {
             // if an arrow hits a wall, erase it from the vector
             SkellyArrows.erase(SkellyArrows.begin() + (i - 1));
