@@ -29,7 +29,7 @@ bool Enemy::canAttack(const sf::Vector2f& playerPosition, float attackRange) con
     return distance <= attackRange;
 }
 
-void Enemy::attackAnimation()
+void Enemy::attackAnimation(const sf::Vector2f& playerPosition)
 {
     cout << "Animation works!" << endl;
 }

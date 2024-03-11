@@ -12,7 +12,7 @@ public:
 	Enemy(float h, float dmg, float def, float spd);
 	virtual void attackMove(const double deltaTime, Entity& player) override;
 	bool canAttack(const sf::Vector2f& playerPosition, float attackRange) const;
-	virtual void attackAnimation();
+	virtual void attackAnimation(const sf::Vector2f& playerPosition);
 	virtual bool isDead(const unique_ptr<Enemy>& entity);
 	virtual ~Enemy() = default;
 };

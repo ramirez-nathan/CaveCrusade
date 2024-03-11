@@ -6,11 +6,25 @@ Soldier::Soldier(float h, float dmg, float def, float spd, float rng)
 {
 }
 
-void Soldier::load()
-{
-	loadTexture("assets/enemies/evil_soldier/textures/evil_soldier_idle.png");
-	Entity::load();
+void Soldier::load() {
+    // Load the idle texture
+    if (!Texture.loadFromFile("assets/enemies/evil_soldier/textures/evil_soldier_idle.png")) {
+        cout << "Cannot load idle texture" << endl;
+    }
+    else {
+        // If loading succeeds, set the sprite to use the idle texture initially
+        Sprite.setTexture(Texture);
+    }
+
+    // Load the attacking texture
+    if (!attackTexture.loadFromFile("assets/enemies/evil_soldier/textures/evil_soldier_attacking.png")) {
+        cout << "Cannot load attacking texture" << endl;
+    }
+
+    // Call the load method of the base class if necessary
+    Entity::load();
 }
+
 
 void Soldier::attackMove(const double deltaTime, Entity& player) 
 {
@@ -32,7 +46,15 @@ bool Soldier::canAttack(const sf::Vector2f& playerPosition) const
     return distance <= this->meleeRange;
 }
 
-void Soldier::attackAnimation()
+void Soldier::attackAnimation(const sf::Vector2f& playerPosition)
 {
+    sf::Time elapsedTime = attackClock.getElapsedTime();
+    if (canAttack && elapsedTime.asSeconds() > attackCooldown) {
+        Sprite.setTexture(attackTexture);
+        
 
+
+        attackClock.restart();
+        Sprite.setTexture(Texture);
+    }
 }
