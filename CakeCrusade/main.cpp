@@ -93,12 +93,12 @@ int main()
 
 
 
-    }
-    */
+    
+    
 
 
     //main game loop
-    while (window.isOpen())
+    while(window.isOpen())
     {
         sf::Time deltaTimeTimer = GameStateClock.restart();
         double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0;

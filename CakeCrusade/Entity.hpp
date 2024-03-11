@@ -102,4 +102,6 @@ public:
     //virtual void draw(sf::RenderWindow& window) = 0;
 
     virtual void walkingAnimation(int direction);
+
+    Entity() = default;
 };
