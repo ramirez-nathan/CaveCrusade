@@ -128,7 +128,7 @@ int main()
             enemy->attackMove(deltaTime, player);
         }
 
-        player.playerUpdate(deltaTime, PlayerIdleClock, PlayerShootClock, PlayerWalkClock, enemies, mousePosition, state.CurrentLevel); 
+        player.playerUpdate(deltaTime, PlayerIdleClock, PlayerShootClock, PlayerWalkClock, PlayerAttackingClock, enemies, mousePosition, state.CurrentLevel);
         
         //cout << state.hasSpikes << endl;
 
