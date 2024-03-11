@@ -187,7 +187,7 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
     // iterate through the arrows in reverse order
     for (size_t i = Arrows.size(); i > 0; i--) 
     {
-        if (Arrows[i - 1].didArrowHitWall(deltaTime, walls, level))
+        if (Arrows[i - 1].didArrowHitWall(deltaTime, ArrowWalls, level))
         {
             // if an arrow hits a wall, erase it from the vector
             Arrows.erase(Arrows.begin() + (i - 1));
@@ -405,7 +405,6 @@ bool Player::isTouchingDoor(int level[])
     if (level[currPos] == 25 || level[currPos] == 26 || level[currPos] == 27) {
         return true;
     }
-
     return false;
 }
 

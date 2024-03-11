@@ -118,7 +118,6 @@ int main()
         // Update enemies
         for (auto& enemy : enemies) {
             enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
-            enemy->attackMove(deltaTime, player);
         }
         // Update player 
         player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
@@ -162,7 +161,7 @@ int main()
 
         for (const auto& enemy : enemies) {
             if (enemy->isDead(enemy)) {
-                player.changeAmmo(10); // add ammo for every enemy killed
+                player.changeAmmo(5); // add ammo for every enemy killed
                 cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
             }
         }
