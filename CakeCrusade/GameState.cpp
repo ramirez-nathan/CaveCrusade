@@ -229,7 +229,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             CurrLevelName = "2b";
             p.changePosition(739.f, 750.f);
-            /*try {
+            try {
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
             }
@@ -246,7 +246,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             for (auto& enemy : enemies) {
                 enemy->initialize();
                 enemy->load();
-            }*/
+            }
         }
 
         else if (levelName == "2b") { // change to 2d 
@@ -330,7 +330,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             CurrLevelName = "3a";
             p.changePosition(739.f, 750.f);
-            /*try {
+            try {
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
             }
@@ -347,7 +347,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             for (auto& enemy : enemies) {
                 enemy->initialize();
                 enemy->load();
-            }*/
+            }
 
         }
 
@@ -459,7 +459,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             p.changePosition(739.f, 750.f);
 
             hasSpikes = true;
-            /*try {
+            try {
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
             }
@@ -476,7 +476,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             for (auto& enemy : enemies) {
                 enemy->initialize();
                 enemy->load();
-            }*/
+            }
 
         }
 
