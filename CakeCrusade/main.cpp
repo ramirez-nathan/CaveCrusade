@@ -31,8 +31,8 @@ int main()
     player.changeAmmo(20);
     vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
     try {
-        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f));
-        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f)); // give diff speeds to avoid complete overlapping
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.1f));
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 0.1f)); // give diff speeds to avoid complete overlapping
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); 
