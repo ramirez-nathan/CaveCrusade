@@ -49,7 +49,7 @@ bool Soldier::canAttack(const sf::Vector2f& playerPosition) const
 void Soldier::attackAnimation(const sf::Vector2f& playerPosition)
 {
     sf::Time elapsedTime = attackClock.getElapsedTime();
-    if (canAttack && elapsedTime.asSeconds() > attackCooldown) {
+    if (canAttack(playerPosition) && elapsedTime.asSeconds() > attackCooldown) {
         Sprite.setTexture(attackTexture);
         
 
