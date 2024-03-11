@@ -58,7 +58,7 @@ void Soldier::attackAnimation(const sf::Vector2f& playerPosition)
     sf::Time elapsedTime = attackClock.getElapsedTime();
     if (canAttack(playerPosition) && elapsedTime.asSeconds() > attackCooldown) {
         Sprite.setTexture(attackTexture);
-        
+        cout << "Enemy is attacking" << endl;
 
 
         attackClock.restart();

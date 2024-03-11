@@ -11,7 +11,7 @@ class Soldier : public Enemy
 {
 private:
 	float meleeRange;
-	float attackCooldown = 1.0f;
+	float attackCooldown = 0.20f;
 	sf::Clock attackClock;
 	sf::Texture attackTexture;
 
