@@ -125,7 +125,7 @@ void Player::playerUpdate(const double deltaTime, sf::Clock& idleAnimationClock,
         }
         
 
-        handleSword(deltaTime, attackingClock, enemies, mousePosition, SwingRateTimer, MaxSwingRate);
+        handleSword(deltaTime, attackingClock, enemies, mousePosition, SwingRateTimer, MaxSwingRate, level, Walls);
         //---------------------------------------------- ARROWS -------------------------------------------------
         handleArrow(deltaTime, shootingClock, enemies, mousePosition, FireRateTimer, MaxFireRate, level, Walls);
         //---------------------------------------------- ARROWS -------------------------------------------------
