@@ -104,7 +104,7 @@ void Skeleton::draw(sf::RenderWindow& window) {
     }
 }
 
-void Skeleton::attackAnimation()
+void Skeleton::attackAnimation(const sf::Vector2f& playerPosition)
 {
 
 }

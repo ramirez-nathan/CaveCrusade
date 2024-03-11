@@ -23,5 +23,5 @@ public:
 	void handleArrow(const double deltaTime, Entity& player, const sf::Vector2f& target, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls);
 	virtual void update(const double deltaTime, sf::Clock& idleAnimationClock, Entity& player, const sf::Vector2f& target, int level[]) override;
 	virtual void draw(sf::RenderWindow& window) override;
-	virtual void attackAnimation() override;
+	virtual void attackAnimation(const sf::Vector2f& playerPosition) override;
 };
