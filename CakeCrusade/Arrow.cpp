@@ -53,7 +53,7 @@ bool Arrow::didArrowHitWall(double deltaTime, const std::vector<int>& walls, con
 {
     sf::Vector2f Position = ArrowSprite.getPosition();
     sf::Vector2f Movement = Direction * ArrowSpeed * (float)deltaTime;
-
+    walls = { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 35, 36, 37, 38, 39, 40, 41, 42 , 43, 44, 45, 46, 47,};
     sf::Vector2f Future = Position + Movement;
     int futurePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
     if ((std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {

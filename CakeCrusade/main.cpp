@@ -85,6 +85,19 @@ int main()
 
     SoundFx musicState;
 
+    /*
+    while (window.isOpen()) {
+
+
+
+
+
+
+
+    }
+    */
+
+
     //main game loop
     while (window.isOpen())
     {
@@ -105,14 +118,7 @@ int main()
         // Update enemies
         for (auto& enemy : enemies) {
             enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
-            //enemy->attackMove(deltaTime, player);
-        }
-        // Update player ammo
-        for (const auto& enemy : enemies) {
-            if (enemy->isDead(enemy)) {
-                player.changeAmmo(10); // add ammo for every enemy killed
-                cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
-            }
+            enemy->attackMove(deltaTime, player);
         }
         // Update player 
         player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
@@ -151,8 +157,16 @@ int main()
         for (const auto& enemy : enemies) {
             enemy->draw(window);
         }
+
         player.drawPlayer(window);
-        
+
+        for (const auto& enemy : enemies) {
+            if (enemy->isDead(enemy)) {
+                player.changeAmmo(10); // add ammo for every enemy killed
+                cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
+            }
+        }
+
         enemies.erase( // Some genie code for erasing enemies from the vector
             std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
                 enemies.begin(),
@@ -161,9 +175,11 @@ int main()
             ),
             enemies.end() // the 2nd parameter; tells where to end the erasing
         );
+
         if (player.getHealth() <= 0) {
             break;
         }
+
         window.display();
 
         //-------------------------------- DRAW --------------------------------

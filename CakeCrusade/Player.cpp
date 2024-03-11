@@ -202,11 +202,11 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
                 if (Math::didRectCollide(Arrows[i - 1].getArrowGlobalBounds(), enemies[j]->getHitBox().getGlobalBounds()))
                 {
                     if (enemies[j]->getDefense() > 0) {
-                        enemies[j]->changeDefense(-40); // Arrow dmg is 40
+                        enemies[j]->changeDefense(-50); // Arrow dmg is 40
                         enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                     }
                     else {
-                        enemies[j]->changeHealth(-40);
+                        enemies[j]->changeHealth(-50);
                         enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                         enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                     }
@@ -234,11 +234,11 @@ void Player::handleSword(const double deltaTime, vector<unique_ptr<Enemy>>& enem
                if (enemies[j]->getHealth() > 0) {
                    if (canAttack(enemies[j]->getSprite().getPosition(), 100, mousePosition)) {
                        if (enemies[j]->getDefense() > 0) {
-                           enemies[j]->changeDefense(-100); // Arrow dmg is 40
+                           enemies[j]->changeDefense(-50); // Arrow dmg is 40
                            enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                        }
                        else {
-                           enemies[j]->changeHealth(-100);
+                           enemies[j]->changeHealth(-50);
                            enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                        }
 

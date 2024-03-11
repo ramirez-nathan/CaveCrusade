@@ -34,73 +34,77 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
     
     if (type == "door") {
         if (levelName == "debug") {
-            int NewLevel[23 * 14] =
+            int* NewLevel = new int[23 * 14]
             {
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
-                 18,  6,   7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 18,  6,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
-            std::copy(std::begin(NewLevel), std::end(NewLevel), std::begin(CurrentLevel));
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
 
+            delete[] NewLevel;
         }
 
-        else if (levelName == "1a") { // go to room 1b
-            int NewLevel[23 * 14] =
-            {
-                 18,  18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
-                 18,  6,   7, 22, 23, 24,  7,  7,  7,  7,  7, 44,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
-                 18,  9,   0, 25, 26, 27,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  6,   7,  7,  7,  7,  7, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   0,  0, 43,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   2,  3, 43,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  9,   4,  5, 43,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+        else if (levelName == "1a") {
+            int* NewLevel = new int[23 * 14]
+                {
+                    18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                        18, 6, 7, 22, 23, 24, 7, 7, 7, 7, 7, 44, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 18,
+                        18, 9, 0, 25, 26, 27, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 6, 7, 7, 7, 7, 7, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 43, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 2, 3, 43, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 4, 5, 43, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 13, 18,
+                        18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                };
+
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
+            CurrLevelName = "1b";
+            p.changePosition(1250.f, 750.f);
+            try {
+                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // give diff speeds to avoid complete overlapping
+                enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
+            }
+            catch (const bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+            }
+            vector<sf::Vector2f> enemyPositions1b = {
+                sf::Vector2f(1170.f, 261.f), // Soldier1 position 
+                sf::Vector2f(484.f, 586.f), // Skeleton1 position 
             };
-
-            std::copy(std::begin(NewLevel), std::end(NewLevel), std::begin(CurrentLevel));
-
-        CurrLevelName = "1b";
-        p.changePosition(1250.f, 750.f);
-        try { 
-            enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // give diff speeds to avoid complete overlapping
-            enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
-        } 
-        catch (const bad_alloc& e) { 
-            std::cerr << "Memory allocation failed: " << e.what() << std::endl; 
-        } 
-        vector<sf::Vector2f> enemyPositions1b = { 
-            sf::Vector2f(1170.f, 261.f), // Soldier1 position 
-            sf::Vector2f(484.f, 586.f), // Skeleton1 position 
-        }; 
-        for (size_t i = 0; i < enemies.size(); ++i) { 
-            enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y); 
-        } 
-        for (auto& enemy : enemies) {
-            enemy->initialize();
-            enemy->load();
+            for (size_t i = 0; i < enemies.size(); ++i) {
+                enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
+            }
+            for (auto& enemy : enemies) {
+                enemy->initialize();
+                enemy->load();
+            }
         }
-    } 
+            
 
-        else if (levelName == "1b") { // go to room 1d
-            int NewLevel[23 * 14] =
+
+        else if (levelName == "1b") {
+            int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                  18,  6,   7,  7,  7,  7,  8, 18, 18, 18, 18, 18, 18, 18, 18, 18,  6,  7,  7,  7,  7,  8, 18,
@@ -118,7 +122,9 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
-            std::copy(std::begin(NewLevel), std::end(NewLevel), std::begin(CurrentLevel));
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
 
             CurrLevelName = "1d";
             p.changePosition(739.f, 750.f);
@@ -151,7 +157,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             s.loadMusic("sound/music/icycave.wav");
             
-            int NewLevel[23 * 14] =
+            int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18,
                  18,  6,   7,  7,  7,  7,  7,  7,  7,  7,  8, 18,  6,  7,  7,  7,  7, 22, 23, 24,  7,  8, 18,
@@ -169,7 +175,9 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
-            std::copy(std::begin(NewLevel), std::end(NewLevel), std::begin(CurrentLevel));
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
 
             CurrLevelName = "2a";
             p.changePosition(291.f, 750.f);
@@ -195,7 +203,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
         else if (levelName == "2a") { // change to 2b 
 
-            int NewLevel[23 * 14] =
+            int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                  18,  6,   7,  7,  7,  7,  7,  7,  7,  7, 22, 23, 24,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
@@ -215,11 +223,13 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             hasSpikes = true;
 
-            std::copy(std::begin(NewLevel), std::end(NewLevel), std::begin(CurrentLevel));
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
 
             CurrLevelName = "2b";
             p.changePosition(739.f, 750.f);
-            try {
+            /*try {
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
             }
@@ -236,12 +246,12 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             for (auto& enemy : enemies) {
                 enemy->initialize();
                 enemy->load();
-            }
+            }*/
         }
 
         else if (levelName == "2b") { // change to 2d 
 
-            int NewLevel[23 * 14] =
+            int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                  18,  6,   7,  7,  7,  7,  7,  7,  7,  7, 22, 23, 24,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
@@ -259,7 +269,9 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
-            std::copy(std::begin(NewLevel), std::end(NewLevel), std::begin(CurrentLevel));
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
 
             CurrLevelName = "2d";
             p.changePosition(739.f, 750.f);
@@ -289,9 +301,197 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             /*---------------------------------------------- Level 3 -------------------------------------------------*/
 
+        else if (levelName == "2d") { // change to 3a
+            tileset = "assets/tilemap/tileset3.png"; // changes level color !! :)
+
+            s.loadMusic("sound/music/MysteriousDungeon.wav");
+
+            int* NewLevel = new int[23 * 14]
+            {
+                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 18,  6,  7,  7,  7,  7,  8, 18, 18, 18, 18, 18, 18, 18, 18, 18,  6,  7,  7,  7,  7,  8, 18,
+                 18,  9,  0,  0,  0,  0, 10, 18, 18, 18, 18, 18, 18, 18, 18, 18,  9,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0, 10, 18, 18, 18, 18, 18, 18, 18, 18, 18,  9,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0, 10, 18, 18, 18, 19, 20, 21, 18, 18, 18,  9,  0,  0,  0,  0, 10, 18,
+                 18,  9, 28, 31, 28, 30, 37,  7,  7,  7, 22, 23, 24,  7,  7,  7, 38, 28, 30, 28, 29, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0, 25, 26, 27,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+            };
+
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
+
+            CurrLevelName = "3a";
+            p.changePosition(739.f, 750.f);
+            /*try {
+                enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
+                enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
+            }
+            catch (const bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+            }
+            vector<sf::Vector2f> enemyPositions1b = { // CHANGE THESE POSITIONS WHEN U CAN GET THEM
+                sf::Vector2f(544.f, 471.f), // Skeleton1 position 
+                sf::Vector2f(544.f, 471.f) // Skeleton2 position
+            };
+            for (size_t i = 0; i < enemies.size(); ++i) {
+                enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
+            }
+            for (auto& enemy : enemies) {
+                enemy->initialize();
+                enemy->load();
+            }*/
+
+        }
+
+        else if (levelName == "3a") { // changes to 3b
+
+            int* NewLevel = new int[23 * 14]
+            {
+                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18,
+                 18,  6,  7,  7,  7,  8,  6,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 22, 23, 24,  7,  8, 18,
+                 18,  9,  0,  0,  0, 10,  9,  0,  0,  0,  0,  0,  0,  0, 48,  0,  0, 25, 26, 27,  0, 10, 18,
+                 18,  9,  0,  0,  0, 10,  9,  0,  0,  0,  0,  0,  0,  0, 48,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0, 10,  9,  0,  0,  0,  0,  0,  0,  0, 48,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0, 10,  9,  0,  0,  0,  0,  0,  0,  0, 48,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0, 10, 11, 12, 17,  0,  0, 16, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                 18,  9,  0,  0,  0, 10, 18, 18,  9,  0,  0, 10, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 18,  9,  0,  0,  0, 39,  7,  7, 40,  0,  0, 39,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 48,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 48,  0,  0,  0,  0,  2,  3, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 48,  0,  0,  0,  0,  4,  5, 10, 18,
+                 18, 11, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+            };
+
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
+
+            hasSpikes = true;
+
+            CurrLevelName = "3b";
+            p.changePosition(226.f, 750.f);
+            try {
+                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f));
+                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // give diff speeds to avoid complete overlapping
+                //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
+            }
+            catch (const bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+            }
+            vector<sf::Vector2f> enemyPositions1b = {
+                sf::Vector2f(227.f, 248.f), // Soldier1 position - make bigger soldier 
+                sf::Vector2f(643.f, 248.f), // Soldier2 position
+                //sf::Vector2f(1187.f, 285.f) // Skeleton1 position
+            };
+            for (size_t i = 0; i < enemies.size(); ++i) {
+                enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
+            }
+            for (auto& enemy : enemies) {
+                enemy->initialize();
+                enemy->load();
+            }
+
+        }
+
+        else if (levelName == "2b") {
+
+            int* NewLevel = new int[23 * 14]
+            {
+                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 18,  6,   7,  7,  7,  7,  7,  7,  7,  7, 22, 23, 24,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
+                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0, 25, 26, 27,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,   0,  0, 28, 28, 32, 28,  0,  0,  0,  0,  0,  0,  0, 28, 28, 28, 31,  0,  0, 10, 18,
+                 18,  9,   0,  0, 18, 33, 18, 18,  0,  0,  0,  0,  0,  0,  0, 18, 34, 18, 18,  0,  0, 10, 18,
+                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,   0,  0, 31, 28, 28, 28,  0,  0,  0,  0,  0,  0,  0, 28, 28, 32, 28,  0,  0, 10, 18,
+                 18,  9,   0,  0, 18, 18, 34, 18,  0,  0,  0,  0,  0,  0,  0, 18, 18, 18, 33,  0,  0, 10, 18,
+                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+            };
+
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
+
+            CurrLevelName = "2d";
+            p.changePosition(739.f, 750.f);
+
+        }
+
+        else if (levelName == "3b") { // changes to 3d
+
+            int* NewLevel = new int[23 * 14]
+            {
+                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 18,  6,  7,  7,  7,  7,  7,  7,  7,  7, 22, 23, 24,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0, 25, 26, 27,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9, 48, 48, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 48, 48, 10, 18,
+                 18,  9, 48, 48, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 48, 48, 10, 18,
+                 18,  9, 48, 48, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 48, 48, 10, 18,
+                 18,  9, 48, 48, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 48, 48, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+            };
+
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
+
+            CurrLevelName = "3d";
+            p.changePosition(739.f, 750.f);
+
+            hasSpikes = true;
+            /*try {
+                enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
+                enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
+            }
+            catch (const bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+            }
+            vector<sf::Vector2f> enemyPositions1b = { // CHANGE THESE POSITIONS WHEN U CAN GET THEM
+                sf::Vector2f(450.f, 248.f), // Skeleton1 position
+                sf::Vector2f(1026.f, 248.f) // Skeleton2 position
+            };
+            for (size_t i = 0; i < enemies.size(); ++i) {
+                enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
+            }
+            for (auto& enemy : enemies) {
+                enemy->initialize();
+                enemy->load();
+            }*/
+
+        }
+
+
+
+
+
+
+
+
 
             /*---------------------------------------------- Level 4 -------------------------------------------------*/
-        
+    
+
+
 
     }
 
@@ -301,8 +501,8 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
     else if (type == "stair") {
 
-        if (levelName == "1b") { // go to 1c
-            int NewLevel[23 * 14] =
+        if (levelName == "1b") {
+            int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                  18,  6,   7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
@@ -320,7 +520,9 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
-            std::copy(std::begin(NewLevel), std::end(NewLevel), std::begin(CurrentLevel));
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
 
             CurrLevelName = "1c";
             p.changePosition(290.f, 180.f);
@@ -344,8 +546,8 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             }
         }
 
-        else if (levelName == "1c") { // go back to 1b
-            int NewLevel[23 * 14] =
+        else if (levelName == "1c") {
+            int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                  18,  6,   7, 22, 23, 24,  7,  7,  7,  7,  7, 44,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
@@ -363,7 +565,9 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
-            std::copy(std::begin(NewLevel), std::end(NewLevel), std::begin(CurrentLevel));
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
 
             CurrLevelName = "1b";
             p.changePosition(193.f, 616.f);
@@ -373,7 +577,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
         else if (levelName == "2c") { // go back to 2b
 
-            int NewLevel[23 * 14] =
+            int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                  18,  6,   7,  7,  7,  7,  7,  7,  7,  7, 22, 23, 24,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
@@ -391,7 +595,9 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
-            std::copy(std::begin(NewLevel), std::end(NewLevel), std::begin(CurrentLevel));
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
 
             CurrLevelName = "2b";
             p.changePosition(284.f, 456.f);
@@ -400,7 +606,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
         else if (levelName == "2b") { // change to 2c
 
-            int NewLevel[23 * 14] =
+            int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                  18,  6,   7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
@@ -420,7 +626,9 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             hasSpikes = true; 
 
-            std::copy(std::begin(NewLevel), std::end(NewLevel), std::begin(CurrentLevel));
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
 
             CurrLevelName = "2c";
             p.changePosition(1187.f, 456.f);
@@ -441,6 +649,89 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 enemy->load();
             }
         }
+
+
+        /*---------------------------------------------- Level 3 -------------------------------------------------*/
+
+
+        else if (levelName == "3c") {
+
+            int* NewLevel = new int[23 * 14]
+            {
+                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18,
+                 18,  6,  7,  7,  7,  8,  6,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 22, 23, 24,  7,  8, 18,
+                 18,  9,  0,  0,  0, 10,  9,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0, 25, 26, 27,  0, 10, 18,
+                 18,  9,  0,  0,  0, 10,  9,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0, 10,  9,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0, 10,  9,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0, 10, 11, 12, 17,  0,  0, 16, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                 18,  9,  0,  0,  0, 10, 18, 18,  9,  0,  0, 10, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 18,  9,  0,  0,  0, 39,  7,  7, 40,  0,  0, 39,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0,  0,  0,  0,  0, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0,  0,  0,  2,  3, 10, 18,
+                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0,  0,  0,  4,  5, 10, 18,
+                 18, 11, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+            };
+
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
+
+            CurrLevelName = "3b";
+            p.changePosition(1282.f, 627.f);
+
+        }
+
+        else if (levelName == "3b") { // changes to 3c
+
+            int* NewLevel = new int[23 * 14]
+            {
+                    18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                    18,  6,   7,  7,  8, 18,  6,  7,  7,  7,  7,  7,  7,  7,  8, 18,  6,  7,  7,  7,  7,  8, 18,
+                    18,  9,   2,  3, 10, 18,  9,  0,  0,  0,  0,  0,  0,  0, 10, 18,  9,  0,  0,  0,  0, 10, 18,
+                    18,  9,   4,  5, 10, 18,  9,  0,  0,  0,  0,  0,  0,  0, 10, 18,  9,  0,  0,  0,  0, 10, 18,
+                    18,  9,   0,  0, 10, 18,  9,  0,  0, 41, 12, 42,  0,  0, 10, 18,  9,  0,  0,  0,  0, 10, 18,
+                    18,  9,   0,  0, 10, 18,  9,  0,  0, 10, 18,  9,  0,  0, 10, 18,  9,  0,  0,  0,  0, 10, 18,
+                    18,  9,   0,  0, 10, 18,  9,  0,  0, 10, 18,  9,  0,  0, 10, 18,  9,  0,  0,  0,  0, 10, 18,
+                    18,  9,   0,  0, 10, 18,  9,  0,  0, 10, 18,  9,  0,  0, 10, 18,  9,  0,  0,  0,  0, 10, 18,
+                    18,  9,   0,  0, 10, 18,  9,  0,  0, 10, 18,  9,  0,  0, 10, 18,  9,  0,  0,  0,  0, 10, 18,
+                    18,  9,   0,  0, 14,  7, 15,  0,  0, 10, 18,  9,  0,  0, 14,  7, 15,  0,  0,  0,  0, 10, 18,
+                    18,  9,   0,  0,  0,  0,  0,  0,  0, 10, 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18,  9,   0,  0,  0,  0,  0,  0,  0, 10, 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18,  11, 12, 12, 12, 12, 12, 12, 12, 13, 18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                    18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+            };
+
+            hasSpikes = true;
+
+            std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
+
+            delete[] NewLevel;
+
+            CurrLevelName = "3c";
+            p.changePosition(193.f, 311.f);
+            try {
+                enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); // give diff speeds to avoid complete overlapping
+                enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.020f));
+            }
+            catch (const bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+            }
+            vector<sf::Vector2f> enemyPositions1b = {
+                sf::Vector2f(353.f, 733.f), // Slime1 position 
+                sf::Vector2f(995.f, 733.f)
+            };
+            for (size_t i = 0; i < enemies.size(); ++i) {
+                enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
+            }
+            for (auto& enemy : enemies) {
+                enemy->initialize();
+                enemy->load();
+            }
+        }
+
+
     }
 }
 
