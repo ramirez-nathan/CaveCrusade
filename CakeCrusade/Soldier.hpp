@@ -12,6 +12,7 @@ class Soldier : public Enemy
 private:
 	//float MeleeRange;
 	float AttackCooldown = 1.0f;
+	const float aggressiveRange = 250.0f;
 
 	float MaxSwingRate;
 	double SwingRateTimer;
@@ -34,7 +35,7 @@ public:
 	virtual void load() override;
 	bool canAttack(const sf::Vector2f& playerPosition) const;
 	virtual void update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[]) override;
-	bool isAgressive(const sf::Vector2f& playerPosition) const;
+	bool isAggressive(const sf::Vector2f& playerPosition) const;
 	void makeAggressive(const sf::Vector2f& playerPosition);
 
 	void handleSword(const double deltaTime, Entity& player, sf::Vector2f& mousePosition, int level[], vector<int>& walls);

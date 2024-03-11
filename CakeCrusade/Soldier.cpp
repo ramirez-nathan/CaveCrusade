@@ -170,55 +170,53 @@ void Soldier::swingingAnimation() {
             }
             AttackClock.restart();
         }
-  
-
-bool Soldier::isAgressive(const sf::Vector2f& playerPosition) const
-{
-    // Get the enemy's current position from its sprite
-    sf::Vector2f enemyPosition = Sprite.getPosition();
-
-    // Calculate the distance between the enemy and the player
-    float dx = playerPosition.x - enemyPosition.x;
-    float dy = playerPosition.y - enemyPosition.y;
-    float distance = std::sqrt(dx * dx + dy * dy);
-
-    // Check if the distance is within the specified attack range
-    return distance <= this->aggressiveRange;
-}
-
-void Soldier::makeAggressive(const sf::Vector2f& playerPosition)
-{
-    sf::Vector2f enemyPosition = Sprite.getPosition();
-    float deltaX = playerPosition.x - enemyPosition.x;
-    float deltaY = playerPosition.y - enemyPosition.y;
-    const sf::IntRect rectDownA(0 * spriteWidth, 0 * spriteHeight, spriteWidth, spriteHeight); // Facing down aggro
-    const sf::IntRect rectUpA(0 * spriteWidth, 1 * spriteHeight, spriteWidth, spriteHeight); // Facing up aggro
-    const sf::IntRect rectRightA(0 * spriteWidth, 2 * spriteHeight, spriteWidth, spriteHeight); // Facing right aggro
-    const sf::IntRect rectLeftA(0 * spriteWidth, 2 * spriteHeight, spriteWidth, spriteHeight); // Facing left aggro
-
-
-    if (isAgressive(playerPosition)) {
-        //cout << "Enemies are aggressive" << endl;
-        Sprite.setTexture(attackTexture);
-        // Player is to the right
-        if (deltaX > 0 && abs(deltaX) > abs(deltaY)) {
-            Sprite.setTextureRect(rectRightA);
-        }
-        // Player is to the left 
-        else if (deltaX < 0 && abs(deltaX) > abs(deltaY)) {
-            Sprite.setTextureRect(rectLeftA);
-        }
-        // Player is below
-        else if (deltaY > 0) {
-            Sprite.setTextureRect(rectDownA);
-        }
-        // Player is above
-        else {
-            Sprite.setTextureRect(rectUpA);
-        }
     }
 }
 
+        bool Soldier::isAggressive(const sf::Vector2f & playerPosition) const
+        {
+                // Get the enemy's current position from its sprite
+                sf::Vector2f enemyPosition = Sprite.getPosition();
+            
+                // Calculate the distance between the enemy and the player
+                float dx = playerPosition.x - enemyPosition.x;
+                float dy = playerPosition.y - enemyPosition.y;
+                float distance = std::sqrt(dx * dx + dy * dy);
+            
+                // Check if the distance is within the specified attack range
+                return distance <= this->aggressiveRange;
+        }
 
-
-
+        void Soldier::makeAggressive(const sf::Vector2f& playerPosition)
+        {
+            sf::Vector2f enemyPosition = Sprite.getPosition();
+            float deltaX = playerPosition.x - enemyPosition.x;
+            float deltaY = playerPosition.y - enemyPosition.y;
+            const sf::IntRect rectDownA(0 * spriteWidth, 0 * spriteHeight, spriteWidth, spriteHeight); // Facing down aggro
+            const sf::IntRect rectUpA(0 * spriteWidth, 1 * spriteHeight, spriteWidth, spriteHeight); // Facing up aggro
+            const sf::IntRect rectRightA(0 * spriteWidth, 2 * spriteHeight, spriteWidth, spriteHeight); // Facing right aggro
+            const sf::IntRect rectLeftA(0 * spriteWidth, 2 * spriteHeight, spriteWidth, spriteHeight); // Facing left aggro
+        
+        
+            if (isAggressive(playerPosition)) {
+                //cout << "Enemies are aggressive" << endl;
+                Sprite.setTexture(AttackTexture);
+                // Player is to the right
+                if (deltaX > 0 && abs(deltaX) > abs(deltaY)) {
+                    Sprite.setTextureRect(rectRightA);
+                }
+                // Player is to the left 
+                else if (deltaX < 0 && abs(deltaX) > abs(deltaY)) {
+                    Sprite.setTextureRect(rectLeftA);
+                }
+                // Player is below
+                else if (deltaY > 0) {
+                    Sprite.setTextureRect(rectDownA);
+                }
+                // Player is above
+                else {
+                    Sprite.setTextureRect(rectUpA);
+                }
+            }
+        }
+   
