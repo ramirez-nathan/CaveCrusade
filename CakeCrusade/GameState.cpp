@@ -78,7 +78,7 @@ void GameState::changeLevel(string levelName, Player& p, vector<unique_ptr<Enemy
         CurrLevelName = "1b";
         p.changePosition(1250.f, 750.f);
         try { 
-            enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f)); // give diff speeds to avoid complete overlapping
+            enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // give diff speeds to avoid complete overlapping
             enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         } 
         catch (const bad_alloc& e) { 
