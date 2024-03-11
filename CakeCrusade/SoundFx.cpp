@@ -9,7 +9,7 @@ SoundFx::SoundFx()
 
     music.setLoop(true);
     music.setPitch(1.5f);
-    music.setVolume(75.f);
+    music.setVolume(20.f);
     music.play();
 }
 

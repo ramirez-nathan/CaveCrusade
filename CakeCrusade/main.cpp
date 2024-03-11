@@ -91,6 +91,19 @@ int main()
 
     SoundFx musicState;
 
+    /*
+    while (window.isOpen()) {
+
+
+
+
+
+
+
+    }
+    */
+
+
     //main game loop
     while (window.isOpen())
     {
@@ -111,6 +124,7 @@ int main()
             enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
             enemy->attackMove(deltaTime, player);
         }
+
         player.playerUpdate(deltaTime, PlayerIdleClock, PlayerShootClock, PlayerWalkClock, enemies, mousePosition, state.CurrentLevel); 
         
         //cout << state.hasSpikes << endl;
@@ -147,6 +161,7 @@ int main()
         for (const auto& enemy : enemies) {
             enemy->draw(window);
         }
+
         player.drawPlayer(window);
 
         for (const auto& enemy : enemies) {
@@ -155,6 +170,7 @@ int main()
                 cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
             }
         }
+
         enemies.erase( // Some genie code for erasing enemies from the vector
             std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
                 enemies.begin(),
@@ -163,9 +179,11 @@ int main()
             ),
             enemies.end() // the 2nd parameter; tells where to end the erasing
         );
+
         if (player.getHealth() <= 0) {
             break;
         }
+
         window.display();
 
         //-------------------------------- DRAW --------------------------------
