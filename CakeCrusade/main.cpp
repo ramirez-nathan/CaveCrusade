@@ -27,7 +27,7 @@ int main()
     }
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-    Player player(300.f, 50.f, 150.f, 0.4f);
+    Player player(3000.f, 50.f, 150.f, 0.4f);
     player.changeAmmo(20);
     vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
     try {
