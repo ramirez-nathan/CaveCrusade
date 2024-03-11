@@ -8,8 +8,8 @@ SoundFx::SoundFx()
         cout << "Music failed!"; // error
 
     music.setLoop(true);
-    music.setPitch(1.5f);
-    music.setVolume(20.f);
+    music.setPitch(1.0f);
+    music.setVolume(10.f);
     music.play();
 }
 

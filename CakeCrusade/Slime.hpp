@@ -16,6 +16,6 @@ public:
 	
 	virtual void initialize() override;
 	virtual void load() override;
-	virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls) override;
+	virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int entityDirection, int level[], vector<int>& walls) override;
 	//virtual void attackMove() override;
 };

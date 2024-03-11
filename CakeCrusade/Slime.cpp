@@ -28,7 +28,7 @@ void Slime::initialize() {
     Size = sf::Vector2i(32, 16);
 }
 
-void Slime::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls)
+void Slime::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int entityDirection, int level[], vector<int>& walls)
 {
     sf::Vector2f Position = Sprite.getPosition();
     sf::Vector2f Movement(Direction * EntitySpeed * static_cast<float>(deltaTime));
@@ -38,32 +38,24 @@ void Slime::handleMovement(double deltaTime, sf::Vector2f& direction, int& sprit
     if ((direction.x == 0.f && direction.y > 0.f) || (direction.x != 0.f && direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
         spriteX = 1;
         spriteY = 0;
-
     }
     else if ((direction.x > 0.f && direction.y == 0.f) || (direction.x > 0.f && (-0.50f <= direction.y && direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
         spriteX = 2;
         spriteY = 0;
-
     }
     else if ((direction.x < 0.f && direction.y == 0.f) || (direction.x < 0.f && (-0.5f <= direction.y && direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
         spriteX = 0;
         spriteY = 0;
-
     }
     else if ((direction.x == 0.f && direction.y < 0.f) || (direction.x != 0.f && direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
         spriteX = 3;
         spriteY = 0;
-
     }
 
-    Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
+    //Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
 
     int FuturePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
     if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
         Sprite.setPosition(Position + Movement);
     }
 }
-
-/*void Slime::attackMove() {
-    cout << "Slime attack works!" << endl;
-}*/

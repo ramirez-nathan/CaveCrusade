@@ -10,7 +10,7 @@ public:
     GameState();
 
     bool loadLevel();
-    void changeLevel(string levelName, Player& p, string type, SoundFx& s); 
+    void changeLevel(string levelName, Player& p, string type, SoundFx& s, vector<unique_ptr<Enemy>>& enemies);
     bool hasSpikes;
     string tileset;
     string CurrLevelName;

@@ -50,11 +50,11 @@ void Player::load()
 }
 
 // Separate function for handling player movement
-void Player::handleMovement(const double deltaTime, bool& isMoving, sf::Clock& walkingClock, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls) {
+void Player::handleMovement(const double deltaTime, bool& isMoving, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls) {
     sf::Vector2f Position = Sprite.getPosition();
     sf::Vector2f Future = Position + movement;
     IsMoving = true; // player will move, so set to true
-    walkingAnimation(walkingClock, direction);
+    walkingAnimation(direction);
     // Additional code for WASD movements
     if (direction == 1) {
         spriteX = 0;
@@ -80,7 +80,7 @@ void Player::handleMovement(const double deltaTime, bool& isMoving, sf::Clock& w
 }
 
 // takes parameters - deltatime, any specified entity (by upcasting), mouseposition, and level
-void Player::playerUpdate(const double deltaTime, sf::Clock& idleAnimationClock, sf::Clock& shootingClock, sf::Clock& walkingClock, sf::Clock& attackingClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
+void Player::playerUpdate(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, int level[]) // add the level [], convert pos
 {
     if (Health > 0) 
     {
@@ -93,41 +93,41 @@ void Player::playerUpdate(const double deltaTime, sf::Clock& idleAnimationClock,
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
             sf::Vector2f movement(0, -1 * EntitySpeed * static_cast<float>(deltaTime));
             PlayerDirection = 1;
-            handleMovement(deltaTime, IsMoving, walkingClock, movement, SpriteX, SpriteY, PlayerDirection, level, Walls);
+            handleMovement(deltaTime, IsMoving,movement, SpriteX, SpriteY, PlayerDirection, level, Walls); // try putting this at the end of the if statmements
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
             sf::Vector2f movement(0, 1 * EntitySpeed * static_cast<float>(deltaTime));
             PlayerDirection = 0;
-            handleMovement(deltaTime, IsMoving, walkingClock, movement, SpriteX, SpriteY, PlayerDirection, level, Walls);
+            handleMovement(deltaTime, IsMoving,movement, SpriteX, SpriteY, PlayerDirection, level, Walls);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             sf::Vector2f movement(-1 * EntitySpeed * static_cast<float>(deltaTime), 0);
             PlayerDirection = 2;
-            handleMovement(deltaTime, IsMoving, walkingClock, movement, SpriteX, SpriteY, PlayerDirection, level, Walls);
+            handleMovement(deltaTime, IsMoving,movement, SpriteX, SpriteY, PlayerDirection, level, Walls);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
             sf::Vector2f movement(1 * EntitySpeed * static_cast<float>(deltaTime), 0);
             PlayerDirection = 3;
-            handleMovement(deltaTime, IsMoving, walkingClock, movement, SpriteX, SpriteY, PlayerDirection, level, Walls);
+            handleMovement(deltaTime, IsMoving,movement, SpriteX, SpriteY, PlayerDirection, level, Walls);
         }
 
         if (!IsMoving) {
-            if (idleAnimationClock.getElapsedTime().asSeconds() > 0.5f) {
+            if (PlayerIdleClock.getElapsedTime().asSeconds() > 0.5f) {
                 if (IdleSpriteX == 1)
                     IdleSpriteX = 0;
                 else
                     IdleSpriteX += 1;
-                idleAnimationClock.restart();
+                PlayerIdleClock.restart();
             }
         }
         
 
-        handleSword(deltaTime, attackingClock, enemies, mousePosition, SwingRateTimer, MaxSwingRate, level, Walls);
+        handleSword(deltaTime, enemies, mousePosition, SwingRateTimer, MaxSwingRate, level, Walls);
         //---------------------------------------------- ARROWS -------------------------------------------------
-        handleArrow(deltaTime, shootingClock, enemies, mousePosition, FireRateTimer, MaxFireRate, level, Walls);
+        handleArrow(deltaTime, enemies, mousePosition, FireRateTimer, MaxFireRate, level, Walls);
         //---------------------------------------------- ARROWS -------------------------------------------------
         UpdateHandlingComplete = true;
 
@@ -152,28 +152,26 @@ void Player::playerUpdate(const double deltaTime, sf::Clock& idleAnimationClock,
                 SpriteY = WalkingSpriteY; 
                 Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
             } 
-            else {
+            else { // if idle
                 Sprite.setTexture(Texture);
                 SpriteX = IdleSpriteX;
                 Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
             }
         }
         IsMoving = false; // set it back to false after the movement to reset the bool for next loop
-        //------------------------------------- LOAD CORRECT TEXTURE -----------------------------------
-        //Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY())); // might have to change for attacking sprite 
-        //Sprite.setTextureRect(sf::IntRect(SpriteX * (getSizeX() + 16), SpriteY * (getSizeY() + 16), (getSizeX() + 16), (getSizeY() + 16))); // for the 48x48 attacking sprites
-        BoundingRectangle.setPosition(Sprite.getPosition());
-    }
-}
+        //------------------------------------- LOAD CORRECT TEXTURE ----------------------------------- 
+        BoundingRectangle.setPosition(Sprite.getPosition()); 
+    } 
+} 
 
-void Player::handleArrow(const double deltaTime, sf::Clock& shootingClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls)
+void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls)
 {
     FireRateTimer += deltaTime;
     
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && FireRateTimer >= MaxFireRate && Ammo > 0 && !IsAttacking) 
     { 
         ShootingArrow = true; 
-        arrowShootAnimation(shootingClock, mousePosition); // call the animation while holding down mouse button 
+        arrowShootAnimation(mousePosition); // call the animation while holding down mouse button 
         if (ShootingAnimationComplete) { // once the first animation finishes, the arrow will be pushed into the vector and drawn 
             Arrows.push_back(Arrow()); 
             int i = Arrows.size() - 1; 
@@ -204,11 +202,11 @@ void Player::handleArrow(const double deltaTime, sf::Clock& shootingClock, vecto
                 if (Math::didRectCollide(Arrows[i - 1].getArrowGlobalBounds(), enemies[j]->getHitBox().getGlobalBounds()))
                 {
                     if (enemies[j]->getDefense() > 0) {
-                        enemies[j]->changeDefense(-40); // Arrow dmg is 40
+                        enemies[j]->changeDefense(-50); // Arrow dmg is 40
                         enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                     }
                     else {
-                        enemies[j]->changeHealth(-40);
+                        enemies[j]->changeHealth(-50);
                         enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                         enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                     }
@@ -223,10 +221,11 @@ void Player::handleArrow(const double deltaTime, sf::Clock& shootingClock, vecto
         }
     }
 }
-void Player::handleSword(const double deltaTime, sf::Clock& attackingClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& SwingRateTimer, const float& MaxSwingRate, int level[], vector<int>& walls)
+
+void Player::handleSword(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& SwingRateTimer, const float& MaxSwingRate, int level[], vector<int>& walls)
 {
     SwingRateTimer += deltaTime;
-    swingingAnimation(attackingClock, mousePosition);
+    swingingAnimation(mousePosition);
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && SwingRateTimer >= MaxSwingRate) 
     {
         IsAttacking = true;
@@ -235,11 +234,11 @@ void Player::handleSword(const double deltaTime, sf::Clock& attackingClock, vect
                if (enemies[j]->getHealth() > 0) {
                    if (canAttack(enemies[j]->getSprite().getPosition(), 100, mousePosition)) {
                        if (enemies[j]->getDefense() > 0) {
-                           enemies[j]->changeDefense(-40); // Arrow dmg is 40
+                           enemies[j]->changeDefense(-50); // Arrow dmg is 40
                            enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                        }
                        else {
-                           enemies[j]->changeHealth(-40);
+                           enemies[j]->changeHealth(-50);
                            enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                        }
 
@@ -251,7 +250,6 @@ void Player::handleSword(const double deltaTime, sf::Clock& attackingClock, vect
         }
     }
 }
-
 
 void Player::attackMove(const double deltaTime, Entity& enemy) {
     cout << "HAZZAHHHH" << endl;
@@ -274,7 +272,7 @@ bool Player::canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf:
         return false;
     }
     else if (AttackingSpriteY == 3) { // Looking Right, Looking Right Diagonally
-        if ((Dy <= 90 && Dy >= -90) && (Dx >= -130 && 0 >= Dx)) {
+        if ((Dy <= 90 && Dy >= -90) && (Dx >= -130 && Dx <= 0)) {
             return true;
         }
         return false;
@@ -293,7 +291,7 @@ bool Player::canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf:
     }
 }
 
-void Player::swingingAnimation(sf::Clock& attackingClock, sf::Vector2f mouseDirection) {
+void Player::swingingAnimation(sf::Vector2f mouseDirection) {
     mouseDirection = Math::normalizeVector(mouseDirection - Sprite.getPosition());
     if (IsAttacking) {
         if ((mouseDirection.x == 0.f && mouseDirection.y > 0.f) || (mouseDirection.x != 0.f && mouseDirection.y > 0.5f)) { // Looking Down, Looking Down Diagonally
@@ -309,14 +307,8 @@ void Player::swingingAnimation(sf::Clock& attackingClock, sf::Vector2f mouseDire
             AttackingSpriteY = 1;
         }
         AttackingAnimationComplete = false;
-        if (attackingClock.getElapsedTime().asSeconds() > 0.15f) {
-            /*if (FinishedAttackingAnimation) {
-                AttackingAnimationComplete = true;
-                IsAttacking = false;
-                FinishedAttackingAnimation = false;
-            }*/
+        if (PlayerAttackingClock.getElapsedTime().asSeconds() > 0.15f) {
             if (AttackingSpriteX == 3) { // do nothing, just set shootingspritex up for the next time player shoots 
-                //FinishedAttackingAnimation = true;
                 AttackingAnimationComplete = true;
                 IsAttacking = false;
                 AttackingSpriteX = 0; // set it to next frame 
@@ -324,13 +316,13 @@ void Player::swingingAnimation(sf::Clock& attackingClock, sf::Vector2f mouseDire
             else {
                 AttackingSpriteX++; // set shootingspritex to 0 for first frame
             }
-            attackingClock.restart(); // restart so that we can check if a quarter second passed again in the next loop or so
+            PlayerAttackingClock.restart(); // restart so that we can check if a quarter second passed again in the next loop or so
         }
     }
 }
 
 // takes parameters shootingClock, mousePosition
-void Player::arrowShootAnimation(sf::Clock& shootingClock, sf::Vector2f mouseDirection) {
+void Player::arrowShootAnimation(sf::Vector2f mouseDirection) {
     mouseDirection = Math::normalizeVector(mouseDirection - Sprite.getPosition());
 
     if (ShootingArrow) {
@@ -347,7 +339,7 @@ void Player::arrowShootAnimation(sf::Clock& shootingClock, sf::Vector2f mouseDir
             ShootingSpriteY = 1;
         }
         ShootingAnimationComplete = false;
-        if (shootingClock.getElapsedTime().asSeconds() > 0.25f) {
+        if (PlayerShootClock.getElapsedTime().asSeconds() > 0.25f) {
             if (FinishedBowAnimation) {
                 ShootingAnimationComplete = true;
                 ShootingArrow = false;
@@ -360,12 +352,12 @@ void Player::arrowShootAnimation(sf::Clock& shootingClock, sf::Vector2f mouseDir
             else {
                 ShootingSpriteX--; // set shootingspritex to 0 for first frame
             }
-            shootingClock.restart(); // restart so that we can check if a quarter second passed again in the next loop or so
+            PlayerShootClock.restart(); // restart so that we can check if a quarter second passed again in the next loop or so
         }
     }
 }
 
-void Player::walkingAnimation(sf::Clock& walkingClock, int direction) {
+void Player::walkingAnimation(int direction) {
     if (IsMoving) {
         if (direction == 0) { // Looking Down, Looking Down Diagonally
             WalkingSpriteY = 0;
@@ -380,7 +372,7 @@ void Player::walkingAnimation(sf::Clock& walkingClock, int direction) {
             WalkingSpriteY = 1;
         }
         WalkingAnimationComplete = false;
-        if (walkingClock.getElapsedTime().asSeconds() > 0.20f) {
+        if (WalkingClock.getElapsedTime().asSeconds() > 0.20f) {
             if (WalkingSpriteX == 3) {
                 WalkingAnimationComplete = true;
                 WalkingSpriteX = 0;
@@ -388,7 +380,7 @@ void Player::walkingAnimation(sf::Clock& walkingClock, int direction) {
             else {
                 WalkingSpriteX++;
             }
-            walkingClock.restart();
+            WalkingClock.restart();
         }
     }
 }
@@ -397,7 +389,7 @@ void Player::drawPlayer(sf::RenderWindow& window)
 {
     if (Health > 0) {
         window.draw(Sprite);
-        //window.draw(BoundingRectangle);
+        window.draw(BoundingRectangle);
         // draw each arrow sprite in vector
         for (size_t i = 0; i < Arrows.size(); i++)
             Arrows[i].drawArrow(window);

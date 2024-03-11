@@ -5,6 +5,8 @@
 
 class Enemy : public Entity {
 protected:
+	sf::Clock CollisionFreeze;
+	sf::Clock EnemyIdleClock;
 	const float MaxAttackRate = 1000.f;
 	float AttackTimer = 0.0f;
 	const int spriteWidth = 48;
