@@ -129,18 +129,25 @@ int main()
         
         //cout << state.hasSpikes << endl;
 
-        if (enemies.size() == 0 && state.hasSpikes == true) {
-            cout << "running" << endl;
+        if (enemies.size() == 0) {
 
-            for (int i = 0; i < 322; i++) {
-                if (state.CurrentLevel[i] == 48) {
-                    state.CurrentLevel[i] = 49;
-                }
+            state.changeTile(22, 56);
+            state.changeTile(23, 57);
+            state.changeTile(24, 58);
+            state.changeTile(25, 53);
+            state.changeTile(26, 54);
+            state.changeTile(27, 55);
+
+
+            if (state.hasSpikes == true) {
+                state.changeTile(48, 49);
+
+                state.hasSpikes = false;
             }
-
-            state.hasSpikes = false;
             state.loadLevel();
         }
+
+
 
         if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
             state.changeLevel(state.CurrLevelName, player, "door", musicState);

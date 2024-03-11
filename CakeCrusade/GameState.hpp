@@ -14,6 +14,7 @@ public:
     bool hasSpikes;
     string tileset;
     string CurrLevelName;
+    void changeTile(int currTile, int newTile);
 
     TileMap Map;
 
