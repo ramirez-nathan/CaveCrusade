@@ -94,17 +94,7 @@ int main()
 
     SoundFx musicState;
 
-    /*
-    while (window.isOpen()) {
-
-
-
-
-
-
-
-    }
-    */
+   
 
 
     //main game loop
@@ -169,7 +159,7 @@ int main()
 
         for (const auto& enemy : enemies) {
             if (enemy->isDead(enemy)) {
-                player.changeAmmo(5); // add ammo for every enemy killed
+                player.changeAmmo(20); // add ammo for every enemy killed
                 cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
             }
         }
