@@ -260,37 +260,37 @@ void Player::attackMove(const double deltaTime, Entity& enemy) {
 bool Player::canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf::Vector2f mouseDirection)
 {
     mouseDirection = Math::normalizeVector(mouseDirection - Sprite.getPosition());
-    // Calculate the angle between the player's facing direction and the direction towards the mouse
-    float Angle = atan2(mouseDirection.y, mouseDirection.x);
-
-    // Define cone angles (in radians) for each direction
-    float DownConeAngle = M_PI / 3;  // 60 degrees
-    float RightConeAngle = M_PI / 3;  // 60 degrees
-    float LeftConeAngle = M_PI / 3;   // 60 degrees
-    float UpConeAngle = M_PI / 3;     // 60 degrees
 
     // Calculate the distance between the enemy and the player
     float Dx = Sprite.getPosition().x - enemyPosition.x;
     float Dy = Sprite.getPosition().y - enemyPosition.y;
-    float Distance = sqrt(Dx * Dx + Dy * Dy);
-
-    // Check if the distance is within the specified attack range
-    bool IsInRange = Distance <= attackRange;
+    
 
     // Check if the enemy is within the cone angle in each direction
     if (AttackingSpriteY == 0) { // Looking Down, Looking Down Diagonally
-        return IsInRange && abs(Angle) <= DownConeAngle / 2;
+        if ((Dx >= -90 && Dx <= 90) && (Dy >= -130 && Dy >= 0)) {
+            return true;
+        }
+        return false;
     }
     else if (AttackingSpriteY == 3) { // Looking Right, Looking Right Diagonally
-        return IsInRange && abs(Angle) <= RightConeAngle / 2;
+        if ((Dy <= 90 && Dy >= -90) && (Dx >= -130 && Dx >= 0)) {
+            return true;
+        }
+        return false;
     }
     else if (AttackingSpriteY == 2) { // Looking Left, Looking Left Diagonally
-        return IsInRange && abs(Angle) <= LeftConeAngle / 2;
+        if ((Dy <= 90 && Dy >= -90) && (Dx <= 130 && Dx >= 0)) {
+            return true;
+        }
+        return false;
     }
     else if (AttackingSpriteY == 1) { // Looking Up, Looking Up Diagonally
-        return IsInRange && abs(Angle) <= UpConeAngle / 2;
+        if ((Dx >= -90 && Dx <= 90) && (Dy <= 130 && Dy >= 0)) {
+            return true;
+        }
+        return false;
     }
-    return false; // Default case, should not happen if all directions are covered
 }
 
 void Player::swingingAnimation(sf::Clock& attackingClock, sf::Vector2f mouseDirection) {
