@@ -46,36 +46,30 @@ void Entity::load()
     BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f + 26);
 }
 
-void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls)
+void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int entityDirection, int level[], vector<int>& walls)
 {
     sf::Vector2f Position = Sprite.getPosition();
     sf::Vector2f Movement(Direction * EntitySpeed * static_cast<float>(deltaTime)); 
     sf::Vector2f Future = Position + Movement;
-
-    // Additional code for WASD movements
-    if ((direction.x == 0.f && direction.y > 0.f) || (direction.x != 0.f && direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
+    IsMoving = true;
+    
+    walkingAnimation(entityDirection); 
+    if (EntityDirection == 0) {
         spriteX = 0;
         spriteY = 0;
-
     }
-    else if ((direction.x > 0.f && direction.y == 0.f) || (direction.x > 0.f && (-0.50f <= direction.y && direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
+    else if (EntityDirection == 3) {
         spriteX = 0;
         spriteY = 3;
-
     }
-    else if ((direction.x < 0.f && direction.y == 0.f) || (direction.x < 0.f && (-0.5f <= direction.y && direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
+    else if (EntityDirection == 2) {
         spriteX = 0;
         spriteY = 2;
-
     }
-    else if ((direction.x == 0.f && direction.y < 0.f) || (direction.x != 0.f && direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
+    else if (EntityDirection == 1) {
         spriteX = 0;
         spriteY = 1;
-
     }
-
-    Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
-
     int FuturePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
     if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) { 
         Sprite.setPosition(Position + Movement);
@@ -83,35 +77,66 @@ void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spri
 }
 
 // takes parameters : delta time, player, player position, level
-void Entity::update(double deltaTime, sf::Clock& idleAnimationClock, Entity& player, const sf::Vector2f& target, int level[])
+void Entity::update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[])
 {
     if (Health > 0)
     {
         Direction = Math::normalizeVector(target - Sprite.getPosition());
-        handleMovement(deltaTime, Direction, SpriteX, SpriteY, level, Walls);
+        if ((Direction.x == 0.f && Direction.y > 0.f) || (Direction.x != 0.f && Direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
+            EntityDirection = 0;
 
-        BoundingRectangle.setPosition(Sprite.getPosition());
+        }
+        else if ((Direction.x > 0.f && Direction.y == 0.f) || (Direction.x > 0.f && (-0.50f <= Direction.y && Direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
+            EntityDirection = 3;
+
+        }
+        else if ((Direction.x < 0.f && Direction.y == 0.f) || (Direction.x < 0.f && (-0.5f <= Direction.y && Direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
+            EntityDirection = 2;
+
+        }
+        else if ((Direction.x == 0.f && Direction.y < 0.f) || (Direction.x != 0.f && Direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
+            EntityDirection = 1;
+        }
+        handleMovement(deltaTime, Direction, SpriteX, SpriteY, EntityDirection, level, Walls);
     }
+    Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+    BoundingRectangle.setPosition(Sprite.getPosition());
+}
 
-    
-    if (IsMoving) { // also check if not shootingarrow
-        if (idleAnimationClock.getElapsedTime().asSeconds() > 0.5f) {
-            if (SpriteX == 1)
-                SpriteX = 0;
-            else
-                SpriteX += 1;
-            idleAnimationClock.restart();
+void Entity::walkingAnimation(int direction) {
+    if (IsMoving) {
+        if (direction == 0) { // Looking Down, Looking Down Diagonally
+            WalkingSpriteY = 0;
+        }
+        else if (direction == 3) { // Looking Right, Looking Right Diagonally
+            WalkingSpriteY = 2;
+        }
+        else if (direction == 2) { // Looking Left, Looking Left Diagonally
+            WalkingSpriteY = 3;
+        }
+        else if (direction == 1) { // Looking Up, Looking Up Diagonally
+            WalkingSpriteY = 1;
+        }
+        WalkingAnimationComplete = false;
+        if (WalkingClock.getElapsedTime().asSeconds() > 0.20f) {
+            if (WalkingSpriteX == 3) {
+                WalkingAnimationComplete = true;
+                WalkingSpriteX = 0;
+            }
+            else {
+                WalkingSpriteX++;
+            }
+            WalkingClock.restart();
         }
     }
 }
-
 
 void Entity::draw(sf::RenderWindow& window)
 {
     if (Health > 0)
     {
         window.draw(Sprite);
-        //window.draw(BoundingRectangle);
+        window.draw(BoundingRectangle);
     }
 }
 
@@ -157,9 +182,6 @@ void Entity::getKnockedBack(const sf::Vector2f& attackerPosition, int level[], v
         std::cout << "Entity was knocked back with collision checking." << std::endl;
     }
 }
-
-
-
 
 bool Entity::isAttacked() const
 {

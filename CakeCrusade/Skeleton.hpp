@@ -10,18 +10,22 @@ using namespace std;
 class Skeleton : public Enemy
 {
 private:
-	vector<Arrow> Arrows;
+	vector<Arrow> SkellyArrows;
 	const string SkeletonArrowPath = "assets/enemies/skelly/attacking/arrow.png";
 	float MaxFireRate;
 	double FireRateTimer;
+
+	bool ShootingArrow = false;
+	bool ShootingAnimationComplete = true;
+	bool FinishedBowAnimation = false;
 
 public:
 	Skeleton(float h,float dmg,float def,float spd);
 	~Skeleton() = default;
 	virtual void load() override;
-	virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls) override;
+	void handleSkeletonMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls);
 	void handleArrow(const double deltaTime, Entity& player, const sf::Vector2f& target, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls);
-	virtual void update(const double deltaTime, sf::Clock& idleAnimationClock, Entity& player, const sf::Vector2f& target, int level[]) override;
+	virtual void update(const double deltaTime, Entity& player, const sf::Vector2f& target, int level[]) override;
 	virtual void draw(sf::RenderWindow& window) override;
 	virtual void attackAnimation(const sf::Vector2f& playerPosition) override;
 };

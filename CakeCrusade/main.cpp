@@ -11,6 +11,7 @@
 #include "Slime.hpp"
 #include "Skeleton.hpp"
 #include "GameState.hpp"
+#include "SoundFx.hpp"
 
 using namespace std;
 
@@ -56,11 +57,7 @@ int main()
     // Set positions for each entity in the vector
     vector<sf::Vector2f> enemyPositions1a = {
         sf::Vector2f(360.f, 411.f), // Soldier1 position 
-        sf::Vector2f(1150.f, 411.f), // Soldier2 position 
-        //sf::Vector2f(1100.f, 351.f), // Skeleton1 position 
-        //sf::Vector2f(200.0f, 500.0f), // Skeleton2 position 
-        //sf::Vector2f(500.0f, 300.f), // Slime1 position 
-        //sf::Vector2f(1000.0f, 500.0f) // Slime2 position 
+        sf::Vector2f(1150.f, 411.f), // Soldier2 position
     };
     player.changePosition(738, 662);
 
@@ -78,18 +75,16 @@ int main()
 
     // ---------------------------- TESTING -----------------------------
 
-    /*cout << "Player's size vector is: " << player.getSizeX() << ", " << player.getSizeY() << endl;
-    cout << "Soldier's size vector is: " << soldier.getSizeX() << ", " << soldier.getSizeY() << endl;*/
+    
     
     // ---------------------------- TESTING -----------------------------
 
     // ------------------------------------------ LOAD ---------------------------------
     sf::Clock GameStateClock;
-    sf::Clock PlayerIdleClock;
-    sf::Clock PlayerShootClock;
-    sf::Clock PlayerWalkClock;
-    sf::Clock PlayerAttackingClock;
-    sf::Clock EnemyIdleClock;
+    
+
+    SoundFx musicState;
+
     //main game loop
     while (window.isOpen())
     {
@@ -106,21 +101,44 @@ int main()
 
         sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
+
+        // Update enemies
         for (auto& enemy : enemies) {
-            enemy->update(deltaTime, EnemyIdleClock, player, player.getSprite().getPosition(), state.CurrentLevel);
-            enemy->attackMove(deltaTime, player);
+            enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
+            //enemy->attackMove(deltaTime, player);
         }
-        player.playerUpdate(deltaTime, PlayerIdleClock, PlayerShootClock, PlayerWalkClock, PlayerAttackingClock, enemies, mousePosition, state.CurrentLevel); 
-        
+        // Update player ammo
         for (const auto& enemy : enemies) {
             if (enemy->isDead(enemy)) {
                 player.changeAmmo(10); // add ammo for every enemy killed
                 cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
             }
         }
+        // Update player 
+        player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
+        
+        //cout << state.hasSpikes << endl;
+
+        if (enemies.size() == 0 && state.hasSpikes == true) {
+            cout << "running" << endl;
+
+            for (int i = 0; i < 322; i++) {
+                if (state.CurrentLevel[i] == 48) {
+                    state.CurrentLevel[i] = 49;
+                }
+            }
+
+            state.hasSpikes = false;
+            state.loadLevel();
+        }
 
         if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
-            state.changeLevel(state.CurrLevelName, player, enemies);
+            state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies);
+            state.loadLevel();
+        }
+
+        if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
+            state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies);
             state.loadLevel();
         }
 

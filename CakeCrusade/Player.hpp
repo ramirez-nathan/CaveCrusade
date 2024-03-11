@@ -21,12 +21,15 @@ private:
 	float MaxSwingRate;
 	double SwingRateTimer;
 
+    sf::Clock PlayerIdleClock;
+    sf::Clock PlayerShootClock;
+    sf::Clock PlayerAttackingClock;
+
 	bool IsAttacking = false;
 	bool AttackingAnimationComplete = true;
 	bool FinishedAttackingAnimation = false;
 
-	bool IsMoving = false;
-	bool WalkingAnimationComplete = true;
+	//bool WalkingAnimationComplete = true;
 
 	bool ShootingArrow = false;
 	bool ShootingAnimationComplete = true;
@@ -34,19 +37,7 @@ private:
 
 	int PlayerDirection = 0;
 
-	bool UpdateHandlingComplete = true;
-
-	int AttackingSpriteX = -1;
-	int AttackingSpriteY = 0;
-
-	int IdleSpriteX = 0;
-	int IdleSpriteY = 0;
-
-	int ShootingSpriteX = 1; 
-	int ShootingSpriteY = 0; 
-
-	int WalkingSpriteX = 0;
-	int WalkingSpriteY = 0;
+	//bool UpdateHandlingComplete = true;
 
 
 protected:
@@ -63,20 +54,21 @@ public:
 	// --------------------------------- CORE FUNCTIONS --------------------------------
 	void initialize() override;
 	void load() override; 
-	void playerUpdate(const double deltaTime, sf::Clock& idleAnimationClock, sf::Clock& shootingClock, sf::Clock& walkingClock, sf::Clock& attackingClock, vector<unique_ptr<Enemy>>&enemies, sf::Vector2f& mousePosition, int level[]);
+	void playerUpdate(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, int level[]);
 	// --------------------------------- CORE FUNCTIONS --------------------------------
 	
 	//--------------------------- ANIMATIONS ---------------------------------
-	void arrowShootAnimation(sf::Clock& shootingClock, sf::Vector2f mouseDirection);
-	void walkingAnimation(sf::Clock& walkingClock, int direction);
-	void swingingAnimation(sf::Clock& attackingClock, sf::Vector2f mouseDirection);
+	void arrowShootAnimation(sf::Vector2f mouseDirection);
+	void swingingAnimation(sf::Vector2f mouseDirection);
+	virtual void walkingAnimation(int direction) override;
 	//--------------------------- ANIMATIONS ---------------------------------
 	
 	//--------------------------- HELPER FUNCTIONS ---------------------------
-	void handleArrow(const double deltaTime, sf::Clock& shootingClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls);
-	void handleSword(const double deltaTime, sf::Clock& attackingClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& SwingRateTimer, const float& MaxSwingRate, int level[], vector<int>& walls);
-	void handleMovement(const double deltaTime, bool& isMoving, sf::Clock& walkingClock, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls);
+	void handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls);
+	void handleSword(const double deltaTime, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& SwingRateTimer, const float& MaxSwingRate, int level[], vector<int>& walls);
+	void handleMovement(const double deltaTime, bool& isMoving, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls);
 	bool isTouchingDoor(int level[]);
+	bool isTouchingStair(int level[]);
 	void drawPlayer(sf::RenderWindow& window);
 	virtual void attackMove(const double deltaTime, Entity& enemy) override;
 	bool canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf::Vector2f mouseDirection);
