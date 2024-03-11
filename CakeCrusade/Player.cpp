@@ -223,7 +223,7 @@ void Player::handleArrow(const double deltaTime, sf::Clock& shootingClock, vecto
         }
     }
 }
-void Player::handleSword(const double deltaTime, sf::Clock& attackingClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& SwingRateTimer, const float& MaxSwingRate) 
+void Player::handleSword(const double deltaTime, sf::Clock& attackingClock, vector<unique_ptr<Enemy>>& enemies, sf::Vector2f& mousePosition, double& SwingRateTimer, const float& MaxSwingRate, int level[], vector<int>& walls)
 {
     SwingRateTimer += deltaTime;
     swingingAnimation(attackingClock, mousePosition);
@@ -236,9 +236,11 @@ void Player::handleSword(const double deltaTime, sf::Clock& attackingClock, vect
                    if (canAttack(enemies[j]->getSprite().getPosition(), 100, mousePosition)) {
                        if (enemies[j]->getDefense() > 0) {
                            enemies[j]->changeDefense(-40); // Arrow dmg is 40
+                           enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                        }
                        else {
                            enemies[j]->changeHealth(-40);
+                           enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                        }
 
                        cout << "You Slashed an Enemy! Enemy #" << j << "'s health is : " << enemies[j]->getHealth() << endl;
