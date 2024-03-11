@@ -56,12 +56,16 @@ bool Soldier::canAttack(const sf::Vector2f& playerPosition) const
 void Soldier::attackAnimation(const sf::Vector2f& playerPosition)
 {
     sf::Time elapsedTime = attackClock.getElapsedTime();
-    if (canAttack(playerPosition) && elapsedTime.asSeconds() > attackCooldown) {
+    if (canAttack(playerPosition) && elapsedTime.asMilliseconds() > attackCooldown) {
         Sprite.setTexture(attackTexture);
-        cout << "Enemy is attacking" << endl;
+        //SpriteX = SwingingSpriteX;
+        //SpriteY = SwingingSpriteY;
+        //Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+        
+        cout << "Enemy attack animation playing" << endl;
 
 
         attackClock.restart();
-        Sprite.setTexture(Texture);
+        //Sprite.setTexture(Texture);
     }
 }

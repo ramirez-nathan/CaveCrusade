@@ -11,9 +11,14 @@ class Soldier : public Enemy
 {
 private:
 	float meleeRange;
-	float attackCooldown = 0.20f;
+	float attackCooldown = 20.0f;
 	sf::Clock attackClock;
 	sf::Texture attackTexture;
+	int SwingingSpriteX = 1;
+	int SwingingSpriteY = 0;
+	int WalkingSpriteX = 0;
+	int WalkingSpriteY = 0;
+
 
 public:
 	Soldier(float h, float dmg, float def, float spd, float rng);
