@@ -11,6 +11,7 @@ class Soldier : public Enemy
 {
 private:
 	float meleeRange;
+	const float aggressiveRange = 350.0f;
 	float attackCooldown = 20.0f;
 	sf::Clock attackClock;
 	sf::Texture attackTexture;
@@ -26,6 +27,7 @@ public:
 	virtual void attackMove(const double deltaTime, Entity& player) override;
 	virtual void load() override;
 	bool canAttack(const sf::Vector2f& playerPosition) const;
+	bool isAgressive(const sf::Vector2f& playerPosition) const;
 	virtual void attackAnimation(const sf::Vector2f& playerPosition) override;
 
 

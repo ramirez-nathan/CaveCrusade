@@ -268,13 +268,13 @@ bool Player::canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf:
 
     // Check if the enemy is within the cone angle in each direction
     if (AttackingSpriteY == 0) { // Looking Down, Looking Down Diagonally
-        if ((Dx >= -90 && Dx <= 90) && (Dy >= -130 && Dy >= 0)) {
+        if ((Dx >= -90 && Dx <= 90) && (Dy >= -130 && Dy <= 0)) {
             return true;
         }
         return false;
     }
     else if (AttackingSpriteY == 3) { // Looking Right, Looking Right Diagonally
-        if ((Dy <= 90 && Dy >= -90) && (Dx >= -130 && Dx >= 0)) {
+        if ((Dy <= 90 && Dy >= -90) && (Dx >= -130 && 0 >= Dx)) {
             return true;
         }
         return false;

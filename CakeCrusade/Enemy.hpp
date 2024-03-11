@@ -7,6 +7,8 @@ class Enemy : public Entity {
 protected:
 	const float MaxAttackRate = 1000.f;
 	float AttackTimer = 0.0f;
+	const int spriteWidth = 48;
+	const int spriteHeight = 48;
 
 public:
 	Enemy(float h, float dmg, float def, float spd);
