@@ -80,7 +80,7 @@ void Soldier::makeAggressive(const sf::Vector2f& playerPosition)
 
 
     if (isAgressive(playerPosition)) {
-        cout << "Enemies are aggressive" << endl;
+        //cout << "Enemies are aggressive" << endl;
         Sprite.setTexture(attackTexture);
         // Player is to the right
         if (deltaX > 0 && abs(deltaX) > abs(deltaY)) {
@@ -130,32 +130,8 @@ void Soldier::attackAnimation(const sf::Vector2f& playerPosition)
 
     
 
-
-    // This determines if our player is in the range for enemies to get aggressive
-    //if (isAgressive(playerPosition)) {
-    //    cout << "Enemies are aggressive" << endl;
-    //    Sprite.setTexture(attackTexture);
-    //    // Player is to the right
-    //    if (deltaX > 0 && abs(deltaX) > abs(deltaY)) {
-    //        Sprite.setTextureRect(rectRightA);
-    //    }
-    //    // Player is to the left 
-    //    else if (deltaX < 0 && abs(deltaX) > abs(deltaY)) {
-    //        Sprite.setTextureRect(rectLeftA);
-    //    }
-    //    // Player is below
-    //    else if (deltaY > 0) {
-    //        Sprite.setTextureRect(rectDownA);
-    //    }
-    //    // Player is above
-    //    else {
-    //        Sprite.setTextureRect(rectUpA);
-    //    }
-    //}
-
-
     if (canAttack(playerPosition) && elapsedTime.asMilliseconds() > attackCooldown) {
-        Sprite.setTexture(attackTexture);
+        // Sprite.setTexture(attackTexture);
         // Player is to the right
         if (deltaX > 0 && abs(deltaX) > abs(deltaY)) {
             Sprite.setTextureRect(rectRightB);

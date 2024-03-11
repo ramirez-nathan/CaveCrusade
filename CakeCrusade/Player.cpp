@@ -416,3 +416,16 @@ bool Player::isTouchingDoor(int level[])
 
     return false;
 }
+
+bool Player::isTouchingStair(int level[])
+{
+    sf::Vector2f position = Sprite.getPosition();
+
+    int currPos = floor(position.y / 64) * 23 + floor(position.x / 64);
+
+    if (level[currPos] == 2 || level[currPos] == 3 || level[currPos] == 4 || level[currPos] == 5) {
+        return true;
+    }
+
+    return false;
+}

@@ -11,14 +11,11 @@ class Soldier : public Enemy
 {
 private:
 	float meleeRange;
-	const float aggressiveRange = 350.0f;
+	const float aggressiveRange = 300.0f;
 	float attackCooldown = 20.0f;
 	sf::Clock attackClock;
 	sf::Texture attackTexture;
-	/*int SwingingSpriteX = 1;
-	int SwingingSpriteY = 0;
-	int WalkingSpriteX = 0;
-	int WalkingSpriteY = 0;*/
+	
 
 
 public:

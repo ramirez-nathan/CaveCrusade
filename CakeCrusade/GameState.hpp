@@ -1,6 +1,7 @@
 #include "TileMap.hpp"
 #include <string>
 #include "Player.hpp"
+#include "SoundFx.hpp"
 
 using namespace std;
 
@@ -9,7 +10,8 @@ public:
     GameState();
 
     bool loadLevel();
-    void changeLevel(string levelName, Player& p, vector<unique_ptr<Enemy>>& enemies);
+    void changeLevel(string levelName, Player& p, string type, SoundFx& s); 
+    bool hasSpikes;
     string tileset;
     string CurrLevelName;
 
