@@ -28,7 +28,13 @@ void Soldier::load() {
 
 void Soldier::attackMove(const double deltaTime, Entity& player) 
 {
-
+    AttackTimer += deltaTime;
+    if (canAttack(player.getSprite().getPosition()) && AttackTimer >= MaxAttackRate) {
+        player.changeHealth(-Damage);
+        cout << "You've been hit!" << endl;
+        cout << "Player's health is now " << player.getHealth() << endl;
+        AttackTimer = 0;
+    }
 }
 
 

@@ -4,7 +4,7 @@
 #include "Entity.hpp"
 
 class Enemy : public Entity {
-private:
+protected:
 	const float MaxAttackRate = 1000.f;
 	float AttackTimer = 0.0f;
 
