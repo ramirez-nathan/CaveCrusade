@@ -93,16 +93,6 @@ void Entity::update(double deltaTime, sf::Clock& idleAnimationClock, Entity& pla
         BoundingRectangle.setPosition(Sprite.getPosition());
     }
 
-    
-    if (IsMoving) { // also check if not shootingarrow
-        if (idleAnimationClock.getElapsedTime().asSeconds() > 0.5f) {
-            if (SpriteX == 1)
-                SpriteX = 0;
-            else
-                SpriteX += 1;
-            idleAnimationClock.restart();
-        }
-    }
 }
 
 

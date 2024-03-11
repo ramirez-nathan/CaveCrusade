@@ -15,10 +15,10 @@ private:
 	float attackCooldown = 20.0f;
 	sf::Clock attackClock;
 	sf::Texture attackTexture;
-	int SwingingSpriteX = 1;
+	/*int SwingingSpriteX = 1;
 	int SwingingSpriteY = 0;
 	int WalkingSpriteX = 0;
-	int WalkingSpriteY = 0;
+	int WalkingSpriteY = 0;*/
 
 
 public:
@@ -28,7 +28,8 @@ public:
 	virtual void load() override;
 	bool canAttack(const sf::Vector2f& playerPosition) const;
 	bool isAgressive(const sf::Vector2f& playerPosition) const;
+	void makeAggressive(const sf::Vector2f& playerPosition);
 	virtual void attackAnimation(const sf::Vector2f& playerPosition) override;
-
+	virtual void handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls) override;
 
 };
