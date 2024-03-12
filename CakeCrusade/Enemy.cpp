@@ -8,12 +8,12 @@ void Enemy::attackMove(const double deltaTime, Entity& player)
 { 
     AttackTimer += deltaTime;
     if (canAttack(player.getSprite().getPosition(), 50) && AttackTimer >= MaxAttackRate) {
-        player.changeHealth(-Damage);
+        player.changeHearts(-1);
         cout << "You've been hit!" << endl;
         cout << "Player's health is now " << player.getHealth() << endl;
         AttackTimer = 0;
     }
-} 
+}
 
 bool Enemy::canAttack(const sf::Vector2f& playerPosition, float attackRange) const
 {

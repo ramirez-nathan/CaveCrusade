@@ -37,18 +37,35 @@ private:
 
 	int PlayerDirection = 0;
 
+	
+
 	//bool UpdateHandlingComplete = true;
 
 
 protected:
 	int Ammo = 0;
+	double HalfHeartCount = 3;
+	
+	double GoldHalfHeartCount = 0;
 
 public:
 	Player(float h, float dmg, float def, float spd);
 	~Player();
+	double HeartCount = 0;
+	double GoldHeartCount = 0;
+	double DamageDone = 0;
+
 	// ------------------ GETTERS/SETTERS --------------------
 	void changeAmmo(int ammo) { Ammo += ammo; }
 	int getAmmo() { return Ammo; }
+
+	int getDamageDone() { return DamageDone; }
+	void setDamageDone(int damage) { DamageDone = damage; }
+
+	virtual void changeHearts(int damage) override;
+	virtual void changeGoldHearts(int damage) override;
+	virtual int getGoldHearts() override { return GoldHalfHeartCount; }
+	virtual int getHalfHearts() override { return HalfHeartCount; }
 	// ------------------ GETTERS/SETTERS --------------------
 
 	// --------------------------------- CORE FUNCTIONS --------------------------------

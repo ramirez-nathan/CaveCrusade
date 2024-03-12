@@ -78,11 +78,11 @@ void Skeleton::handleArrow(const double deltaTime, Entity& player, const sf::Vec
         if (player.getHealth() > 0) {
             if (Math::didRectCollide(SkellyArrows[i - 1].getArrowGlobalBounds(), player.getHitBox().getGlobalBounds()))
             {
-                if (player.getDefense() > 0) {
-                    player.changeDefense(-25);
+                if (player.getGoldHearts() > 0) {
+                    player.changeGoldHearts(-1);
                 }
                 else {
-                    player.changeHealth(-25);
+                    player.changeHearts(-1);
                 }
 
                 // erase the arrow from the vector

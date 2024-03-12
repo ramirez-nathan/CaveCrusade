@@ -31,8 +31,8 @@ int main()
     Player player(3000.f, 50.f, 150.f, 0.4f);
     vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
     try {
-        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.1f));
-        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 0.1f)); // give diff speeds to avoid complete overlapping
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 40.0f));
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 40.0f)); // give diff speeds to avoid complete overlapping
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.15f)); 
@@ -85,21 +85,13 @@ int main()
 
     SoundFx musicState;
 
-    /*
-    while (window.isOpen()) {
-
-
-
-
-
-
-
-    }
-    */
+   
+    
+    
 
 
     //main game loop
-    while (window.isOpen())
+    while(window.isOpen())
     {
         sf::Time deltaTimeTimer = GameStateClock.restart();
         double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0;
@@ -118,6 +110,7 @@ int main()
         // Update enemies
         for (auto& enemy : enemies) {
             enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
+            enemy->attackMove(deltaTime, player);
         }
         // Update player 
         player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
@@ -153,7 +146,7 @@ int main()
             state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies);
             state.loadLevel();
         }
-
+        player.setDamageDone(0);
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
@@ -185,7 +178,7 @@ int main()
         if (player.getHealth() <= 0) {
             break;
         }
-
+        
         window.display();
 
         //-------------------------------- DRAW --------------------------------

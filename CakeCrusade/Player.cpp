@@ -14,6 +14,23 @@ Player::~Player()
 {
 }
 
+void Player::changeHearts(int damage) {
+    HeartCount = HalfHeartCount / 2 - damage;
+    DamageDone += damage;
+    if (HeartCount < 0) {
+        HeartCount = 0;
+    }
+}
+
+void Player::changeGoldHearts(int damage) {
+    GoldHeartCount = GoldHalfHeartCount / 2 - damage;
+    DamageDone += damage;
+    if (GoldHeartCount < 0) {
+        GoldHeartCount = 0;
+    }
+}
+
+
 void Player::initialize()
 {
     BoundingRectangle.setFillColor(sf::Color::Transparent);
@@ -207,7 +224,6 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
                     }
                     else {
                         enemies[j]->changeHealth(-50);
-                        enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                         enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                     }
 

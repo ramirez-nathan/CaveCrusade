@@ -22,9 +22,12 @@ protected:
     sf::Texture Texture;
 
     sf::Clock WalkingClock;
+    sf::Clock IdleClock;
+    sf::Clock CollisionFreeze;
 
 
     bool IsMoving = false;
+    bool IsFrozen = false;
 
     bool WalkingAnimationComplete = true;
 
@@ -81,6 +84,10 @@ public:
     float getHealth() const { return Health; }
     float getDamage() const { return Damage; }
     float getDefense() const { return Defense; }
+
+    virtual int getGoldHearts() { return 0;  } // leave for player to override
+    virtual int getHalfHearts() { return 0; } // leave for player to override
+
     int getSizeX() const { return Size.x; }
     int getSizeY() const { return Size.y; }
     sf::Sprite& getSprite() { return Sprite; }
@@ -88,8 +95,12 @@ public:
 
 
     // Setters
-    void changeHealth(float hp) { Health += hp; }
+    virtual void changeHearts(int damage) { /*override in player*/ }
+    virtual void changeGoldHearts(int damage) { }
+
+    void changeHealth(float dmg) { Health += dmg; }
     void changeDefense(float def) { Defense += def; }
+
     void setHealth(float& h) { this->Health = h; }
     void setDamage(float& dmg) { this->Damage = dmg; }
     void setDefense(float& def) { this->Defense = def; }
@@ -103,4 +114,6 @@ public:
     //virtual void draw(sf::RenderWindow& window) = 0;
 
     virtual void walkingAnimation(int direction);
+
+    Entity() = default;
 };
