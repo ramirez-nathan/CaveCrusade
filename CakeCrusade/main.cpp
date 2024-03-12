@@ -36,7 +36,7 @@ int main()
         enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 0.1f)); // give diff speeds to avoid complete overlapping
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
-        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); 
+        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.15f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */
     }
     catch (const bad_alloc& e) {
@@ -58,6 +58,7 @@ int main()
     vector<sf::Vector2f> enemyPositions1a = {
         sf::Vector2f(360.f, 411.f), // Soldier1 position 
         sf::Vector2f(1150.f, 411.f), // Soldier2 position
+        //sf::Vector2f(900.f, 500.f) // slime test pos
     };
     player.changePosition(738, 662);
 

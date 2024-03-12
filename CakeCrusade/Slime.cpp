@@ -11,13 +11,13 @@ void Slime::load() {
     // grab the idle texture image from spritesheet
     Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
     // set origin at middle of sprite
-    Sprite.setOrigin(Sprite.getLocalBounds().width / 2.f, Sprite.getLocalBounds().height / 2.f);
+    Sprite.setOrigin(Sprite.getLocalBounds().width / 2.f, Sprite.getLocalBounds().height / 2.f + 6);
     // change sprite scale
-    Sprite.scale(sf::Vector2f(4, 4));
+    Sprite.scale(sf::Vector2f(4.5, 4.5));
     // wrap the hitbox around the soldier
     BoundingRectangle.setSize(sf::Vector2f((Size.x - 6) * (Sprite.getScale().x - 1), (Size.y + 3) * (Sprite.getScale().y - 1)));
     // set hitbox origin to middle
-    BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f - 5);
+    BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f + 21);
 }
 
 void Slime::initialize() {
@@ -34,25 +34,13 @@ void Slime::handleMovement(double deltaTime, sf::Vector2f& direction, int& sprit
     sf::Vector2f Movement(Direction * EntitySpeed * static_cast<float>(deltaTime));
     sf::Vector2f Future = Position + Movement;
 
-    // Additional code for WASD movements
-    if ((direction.x == 0.f && direction.y > 0.f) || (direction.x != 0.f && direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
-        spriteX = 1;
-        spriteY = 0;
+    if (EnemyIdleClock.getElapsedTime().asSeconds() > 0.35f) {
+        if (spriteX == 3)
+            spriteX = 0;
+        else
+            spriteX += 1;
+        EnemyIdleClock.restart();
     }
-    else if ((direction.x > 0.f && direction.y == 0.f) || (direction.x > 0.f && (-0.50f <= direction.y && direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
-        spriteX = 2;
-        spriteY = 0;
-    }
-    else if ((direction.x < 0.f && direction.y == 0.f) || (direction.x < 0.f && (-0.5f <= direction.y && direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
-        spriteX = 0;
-        spriteY = 0;
-    }
-    else if ((direction.x == 0.f && direction.y < 0.f) || (direction.x != 0.f && direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
-        spriteX = 3;
-        spriteY = 0;
-    }
-
-    //Sprite.setTextureRect(sf::IntRect(spriteX * getSizeX(), spriteY * getSizeY(), getSizeX(), getSizeY()));
 
     int FuturePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
     if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {

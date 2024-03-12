@@ -165,7 +165,7 @@ void Entity::getKnockedBack(const sf::Vector2f& attackerPosition, int level[], v
 
             int futurePosX = floor(testPosition.x / 64);
             int futurePosY = floor(testPosition.y / 64);
-            int futurePosIndex = futurePosY * 22 + futurePosX; // Adjust the 22 based on your level width
+            int futurePosIndex = futurePosY * 23 + futurePosX; // Adjust the 23 based on your level width
 
             if (std::find(walls.begin(), walls.end(), level[futurePosIndex]) == walls.end()) {
                 // No collision, update currentPosition
