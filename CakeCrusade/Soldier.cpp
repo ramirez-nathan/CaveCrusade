@@ -61,6 +61,8 @@ void Soldier::update(double deltaTime, Entity& player, const sf::Vector2f& targe
                 Sprite.setTexture(AttackTexture);
                 SpriteX = AttackingSpriteX;
                 SpriteY = AttackingSpriteY;
+                //cout << "Sprite X value is " << SpriteX << endl;
+                //cout << "Sprite Y value is " << SpriteX << endl;
                 Sprite.setTextureRect(sf::IntRect(SpriteX * (getSizeX() + 16), SpriteY * (getSizeY() + 16), (getSizeX() + 16), (getSizeY() + 16)));
             }
             else if (IsMoving && canAttack(playerDirection)) {

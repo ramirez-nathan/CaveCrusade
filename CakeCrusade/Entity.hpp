@@ -22,6 +22,7 @@ protected:
     sf::Texture Texture;
 
     sf::Clock WalkingClock;
+    sf::Clock IdleClock;
 
 
     bool IsMoving = false;
