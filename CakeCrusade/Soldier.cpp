@@ -203,7 +203,7 @@ void Soldier::makeAggressive(const sf::Vector2f& playerPosition)
 
 
     if (isAggressive(playerPosition)) {
-        cout << "Enemies are aggressive" << endl;
+        //cout << "Enemies are aggressive" << endl;
         Sprite.setTexture(AttackTexture);
         // Player is to the right
         if (deltaX > 0 && abs(deltaX) > abs(deltaY)) {

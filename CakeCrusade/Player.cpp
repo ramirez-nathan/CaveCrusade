@@ -203,12 +203,16 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
                 {
                     if (enemies[j]->getDefense() > 0) {
                         enemies[j]->changeDefense(-50); // Arrow dmg is 40
-                        enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                        if (enemies[j]->isKnockbackEnabled()) {
+                            enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                        }
+                        
                     }
                     else {
                         enemies[j]->changeHealth(-50);
-                        enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
-                        enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                        if (enemies[j]->isKnockbackEnabled()) {
+                            enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                        }
                     }
 
                     // erase the arrow from the vector
@@ -235,11 +239,15 @@ void Player::handleSword(const double deltaTime, vector<unique_ptr<Enemy>>& enem
                    if (canAttack(enemies[j]->getSprite().getPosition(), 100, mousePosition)) {
                        if (enemies[j]->getDefense() > 0) {
                            enemies[j]->changeDefense(-200); 
-                           enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                           if (enemies[j]->isKnockbackEnabled()) {
+                               enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                           }
                        }
                        else {
                            enemies[j]->changeHealth(-200);
-                           enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                           if (enemies[j]->isKnockbackEnabled()) {
+                               enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                           }
                        }
 
                        cout << "You Slashed an Enemy! Enemy #" << j << "'s health is : " << enemies[j]->getHealth() << endl;

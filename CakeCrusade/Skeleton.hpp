@@ -28,4 +28,5 @@ public:
 	virtual void update(const double deltaTime, Entity& player, const sf::Vector2f& target, int level[]) override;
 	virtual void draw(sf::RenderWindow& window) override;
 	virtual void attackAnimation(const sf::Vector2f& playerPosition) override;
+	bool isKnockbackEnabled() const override {return false;} // Skeletons do not get knocked back
 };
