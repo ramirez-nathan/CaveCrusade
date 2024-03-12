@@ -10,7 +10,23 @@ using namespace std;
 class Soldier : public Enemy
 {
 private:
-	float meleeRange;
+	//float MeleeRange;
+	float AttackCooldown = 1.0f;
+	const float aggressiveRange = 250.0f;
+
+	float MaxSwingRate;
+	double SwingRateTimer;
+
+
+	sf::Texture WalkingTexture;
+	sf::Texture AttackTexture;
+
+	sf::Clock AttackClock;
+	sf::Clock WalkClock;
+	
+	bool IsAttacking = false;
+	bool AttackingAnimationComplete = true;
+	bool FinishedAttackingAnimation = false;
 
 public:
 	Soldier(float h, float dmg, float def, float spd, float rng);
@@ -18,6 +34,11 @@ public:
 	virtual void attackMove(const double deltaTime, Entity& player) override;
 	virtual void load() override;
 	bool canAttack(const sf::Vector2f& playerPosition) const;
+	virtual void update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[]) override;
+	bool isAggressive(const sf::Vector2f& playerPosition) const;
+	void makeAggressive(const sf::Vector2f& playerPosition);
 
-
+	void handleSword(const double deltaTime, Entity& player, sf::Vector2f& mousePosition, int level[], vector<int>& walls);
+	
+	void swingingAnimation();
 };

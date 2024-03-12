@@ -12,10 +12,10 @@ Arrow::~Arrow()
 }
 
 // initializes and loads the arrow texture
-sf::Texture& Arrow::getArrowTexture()
+sf::Texture& Arrow::getArrowTexture(const string& texturePath)
 {
     static sf::Texture ArrowTexture;
-    if (!ArrowTexture.loadFromFile("assets/player/textures/new_arrow.png")) {
+    if (!ArrowTexture.loadFromFile(texturePath)) {
         std::cerr << "Arrow texture failed to load!" << std::endl;
     }
     // returns arrow texture
@@ -38,10 +38,10 @@ sf::Sprite& Arrow::createArrowSprite(const sf::Texture& arrowTexture, const sf::
 }
 
 // takes parameters: player position, mouseposition, arrow speed
-void Arrow::initialize(const sf::Vector2f& position, const sf::Vector2f& target, float speed) {
+void Arrow::initialize(const sf::Vector2f& position, const sf::Vector2f& target, float speed, const string& texturePath) {
     ArrowSpeed = speed;
     // set arrow texture
-    const sf::Texture& Texture = getArrowTexture();
+    const sf::Texture& Texture = getArrowTexture(texturePath);
     // set arrow direction
     Direction = Math::normalizeVector(target - position);
     // set arrow sprite & its position
@@ -55,7 +55,7 @@ bool Arrow::didArrowHitWall(double deltaTime, const std::vector<int>& walls, con
     sf::Vector2f Movement = Direction * ArrowSpeed * (float)deltaTime;
 
     sf::Vector2f Future = Position + Movement;
-    int futurePos = floor(Future.y / 64) * 22 + floor(Future.x / 64);
+    int futurePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
     if ((std::find(walls.begin(), walls.end(), level[futurePos]) != walls.end())) {
         return true;
     }

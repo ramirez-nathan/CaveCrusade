@@ -5,7 +5,7 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
-
+using namespace std;
 class Arrow
 {
 private:
@@ -18,11 +18,14 @@ public:
 public:
 	Arrow();
 	~Arrow();
+	
+	
+	
 
-	sf::Texture& getArrowTexture();
+	sf::Texture& getArrowTexture(const string& texturePath);
 	sf::Sprite& createArrowSprite(const sf::Texture& arrowTexture, const sf::Vector2f& position, const sf::Vector2f& direction);
 
-	void initialize(const sf::Vector2f& position, const sf::Vector2f& target, float speed);
+	void initialize(const sf::Vector2f& position, const sf::Vector2f& target, float speed, const string& texturePath);
 	bool didArrowHitWall(double deltatime, const std::vector<int>& walls, const int level[]);
 	void update(double deltaTime);
 	void drawArrow(sf::RenderWindow& window);

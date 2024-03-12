@@ -4,19 +4,21 @@
 #include "Entity.hpp"
 
 class Enemy : public Entity {
-private:
+protected:
+	sf::Clock CollisionFreeze;
+	sf::Clock EnemyIdleClock;
 	const float MaxAttackRate = 1000.f;
 	float AttackTimer = 0.0f;
-	sf::Vector2f lastAttackDirection; // Vector representing the direction of the last attack
-	float knockbackDistance; // Distance to knock back
+	const int spriteWidth = 48;
+	const int spriteHeight = 48;
 
 public:
 	Enemy(float h, float dmg, float def, float spd);
 	virtual void attackMove(const double deltaTime, Entity& player) override;
 	bool canAttack(const sf::Vector2f& playerPosition, float attackRange) const;
-	void attackAnimation();
-	void getKnockedBack();
-	bool isAttacked() const;
+	virtual void attackAnimation(const sf::Vector2f& playerPosition);
 	virtual bool isDead(const unique_ptr<Enemy>& entity);
 	virtual ~Enemy() = default;
+	virtual bool isKnockbackEnabled() const { return true;}
+		
 };
