@@ -66,7 +66,7 @@ void Skeleton::update(double deltaTime, Entity& player, const sf::Vector2f& targ
                 Sprite.setTexture(AttackTexture);
                 SpriteX = AttackingSpriteX;
                 SpriteY = AttackingSpriteY;
-                Sprite.setTextureRect(sf::IntRect(SpriteX * (getSizeX() + 16), SpriteY * (getSizeY() + 16), (getSizeX() + 16), (getSizeY() + 16)));
+                Sprite.setTextureRect(sf::IntRect(SpriteX * (getSizeX()), SpriteY * (getSizeY()), (getSizeX()), (getSizeY())));
             }
             else { // if idle
                 Sprite.setTexture(Texture);
