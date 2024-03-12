@@ -44,15 +44,15 @@ private:
 
 protected:
 	int Ammo = 0;
-	double HalfHeartCount = 3;
+	double HalfHeartCount = 6;
 	
 	double GoldHalfHeartCount = 0;
 
 public:
 	Player(float h, float dmg, float def, float spd);
 	~Player();
-	double HeartCount = 0;
-	double GoldHeartCount = 0;
+	double HeartContainerCount = 3;
+	double GoldHeartContainerCount = 0;
 	double DamageDone = 0;
 
 	// ------------------ GETTERS/SETTERS --------------------
@@ -62,10 +62,20 @@ public:
 	int getDamageDone() { return DamageDone; }
 	void setDamageDone(int damage) { DamageDone = damage; }
 
-	virtual void changeHearts(int damage) override;
-	virtual void changeGoldHearts(int damage) override;
-	virtual int getGoldHearts() override { return GoldHalfHeartCount; }
-	virtual int getHalfHearts() override { return HalfHeartCount; }
+	virtual void setHeartContainer(int damage) override;
+	virtual void setGoldContainer(int damage) override;
+
+	virtual void changeHalfHearts(int damage) override;
+	virtual void changeGoldHalfHearts(int damage) override;
+
+
+	virtual double getGoldHeartContainer() override { return GoldHeartContainerCount; }
+	virtual double getHeartContainer() override { return HeartContainerCount; }
+		
+	virtual double getGoldHalfHearts() override { return GoldHalfHeartCount; }
+	virtual double getHalfHearts() override { return HalfHeartCount; }
+
+	
 	// ------------------ GETTERS/SETTERS --------------------
 
 	// --------------------------------- CORE FUNCTIONS --------------------------------

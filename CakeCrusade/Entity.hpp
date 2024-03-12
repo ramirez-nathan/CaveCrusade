@@ -85,8 +85,11 @@ public:
     float getDamage() const { return Damage; }
     float getDefense() const { return Defense; }
 
-    virtual int getGoldHearts() { return 0;  } // leave for player to override
-    virtual int getHalfHearts() { return 0; } // leave for player to override
+    virtual double getGoldHeartContainer() { return 0; } // leave for player to override
+    virtual double getHeartContainer() { return 0; } // leave for player to override
+
+    virtual double getGoldHalfHearts() { return 0;  } // leave for player to override
+    virtual double getHalfHearts() { return 0; } // leave for player to override
 
     int getSizeX() const { return Size.x; }
     int getSizeY() const { return Size.y; }
@@ -95,8 +98,11 @@ public:
 
 
     // Setters
-    virtual void changeHearts(int damage) { /*override in player*/ }
-    virtual void changeGoldHearts(int damage) { }
+    virtual void setHeartContainer(int damage) { /*override in player*/ }
+    virtual void setGoldContainer(int damage) { /*override in player*/ }
+
+    virtual void changeHalfHearts(int damage) { /*override in player*/ }
+    virtual void changeGoldHalfHearts(int damage) { /*override in player*/ }
 
     void changeHealth(float dmg) { Health += dmg; }
     void changeDefense(float def) { Defense += def; }

@@ -14,19 +14,26 @@ Player::~Player()
 {
 }
 
-void Player::changeHearts(int damage) {
-    HeartCount = HalfHeartCount / 2 - damage;
+void Player::setHeartContainer(int value) {
+    HeartContainerCount = value;
+}
+void Player::setGoldContainer(int value) {
+    GoldHeartContainerCount = value;
+}
+
+void Player::changeHalfHearts(int damage) {
+    HalfHeartCount += damage;
     DamageDone += damage;
-    if (HeartCount < 0) {
-        HeartCount = 0;
+    if (HalfHeartCount < 0) {
+        HalfHeartCount = 0;
     }
 }
 
-void Player::changeGoldHearts(int damage) {
-    GoldHeartCount = GoldHalfHeartCount / 2 - damage;
+void Player::changeGoldHalfHearts(int damage) {
+    GoldHalfHeartCount += damage;
     DamageDone += damage;
-    if (GoldHeartCount < 0) {
-        GoldHeartCount = 0;
+    if (GoldHalfHeartCount < 0) {
+        GoldHalfHeartCount = 0;
     }
 }
 

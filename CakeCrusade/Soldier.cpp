@@ -106,13 +106,15 @@ void Soldier::handleSword(const double deltaTime, Entity& player, sf::Vector2f& 
     {
         IsAttacking = true;
         if (IsAttacking) {
-            if (player.getGoldHearts() > 0) {
-                player.changeGoldHearts(-1);
+            if (player.getGoldHalfHearts() > 0) {
+                player.changeGoldHalfHearts(-1);
+                
+                cout << "You were slashed by a soldier! Your amount of gold half hearts is: " << player.getGoldHalfHearts() << endl;
             }
             else if (player.getHalfHearts() > 0) {
-                player.changeHearts(-1);
+                player.changeHalfHearts(-1);
 
-                cout << "You were slashed by a soldier! Your Health is: " << player.getHealth() << endl;
+                cout << "You were slashed by a soldier! Your amount of half hearts is: " << player.getHalfHearts() << endl;
             }
             SwingRateTimer = 0;
         }
