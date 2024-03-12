@@ -86,6 +86,7 @@ void Skeleton::handleArrow(const double deltaTime, Entity& player, const sf::Vec
 
     if (FireRateTimer >= MaxFireRate)
     {
+        ShootingArrow = true;
         SkellyArrows.push_back(Arrow());
         int i = SkellyArrows.size() - 1;
         SkellyArrows[i].initialize(Sprite.getPosition(), target, 0.5f, SkeletonArrowPath);
