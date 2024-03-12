@@ -36,7 +36,7 @@ int main()
         enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 40.0f)); // give diff speeds to avoid complete overlapping
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
-        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); 
+        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.15f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */
     }
     catch (const bad_alloc& e) {
@@ -58,6 +58,7 @@ int main()
     vector<sf::Vector2f> enemyPositions1a = {
         sf::Vector2f(360.f, 411.f), // Soldier1 position 
         sf::Vector2f(1150.f, 411.f), // Soldier2 position
+        //sf::Vector2f(900.f, 500.f) // slime test pos
     };
     player.changePosition(738, 662);
 
@@ -116,18 +117,25 @@ int main()
         
         //cout << state.hasSpikes << endl;
 
-        if (enemies.size() == 0 && state.hasSpikes == true) {
-            cout << "running" << endl;
+        if (enemies.size() == 0) {
 
-            for (int i = 0; i < 322; i++) {
-                if (state.CurrentLevel[i] == 48) {
-                    state.CurrentLevel[i] = 49;
-                }
+            state.changeTile(22, 56);
+            state.changeTile(23, 57);
+            state.changeTile(24, 58);
+            state.changeTile(25, 53);
+            state.changeTile(26, 54);
+            state.changeTile(27, 55);
+
+
+            if (state.hasSpikes == true) {
+                state.changeTile(48, 49);
+
+                state.hasSpikes = false;
             }
-
-            state.hasSpikes = false;
             state.loadLevel();
         }
+
+
 
         if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
             state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies);
@@ -153,7 +161,7 @@ int main()
 
         for (const auto& enemy : enemies) {
             if (enemy->isDead(enemy)) {
-                player.changeAmmo(5); // add ammo for every enemy killed
+                player.changeAmmo(2); // add ammo for every enemy killed
                 cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
             }
         }

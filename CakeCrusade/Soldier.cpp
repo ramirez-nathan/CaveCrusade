@@ -50,6 +50,7 @@ void Soldier::update(double deltaTime, Entity& player, const sf::Vector2f& targe
         
         sf::Vector2f playerDirection = player.getSprite().getPosition();
 
+        
 
         handleSword(deltaTime, player, playerDirection, level, Walls);
         
@@ -61,6 +62,9 @@ void Soldier::update(double deltaTime, Entity& player, const sf::Vector2f& targe
                 SpriteX = AttackingSpriteX;
                 SpriteY = AttackingSpriteY;
                 Sprite.setTextureRect(sf::IntRect(SpriteX * (getSizeX() + 16), SpriteY * (getSizeY() + 16), (getSizeX() + 16), (getSizeY() + 16)));
+            }
+            else if (IsMoving && canAttack(playerDirection)) {
+                makeAggressive(playerDirection);
             }
             else if (IsMoving) { // walking 
                 Sprite.setTexture(WalkingTexture);
@@ -199,7 +203,7 @@ void Soldier::makeAggressive(const sf::Vector2f& playerPosition)
 
 
     if (isAggressive(playerPosition)) {
-        //cout << "Enemies are aggressive" << endl;
+        cout << "Enemies are aggressive" << endl;
         Sprite.setTexture(AttackTexture);
         // Player is to the right
         if (deltaX > 0 && abs(deltaX) > abs(deltaY)) {

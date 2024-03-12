@@ -234,11 +234,11 @@ void Player::handleSword(const double deltaTime, vector<unique_ptr<Enemy>>& enem
                if (enemies[j]->getHealth() > 0) {
                    if (canAttack(enemies[j]->getSprite().getPosition(), 100, mousePosition)) {
                        if (enemies[j]->getDefense() > 0) {
-                           enemies[j]->changeDefense(-50); // Arrow dmg is 40
+                           enemies[j]->changeDefense(-200); 
                            enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                        }
                        else {
-                           enemies[j]->changeHealth(-50);
+                           enemies[j]->changeHealth(-200);
                            enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                        }
 
@@ -402,7 +402,7 @@ bool Player::isTouchingDoor(int level[])
     
     int currPos = floor(position.y / 64) * 23 + floor(position.x / 64);
 
-    if (level[currPos] == 25 || level[currPos] == 26 || level[currPos] == 27) {
+    if (level[currPos] == 53 || level[currPos] == 54 || level[currPos] == 55) {
         return true;
     }
     return false;
