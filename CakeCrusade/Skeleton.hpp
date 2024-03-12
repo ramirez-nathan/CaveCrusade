@@ -14,6 +14,9 @@ private:
 	const string SkeletonArrowPath = "assets/enemies/skelly/attacking/arrow.png";
 	float MaxFireRate;
 	double FireRateTimer;
+	sf::Texture AttackTexture;
+
+	sf::Clock AttackClock;
 
 	bool ShootingArrow = false;
 	bool ShootingAnimationComplete = true;
