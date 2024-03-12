@@ -59,6 +59,22 @@ void Skeleton::update(double deltaTime, Entity& player, const sf::Vector2f& targ
         handleSkeletonMovement(deltaTime, Direction, SpriteX, SpriteY, level, Walls);
         handleArrow(deltaTime, player, target, FireRateTimer, MaxFireRate, level, Walls);
 
+        UpdateHandlingComplete = true;
+        //------------------------------------- LOAD CORRECT TEXTURE AND SPRITE INDEXES -----------------------------------
+        if (UpdateHandlingComplete) {
+            if (ShootingArrow) {
+                Sprite.setTexture(AttackTexture);
+                SpriteX = AttackingSpriteX;
+                SpriteY = AttackingSpriteY;
+                Sprite.setTextureRect(sf::IntRect(SpriteX * (getSizeX() + 16), SpriteY * (getSizeY() + 16), (getSizeX() + 16), (getSizeY() + 16)));
+            }
+            else { // if idle
+                Sprite.setTexture(Texture);
+                SpriteX = IdleSpriteX;
+                Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
+            }
+        }
+
         BoundingRectangle.setPosition(Sprite.getPosition());
     }
 }
@@ -66,6 +82,7 @@ void Skeleton::update(double deltaTime, Entity& player, const sf::Vector2f& targ
 void Skeleton::handleArrow(const double deltaTime, Entity& player, const sf::Vector2f& target, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls)
 {
     FireRateTimer += deltaTime;
+    attackAnimation(player.getSprite().getPosition());
 
     if (FireRateTimer >= MaxFireRate)
     {
@@ -119,6 +136,7 @@ void Skeleton::draw(sf::RenderWindow& window) {
 
 void Skeleton::attackAnimation(const sf::Vector2f& playerPosition)
 {
+    cout << "Skeleton draws it bow" << endl;
     if (ShootingArrow) {
         if (EntityDirection == 0) { // Looking Down, Looking Down Diagonally
             AttackingSpriteY = 0;
