@@ -402,7 +402,7 @@ bool Player::isTouchingDoor(int level[])
     
     int currPos = floor(position.y / 64) * 23 + floor(position.x / 64);
 
-    if (level[currPos] == 25 || level[currPos] == 26 || level[currPos] == 27) {
+    if (level[currPos] == 53 || level[currPos] == 54 || level[currPos] == 55) {
         return true;
     }
     return false;
