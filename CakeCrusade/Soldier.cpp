@@ -154,7 +154,7 @@ void Soldier::swingingAnimation() {
             AttackingSpriteY = 0;
         }
         else if (EntityDirection == 3) { // Looking Right, Looking Right Diagonally
-            AttackingSpriteY = 2;
+            AttackingSpriteY = 2; 
         }
         else if (EntityDirection == 2) { // Looking Left, Looking Left Diagonally
             AttackingSpriteY = 3;

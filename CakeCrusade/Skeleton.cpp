@@ -136,23 +136,23 @@ void Skeleton::draw(sf::RenderWindow& window) {
 
 void Skeleton::attackAnimation(const sf::Vector2f& playerPosition)
 {
-    cout << "Skeleton draws it bow" << endl;
+    //cout << "Skeleton draws it bow" << endl;
     if (ShootingArrow) {
         if (EntityDirection == 0) { // Looking Down, Looking Down Diagonally
             AttackingSpriteY = 0;
         }
         else if (EntityDirection == 3) { // Looking Right, Looking Right Diagonally
-            AttackingSpriteY = 2;
+            AttackingSpriteY = 3;
         }
         else if (EntityDirection == 2) { // Looking Left, Looking Left Diagonally
-            AttackingSpriteY = 3;
+            AttackingSpriteY = 2;
         }
         else if (EntityDirection == 1) { // Looking Up, Looking Up Diagonally
             AttackingSpriteY = 1;
         }
         FinishedBowAnimation = false;
         if (AttackClock.getElapsedTime().asSeconds() > 0.15f) {
-            if (AttackingSpriteX == 3) { // do nothing, just set shootingspritex up for the next time player shoots 
+            if (AttackingSpriteX == 1) { // do nothing, just set shootingspritex up for the next time player shoots 
                 FinishedBowAnimation = true;
                 ShootingArrow = false;
                 AttackingSpriteX = 0; // set it to next frame 
