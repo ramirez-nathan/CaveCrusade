@@ -180,7 +180,6 @@ void Skeleton::draw(sf::RenderWindow& window) {
 
 void Skeleton::attackAnimation(const sf::Vector2f& playerPosition)
 {
-    // directionLooking(playerPosition);
     //cout << "Skeleton draws it bow" << endl;
     if (ShootingArrow) {
         if (EntityDirection == 0) { // Looking Down, Looking Down Diagonally
@@ -218,29 +217,4 @@ void Skeleton::attackAnimation(const sf::Vector2f& playerPosition)
         }
     }
 
-//void Skeleton::directionLooking(const sf::Vector2f& playerPosition)
-//{
-//    float Dx = Sprite.getPosition().x - playerPosition.x;
-//    float Dy = Sprite.getPosition().y - playerPosition.y;
-//
-//
-//    if ((Dx >= -2000 && Dx <= 2000) && (Dy >= -2000 && Dy <= 0)) {
-//        SkeletonDirection = 0; // Looking down
-//        cout << "Skeleton is looking down" << endl;
-//    }
-//    else if ((Dx >= -2000 && Dx <= 2000) && (Dy <= 2000 && Dy >= 0)) {
-//        SkeletonDirection = 1; // Looking up
-//        cout << "Skeleton is looking up" << endl;
-//    }
-//    else if ((Dy <= 2000 && Dy >= -2000) && (Dx <= 2000 && Dx >= 0)) {
-//        SkeletonDirection = 2; // Looking left
-//        cout << "Skeleton is looking left" << endl;
-//    }
-//    else if ((Dy <= 2000 && Dy >= -2000) && (Dx >= -2000 && Dx <= 0)) {
-//        SkeletonDirection = 3; // Looking right
-//        cout << "Skeleton is looking right" << endl;
-//    }
-//    else {
-//        cout << "Skeleton distance is not being set" << endl;
-//    }
-//}
+
