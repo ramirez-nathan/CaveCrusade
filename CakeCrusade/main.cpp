@@ -119,18 +119,19 @@ int main()
 
         if (enemies.size() == 0) {
 
-            state.changeTile(22, 56);
-            state.changeTile(23, 57);
-            state.changeTile(24, 58);
-            state.changeTile(25, 53);
-            state.changeTile(26, 54);
-            state.changeTile(27, 55);
+            if (player.getKeyState() == true) {
+                state.changeTile(22, 56);
+                state.changeTile(23, 57);
+                state.changeTile(24, 58);
+                state.changeTile(25, 53);
+                state.changeTile(26, 54);
+                state.changeTile(27, 55);
+            }
 
-
-            if (state.hasSpikes == true) {
+            if (state.HasSpikes == true) {
                 state.changeTile(48, 49);
 
-                state.hasSpikes = false;
+                state.HasSpikes = false;
             }
             state.loadLevel();
         }
