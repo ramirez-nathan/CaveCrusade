@@ -10,6 +10,7 @@
 #include "Entity.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
+#include "GameState.hpp"
 
 using namespace std;
 
@@ -23,6 +24,8 @@ protected:
 	bool ReadyToSpawn = false;
 	bool IdleAnimationComplete = true;
 
+
+	sf::Clock ChestClock;
 	bool ChestIsOpened = false;
 	bool ChestAnimationComplete = true;
 	bool IsFinished = false;
@@ -53,8 +56,9 @@ public:
 
 	void chestAnimation();
 
-	void drawInteractable(sf::RenderWindow& window);
+	void drawInteractable(sf::RenderWindow& window, string currLevelName);
 
+	bool isTouched();
 
 	int getSizeX() const { return Size.x; }
 	int getSizeY() const { return Size.y; }

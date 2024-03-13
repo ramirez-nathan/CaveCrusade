@@ -83,13 +83,37 @@ void Interactable::update(const double deltaTime, Player& player, vector<unique_
 					ChestIsOpened = true;
 				}
 			}
+			SpriteX = ChestSpriteX;
 		}
 	}
 	BoundingRectangle.setPosition(Sprite.getPosition());
 }
 
-void Interactable::drawInteractable(sf::RenderWindow& window) {
+void Interactable::chestAnimation() {
+	if (ChestClock.getElapsedTime().asSeconds() > 0.20) {
+		if (ChestSpriteX == 4) {
+			ChestAnimationComplete = true;
+		}
+		else {
+			ChestSpriteX++;
+		}
+		ChestClock.restart();
+	}
+}
+
+bool Interactable::isTouched() {
 	if (ItemName == "Chest") {
+		return false;
+	}
+	else {
+		if (IsTouched == true) {
+			return true;
+		}
+	}
+}
+
+void Interactable::drawInteractable(sf::RenderWindow& window, string currLevelName) {
+	if (ItemName == "Chest" && currLevelName == "1c" || currLevelName == "2c" || currLevelName == "3c" || currLevelName == "4b" || currLevelName == "5a") {
 		window.draw(Sprite);
 	}
 	if (ReadyToSpawn && !IsTouched) {
