@@ -28,7 +28,7 @@ bool GameState::loadLevel() // Checks if the new level has been successfully loa
 }
 
 
-void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s, vector<unique_ptr<Enemy>>& enemies) // Changes the level based on door type and current level
+void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s, vector<unique_ptr<Enemy>>& enemies, vector<Interactable>& interactables) // Changes the level based on door type and current level
 {
     /*---------------------------------------------- Level 1 -------------------------------------------------*/
     
@@ -750,16 +750,31 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 catch (const bad_alloc& e) {
                     std::cerr << "Memory allocation failed: " << e.what() << std::endl;
                 }
-                vector<sf::Vector2f> enemyPositions1b = {
+                vector<sf::Vector2f> enemyPositions1c = {
                     sf::Vector2f(258.f, 687.f), // Soldier1 position 
                     sf::Vector2f(1220.f, 243.f) // Soldier2 position
                 };
                 for (size_t i = 0; i < enemies.size(); ++i) {
-                    enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
+                    enemies[i]->changePosition(enemyPositions1c[i].x, enemyPositions1c[i].y);
                 }
                 for (auto& enemy : enemies) {
                     enemy->initialize();
                     enemy->load();
+                }
+            }
+            if (!OneCChestOpened) { // WIP SPAWNING INTERACTABLES
+                try {
+                    interactables.push_back(<Interactable>("Chest"));
+                }
+                catch (const bad_alloc& e) {
+                    std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                }
+                vector<sf::Vector2f> chestPosition1c = {
+                    sf::Vector2f(258.f, 687.f), // Chest position 
+                };
+                for (size_t i = 0; i < interactables.size(); i++)
+                {
+                    interactables[i].setPosition(chestPosition1c[i].x, chestPosition1c[i].y);
                 }
             }
         }
