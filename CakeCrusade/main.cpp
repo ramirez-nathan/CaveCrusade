@@ -70,6 +70,7 @@ int main()
     // define the level with an array of tile indices
     
     GameState state;
+    state.drawHearts(player);
     state.loadLevel();
 
     // ------------------------------- TILEMAP ----------------------------------
@@ -130,6 +131,9 @@ int main()
 
             sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
+            // Update hearts
+            state.drawHearts(player);
+            state.loadLevel();
 
             // Update enemies
             for (auto& enemy : enemies) {
@@ -159,8 +163,6 @@ int main()
                 state.loadLevel();
             }
 
-
-
             if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
                 state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies);
                 state.loadLevel();
@@ -177,6 +179,7 @@ int main()
             window.clear();
 
             window.draw(state.Map);
+
             for (const auto& enemy : enemies) {
                 enemy->draw(window);
             }

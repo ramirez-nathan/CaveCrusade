@@ -1,3 +1,5 @@
+#pragma once
+
 #include "TileMap.hpp"
 #include <string>
 #include "Player.hpp"
@@ -17,6 +19,8 @@ public:
     string tileset;
     string CurrLevelName;
     void changeTile(int currTile, int newTile);
+
+    void drawHearts(Player& p);
 
     TileMap Map;
 

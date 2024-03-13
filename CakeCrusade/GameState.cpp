@@ -1001,28 +1001,66 @@ void GameState::changeTile(int currTile, int newTile)
     }
 }
 
+// False positives
+#pragma warning(push)
+#pragma warning(disable:6385)
+#pragma warning(disable:6386)
 
-/*
-int NewLevel[23 * 14] =
-        {
-             18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
-             18,  6,   7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-             18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
-        };
+void GameState::drawHearts(Player& p) // 
+{
+    for (int i = 0; i < p.HeartContainerCount; i++) { // Draw every full heart needed
+        CurrentLevel[i] = 67; // 67 is the full tile
+    }
 
+    if (p.HalfHeartCount / 2 != p.HeartContainerCount) { // If damage has been taken
+        int counter = 1; // counter represents the current heart
 
+        for (int i = (p.HeartContainerCount * 2) - p.HalfHeartCount; i > 0; i) { // i = every half heart lost
 
-*/
+            if (CurrentLevel[int(p.HeartContainerCount) - counter] != 65) { // If the current heart isnt empty
+                if (CurrentLevel[int(p.HeartContainerCount) - counter] == 67) { // If the current heart is full, make it half
+                    CurrentLevel[int(p.HeartContainerCount) - counter] = 66;
+                    i--; // one less half heart to create
 
+                    if (i >= 1) { // if we need to change the half heart sprite -> empty
+                        CurrentLevel[int(p.HeartContainerCount) - counter] = 65;
+                        i--; // one less half heart to create
+                    }
 
+                    counter++; // we have finished modifying the current heart, move to the next
+
+                }
+            }
+        }
+    }
+
+    for (int i = 0; i < p.GoldHeartContainerCount; i++) { // Draw enemy gold hearts as needed
+        CurrentLevel[i + int(p.HeartContainerCount)] = 69;
+    }
+
+    if (p.GoldHalfHeartCount / 2 != p.GoldHeartContainerCount) { // If damage has been taken
+        int counter = 1; // counter represents current heart
+        int offset = int(p.HeartContainerCount + p.GoldHeartContainerCount); // Gold heart offset, as they are drawn after red heart containers
+
+        for (int i = int(p.GoldHeartContainerCount * 2 - p.GoldHalfHeartCount); i > 0; i) { // i = every half heart lost
+
+            if (CurrentLevel[offset - counter] != 18) { // if gold container exists
+                if (CurrentLevel[offset - counter] == 69) { // if full heart, make half
+                    CurrentLevel[offset - counter] = 68;
+                    i--; // one less heart to draw
+
+                    if (i >= 1) { // if half hearts are leftover
+                        CurrentLevel[offset - counter] = 18; // if half heart, make empty
+                        i--;
+                    }
+
+                    counter++; // move to next heart
+
+                }
+            }
+        }
+    }
+
+}
+
+#pragma warning(pop)
