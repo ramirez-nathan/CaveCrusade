@@ -35,6 +35,8 @@ private:
 	bool ShootingAnimationComplete = true;
 	bool FinishedBowAnimation = false;
 
+	
+
 	int PlayerDirection = 0;
 
 	
@@ -47,6 +49,9 @@ protected:
 	double HalfHeartCount = 6;
 	
 	double GoldHalfHeartCount = 0;
+	bool HasKey = false;
+
+	bool HasBow = false;
 
 public:
 	Player(float h, float dmg, float def, float spd);
@@ -61,6 +66,9 @@ public:
 
 	int getDamageDone() { return DamageDone; }
 	void setDamageDone(int damage) { DamageDone = damage; }
+
+	void setKeyState(bool state) { HasKey = state; }
+	void setBowState(bool state) { HasBow = state; }
 
 	virtual void setHeartContainer(int damage) override;
 	virtual void setGoldContainer(int damage) override;
