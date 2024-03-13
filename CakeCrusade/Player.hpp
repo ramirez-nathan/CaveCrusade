@@ -49,7 +49,7 @@ protected:
 	double HalfHeartCount = 6;
 	
 	double GoldHalfHeartCount = 0;
-	bool HasKey = false;
+	bool HasKey = true; // CHANGE WHEN KEY INTERACTABLE IS DONE
 
 	bool HasBow = false;
 

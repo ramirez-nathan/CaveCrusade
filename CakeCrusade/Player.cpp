@@ -425,7 +425,7 @@ bool Player::isTouchingDoor(int level[])
     
     int currPos = floor(position.y / 64) * 23 + floor(position.x / 64);
 
-    if (level[currPos] == 53 || level[currPos] == 54 || level[currPos] == 55) {
+    if ((level[currPos] == 53 || level[currPos] == 54 || level[currPos] == 55) && HasKey) {
         return true;
     }
     return false;
