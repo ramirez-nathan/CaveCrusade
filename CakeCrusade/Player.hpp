@@ -67,6 +67,9 @@ public:
 	int getDamageDone() { return DamageDone; }
 	void setDamageDone(int damage) { DamageDone = damage; }
 
+	bool getKeyState() { return HasKey; }
+	bool getBowState() { return HasBow; }
+
 	void setKeyState(bool state) { HasKey = state; }
 	void setBowState(bool state) { HasBow = state; }
 
