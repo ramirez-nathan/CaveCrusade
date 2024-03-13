@@ -46,7 +46,6 @@ private:
 
 protected:
 	int Ammo = 0;
-	double HalfHeartCount = 6;
 	
 	double GoldHalfHeartCount = 0;
 	bool HasKey = true; // CHANGE WHEN KEY INTERACTABLE IS DONE
@@ -57,8 +56,10 @@ public:
 	Player(float h, float dmg, float def, float spd);
 	~Player();
 	double HeartContainerCount = 3;
-	double GoldHeartContainerCount = 0;
+	double GoldHeartContainerCount = 1;
 	double DamageDone = 0;
+	double HalfHeartCount = 6;
+	double GoldHalfHeartCount = 2;
 
 	// ------------------ GETTERS/SETTERS --------------------
 	void changeAmmo(int ammo) { Ammo += ammo; }

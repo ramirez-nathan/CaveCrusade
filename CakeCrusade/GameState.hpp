@@ -1,3 +1,5 @@
+#pragma once
+
 #include "TileMap.hpp"
 #include <string>
 #include "Player.hpp"
@@ -23,8 +25,12 @@ public:
     bool ThreeCChestOpened = false;
   
     string Tileset;
+    bool onMenu;
+    bool isRunning;
     string CurrLevelName;
     void changeTile(int currTile, int newTile);
+
+    void drawHearts(Player& p);
 
     TileMap Map;
 
