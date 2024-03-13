@@ -43,7 +43,12 @@ void Interactable::load()
 	// set origin at middle of sprite
 	Sprite.setOrigin(Sprite.getLocalBounds().width / 2.f, Sprite.getLocalBounds().height / 2.f + 7);
 	// change sprite scale
-	Sprite.scale(sf::Vector2f(3, 3));
+	if (ItemName == "Chest") {
+		Sprite.scale(sf::Vector2f(4.5, 4.5));
+	}
+	else if (ItemName != "Chest") {
+		Sprite.scale(sf::Vector2f(3, 3));
+	}
 	// wrap the hitbox around the player
 	BoundingRectangle.setSize(sf::Vector2f(Size.x * (Sprite.getScale().x - 1.2), Size.y * (Sprite.getScale().y - 1.2)));
 	// set hitbox origin to middle
@@ -57,7 +62,7 @@ void Interactable::update(const double deltaTime, Player& player, vector<unique_
 			ReadyToSpawn = true;
 		}
 	}
-	if (ReadyToSpawn) {
+	if (ReadyToSpawn && ItemName != "Chest") {
 		if (!IsTouched) {
 			if (Math::didRectCollide(player.getHitBox().getGlobalBounds(), BoundingRectangle.getGlobalBounds()) && ItemName != "Chest") {
 				IsTouched = true;
@@ -76,20 +81,22 @@ void Interactable::update(const double deltaTime, Player& player, vector<unique_
 				}
 			}
 		}
-		else if (ItemName == "Chest") {
-			if (enemies.size() == 0) {
-				chestAnimation();
-				if (ChestAnimationComplete) {
-					ChestIsOpened = true;
-				}
+	}
+	if (ItemName == "Chest") {
+		if (enemies.size() == 0 && !ChestIsOpened) {
+			chestAnimation();
+			if (ChestAnimationComplete) {
+				ChestIsOpened = true;
 			}
 			SpriteX = ChestSpriteX;
 		}
 	}
+	Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
 	BoundingRectangle.setPosition(Sprite.getPosition());
 }
 
 void Interactable::chestAnimation() {
+	ChestAnimationComplete = false;
 	if (ChestClock.getElapsedTime().asSeconds() > 0.20) {
 		if (ChestSpriteX == 4) {
 			ChestAnimationComplete = true;
@@ -113,10 +120,10 @@ bool Interactable::isTouched() {
 }
 
 void Interactable::drawInteractable(sf::RenderWindow& window, string currLevelName) {
-	if (ItemName == "Chest" && currLevelName == "1c" || currLevelName == "2c" || currLevelName == "3c" || currLevelName == "4b" || currLevelName == "5a") {
+	if (ItemName == "Chest" && (currLevelName == "1c" || currLevelName == "2c" || currLevelName == "3c" || currLevelName == "4b" || currLevelName == "5a")) {
 		window.draw(Sprite);
 	}
-	if (ReadyToSpawn && !IsTouched) {
+	else if ((ReadyToSpawn && !IsTouched) && ItemName != "Chest") {
 		window.draw(Sprite);
 		window.draw(BoundingRectangle);
 	}
