@@ -11,8 +11,13 @@ public:
 
     bool loadLevel();
     void changeLevel(string levelName, Player& p, string type, SoundFx& s, vector<unique_ptr<Enemy>>& enemies);
-    bool hasSpikes;
-    string tileset;
+
+    bool HasSpikes;
+    bool OneCDone = false;
+    bool TwoCDone = false;
+    bool ThreeCDone = false;
+  
+    string Tileset;
     string CurrLevelName;
     void changeTile(int currTile, int newTile);
 
