@@ -12,6 +12,7 @@
 #include "Skeleton.hpp"
 #include "GameState.hpp"
 #include "SoundFx.hpp"
+#include "Interactable.hpp"
 
 using namespace std;
 
@@ -29,20 +30,20 @@ int main()
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     Player player(3000.f, 50.f, 150.f, 0.4f);
-    player.changeAmmo(20);
     vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
     try {
-        //enemies.push_back(make_unique<Soldier>(2000.f, 50.f, 50.f, 0.15f, 40.0f));
-        //enemies.push_back(make_unique<Soldier>(2000.f, 50.f, 50.f, 0.20f, 40.0f)); // give diff speeds to avoid complete overlapping
-        enemies.push_back(make_unique<Skeleton>(15000.f, 20.f, 20.f, 0.0f)); 
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 40.0f));
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 40.0f)); // give diff speeds to avoid complete overlapping
+        //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.15f)); 
-        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */
+        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */ 
     }
     catch (const bad_alloc& e) {
-        std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+        std::cerr << "Memory allocation failed: " << e.what() << std::endl; 
         return 1; 
     }
+    vector<Interactable> interactables; 
     
     //-------------------------------- INITIALIZE --------------------------------
     player.initialize();
@@ -54,10 +55,10 @@ int main()
 
     // ------------------------------------------ LOAD ---------------------------------
 
-    // Set positions for each entity in the vector
-    vector<sf::Vector2f> enemyPositions1a = {
+    // Set positions for each entity in the vector 
+    vector<sf::Vector2f> enemyPositions1a = { 
         sf::Vector2f(360.f, 411.f), // Soldier1 position 
-        sf::Vector2f(1150.f, 411.f), // Soldier2 position
+        sf::Vector2f(1150.f, 411.f), // Soldier2 position 
         //sf::Vector2f(900.f, 500.f) // slime test pos
     };
     player.changePosition(738, 662);
@@ -111,42 +112,49 @@ int main()
         // Update enemies
         for (auto& enemy : enemies) {
             enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
+            enemy->attackMove(deltaTime, player);
         }
         // Update player 
         player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
+        for (auto& interactable : interactables) {
+            interactable.update(deltaTime, player, enemies, state.CurrentLevel);
+        }
         
         //cout << state.hasSpikes << endl;
 
         if (enemies.size() == 0) {
 
-            state.changeTile(22, 56);
-            state.changeTile(23, 57);
-            state.changeTile(24, 58);
-            state.changeTile(25, 53);
-            state.changeTile(26, 54);
-            state.changeTile(27, 55);
+            if (player.getKeyState() == true) { // still need change to false after every new room
+                state.changeTile(22, 56);
+                state.changeTile(23, 57);
+                state.changeTile(24, 58);
+                state.changeTile(25, 53);
+                state.changeTile(26, 54);
+                state.changeTile(27, 55);
+            }
 
-
-            if (state.hasSpikes == true) {
+            if (state.HasSpikes == true) {
                 state.changeTile(48, 49);
 
-                state.hasSpikes = false;
+                state.HasSpikes = false;
             }
             state.loadLevel();
         }
 
 
 
-        if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
-            state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies);
+        if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) { // go to new room
+            state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies, interactables);
+            // change keystate to false here
+            // erase entire interactables vector
             state.loadLevel();
         }
 
         if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
-            state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies);
+            state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies, interactables);
             state.loadLevel();
         }
-
+        player.setDamageDone(0);
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
@@ -156,7 +164,9 @@ int main()
         for (const auto& enemy : enemies) {
             enemy->draw(window);
         }
-
+        for (auto& interactable : interactables) {
+            interactable.drawInteractable(window, state.CurrLevelName);
+        }
         player.drawPlayer(window);
 
         for (const auto& enemy : enemies) {
@@ -174,11 +184,19 @@ int main()
             ),
             enemies.end() // the 2nd parameter; tells where to end the erasing
         );
-
+        /*interactables.erase( // Some genie code for erasing enemies from the vector
+            std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
+                interactables.begin(),
+                interactables.end(),
+                [&](const auto& interactable) { return interactable->isTouched(interactable); }
+            ),
+            interactables.end() // the 2nd parameter; tells where to end the erasing
+        );*/
+        
         if (player.getHealth() <= 0) {
             break;
         }
-
+        
         window.display();
 
         //-------------------------------- DRAW --------------------------------

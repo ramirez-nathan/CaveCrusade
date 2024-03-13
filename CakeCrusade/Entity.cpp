@@ -51,7 +51,6 @@ void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spri
     sf::Vector2f Position = Sprite.getPosition();
     sf::Vector2f Movement(Direction * EntitySpeed * static_cast<float>(deltaTime)); 
     sf::Vector2f Future = Position + Movement;
-    IsMoving = true;
     
     walkingAnimation(entityDirection); 
     if (EntityDirection == 0) {
@@ -71,9 +70,12 @@ void Entity::handleMovement(double deltaTime, sf::Vector2f& direction, int& spri
         spriteY = 1;
     }
     int FuturePos = floor(Future.y / 64) * 23 + floor(Future.x / 64);
-    if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) { 
-        Sprite.setPosition(Position + Movement);
+    if (!IsFrozen) {
+        if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
+            Sprite.setPosition(Position + Movement);
+        }
     }
+    
 }
 
 // takes parameters : delta time, player, player position, level
@@ -97,7 +99,18 @@ void Entity::update(double deltaTime, Entity& player, const sf::Vector2f& target
         else if ((Direction.x == 0.f && Direction.y < 0.f) || (Direction.x != 0.f && Direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
             EntityDirection = 1;
         }
+        
+        if (Math::didRectCollide(BoundingRectangle.getGlobalBounds(), player.getHitBox().getGlobalBounds())) {
+            CollisionFreeze.restart();
+            IsFrozen = true;
+            IsMoving = false;
+        }
+        if (CollisionFreeze.getElapsedTime().asSeconds() > 1.0f) {
+            IsFrozen = false;
+            IsMoving = true;
+        }
         handleMovement(deltaTime, Direction, SpriteX, SpriteY, EntityDirection, level, Walls);
+
     }
     Sprite.setTextureRect(sf::IntRect(SpriteX * getSizeX(), SpriteY * getSizeY(), getSizeX(), getSizeY()));
     BoundingRectangle.setPosition(Sprite.getPosition());

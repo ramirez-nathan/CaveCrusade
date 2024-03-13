@@ -23,9 +23,11 @@ protected:
 
     sf::Clock WalkingClock;
     sf::Clock IdleClock;
+    sf::Clock CollisionFreeze;
 
 
     bool IsMoving = false;
+    bool IsFrozen = false;
 
     bool WalkingAnimationComplete = true;
 
@@ -82,6 +84,13 @@ public:
     float getHealth() const { return Health; }
     float getDamage() const { return Damage; }
     float getDefense() const { return Defense; }
+
+    virtual double getGoldHeartContainer() { return 0; } // leave for player to override
+    virtual double getHeartContainer() { return 0; } // leave for player to override
+
+    virtual double getGoldHalfHearts() { return 0;  } // leave for player to override
+    virtual double getHalfHearts() { return 0; } // leave for player to override
+
     int getSizeX() const { return Size.x; }
     int getSizeY() const { return Size.y; }
     sf::Sprite& getSprite() { return Sprite; }
@@ -89,8 +98,15 @@ public:
 
 
     // Setters
-    void changeHealth(float hp) { Health += hp; }
+    virtual void setHeartContainer(int damage) { /*override in player*/ }
+    virtual void setGoldContainer(int damage) { /*override in player*/ }
+
+    virtual void changeHalfHearts(int damage) { /*override in player*/ }
+    virtual void changeGoldHalfHearts(int damage) { /*override in player*/ }
+
+    void changeHealth(float dmg) { Health += dmg; }
     void changeDefense(float def) { Defense += def; }
+
     void setHealth(float& h) { this->Health = h; }
     void setDamage(float& dmg) { this->Damage = dmg; }
     void setDefense(float& def) { this->Defense = def; }

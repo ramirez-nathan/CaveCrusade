@@ -151,17 +151,20 @@ void Skeleton::handleArrow(const double deltaTime, Entity& player, const sf::Vec
         if (player.getHealth() > 0) {
             if (Math::didRectCollide(SkellyArrows[i - 1].getArrowGlobalBounds(), player.getHitBox().getGlobalBounds()))
             {
-                if (player.getDefense() > 0) {
-                    player.changeDefense(-25);
+                if (player.getGoldHalfHearts() > 0) {
+                    player.changeGoldHalfHearts(-1);
+                    cout << "You've been hit by an arrow!" << endl;
+
                 }
                 else {
-                    player.changeHealth(-25);
+                    player.changeHalfHearts(-1);
+                    cout << "You've been hit by an arrow!" << endl;
                 }
 
                 // erase the arrow from the vector
                 SkellyArrows.erase(SkellyArrows.begin() + (i - 1));
-                cout << "You've been hit by an arrow!" << endl;
-                cout << "Player's health is: " << player.getHealth() << ", armor is: " << player.getDefense() << endl;
+                
+                cout << "Player's half hearts is: " << player.getHalfHearts() << ", gold half hearts is: " << player.getGoldHalfHearts() << endl;
             }
         }
     }
