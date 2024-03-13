@@ -133,28 +133,28 @@ bool Soldier::canAttack(const sf::Vector2f& playerPosition)
     // Check if the enemy is within the cone angle in each direction
     if ((Direction.x == 0.f && Direction.y > 0.f) || (Direction.x != 0.f && Direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
         AttackingSpriteY = 0;
-        if ((Dx >= -70 && Dx <= 70) && (Dy >= -100 && Dy <= 0)) {
+        if ((Dx >= -60 && Dx <= 60) && (Dy >= -90 && Dy <= 0)) {
             return true;
         }
         return false;
     }
     else if ((Direction.x > 0.f && Direction.y == 0.f) || (Direction.x > 0.f && (-0.50f <= Direction.y && Direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
         AttackingSpriteY = 3;
-        if ((Dy <= 70 && Dy >= -70) && (Dx >= -100 && Dx <= 0)) {
+        if ((Dy <= 60 && Dy >= -60) && (Dx >= -90 && Dx <= 0)) {
             return true;
         }
         return false;
     }
     else if ((Direction.x < 0.f && Direction.y == 0.f) || (Direction.x < 0.f && (-0.5f <= Direction.y && Direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
         AttackingSpriteY = 2;
-        if ((Dy <= 70 && Dy >= -70) && (Dx <= 100 && Dx >= 0)) {
+        if ((Dy <= 60 && Dy >= -60) && (Dx <= 90 && Dx >= 0)) {
             return true;
         }
         return false;
     }
     else if ((Direction.x == 0.f && Direction.y < 0.f) || (Direction.x != 0.f && Direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
         AttackingSpriteY = 1;
-        if ((Dx >= -70 && Dx <= 70) && (Dy <= 100 && Dy >= 0)) {
+        if ((Dx >= -60 && Dx <= 60) && (Dy <= 90 && Dy >= 0)) {
             return true;
         }
         return false;
