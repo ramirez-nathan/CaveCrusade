@@ -12,6 +12,7 @@
 #include "Skeleton.hpp"
 #include "GameState.hpp"
 #include "SoundFx.hpp"
+#include "Interactable.hpp"
 
 using namespace std;
 
@@ -42,6 +43,7 @@ int main()
         std::cerr << "Memory allocation failed: " << e.what() << std::endl; 
         return 1; 
     }
+    vector<Interactable> interactables; 
     
     //-------------------------------- INITIALIZE --------------------------------
     player.initialize();
@@ -119,7 +121,7 @@ int main()
 
         if (enemies.size() == 0) {
 
-            if (player.getKeyState() == true) {
+            if (player.getKeyState() == true) { // still need change to false after every new room
                 state.changeTile(22, 56);
                 state.changeTile(23, 57);
                 state.changeTile(24, 58);
@@ -138,8 +140,10 @@ int main()
 
 
 
-        if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
+        if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) { // go to new room
             state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies);
+            // change keystate to false here
+            // erase entire interactables vector
             state.loadLevel();
         }
 
@@ -175,7 +179,7 @@ int main()
             ),
             enemies.end() // the 2nd parameter; tells where to end the erasing
         );
-
+        
         if (player.getHealth() <= 0) {
             break;
         }
