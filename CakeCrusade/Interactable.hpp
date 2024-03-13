@@ -1,16 +1,14 @@
-#ifndef OBJECT_HPP
-#define OBJECT_HPP
+#ifndef INTERACTABLE_HPP
+#define INTERACTABLE_HPP
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <math.h>
 #include "Math.hpp"
 #include <vector>
-#include <ostream>
 #include <memory>
 #include "Entity.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
-#include "GameState.hpp"
 
 using namespace std;
 
@@ -57,6 +55,10 @@ public:
 	void chestAnimation();
 
 	void drawInteractable(sf::RenderWindow& window, string currLevelName);
+
+	string& getItemName() { return ItemName; }
+
+	bool isChestOpened() { return ChestIsOpened; }
 
 	bool isTouched();
 
