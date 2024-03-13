@@ -58,20 +58,22 @@ void Interactable::update(const double deltaTime, Player& player, vector<unique_
 		}
 	}
 	if (ReadyToSpawn) {
-		if (Math::didRectCollide(player.getHitBox().getGlobalBounds(), BoundingRectangle.getGlobalBounds()) && ItemName != "Chest") {
-			IsTouched = true;
-			if (ItemName == "Red Heart") {
-				player.changeHalfHearts(2);
-			}
-			else if (ItemName == "Gold Heart") {
-				player.changeGoldHalfHearts(2);
-			}
-			else if (ItemName == "Key") {
-				player.setKeyState(true);
-			}
-			else if (ItemName == "Bow") {
-				player.setBowState(true);
-				player.changeAmmo(10);
+		if (!IsTouched) {
+			if (Math::didRectCollide(player.getHitBox().getGlobalBounds(), BoundingRectangle.getGlobalBounds()) && ItemName != "Chest") {
+				IsTouched = true;
+				if (ItemName == "Red Heart") {
+					player.changeHalfHearts(2);
+				}
+				else if (ItemName == "Gold Heart") {
+					player.changeGoldHalfHearts(2);
+				}
+				else if (ItemName == "Key") {
+					player.setKeyState(true);
+				}
+				else if (ItemName == "Bow") {
+					player.setBowState(true);
+					player.changeAmmo(10);
+				}
 			}
 		}
 		else if (ItemName == "Chest") {
@@ -82,5 +84,16 @@ void Interactable::update(const double deltaTime, Player& player, vector<unique_
 				}
 			}
 		}
+	}
+	BoundingRectangle.setPosition(Sprite.getPosition());
+}
+
+void Interactable::drawInteractable(sf::RenderWindow& window) {
+	if (ItemName == "Chest") {
+		window.draw(Sprite);
+	}
+	if (ReadyToSpawn && !IsTouched) {
+		window.draw(Sprite);
+		window.draw(BoundingRectangle);
 	}
 }
