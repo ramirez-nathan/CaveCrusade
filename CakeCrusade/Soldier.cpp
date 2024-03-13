@@ -2,7 +2,7 @@
 #include <iostream>
 
 Soldier::Soldier(float h, float dmg, float def, float spd, float rng)
-	: Enemy(h, dmg, def, spd), MaxSwingRate(500), SwingRateTimer(0)
+	: Enemy(h, dmg, def, spd), MaxSwingRate(700), SwingRateTimer(0)
 {
 }
 
