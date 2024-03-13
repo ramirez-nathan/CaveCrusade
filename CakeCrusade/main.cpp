@@ -43,7 +43,7 @@ int main()
         std::cerr << "Memory allocation failed: " << e.what() << std::endl; 
         return 1; 
     }
-    vector<Interactable> interactables; 
+    vector<Interactable> interactables;
     
     //-------------------------------- INITIALIZE --------------------------------
     player.initialize();
@@ -124,7 +124,7 @@ int main()
 
         if (enemies.size() == 0) {
 
-            if (player.getKeyState() == true) { // still need change to false after every new room
+            if (player.getKeyState() == true) { 
                 state.changeTile(22, 56);
                 state.changeTile(23, 57);
                 state.changeTile(24, 58);
@@ -147,6 +147,14 @@ int main()
             state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies, interactables);
             // change keystate to false here
             // erase entire interactables vector
+            interactables.erase( // Some genie code for erasing enemies from the vector
+                std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
+                    interactables.begin(),
+                    interactables.end(),
+                    [&](auto& interactable) { return true; }
+                ),
+                interactables.end() // the 2nd parameter; tells where to end the erasing
+            );
             state.loadLevel();
         }
 
@@ -188,7 +196,7 @@ int main()
             std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
                 interactables.begin(),
                 interactables.end(),
-                [&](const auto& interactable) { return interactable->isTouched(interactable); }
+                [&](auto& interactable) { return interactable.isTouched(); }
             ),
             interactables.end() // the 2nd parameter; tells where to end the erasing
         );*/
