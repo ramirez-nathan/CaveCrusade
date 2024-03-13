@@ -156,6 +156,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Interactable.cpp" />
     <ClCompile Include="Math.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player.hpp" />
     <ClCompile Include="main.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="Interactable.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Skeleton.hpp" />
     <ClInclude Include="Slime.hpp" />
     <ClInclude Include="Soldier.hpp" />

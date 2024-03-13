@@ -17,6 +17,8 @@ GameState::GameState()
     tileset = "assets/tilemap/tileset1.png";
     CurrLevelName = "1a";
     hasSpikes = false;
+    onMenu = true;
+    isRunning = true;
 }
 
 bool GameState::loadLevel() // Checks if the new level has been successfully loaded

@@ -12,6 +12,7 @@
 #include "Skeleton.hpp"
 #include "GameState.hpp"
 #include "SoundFx.hpp"
+#include "Menu.hpp"
 
 using namespace std;
 
@@ -85,104 +86,129 @@ int main()
 
     SoundFx musicState;
 
-   
+    Menu menu(window);
     
     
 
 
     //main game loop
-    while(window.isOpen())
+    while (state.isRunning == true)
     {
-        sf::Time deltaTimeTimer = GameStateClock.restart();
-        double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0;
-        //-------------------------------- UPDATE --------------------------------
+        while (state.onMenu == true && state.isRunning == true) {
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed) {
+                    state.isRunning = false;
+                    window.close();  
+                }
 
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
-
-
-        // Update enemies
-        for (auto& enemy : enemies) {
-            enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
-            enemy->attackMove(deltaTime, player);
-        }
-        // Update player 
-        player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
-        
-        //cout << state.hasSpikes << endl;
-
-        if (enemies.size() == 0) {
-
-            state.changeTile(22, 56);
-            state.changeTile(23, 57);
-            state.changeTile(24, 58);
-            state.changeTile(25, 53);
-            state.changeTile(26, 54);
-            state.changeTile(27, 55);
-
-
-            if (state.hasSpikes == true) {
-                state.changeTile(48, 49);
-
-                state.hasSpikes = false;
+                else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
+                    state.onMenu = false;
             }
-            state.loadLevel();
-        }
 
+            window.clear(sf::Color(54, 30, 38));
 
+            Menu menu(window);
 
-        if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
-            state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies);
-            state.loadLevel();
-        }
-
-        if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
-            state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies);
-            state.loadLevel();
-        }
-        player.setDamageDone(0);
-        //-------------------------------- UPDATE --------------------------------
-
-        //-------------------------------- DRAW --------------------------------
-        window.clear();
-
-        window.draw(state.Map);
-        for (const auto& enemy : enemies) {
-            enemy->draw(window);
-        }
-
-        player.drawPlayer(window);
-
-        for (const auto& enemy : enemies) {
-            if (enemy->isDead(enemy)) {
-                player.changeAmmo(2); // add ammo for every enemy killed
-                cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
-            }
-        }
-
-        enemies.erase( // Some genie code for erasing enemies from the vector
-            std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
-                enemies.begin(),
-                enemies.end(),
-                [&](const auto& enemy) { return enemy->isDead(enemy); }
-            ),
-            enemies.end() // the 2nd parameter; tells where to end the erasing
-        );
-
-        if (player.getHealth() <= 0) {
-            break;
+            window.display();
         }
         
-        window.display();
+        while (state.onMenu == false && state.isRunning == true) {
+            sf::Time deltaTimeTimer = GameStateClock.restart();
+            double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0;
+            //-------------------------------- UPDATE --------------------------------
 
-        //-------------------------------- DRAW --------------------------------
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed) {
+                    state.isRunning = false;
+                    window.close(); 
+                }
+            }
+
+            sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
+
+
+            // Update enemies
+            for (auto& enemy : enemies) {
+                enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
+                enemy->attackMove(deltaTime, player);
+            }
+            // Update player 
+            player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
+
+            //cout << state.hasSpikes << endl;
+
+            if (enemies.size() == 0) {
+
+                state.changeTile(22, 56);
+                state.changeTile(23, 57);
+                state.changeTile(24, 58);
+                state.changeTile(25, 53);
+                state.changeTile(26, 54);
+                state.changeTile(27, 55);
+
+
+                if (state.hasSpikes == true) {
+                    state.changeTile(48, 49);
+
+                    state.hasSpikes = false;
+                }
+                state.loadLevel();
+            }
+
+
+
+            if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
+                state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies);
+                state.loadLevel();
+            }
+
+            if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
+                state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies);
+                state.loadLevel();
+            }
+            player.setDamageDone(0);
+            //-------------------------------- UPDATE --------------------------------
+
+            //-------------------------------- DRAW --------------------------------
+            window.clear();
+
+            window.draw(state.Map);
+            for (const auto& enemy : enemies) {
+                enemy->draw(window);
+            }
+
+            player.drawPlayer(window);
+
+            for (const auto& enemy : enemies) {
+                if (enemy->isDead(enemy)) {
+                    player.changeAmmo(2); // add ammo for every enemy killed
+                    cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
+                }
+            }
+
+            enemies.erase( // Some genie code for erasing enemies from the vector
+                std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
+                    enemies.begin(),
+                    enemies.end(),
+                    [&](const auto& enemy) { return enemy->isDead(enemy); }
+                ),
+                enemies.end() // the 2nd parameter; tells where to end the erasing
+            );
+
+            if (player.getHealth() <= 0) {
+                break;
+            }
+
+            window.display();
+
+            //-------------------------------- DRAW --------------------------------
+        }
     }
+
     std::cout << "You died! " << endl;
 
     return 0;
