@@ -2,12 +2,11 @@
 #include <iostream>
 
 Boss::Boss(float h, float dmg, float def, float spd)
-	:Enemy(h,dmg,def,spd) {}
+	:Enemy(h, dmg, def, spd), maxFireRate(1100.f), fireRateTimer(0) {}
 
 
 void Boss::load() {
-	//loadTexture("assets/enemies/gingerbread_boss.png"); //will be able to load this once we have the image decided on
-	loadTexture("assets/enemies/Pink_Monster.png"); //image that will be changed later
+	loadTexture("assets/enemies/boss/pink_monster.png"); 
 	SpriteX = 0;
 	SpriteY = 0;
 	// change sprite scale
@@ -15,7 +14,7 @@ void Boss::load() {
 	// set origin at middle of sprite
 	Sprite.setOrigin(Sprite.getLocalBounds().width / 2.f, Sprite.getLocalBounds().height / 2.f);
 	// wrap the hitbox around the boss
-	BoundingRectangle.setSize(sf::Vector2f(Size.y * Sprite.getScale().y, Size.x * Sprite.getScale().x));
+	BoundingRectangle.setSize(sf::Vector2f(Size.x * Sprite.getScale().y, Size.y * Sprite.getScale().x));
 	// set hitbox origin to middle
 	BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f);
 }
@@ -25,7 +24,7 @@ void Boss::initialize() {
 	BoundingRectangle.setOutlineColor(sf::Color::Red);
 	BoundingRectangle.setOutlineThickness(1);
 
-	Size = sf::Vector2i(32, 16);
+	Size = sf::Vector2i(16, 32);
 }
 
 void Boss::handleMovement(double deltaTime, sf::Vector2f& direction, int& spriteX, int& spriteY, int level[], vector<int>& walls) {
@@ -42,7 +41,7 @@ void Boss::handleMovement(double deltaTime, sf::Vector2f& direction, int& sprite
 		sf::Vector2f NewPosition(posX, posY);
 
 
-		int FuturePos = floor(NewPosition.y / 64) * 22 + floor(NewPosition.x / 64);
+		int FuturePos = floor(NewPosition.x / 64) * 22 + floor(NewPosition.y / 64);
 		if (!(std::find(walls.begin(), walls.end(), level[FuturePos]) != walls.end())) {
 			Sprite.setPosition(NewPosition);
 		}
@@ -50,7 +49,78 @@ void Boss::handleMovement(double deltaTime, sf::Vector2f& direction, int& sprite
 }
 
 void Boss::handleRocks(const double deltaTime, Entity& player, const sf::Vector2f& target, double& fireRateTimer, const float& maxFireRate, int level[], vector<int>& walls) {
+	fireRateTimer += deltaTime;
+	const float maxX = 1400.0f;
+
+	if (fireRateTimer >= maxFireRate) {
+
+		// Initial rock position
+		static sf::Vector2f rockPosition(100.0f, 100.0f);
+
+		sf::Vector2f shift(100.0f, 0.0f);
+
+		Rocks.push_back(Rock());
+		size_t i = Rocks.size() - 1;
+		Rocks[i].initialize(rockPosition, target, 0.5f);
+
+		// Update rock position for the next iteration
+		rockPosition += shift;
+
+		if (rockPosition.x > maxX) {
+			rockPosition.x = 100.0f; // Reset to the initial position
+		}
+
+		// Reset fire rate timer
+		fireRateTimer = 0;
+	}
+
+	for (size_t i = Rocks.size(); i > 0; i--)
+	{
+		if (Rocks[i - 1].didRockHitWall(deltaTime, walls, level))
+		{
+			// if an arrow hits a wall, erase it from the vector
+			Rocks.erase(Rocks.begin() + (i - 1));
+			continue;
+		}
+
+		Rocks[i - 1].update(deltaTime);
+
+		// check for collisions with the player
+		if (player.getHealth() > 0) {
+			if (Math::didRectCollide(Rocks[i - 1].getRockGlobalBounds(), player.getHitBox().getGlobalBounds()))
+			{
+				if (player.getDefense() > 0) {
+					player.changeDefense(-25);
+				}
+				else {
+					player.changeHealth(-25);
+				}
+
+				// erase the arrow from the vector
+				Rocks.erase(Rocks.begin() + (i - 1));
+				cout << "You've been hit by a load of rocks!" << endl;
+				cout << "Player's health is: " << player.getHealth() << endl;
+			}
+		}
+	}
+	sf::Vector2f position(55.5, 55.5);
+
+	if (player.getHealth() > 0) {
+		sf::Vector2f newPosition = position;
+	}
 	
+}
+
+void Boss::update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[]){
+	if (Health > 270) {
+		Direction = Math::normalizeVector(target - Sprite.getPosition());
+
+		handleMovement(deltaTime, Direction, SpriteX, SpriteY, level, Walls);
+
+		handleRocks(deltaTime, player, target, fireRateTimer, maxFireRate, level, Walls);
+
+		BoundingRectangle.setPosition(Sprite.getPosition());
+	}
 }
 
 void Boss::transparency(double deltaTime) {
@@ -66,11 +136,44 @@ void Boss::transparency(double deltaTime) {
 	}
 
 	sf::Color color = Sprite.getColor();
+	color.a = static_cast<sf::Uint8>(currentVisibility);
 	Sprite.setColor(color);
+}
+
+void Boss::handleBat(const double deltaTime, Entity& player, const sf::Vector2f& target, double& speedRateTimer, const float& maxSpeed, int level[], vector<int>& walls) {
+	speedRateTimer += deltaTime;
+
+	if (player.getHealth() > 0) {
+		if (Math::didRectCollide (player.getHitBox().getGlobalBounds(), player.getHitBox().getGlobalBounds())) {
+			if (player.getDefense() > 0) {
+				player.changeDefense(-50);
+			}
+			else {
+				player.changeHealth(-25);
+			}
+
+			cout << "You've been bonked by a bat!" << endl;
+			cout << "Player's health is: " << player.getHealth() << endl;
+		}
+	}
+}
+
+void Boss::draw(sf::RenderWindow& window) {
+	if (Health > 0)
+	{
+		window.draw(Sprite);
+		window.draw(BoundingRectangle);
+
+		for (size_t i = 0; i < Rocks.size(); i++)
+			Rocks[i].drawRock(window);
+	}
 }
 
 
 
+//when boss is at like 75% health, push more enemies into enemy vectors
+//draw the enemies
+//take enemies as reference
 
 
 

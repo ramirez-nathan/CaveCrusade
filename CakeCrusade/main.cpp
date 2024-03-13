@@ -13,6 +13,7 @@
 #include "GameState.hpp"
 #include "Boss.hpp"
 
+
 using namespace std;
 
 int main()
@@ -22,19 +23,17 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1408, 704), "Cake Crusade", sf::Style::Default, settings);
     window.setFramerateLimit(360);
 
-    Boss Boss(350.f, 30.f, 30.f, 0.2f);
-    Boss.load();
 
     Player player(200.f, 50.f, 50.f, 0.4f);
     vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
     try {
-        //enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.1f));
-        //enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 0.1f)); // give diff speeds to avoid complete overlapping
-        //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
-        //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
-        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); 
-        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); 
-        //enemies.push_back(make_unique<Boss>(350.f, 30.f, 30.f, 0.2f));
+            //enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.1f));
+            //enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 0.1f)); // give diff speeds to avoid complete overlapping
+            //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
+            //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
+ /*           enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); 
+            enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */
+            enemies.push_back(make_unique<Boss>(350.f, 30.f, 30.f, 0.2f));
     }
     catch (const bad_alloc& e) {
         std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -48,11 +47,12 @@ int main()
         enemy->load();
     }
 
+
     // ------------------------------------------ LOAD ---------------------------------
 
     // Set positions for each entity in the vector
     vector<sf::Vector2f> enemyPositions = {
-       // sf::Vector2f(1200.f, 600.f), // Soldier1 position
+        //sf::Vector2f(1200.f, 600.f), // Soldier1 position
         //sf::Vector2f(1300.f, 100.f), // Soldier2 position
         //sf::Vector2f(1100.f,351.f), // Skeleton1 position
         //sf::Vector2f(200.0f, 500.0f), // Skeleton2 position
@@ -110,18 +110,16 @@ int main()
         //-------------------------------- UPDATE --------------------------------
 
         //-------------------------------- DRAW --------------------------------
-
+       
+        
         window.clear();
 
-        Boss.transparency(deltaTime);
-        window.draw(Boss.getSprite());
          
         window.draw(state.Map);
         for (const auto& enemy : enemies) {
             enemy->draw(window);
         }
         player.drawPlayer(window);
-
 
 
         enemies.erase( // Some genie code for erasing enemies from the vector

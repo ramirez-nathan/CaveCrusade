@@ -14,6 +14,7 @@
     <ClCompile Include="Soldier.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Rock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arrow.hpp" />
@@ -27,8 +28,6 @@
     <ClInclude Include="Soldier.hpp" />
     <ClInclude Include="TileMap.hpp" />
     <ClInclude Include="Boss.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CakeCrusadeGTest\googletest\docs\_layouts\default.html" />
+    <ClInclude Include="Rock.hpp" />
   </ItemGroup>
 </Project>

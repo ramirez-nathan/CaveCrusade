@@ -159,6 +159,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player.hpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Soldier.cpp" />
@@ -172,13 +173,11 @@
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="Object.hpp" />
+    <ClInclude Include="Rock.hpp" />
     <ClInclude Include="Skeleton.hpp" />
     <ClInclude Include="Slime.hpp" />
     <ClInclude Include="Soldier.hpp" />
     <ClInclude Include="TileMap.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CakeCrusadeGTest\googletest\docs\_layouts\default.html" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
