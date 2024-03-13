@@ -13,6 +13,7 @@
 #include "GameState.hpp"
 #include "SoundFx.hpp"
 #include "Menu.hpp"
+#include "Textbox.h"
 
 using namespace std;
 
@@ -91,11 +92,14 @@ int main()
     
     
 
+    MessageBox messageBox;
+    messageBox.setText("Hello World!", 50, 50, 24);
 
     //main game loop
     while (state.isRunning == true)
     {
         while (state.onMenu == true && state.isRunning == true) {
+
             sf::Event event;
             while (window.pollEvent(event))
             {
@@ -106,11 +110,15 @@ int main()
 
                 else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
                     state.onMenu = false;
+
+                messageBox.updateText("Fine. You win!", "I hope that makes you happy.", "Please get out of my house.", event);
             }
 
             window.clear(sf::Color(54, 30, 38));
 
             Menu menu(window);
+
+            messageBox.drawMessageBox(window);
 
             window.display();
         }

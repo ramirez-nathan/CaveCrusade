@@ -178,6 +178,7 @@
     <ClInclude Include="Slime.hpp" />
     <ClInclude Include="Soldier.hpp" />
     <ClInclude Include="SoundFx.hpp" />
+    <ClInclude Include="Textbox.h" />
     <ClInclude Include="TileMap.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

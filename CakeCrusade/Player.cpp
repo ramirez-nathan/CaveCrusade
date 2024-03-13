@@ -283,36 +283,37 @@ bool Player::canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf:
     mouseDirection = Math::normalizeVector(mouseDirection - Sprite.getPosition());
 
     // Calculate the distance between the enemy and the player
-    float Dx = Sprite.getPosition().x - enemyPosition.x;
-    float Dy = Sprite.getPosition().y - enemyPosition.y;
-    
+    float Dx = enemyPosition.x - Sprite.getPosition().x;
+    float Dy = enemyPosition.y - Sprite.getPosition().y;
+
+    // Calculate the angle between player facing direction and enemy direction
+    float angle = atan2(Dy, Dx) * 180 / 3.141592653589793238462;
 
     // Check if the enemy is within the cone angle in each direction
-    if (AttackingSpriteY == 0) { // Looking Down, Looking Down Diagonally
-        if ((Dx >= -90 && Dx <= 90) && (Dy >= -130 && Dy <= 0)) {
+    if (angle >= -45 && angle < 45) { // Looking Right or Right Diagonally
+        if (Dx <= attackRange && Dx >= 0 && abs(Dy) <= 50) {
             return true;
         }
-        return false;
     }
-    else if (AttackingSpriteY == 3) { // Looking Right, Looking Right Diagonally
-        if ((Dy <= 90 && Dy >= -90) && (Dx >= -130 && Dx <= 0)) {
+    else if (angle >= 45 && angle < 135) { // Looking Down or Down Diagonally
+        if (Dy <= attackRange && Dy >= 0 && abs(Dx) <= 50) {
             return true;
         }
-        return false;
     }
-    else if (AttackingSpriteY == 2) { // Looking Left, Looking Left Diagonally
-        if ((Dy <= 90 && Dy >= -90) && (Dx <= 130 && Dx >= 0)) {
+    else if (angle >= -135 && angle < -45) { // Looking Up or Up Diagonally
+        if (Dy >= -attackRange && Dy <= 0 && abs(Dx) <= 50) {
             return true;
         }
-        return false;
     }
-    else if (AttackingSpriteY == 1) { // Looking Up, Looking Up Diagonally
-        if ((Dx >= -90 && Dx <= 90) && (Dy <= 130 && Dy >= 0)) {
+    else { // Looking Left or Left Diagonally
+        if (Dx >= -attackRange && Dx <= 0 && abs(Dy) <= 50) {
             return true;
         }
-        return false;
     }
+
+    return false;
 }
+
 
 void Player::swingingAnimation(sf::Vector2f mouseDirection) {
     mouseDirection = Math::normalizeVector(mouseDirection - Sprite.getPosition());
