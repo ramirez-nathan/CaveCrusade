@@ -116,6 +116,9 @@ int main()
         }
         // Update player 
         player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
+        for (auto& interactable : interactables) {
+            interactable.update(deltaTime, player, enemies, state.CurrentLevel);
+        }
         
         //cout << state.hasSpikes << endl;
 
@@ -141,14 +144,14 @@ int main()
 
 
         if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) { // go to new room
-            state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies);
+            state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies, interactables);
             // change keystate to false here
             // erase entire interactables vector
             state.loadLevel();
         }
 
         if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
-            state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies);
+            state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies, interactables);
             state.loadLevel();
         }
         player.setDamageDone(0);
@@ -161,7 +164,9 @@ int main()
         for (const auto& enemy : enemies) {
             enemy->draw(window);
         }
-
+        for (auto& interactable : interactables) {
+            interactable.drawInteractable(window, state.CurrLevelName);
+        }
         player.drawPlayer(window);
 
         for (const auto& enemy : enemies) {
@@ -179,6 +184,14 @@ int main()
             ),
             enemies.end() // the 2nd parameter; tells where to end the erasing
         );
+        /*interactables.erase( // Some genie code for erasing enemies from the vector
+            std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
+                interactables.begin(),
+                interactables.end(),
+                [&](const auto& interactable) { return interactable->isTouched(interactable); }
+            ),
+            interactables.end() // the 2nd parameter; tells where to end the erasing
+        );*/
         
         if (player.getHealth() <= 0) {
             break;

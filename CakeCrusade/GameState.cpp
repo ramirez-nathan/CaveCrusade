@@ -764,7 +764,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             }
             if (!OneCChestOpened) { // WIP SPAWNING INTERACTABLES
                 try {
-                    interactables.push_back(<Interactable>("Chest"));
+                    interactables.push_back(Interactable("Chest"));
                 }
                 catch (const bad_alloc& e) {
                     std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -774,7 +774,11 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 };
                 for (size_t i = 0; i < interactables.size(); i++)
                 {
-                    interactables[i].setPosition(chestPosition1c[i].x, chestPosition1c[i].y);
+                    interactables[i].changePosition(chestPosition1c[i].x, chestPosition1c[i].y);
+                }
+                for (auto& interactable : interactables) {
+                    interactable.initialize();
+                    interactable.load();
                 }
             }
         }

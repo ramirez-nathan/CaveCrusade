@@ -66,7 +66,8 @@ public:
 	sf::Sprite& getSprite() { return Sprite; }
 	sf::RectangleShape& getHitBox() { return BoundingRectangle; }
 
-
+	void changePosition(float x, float y) { Sprite.setPosition(sf::Vector2f(x, y)); }
+		
 };
 
 #endif
