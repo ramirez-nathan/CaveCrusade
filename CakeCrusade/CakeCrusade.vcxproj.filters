@@ -54,6 +54,9 @@
     <ClCompile Include="SoundFx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Interactable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arrow.hpp">
@@ -62,7 +65,7 @@
     <ClInclude Include="Soldier.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Object.hpp">
+    <ClInclude Include="Interactable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Math.hpp">

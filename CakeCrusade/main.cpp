@@ -36,10 +36,10 @@ int main()
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.15f)); 
-        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */
+        //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */ 
     }
     catch (const bad_alloc& e) {
-        std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+        std::cerr << "Memory allocation failed: " << e.what() << std::endl; 
         return 1; 
     }
     
@@ -53,10 +53,10 @@ int main()
 
     // ------------------------------------------ LOAD ---------------------------------
 
-    // Set positions for each entity in the vector
-    vector<sf::Vector2f> enemyPositions1a = {
+    // Set positions for each entity in the vector 
+    vector<sf::Vector2f> enemyPositions1a = { 
         sf::Vector2f(360.f, 411.f), // Soldier1 position 
-        sf::Vector2f(1150.f, 411.f), // Soldier2 position
+        sf::Vector2f(1150.f, 411.f), // Soldier2 position 
         //sf::Vector2f(900.f, 500.f) // slime test pos
     };
     player.changePosition(738, 662);
