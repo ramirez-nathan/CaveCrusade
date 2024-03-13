@@ -14,6 +14,7 @@
 #include "SoundFx.hpp"
 #include "Menu.hpp"
 #include "Textbox.h"
+#include "Cutscene.hpp"
 
 using namespace std;
 
@@ -89,11 +90,9 @@ int main()
     SoundFx musicState;
 
     Menu menu(window);
-    
-    
-
+    Cutscene boulder(window);
     MessageBox messageBox;
-    messageBox.setText("Hello World!", 50, 50, 24);
+    messageBox.setText("", 790, 335, 30);
 
     //main game loop
     while (state.isRunning == true)
@@ -111,14 +110,12 @@ int main()
                 else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
                     state.onMenu = false;
 
-                messageBox.updateText("Fine. You win!", "I hope that makes you happy.", "Please get out of my house.", event);
+                
             }
 
             window.clear(sf::Color(54, 30, 38));
 
             Menu menu(window);
-
-            messageBox.drawMessageBox(window);
 
             window.display();
         }
@@ -135,6 +132,9 @@ int main()
                     state.isRunning = false;
                     window.close(); 
                 }
+
+                if (state.CurrLevelName == "5b")
+                    messageBox.updateText("Fine. You win!", "I hope that makes you happy.", "Please get out of my house.", event);
             }
 
             sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
@@ -213,6 +213,11 @@ int main()
             if (player.getHealth() <= 0) {
                 break;
             }
+
+            messageBox.drawMessageBox(window);
+
+            if (state.CurrLevelName == "5b")
+                boulder.drawCutscene(window);
 
             window.display();
 

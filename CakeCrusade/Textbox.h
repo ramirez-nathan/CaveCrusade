@@ -20,9 +20,9 @@ public:
     void setText(String text, int x, int y, int size)
     {
         MessageBox_text.setFillColor(Color::White);
-        MessageBox_text.setPosition(x, y);
         MessageBox_text.setString(text);
         MessageBox_text.setCharacterSize(size);
+        MessageBox_text.setPosition(x, y);
     }
 
     void drawMessageBox(RenderWindow& window)
@@ -40,7 +40,7 @@ public:
 
         if (event.type == event.KeyReleased)
         {
-            if (event.key.code == Keyboard::Space)
+            if (event.key.code == Keyboard::Space || event.key.code == Keyboard::Enter)
             {
                 if (currentText <= 2)
                     currentText++;

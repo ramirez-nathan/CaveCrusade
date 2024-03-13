@@ -16,6 +16,8 @@ public:
     bool hasSpikes;
     bool onMenu;
     bool isRunning;
+    bool inCutscene;
+
     string tileset;
     string CurrLevelName;
     void changeTile(int currTile, int newTile);

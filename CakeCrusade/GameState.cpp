@@ -7,6 +7,7 @@
 #include "Enemy.hpp"
 #include "Slime.hpp"
 #include "Skeleton.hpp"
+#include "Cutscene.hpp"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ GameState::GameState()
     hasSpikes = false;
     onMenu = true;
     isRunning = true;
+    inCutscene = false;
 }
 
 bool GameState::loadLevel() // Checks if the new level has been successfully loaded
