@@ -289,25 +289,25 @@ bool Player::canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf:
 
     // Check if the enemy is within the cone angle in each direction
     if (AttackingSpriteY == 0) { // Looking Down, Looking Down Diagonally
-        if ((Dx >= -90 && Dx <= 90) && (Dy >= -130 && Dy <= 0)) {
+        if ((Dx >= -100 && Dx <= 100) && (Dy >= -150 && Dy <= 0)) {
             return true;
         }
         return false;
     }
-    else if (AttackingSpriteY == 3) { // Looking Right, Looking Right Diagonally
-        if ((Dy <= 90 && Dy >= -90) && (Dx >= -130 && Dx <= 0)) {
+    else if (AttackingSpriteY == 2) { // Looking Right, Looking Right Diagonally
+        if ((Dy <= 100 && Dy >= -100) && (Dx >= -150 && Dx <= 0)) {
             return true;
         }
         return false;
     }
-    else if (AttackingSpriteY == 2) { // Looking Left, Looking Left Diagonally
-        if ((Dy <= 90 && Dy >= -90) && (Dx <= 130 && Dx >= 0)) {
+    else if (AttackingSpriteY == 3) { // Looking Left, Looking Left Diagonally
+        if ((Dy <= 100 && Dy >= -100) && (Dx <= 150 && Dx >= 0)) {
             return true;
         }
         return false;
     }
     else if (AttackingSpriteY == 1) { // Looking Up, Looking Up Diagonally
-        if ((Dx >= -90 && Dx <= 90) && (Dy <= 130 && Dy >= 0)) {
+        if ((Dx >= -100 && Dx <= 100) && (Dy <= 150 && Dy >= 0)) {
             return true;
         }
         return false;
@@ -330,7 +330,7 @@ void Player::swingingAnimation(sf::Vector2f mouseDirection) {
             AttackingSpriteY = 1;
         }
         AttackingAnimationComplete = false;
-        if (PlayerAttackingClock.getElapsedTime().asSeconds() > 0.15f) {
+        if (PlayerAttackingClock.getElapsedTime().asSeconds() > 0.10f) {
             if (AttackingSpriteX == 3) { // do nothing, just set shootingspritex up for the next time player shoots 
                 AttackingAnimationComplete = true;
                 IsAttacking = false;
