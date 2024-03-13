@@ -770,7 +770,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                     std::cerr << "Memory allocation failed: " << e.what() << std::endl;
                 }
                 vector<sf::Vector2f> chestPosition1c = {
-                    sf::Vector2f(258.f, 687.f), // Chest position 
+                    sf::Vector2f(1218.f, 670.f), // Chest position 
                 };
                 for (size_t i = 0; i < interactables.size(); i++)
                 {
@@ -784,6 +784,13 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         }
 
         else if (levelName == "1c") {
+            for (auto& interactable : interactables) {
+                if (interactable.getItemName() == "Chest") {
+                    if (interactable.isChestOpened()) {
+                        OneCChestOpened = true;
+                    }
+                }
+            }
             int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
