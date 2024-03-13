@@ -1,6 +1,163 @@
 ﻿  pch.cpp
-  test.cpp
-C:\Users\User\source\repos\CS100 Final Project\test2\test.cpp(12,5): warning C4002: too many arguments for function-like macro invocation 'EXPECT_TRUE'
-  (compiling source file '/test.cpp')
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\gtest-printers.h(497,34): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
   
-  test2.vcxproj -> C:\Users\User\source\repos\CS100 Final Project\x64\Debug\test2.exe
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\gtest-printers.h(502,27): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\gtest-printers.h(507,27): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\gtest-printers.h(512,27): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\gtest-printers.h(517,27): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\gtest-printers.h(522,27): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\gtest-printers.h(529,27): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\gtest-printers.h(536,27): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\gtest-printers.h(543,27): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\gtest-printers.h(550,27): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\gtest-printers.h(558,18): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3160,46): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3160,46):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3270,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductGenerator2<T1,T2>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3275,46): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3275,46):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3402,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductGenerator3<T1,T2,T3>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3407,46): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3407,46):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3553,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductGenerator4<T1,T2,T3,T4>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3558,46): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3558,46):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3720,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductGenerator5<T1,T2,T3,T4,T5>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3726,46): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3726,46):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3906,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductGenerator6<T1,T2,T3,T4,T5,T6>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3912,46): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(3912,46):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4109,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductGenerator7<T1,T2,T3,T4,T5,T6,T7>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4115,46): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4115,46):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4331,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductGenerator8<T1,T2,T3,T4,T5,T6,T7,T8>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4337,46): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4337,46):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4570,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductGenerator9<T1,T2,T3,T4,T5,T6,T7,T8,T9>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4576,46): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4576,46):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4826,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductGenerator10<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4841,35): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4841,35):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4854,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductHolder2<Generator1,Generator2>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4863,35): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4863,35):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4878,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductHolder3<Generator1,Generator2,Generator3>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4888,35): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4888,35):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4905,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductHolder4<Generator1,Generator2,Generator3,Generator4>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4915,35): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4915,35):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4934,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductHolder5<Generator1,Generator2,Generator3,Generator4,Generator5>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4946,35): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4946,35):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4967,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductHolder6<Generator1,Generator2,Generator3,Generator4,Generator5,Generator6>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4979,35): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(4979,35):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(5003,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductHolder7<Generator1,Generator2,Generator3,Generator4,Generator5,Generator6,Generator7>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(5017,35): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(5017,35):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(5043,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductHolder8<Generator1,Generator2,Generator3,Generator4,Generator5,Generator6,Generator7,Generator8>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(5058,35): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(5058,35):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(5087,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductHolder9<Generator1,Generator2,Generator3,Generator4,Generator5,Generator6,Generator7,Generator8,Generator9>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(5102,35): error C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to suppress this warning.
+  (compiling source file 'pch.cpp')
+  C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(5102,35):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\User\source\repos\CS100 Final Project\packages\gtest.1.7.0\build\native\include\gtest\internal\gtest-param-util-generated.h(5134,2):
+  	see reference to class template instantiation 'testing::internal::CartesianProductHolder10<Generator1,Generator2,Generator3,Generator4,Generator5,Generator6,Generator7,Generator8,Generator9,Generator10>' being compiled
+  
+C:\Users\User\source\repos\CS100 Final Project\CakeCrusade\Entity.hpp(2,10): error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  (compiling source file 'pch.cpp')
+  

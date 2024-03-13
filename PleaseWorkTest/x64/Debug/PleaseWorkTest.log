@@ -1,0 +1,9 @@
+﻿  pch.cpp
+  test.cpp
+C:\Users\User\source\repos\CS100 Final Project\PleaseWorkTest\test.cpp(11,5): warning C4002: too many arguments for function-like macro invocation 'EXPECT_TRUE'
+  (compiling source file '/test.cpp')
+  
+test.obj : error LNK2019: unresolved external symbol "public: __cdecl Player::Player(float,float,float,float)" (??0Player@@QEAA@MMMM@Z) referenced in function "private: virtual void __cdecl PlayerTests_checkforTextureLoad_Test::TestBody(void)" (?TestBody@PlayerTests_checkforTextureLoad_Test@@EEAAXXZ)
+test.obj : error LNK2019: unresolved external symbol "public: virtual __cdecl Player::~Player(void)" (??1Player@@UEAA@XZ) referenced in function "private: virtual void __cdecl PlayerTests_checkforTextureLoad_Test::TestBody(void)" (?TestBody@PlayerTests_checkforTextureLoad_Test@@EEAAXXZ)
+test.obj : error LNK2019: unresolved external symbol "public: virtual void __cdecl Player::load(void)" (?load@Player@@UEAAXXZ) referenced in function "private: virtual void __cdecl PlayerTests_checkforTextureLoad_Test::TestBody(void)" (?TestBody@PlayerTests_checkforTextureLoad_Test@@EEAAXXZ)
+C:\Users\User\source\repos\CS100 Final Project\x64\Debug\PleaseWorkTest.exe : fatal error LNK1120: 3 unresolved externals

@@ -1,0 +1,10 @@
+﻿  pch.cpp
+  test.cpp
+C:\Users\User\source\repos\CS100 Final Project\ThisTestMustWork\test.cpp(19,5): warning C4002: too many arguments for function-like macro invocation 'EXPECT_TRUE'
+C:\Users\User\source\repos\CS100 Final Project\ThisTestMustWork\test.cpp(61,5): warning C4551: function call missing argument list
+C:\Users\User\source\repos\CS100 Final Project\ThisTestMustWork\test.cpp(60,18): warning C4930: 'sf::Vector2f playerPosition(void)': prototyped function not called (was a variable definition intended?)
+C:\Users\User\source\repos\CS100 Final Project\ThisTestMustWork\test.cpp(49): warning C4715: 'IsBetweenRange': not all control paths return a value
+  gtest-all.cc
+  gmock-all.cc
+  Generating Code...
+C:\Users\User\source\repos\CS100 Final Project\CakeCrusade\Arrow.hpp : fatal error LNK1107: invalid or corrupt file: cannot read at 0x36F
