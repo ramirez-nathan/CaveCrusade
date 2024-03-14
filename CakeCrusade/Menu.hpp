@@ -11,6 +11,7 @@ class Menu {
 public:
 
 	Menu(sf::RenderWindow& window);
+	~Menu();
 
 	void drawMenu(sf::RenderWindow& window, sf::Sprite s);
 

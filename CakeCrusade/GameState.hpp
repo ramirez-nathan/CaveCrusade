@@ -12,7 +12,8 @@ class Interactable;
 
 class GameState {
 public:
-    GameState();
+    GameState(SoundFx& s);
+    ~GameState() = default;
 
     bool loadLevel();
     void changeLevel(string levelName, Player& p, string type, SoundFx& s, vector<unique_ptr<Enemy>>& enemies, vector<Interactable>& interactables);
@@ -34,12 +35,17 @@ public:
     string Tileset;
     bool onMenu;
     bool isRunning;
+    bool inCutscene;
+
+    string tileset;
     string CurrLevelName;
     void changeTile(int currTile, int newTile);
 
     void drawHearts(Player& p);
 
     TileMap Map;
+
+    
 
     int CurrentLevel[23 * 14] =
     {
@@ -56,7 +62,7 @@ public:
         18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
         18,  9,  0,  0,  0,  0, 41, 12, 12, 12, 12, 12, 12, 12, 12, 12, 42,  0,  0,  0,  0, 10, 18,
         18, 11, 12, 12, 12, 12, 13, 18, 18, 18, 18, 18, 18, 18, 18, 18, 11, 12, 12, 12, 12, 13, 18,
-        60, 62, 18, 59, 63, 18, 61, 64, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+        60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
     };
 
 

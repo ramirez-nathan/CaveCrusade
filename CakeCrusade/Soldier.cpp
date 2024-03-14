@@ -1,5 +1,8 @@
 #include "Soldier.hpp"
 #include <iostream>
+#include "SoundFx.hpp"
+
+SoundFx soundSoldier;
 
 Soldier::Soldier(float h, float dmg, float def, float spd, float rng)
 	: Enemy(h, dmg, def, spd), MaxSwingRate(1100), SwingRateTimer(0)
@@ -120,6 +123,7 @@ void Soldier::handleSword(const double deltaTime, Entity& player, sf::Vector2f& 
                 cout << "You were slashed by a soldier! Your amount of half hearts is: " << player.getHalfHearts() << endl;
 
             }
+            soundSoldier.loadSound("sound/sounds/playerHurt.wav");
             SwingRateTimer = 0;
         }
     }

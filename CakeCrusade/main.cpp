@@ -13,12 +13,18 @@
 #include "Knight.hpp"
 #include "GameState.hpp"
 #include "SoundFx.hpp"
+#include "Menu.hpp"
+#include "Textbox.h"
+#include "Cutscene.hpp"
 #include "Interactable.hpp"
 
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
+    //::testing::InitGoogleTest(&argc, argv);
+    //return RUN_ALL_TESTS();
+
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(1472, 896), "Cake Crusade", sf::Style::Default, settings);
@@ -40,6 +46,7 @@ int main()
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.15f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */ 
+
     }
     catch (const bad_alloc& e) {
         std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -73,7 +80,9 @@ int main()
     // ------------------------------- TILEMAP ----------------------------------
     // define the level with an array of tile indices
 
-    GameState state;
+    SoundFx musicState;
+    GameState state(musicState);
+    state.drawHearts(player);
     state.loadLevel();
 
     // ------------------------------- TILEMAP ----------------------------------
@@ -87,126 +96,176 @@ int main()
     // ------------------------------------------ LOAD ---------------------------------
     sf::Clock GameStateClock;
 
+    Menu menu(window);
+    Cutscene boulder(window);
+    MessageBox messageBox;
+    MessageBox arrowCount;
+    string arrowText = "Arrows: " + to_string(player.getAmmo());
 
-    SoundFx musicState;
-
-
-
-
-
+    messageBox.setText("", 790, 335, 40);
 
     //main game loop
-    while (window.isOpen())
+    while (state.isRunning == true)
     {
-        sf::Time deltaTimeTimer = GameStateClock.restart();
-        double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0;
-        //-------------------------------- UPDATE --------------------------------
+        while (state.onMenu == true && state.isRunning == true) {
 
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed) {
+                    state.isRunning = false;
+                    window.close();
+                }
 
-        sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
+                else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
+                    state.onMenu = false;
 
 
-        // Update enemies
-        for (auto& enemy : enemies) {
-            enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
-            enemy->attackMove(deltaTime, player);
-        }
-        // Update player 
-        player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
-        for (auto& interactable : interactables) {
-            interactable.update(deltaTime, player, enemies, state.CurrentLevel, state);
-        }
-
-        //cout << state.hasSpikes << endl;
-
-        if (enemies.size() == 0) {
-
-            if (state.PlayerHasKey) { 
-                state.changeTile(22, 56);
-                state.changeTile(23, 57);
-                state.changeTile(24, 58);
-                state.changeTile(25, 53);
-                state.changeTile(26, 54);
-                state.changeTile(27, 55);
             }
 
-            if (state.HasSpikes == true) {
-                state.changeTile(48, 49);
+            window.clear(sf::Color(54, 30, 38));
 
-                state.HasSpikes = false;
+            Menu menu(window);
+
+            window.display();
+        }
+
+        while (state.onMenu == false && state.isRunning == true) {
+            sf::Time deltaTimeTimer = GameStateClock.restart();
+            double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0;
+            //-------------------------------- UPDATE --------------------------------
+
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed) {
+                    state.isRunning = false;
+                    window.close();
+                }
+
+                if (state.CurrLevelName == "5b")
+                    messageBox.updateText("Fine. You win!", "I hope that makes you happy.", "Please get out of my house.", event);
             }
+
+            sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
+
+            // Update hearts
+            state.drawHearts(player);
             state.loadLevel();
-        }
-        
-        if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel) && state.PlayerHasKey) { // go to new room
-            state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies, interactables);
-            // change keystate to false here
-            // erase entire interactables vector
-            if (state.CurrLevelName != "5a" && state.CurrLevelName != "4b") {
-                interactables.erase(
-                    std::remove_if(
-                        interactables.begin(),
-                        interactables.end(),
-                        [&](auto& interactable) { return true; }
-                    ),
-                    interactables.end()
-                );
+
+            // Update enemies
+            for (auto& enemy : enemies) {
+                enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
+                enemy->attackMove(deltaTime, player);
             }
-            state.ItemsReadyToSpawn = false;
-            state.ChestIsOpened = false;
-            state.loadLevel();
-        }
-        //cout << interactables.size() << endl;
-        if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
-            state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies, interactables);
-            state.loadLevel();
-        }
-        player.setDamageDone(0);
-        //-------------------------------- UPDATE --------------------------------
-
-        //-------------------------------- DRAW --------------------------------
-        window.clear();
-
-        window.draw(state.Map);
-        for (const auto& enemy : enemies) {
-            enemy->draw(window);
-        }
-        for (auto& interactable : interactables) {
-            interactable.drawInteractable(window, state);
-        }
-        player.drawPlayer(window);
-
-        for (const auto& enemy : enemies) {
-            if (enemy->isDead(enemy)) {
-                player.changeAmmo(3); // add ammo for every enemy killed
-                cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
+            // Update player 
+            player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
+            for (auto& interactable : interactables) {
+                interactable.update(deltaTime, player, enemies, state.CurrentLevel, state);
             }
+
+            //cout << state.hasSpikes << endl;
+
+            if (enemies.size() == 0) {
+
+                if (state.PlayerHasKey) {
+                    state.changeTile(22, 56);
+                    state.changeTile(23, 57);
+                    state.changeTile(24, 58);
+                    state.changeTile(25, 53);
+                    state.changeTile(26, 54);
+                    state.changeTile(27, 55);
+                }
+
+                if (state.HasSpikes == true) {
+                    state.changeTile(48, 49);
+
+                    state.HasSpikes = false;
+                }
+                state.loadLevel();
+            }
+
+            if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel) && state.PlayerHasKey) { // go to new room
+                state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies, interactables);
+                // change keystate to false here
+                // erase entire interactables vector
+                if (state.CurrLevelName != "5a" && state.CurrLevelName != "4b") {
+                    interactables.erase(
+                        std::remove_if(
+                            interactables.begin(),
+                            interactables.end(),
+                            [&](auto& interactable) { return true; }
+                        ),
+                        interactables.end()
+                    );
+                }
+                state.ItemsReadyToSpawn = false;
+                state.ChestIsOpened = false;
+                state.loadLevel();
+            }
+            //cout << interactables.size() << endl;
+            if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
+                state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies, interactables);
+                state.loadLevel();
+            }
+            player.setDamageDone(0);
+            //-------------------------------- UPDATE --------------------------------
+
+            //-------------------------------- DRAW --------------------------------
+            window.clear();
+
+            window.draw(state.Map);
+
+            for (const auto& enemy : enemies) {
+                enemy->draw(window);
+            }
+
+            if (state.CurrLevelName == "5b") // Draw "boss"
+                boulder.drawCutscene(window);
+
+            for (auto& interactable : interactables) {
+                interactable.drawInteractable(window, state);
+            }
+            player.drawPlayer(window);
+
+            for (const auto& enemy : enemies) {
+                if (enemy->isDead(enemy)) {
+                    player.changeAmmo(3); // add ammo for every enemy killed
+                    cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
+                }
+            }
+
+            enemies.erase( // Some genie code for erasing enemies from the vector
+                std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
+                    enemies.begin(),
+                    enemies.end(),
+                    [&](const auto& enemy) { return enemy->isDead(enemy); }
+                ),
+                enemies.end() // the 2nd parameter; tells where to end the erasing
+            );
+
+            if (player.getHealth() <= 0) {
+                break;
+            }
+
+            messageBox.drawMessageBox(window);
+
+            arrowText = "Arrows: " + to_string(player.getAmmo());
+            arrowCount.setText(arrowText, 1250, 830, 40);
+            arrowCount.drawMessageBox(window);
+
+            if (state.CurrLevelName == "4a" || state.CurrLevelName == "4b" || state.CurrLevelName == "4c" || state.CurrLevelName == "4d") {
+                if (enemies.size() == 1) {
+                    enemies.erase(enemies.begin(), enemies.end());
+                }
+            }
+
+            window.display();
+
+            //-------------------------------- DRAW --------------------------------
         }
+        std::cout << "You died! " << endl;
 
-        enemies.erase( // Some genie code for erasing enemies from the vector
-            std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
-                enemies.begin(),
-                enemies.end(),
-                [&](const auto& enemy) { return enemy->isDead(enemy); }
-            ),
-            enemies.end() // the 2nd parameter; tells where to end the erasing
-        );
-
-        if (player.getHealth() <= 0) {
-            break;
-        }
-
-        window.display();
-
-        //-------------------------------- DRAW --------------------------------
+        return 0;
     }
-    std::cout << "You died! " << endl;
-
-    return 0;
 }
