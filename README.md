@@ -59,25 +59,19 @@ In-Game Screen:
 | `Rock` |  Inherits from RockHandler, makes rocks fall from the top of the map; |
 | `Interactable` | Associates with Entity; Template for interactable objects |
 | `Main Menu` | Depends on Main; Template for Menus |
-| `Start Screen` | Inherits from Main Menu; Can start and quit |
-| `Options`| Inherits from Start Screen; Has window, sound, and control options |
+| `Cutscene` | Inherits from Main Menu; Can start and quit |
 | `GameState` | Depends on TileMap; Contains level templates and updates the level |
 | `Tilemap` | SFML map drawing |
 | `Sounds` | Associated with Main; Sound Effects |
 
  
- > ## Final deliverable
- > All group members will give a demo to the reader during lab time. ou should schedule your demo on Calendly with the same reader who took your second scrum meeting. The reader will check the demo and the project GitHub repository and ask a few questions to all the team members. 
- > Before the demo, you should do the following:
- > * Complete the sections below (i.e. Screenshots, Installation/Usage, Testing)
- > * Plan one more sprint (that you will not necessarily complete before the end of the quarter). Your In-progress and In-testing columns should be empty (you are not doing more work currently) but your TODO column should have a full sprint plan in it as you have done before. This should include any known bugs (there should be some) or new features you would like to add. These should appear as issues/cards on your Project board.
- > * Make sure your README file and Project board are up-to-date reflecting the current status of your project (e.g. any changes that you have made during the project such as changes to your class diagram). Previous versions should still be visible through your commit history. 
  
  ## Screenshots
  > Screenshots of the input/output after running your application
+>
  ## Installation/Usage
 > In order to install and run the application, we need to first install Visual Studio, SFML, and the correct desktop extensions. Then we need to have all of the necessary files (we can clone the repository). Then we need to build the solution and then run it through the local windows debugger. The local windows debugger should be set to "Debug" and "x64". The game application will now run and the terminal should show up adjacently and display any necessary messages
- ## Testing
 
+ ## Testing
 > We tested and validated our project using unit tests and Valgrind. Visual Studio has an integrated Google test adapter. We are using the built-in Google test project for the unit tests.  
  
