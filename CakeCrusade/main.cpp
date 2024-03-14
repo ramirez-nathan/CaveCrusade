@@ -94,7 +94,10 @@ int main(int argc, char** argv)
     Menu menu(window);
     Cutscene boulder(window);
     MessageBox messageBox;
-    messageBox.setText("", 790, 335, 30);
+    MessageBox arrowCount;
+    string arrowText = "Arrows: " + to_string(player.getAmmo());
+
+    messageBox.setText("", 790, 335, 40);
 
     //main game loop
     while (state.isRunning == true)
@@ -151,6 +154,7 @@ int main(int argc, char** argv)
                 enemy->attackMove(deltaTime, player);
 
             }
+
 
 
             // Update player 
@@ -222,7 +226,11 @@ int main(int argc, char** argv)
                 break;
             }
 
-            messageBox.drawMessageBox(window);
+            messageBox.drawMessageBox(window); 
+
+            arrowText = "Arrows: " + to_string(player.getAmmo());
+            arrowCount.setText(arrowText, 1250, 830, 40);
+            arrowCount.drawMessageBox(window);
 
             if (state.CurrLevelName == "4a" || state.CurrLevelName == "4b" || state.CurrLevelName == "4c" || state.CurrLevelName == "4d") {
                 if (enemies.size() == 1) {
