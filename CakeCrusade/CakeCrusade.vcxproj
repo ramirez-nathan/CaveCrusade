@@ -82,8 +82,8 @@
     <IntDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\Intermediate</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\bin</OutDir>
-    <IntDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\Intermediate</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\bin\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\Intermediate\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -155,7 +155,9 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="Math.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player.hpp" />
     <ClCompile Include="main.cpp" />
@@ -170,8 +172,10 @@
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="GameState.hpp" />
+    <ClInclude Include="Knight.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="Interactable.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Skeleton.hpp" />
     <ClInclude Include="Slime.hpp" />
     <ClInclude Include="Soldier.hpp" />

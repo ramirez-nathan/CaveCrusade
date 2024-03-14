@@ -7,6 +7,7 @@
 #include "Slime.hpp"
 #include "Skeleton.hpp"
 #include "Interactable.hpp"
+#include "Knight.hpp"
 
 using namespace std;
 
@@ -17,6 +18,8 @@ GameState::GameState()
     Tileset = "assets/tilemap/tileset1.png";
     CurrLevelName = "1a";
     HasSpikes = false;
+    onMenu = true;
+    isRunning = true;
 }
 
 bool GameState::loadLevel() // Checks if the new level has been successfully loaded
@@ -380,11 +383,11 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             CurrLevelName = "3b";
             p.changePosition(226.f, 750.f);
-            try {
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f));
+            try { 
+                enemies.push_back(make_unique<Knight>(300.f, 50.f, 50.f, 0.1f, 0.5f)); 
                 enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // give diff speeds to avoid complete overlapping
-                enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
-            }
+                enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
+            } 
             catch (const bad_alloc& e) {
                 std::cerr << "Memory allocation failed: " << e.what() << std::endl;
             }
@@ -514,8 +517,8 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             CurrLevelName = "4a";
             p.changePosition(1185.f, 750.f);
             try {
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f));
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f));
+                enemies.push_back(make_unique<Knight>(300.f, 50.f, 50.f, 0.1f, 0.5f));
+                enemies.push_back(make_unique<Knight>(300.f, 50.f, 50.f, 0.13f, 0.5f));
                 enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.20f));
             }
             catch (const bad_alloc& e) {
@@ -565,8 +568,8 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             HasSpikes = true;
             try {
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f)); 
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f));
+                enemies.push_back(make_unique<Knight>(300.f, 50.f, 50.f, 0.1f, 0.5f)); 
+                enemies.push_back(make_unique<Knight>(300.f, 50.f, 50.f, 0.13f, 0.5f));
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
             }
             catch (const bad_alloc& e) {
@@ -607,7 +610,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 interactable.initialize();
                 interactable.load();
             }
-            cout << interactables.size() << endl;
+            //cout << interactables.size() << endl;
         }
 
         else if (levelName == "4b") { // change to 4c
@@ -642,8 +645,8 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); // Knight2
                 enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.12f)); // Slime1
                 enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.14f)); // Slime2
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f)); // Skeleton1
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // Skeleton2
+                enemies.push_back(make_unique<Knight>(300.f, 0.f, 50.f, 0.1f, 0.5f)); // Skeleton1
+                enemies.push_back(make_unique<Knight>(300.f, 0.f, 50.f, 0.13f, 0.5f)); // Skeleton2
             }
             catch (const bad_alloc& e) {
                 std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -1150,28 +1153,66 @@ void GameState::changeTile(int currTile, int newTile)
     }
 }
 
+// False positives
+#pragma warning(push)
+#pragma warning(disable:6385)
+#pragma warning(disable:6386)
 
-/*
-int NewLevel[23 * 14] =
-        {
-             18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
-             18,  6,   7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-             18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
-        };
+void GameState::drawHearts(Player& p) // 
+{
+    for (int i = 0; i < p.HeartContainerCount; i++) { // Draw every full heart needed
+        CurrentLevel[i] = 67; // 67 is the full tile
+    }
 
+    if (p.HalfHeartCount / 2 != p.HeartContainerCount) { // If damage has been taken
+        int counter = 1; // counter represents the current heart
 
+        for (int i = (p.HeartContainerCount * 2) - p.HalfHeartCount; i > 0; i) { // i = every half heart lost
 
-*/
+            if (CurrentLevel[int(p.HeartContainerCount) - counter] != 65) { // If the current heart isnt empty
+                if (CurrentLevel[int(p.HeartContainerCount) - counter] == 67) { // If the current heart is full, make it half
+                    CurrentLevel[int(p.HeartContainerCount) - counter] = 66;
+                    i--; // one less half heart to create
 
+                    if (i >= 1) { // if we need to change the half heart sprite -> empty
+                        CurrentLevel[int(p.HeartContainerCount) - counter] = 65;
+                        i--; // one less half heart to create
+                    }
 
+                    counter++; // we have finished modifying the current heart, move to the next
+
+                }
+            }
+        }
+    }
+
+    for (int i = 0; i < p.GoldHeartContainerCount; i++) { // Draw enemy gold hearts as needed
+        CurrentLevel[i + int(p.HeartContainerCount)] = 69;
+    }
+
+    if (p.GoldHalfHeartCount / 2 != p.GoldHeartContainerCount) { // If damage has been taken
+        int counter = 1; // counter represents current heart
+        int offset = int(p.HeartContainerCount + p.GoldHeartContainerCount); // Gold heart offset, as they are drawn after red heart containers
+
+        for (int i = int(p.GoldHeartContainerCount * 2 - p.GoldHalfHeartCount); i > 0; i) { // i = every half heart lost
+
+            if (CurrentLevel[offset - counter] != 18) { // if gold container exists
+                if (CurrentLevel[offset - counter] == 69) { // if full heart, make half
+                    CurrentLevel[offset - counter] = 68;
+                    i--; // one less heart to draw
+
+                    if (i >= 1) { // if half hearts are leftover
+                        CurrentLevel[offset - counter] = 18; // if half heart, make empty
+                        i--;
+                    }
+
+                    counter++; // move to next heart
+
+                }
+            }
+        }
+    }
+
+}
+
+#pragma warning(pop)

@@ -2,7 +2,7 @@
 #include "Math.hpp"
 #include <math.h>
 #include <ostream>
-#include <algorithm>    // std::find
+#include <algorithm> 
 
 
 Player::Player(float h, float dmg, float def, float spd) 
@@ -147,7 +147,7 @@ void Player::playerUpdate(const double deltaTime, vector<unique_ptr<Enemy>>& ene
                 PlayerIdleClock.restart();
             }
         }
-        
+
 
         handleSword(deltaTime, enemies, mousePosition, SwingRateTimer, MaxSwingRate, level, Walls);
         //---------------------------------------------- ARROWS -------------------------------------------------
@@ -226,12 +226,17 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
                 if (Math::didRectCollide(Arrows[i - 1].getArrowGlobalBounds(), enemies[j]->getHitBox().getGlobalBounds()))
                 {
                     if (enemies[j]->getDefense() > 0) {
-                        enemies[j]->changeDefense(-50); // Arrow dmg is 40
-                        enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                        enemies[j]->changeDefense(-80); // Arrow dmg is 80
+                        if (enemies[j]->isKnockbackEnabled()) {
+                            enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                        }
+                        
                     }
                     else {
-                        enemies[j]->changeHealth(-50);
-                        enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                        enemies[j]->changeHealth(-80);
+                        if (enemies[j]->isKnockbackEnabled()) {
+                            enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                        }
                     }
 
                     // erase the arrow from the vector
@@ -257,12 +262,16 @@ void Player::handleSword(const double deltaTime, vector<unique_ptr<Enemy>>& enem
                if (enemies[j]->getHealth() > 0) {
                    if (canAttack(enemies[j]->getSprite().getPosition(), 100, mousePosition)) {
                        if (enemies[j]->getDefense() > 0) {
-                           enemies[j]->changeDefense(-200); 
-                           enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                           enemies[j]->changeDefense(-150); 
+                           if (enemies[j]->isKnockbackEnabled()) {
+                               enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                           }
                        }
                        else {
-                           enemies[j]->changeHealth(-200);
-                           enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                           enemies[j]->changeHealth(-150);
+                           if (enemies[j]->isKnockbackEnabled()) {
+                               enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
+                           }
                        }
 
                        cout << "You Slashed an Enemy! Enemy #" << j << "'s health is : " << enemies[j]->getHealth() << endl;
@@ -289,25 +298,25 @@ bool Player::canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf:
 
     // Check if the enemy is within the cone angle in each direction
     if (AttackingSpriteY == 0) { // Looking Down, Looking Down Diagonally
-        if ((Dx >= -100 && Dx <= 100) && (Dy >= -150 && Dy <= 0)) {
+        if ((Dx >= -110 && Dx <= 110) && (Dy >= -160 && Dy <= 0)) {
             return true;
         }
         return false;
     }
     else if (AttackingSpriteY == 2) { // Looking Right, Looking Right Diagonally
-        if ((Dy <= 100 && Dy >= -100) && (Dx >= -150 && Dx <= 0)) {
+        if ((Dy <= 110 && Dy >= -110) && (Dx >= -160 && Dx <= 0)) {
             return true;
         }
         return false;
     }
     else if (AttackingSpriteY == 3) { // Looking Left, Looking Left Diagonally
-        if ((Dy <= 100 && Dy >= -100) && (Dx <= 150 && Dx >= 0)) {
+        if ((Dy <= 110 && Dy >= -110) && (Dx <= 160 && Dx >= 0)) {
             return true;
         }
         return false;
     }
     else if (AttackingSpriteY == 1) { // Looking Up, Looking Up Diagonally
-        if ((Dx >= -100 && Dx <= 100) && (Dy <= 150 && Dy >= 0)) {
+        if ((Dx >= -110 && Dx <= 110) && (Dy <= 160 && Dy >= 0)) {
             return true;
         }
         return false;

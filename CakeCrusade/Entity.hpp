@@ -24,7 +24,7 @@ protected:
     sf::Clock WalkingClock;
     sf::Clock IdleClock;
     sf::Clock CollisionFreeze;
-
+    
 
     bool IsMoving = false;
     bool IsFrozen = false;
@@ -63,6 +63,7 @@ protected:
     
 
 public:
+    
     // Our constructor, we define our health, damage, and defense values here
     Entity(float h, float dmg, float def, float spd);
     // Our destructor
@@ -110,7 +111,6 @@ public:
     void setHealth(float& h) { this->Health = h; }
     void setDamage(float& dmg) { this->Damage = dmg; }
     void setDefense(float& def) { this->Defense = def; }
-
 
     //TODO: Virtual Function for Load()
     virtual void attackMove(const double deltaTime, Entity&) = 0;

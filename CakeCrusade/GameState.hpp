@@ -32,8 +32,12 @@ public:
     bool ChestIsOpened = false;
 
     string Tileset;
+    bool onMenu;
+    bool isRunning;
     string CurrLevelName;
     void changeTile(int currTile, int newTile);
+
+    void drawHearts(Player& p);
 
     TileMap Map;
 

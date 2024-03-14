@@ -24,6 +24,7 @@ private:
     sf::Clock PlayerIdleClock;
     sf::Clock PlayerShootClock;
     sf::Clock PlayerAttackingClock;
+	
 
 	bool IsAttacking = false;
 	bool AttackingAnimationComplete = true;
@@ -45,10 +46,9 @@ private:
 
 
 protected:
-	int Ammo = 100; // CHANGE BACK TO 0, THIS IS ONLY FOR TESTING
-	double HalfHeartCount = 6;
+	int Ammo = 10;
 	
-	double GoldHalfHeartCount = 0;
+	//double GoldHalfHeartCount = 0;
 	bool HasKey = true; // CHANGE WHEN KEY INTERACTABLE IS DONE
 
 	bool HasBow = false;
@@ -56,9 +56,11 @@ protected:
 public:
 	Player(float h, float dmg, float def, float spd);
 	~Player();
-	double HeartContainerCount = 3;
-	double GoldHeartContainerCount = 0;
+	double HeartContainerCount = 4;
+	double GoldHeartContainerCount = 2;
 	double DamageDone = 0;
+	double HalfHeartCount = 8;
+	double GoldHalfHeartCount = 0;
 
 	// ------------------ GETTERS/SETTERS --------------------
 	void changeAmmo(int ammo) { Ammo += ammo; }

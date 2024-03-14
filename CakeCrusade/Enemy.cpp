@@ -7,8 +7,9 @@ Enemy::Enemy(float h, float dmg, float def, float spd) : Entity(h, dmg, def, spd
 void Enemy::attackMove(const double deltaTime, Entity& player) 
 { 
     AttackTimer += deltaTime;
-    if (canAttack(player.getSprite().getPosition(), 50) && AttackTimer >= MaxAttackRate) {
+    if (canAttack(player.getSprite().getPosition(), 70) && AttackTimer >= MaxAttackRate) {
         player.changeHalfHearts(-1);
+        
         cout << "You've been hit!" << endl;
         cout << "Player's half hearts is now " << player.getHalfHearts() << endl;
         AttackTimer = 0;
@@ -46,6 +47,8 @@ bool Enemy::isDead(const unique_ptr<Enemy>& entity)
     }
     return false;
 }
+
+
 
 
 

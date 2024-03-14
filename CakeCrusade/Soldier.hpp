@@ -9,9 +9,12 @@ using namespace std;
 
 class Soldier : public Enemy
 {
-private:
+protected:
+	//float MeleeRange;
 	float AttackCooldown = 1.0f;
 	const float aggressiveRange = 250.0f;
+	int SpriteWidth = 48;
+	int SpriteHeight = 48;
 
 	float MaxSwingRate;
 	double SwingRateTimer;
@@ -39,4 +42,6 @@ public:
 	virtual void handleSword(const double deltaTime, Entity& player, sf::Vector2f& mousePosition, int level[], vector<int>& walls);
 	
 	void swingingAnimation();
+	bool isAggressive(const sf::Vector2f& playerPosition) const;
+	void makeAggressive(const sf::Vector2f& playerPosition);
 };

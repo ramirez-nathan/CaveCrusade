@@ -17,4 +17,6 @@ public:
 	virtual void attackAnimation(const sf::Vector2f& playerPosition);
 	virtual bool isDead(const unique_ptr<Enemy>& entity);
 	virtual ~Enemy() = default;
+	virtual bool isKnockbackEnabled() const { return true;}
+		
 };

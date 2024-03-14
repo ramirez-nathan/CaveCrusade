@@ -10,6 +10,7 @@
 #include "Enemy.hpp"
 #include "Slime.hpp"
 #include "Skeleton.hpp"
+#include "Knight.hpp"
 #include "GameState.hpp"
 #include "SoundFx.hpp"
 #include "Interactable.hpp"
@@ -34,17 +35,18 @@ int main()
     try {
         enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 40.0f));
         enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 40.0f)); // give diff speeds to avoid complete overlapping
+        //enemies.push_back(make_unique<Knight>(200.0f, 50.0f, 50.0f, 0.1f, 50.0f));
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.15f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */ 
     }
     catch (const bad_alloc& e) {
-        std::cerr << "Memory allocation failed: " << e.what() << std::endl; 
-        return 1; 
+        std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+        return 1;
     }
     vector<Interactable> interactables;
-    
+
     //-------------------------------- INITIALIZE --------------------------------
     player.initialize();
     player.load();
@@ -56,9 +58,10 @@ int main()
     // ------------------------------------------ LOAD ---------------------------------
 
     // Set positions for each entity in the vector 
-    vector<sf::Vector2f> enemyPositions1a = { 
+    vector<sf::Vector2f> enemyPositions1a = {
         sf::Vector2f(360.f, 411.f), // Soldier1 position 
         sf::Vector2f(1150.f, 411.f), // Soldier2 position 
+        //sf::Vector2f(1300.f, 411.f), // Soldier2 position 
         //sf::Vector2f(900.f, 500.f) // slime test pos
     };
     player.changePosition(738, 662);
@@ -69,7 +72,7 @@ int main()
 
     // ------------------------------- TILEMAP ----------------------------------
     // define the level with an array of tile indices
-    
+
     GameState state;
     state.loadLevel();
 
@@ -77,22 +80,23 @@ int main()
 
     // ---------------------------- TESTING -----------------------------
 
-    
-    
+
+
     // ---------------------------- TESTING -----------------------------
 
     // ------------------------------------------ LOAD ---------------------------------
     sf::Clock GameStateClock;
 
+
     SoundFx musicState;
 
-   
-    
-    
+
+
+
 
 
     //main game loop
-    while(window.isOpen())
+    while (window.isOpen())
     {
         sf::Time deltaTimeTimer = GameStateClock.restart();
         double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0;
@@ -118,7 +122,7 @@ int main()
         for (auto& interactable : interactables) {
             interactable.update(deltaTime, player, enemies, state.CurrentLevel, state);
         }
-        
+
         //cout << state.hasSpikes << endl;
 
         if (enemies.size() == 0) {
@@ -158,7 +162,7 @@ int main()
             state.ChestIsOpened = false;
             state.loadLevel();
         }
-        cout << interactables.size() << endl;
+        //cout << interactables.size() << endl;
         if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
             state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies, interactables);
             state.loadLevel();
@@ -180,7 +184,7 @@ int main()
 
         for (const auto& enemy : enemies) {
             if (enemy->isDead(enemy)) {
-                player.changeAmmo(2); // add ammo for every enemy killed
+                player.changeAmmo(3); // add ammo for every enemy killed
                 cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
             }
         }
@@ -193,11 +197,11 @@ int main()
             ),
             enemies.end() // the 2nd parameter; tells where to end the erasing
         );
-        
+
         if (player.getHealth() <= 0) {
             break;
         }
-        
+
         window.display();
 
         //-------------------------------- DRAW --------------------------------
