@@ -48,15 +48,15 @@ In-Game Screen:
 | --- | --- |
 | `Main` | Depends on GameState, Entity, & Interactable; Main screen for creating and calling other classes |
 | `Entity` | Inherits from Object; Template for entities |
-| `Player` | Inherits from Entity, depends on Arrow; Sets player weapon, powerup, and moveset |
-| `Arrow` | Deals with Arrow handling. 
-| `Math` | Deals with Collision handling
+| `Player` | Inherits from Entity; Sets player weapon, powerup, and moveset |
+| `Arrow` | Deals with Arrow handling. player and skeleton are dependent on this | 
+| `Math` | Deals with Collision handling |
 | `Enemy` | Inherits from Entity; Sets enemy target and knockback |
-| `Soldier` | Inherits from Enemy, depends on Arrow;
-| `Skeleton` | Inherits from Enemy;
-| `Slime` | Inherits from Enemy;
-| `RockHandler` | Inherits from Enemy;
-| `Rock` |  Inherits from RockHandler;
+| `Soldier` | Inherits from Enemy, chases and attacks the player; |
+| `Skeleton` | Inherits from Enemy, acts as a stationary sentry turret; |
+| `Slime` | Inherits from Enemy, a slow gelatinous blobby enemy; |
+| `RockHandler` | Inherits from Enemy, sets up functionality for Rock;
+| `Rock` |  Inherits from RockHandler, makes rocks fall from the top of the map; |
 | `Interactable` | Associates with Entity; Template for interactable objects |
 | `Main Menu` | Depends on Main; Template for Menus |
 | `Start Screen` | Inherits from Main Menu; Can start and quit |
