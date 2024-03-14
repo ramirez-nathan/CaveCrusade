@@ -253,7 +253,7 @@ int main(int argc, char** argv)
             if (state.CurrLevelName == "5b" && player.isTouchingEntry(state.CurrentLevel)) {
                 state.onMenu = true;
                 state.isOver = true;
-                
+
             }
 
             window.display();
