@@ -72,6 +72,8 @@ In-Game Screen:
  > Screenshots of the input/output after running your application
  ## Installation/Usage
  > Instructions on installing and running your application
+> In order to install and run the application, we need to first 
  ## Testing
  > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
+> We tested and validated our project using unit tests and Valgrind. Visual Studio has an integrated Google test adapter. We are using the built-in Google test project for the unit tests.  
  
