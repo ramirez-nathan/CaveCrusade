@@ -29,7 +29,8 @@ The project aims to captivate players through an immersive storyline, strategic 
  * Dungeon-crawling gameplay --> The hero encounters and fights against opponents in a dungeon environment to advance through different rooms to get the Whisk of Wonder.
 
 ### Navigation Diagram
-![NavigationDiagram](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/4f71f844-6aaa-457a-b4aa-285a62cca0ec)
+![caveNav](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156261930/e50224f3-62bc-40a0-8f93-a95e0ea631a8)
+
 
 ### Screen Layouts
 Start Screen:
