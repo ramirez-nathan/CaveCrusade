@@ -8,6 +8,7 @@
 #include "Slime.hpp"
 #include "Skeleton.hpp"
 #include "Cutscene.hpp"
+#include "RockHandler.hpp"
 
 using namespace std;
 
@@ -16,7 +17,7 @@ GameState::GameState()
     LevelHeight = 14;
     LevelWidth = 23;
     tileset = "assets/tilemap/tileset1.png";
-    CurrLevelName = "1a";
+    CurrLevelName = "3d";
     hasSpikes = false;
     onMenu = true;
     isRunning = true;
@@ -520,6 +521,8 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f));
                 enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f));
                 enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.20f));
+
+                enemies.push_back(make_unique<RockHandler>(350.f, 30.f, 30.f, 0.2f));
             }
             catch (const bad_alloc& e) {
                 std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -527,7 +530,9 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             vector<sf::Vector2f> enemyPositions1b = {
                 sf::Vector2f(1184.f, 220.f), // Knight1 position
                 sf::Vector2f(640.f, 220.f), // Knight2 position
-                sf::Vector2f(417.f, 696.f) // Slime1 position
+                sf::Vector2f(417.f, 696.f), // Slime1 position
+                sf::Vector2f(700.f, 350.0f) // Rock position
+
             };
             for (size_t i = 0; i < enemies.size(); ++i) {
                 enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
@@ -568,9 +573,11 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             hasSpikes = true;
             try {
+                
                 enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f)); 
                 enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f));
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
+                enemies.push_back(make_unique<RockHandler>(350.f, 30.f, 30.f, 0.2f));
             }
             catch (const bad_alloc& e) {
                 std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -578,7 +585,8 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             vector<sf::Vector2f> enemyPositions1b = {
                 sf::Vector2f(1217.f, 381.f), // Knight1 position
                 sf::Vector2f(224.f, 316.f), // Knight2 position
-                sf::Vector2f(739.f, 250.f) // Skeleton1 position
+                sf::Vector2f(739.f, 250.f), // Skeleton1 position
+                sf::Vector2f(700.f, 350.0f) // Rock position
             };
             for (size_t i = 0; i < enemies.size(); ++i) {
                 enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
@@ -623,6 +631,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.14f)); // Slime2
                 enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f)); // Skeleton1
                 enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // Skeleton2
+                enemies.push_back(make_unique<RockHandler>(350.f, 30.f, 30.f, 0.2f)); // Rocks
             }
             catch (const bad_alloc& e) {
                 std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -634,6 +643,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 sf::Vector2f(1188.f, 251.f), // Slime2 position
                 sf::Vector2f(611.f, 189.f), // Knight1 position
                 sf::Vector2f(866.f, 189.f), // Knight2 position
+                sf::Vector2f(700.f, 350.0f) // Rock position
             };
             for (size_t i = 0; i < enemies.size(); ++i) {
                 enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);

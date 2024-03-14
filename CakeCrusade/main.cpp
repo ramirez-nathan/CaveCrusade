@@ -40,6 +40,7 @@ int main()
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.15f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */ 
+
     }
     catch (const bad_alloc& e) {
         std::cerr << "Memory allocation failed: " << e.what() << std::endl; 
@@ -147,7 +148,10 @@ int main()
             for (auto& enemy : enemies) {
                 enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
                 enemy->attackMove(deltaTime, player);
+
             }
+
+
             // Update player 
             player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
 
@@ -192,6 +196,9 @@ int main()
                 enemy->draw(window);
             }
 
+            if (state.CurrLevelName == "5b") // Draw "boss"
+                boulder.drawCutscene(window);
+
             player.drawPlayer(window);
 
             for (const auto& enemy : enemies) {
@@ -216,8 +223,11 @@ int main()
 
             messageBox.drawMessageBox(window);
 
-            if (state.CurrLevelName == "5b")
-                boulder.drawCutscene(window);
+            if (state.CurrLevelName == "4a" || state.CurrLevelName == "4b" || state.CurrLevelName == "4c" || state.CurrLevelName == "4d") {
+                if (enemies.size() == 1) {
+                    enemies.erase(enemies.begin(), enemies.end());
+                }
+            }
 
             window.display();
 

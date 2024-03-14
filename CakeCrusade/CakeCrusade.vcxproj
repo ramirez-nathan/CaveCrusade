@@ -161,6 +161,9 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player.hpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Rock.cpp" />
+    <ClCompile Include="Rock.hpp" />
+    <ClCompile Include="RockHandler.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Soldier.cpp" />
@@ -176,6 +179,7 @@
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="Interactable.hpp" />
     <ClInclude Include="Menu.hpp" />
+    <ClInclude Include="RockHandler.hpp" />
     <ClInclude Include="Skeleton.hpp" />
     <ClInclude Include="Slime.hpp" />
     <ClInclude Include="Soldier.hpp" />
