@@ -109,6 +109,7 @@ public:
 	void handleMovement(const double deltaTime, bool& isMoving, sf::Vector2f& movement, int& spriteX, int& spriteY, int direction, int level[], vector<int>& walls);
 	bool isTouchingDoor(int level[]);
 	bool isTouchingStair(int level[]);
+	bool isTouchingEntry(int level[]);
 	void drawPlayer(sf::RenderWindow& window);
 	virtual void attackMove(const double deltaTime, Entity& enemy) override;
 	bool canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf::Vector2f mouseDirection);
