@@ -59,7 +59,7 @@ public:
 	double GoldHeartContainerCount = 1;
 	double DamageDone = 0;
 	double HalfHeartCount = 6;
-	double GoldHalfHeartCount = 2;
+	//double GoldHalfHeartCount = 2;
 
 	// ------------------ GETTERS/SETTERS --------------------
 	void changeAmmo(int ammo) { Ammo += ammo; }
