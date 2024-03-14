@@ -63,8 +63,9 @@ void Interactable::update(const double deltaTime, Player& player, vector<unique_
 		}
 	}
 	if (ReadyToSpawn && ItemName != "Chest") {
+		SpriteX = 0;
 		if (!IsTouched) {
-			if (Math::didRectCollide(player.getHitBox().getGlobalBounds(), BoundingRectangle.getGlobalBounds()) && ItemName != "Chest") {
+			if (Math::didRectCollide(player.getHitBox().getGlobalBounds(), BoundingRectangle.getGlobalBounds())) {
 				IsTouched = true;
 				if (ItemName == "Red Heart") {
 					player.changeHalfHearts(2);
@@ -120,10 +121,11 @@ bool Interactable::isTouched() {
 }
 
 void Interactable::drawInteractable(sf::RenderWindow& window, string currLevelName) {
+	cout << (ChestIsOpened && !IsTouched && ItemName != "Chest") << endl;
 	if (ItemName == "Chest" && (currLevelName == "1c" || currLevelName == "2c" || currLevelName == "3c" || currLevelName == "4b" || currLevelName == "5a")) {
 		window.draw(Sprite);
 	}
-	else if ((ReadyToSpawn && !IsTouched) && ItemName != "Chest") {
+	else if (ChestIsOpened && !IsTouched && ItemName != "Chest") {
 		window.draw(Sprite);
 		window.draw(BoundingRectangle);
 	}

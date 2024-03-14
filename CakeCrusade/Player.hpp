@@ -45,7 +45,7 @@ private:
 
 
 protected:
-	int Ammo = 0;
+	int Ammo = 100; // CHANGE BACK TO 0, THIS IS ONLY FOR TESTING
 	double HalfHeartCount = 6;
 	
 	double GoldHalfHeartCount = 0;
