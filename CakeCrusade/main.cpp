@@ -13,7 +13,6 @@
 #include "GameState.hpp"
 #include "SoundFx.hpp"
 #include "Interactable.hpp"
-#include "Menu.hpp"
 
 using namespace std;
 
@@ -33,9 +32,9 @@ int main()
     Player player(3000.f, 50.f, 150.f, 0.4f);
     vector<unique_ptr<Enemy>> enemies; // using smart pointers ensures elements are properly deallocated, preventing memory leaks
     try {
-        //enemies.push_back(make_unique<Soldier>(2000.f, 50.f, 50.f, 0.15f, 40.0f));
-        //enemies.push_back(make_unique<Soldier>(2000.f, 50.f, 50.f, 0.20f, 40.0f)); // give diff speeds to avoid complete overlapping
-        //enemies.push_back(make_unique<Skeleton>(15000.f, 20.f, 20.f, 0.0f)); 
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 40.0f));
+        enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.20f, 40.0f)); // give diff speeds to avoid complete overlapping
+        //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.15f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */ 
@@ -72,7 +71,6 @@ int main()
     // define the level with an array of tile indices
 
     GameState state;
-    state.drawHearts(player);
     state.loadLevel();
 
     // ------------------------------- TILEMAP ----------------------------------
@@ -89,184 +87,121 @@ int main()
 
     SoundFx musicState;
 
-    Menu menu(window);
+
 
 
 
 
     //main game loop
-    while (state.isRunning == true)
+    while (window.isOpen())
     {
-        while (state.onMenu == true && state.isRunning == true) {
-            sf::Event event;
-            while (window.pollEvent(event))
-            {
-                if (event.type == sf::Event::Closed) {
-                    state.isRunning = false;
-                    window.close();
-                }
+        sf::Time deltaTimeTimer = GameStateClock.restart();
+        double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0;
+        //-------------------------------- UPDATE --------------------------------
 
-                else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
-                    state.onMenu = false;
-            }
-
-            window.clear(sf::Color(54, 30, 38));
-
-            Menu menu(window);
-
-            window.display();
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
         }
 
-        while (state.onMenu == false && state.isRunning == true) {
-            sf::Time deltaTimeTimer = GameStateClock.restart();
-            double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0;
-            //-------------------------------- UPDATE --------------------------------
+        sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-            sf::Event event;
-            while (window.pollEvent(event))
-            {
-                if (event.type == sf::Event::Closed) {
-                    state.isRunning = false;
-                    window.close();
-                }
+
+        // Update enemies
+        for (auto& enemy : enemies) {
+            enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
+            enemy->attackMove(deltaTime, player);
+        }
+        // Update player 
+        player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
+        for (auto& interactable : interactables) {
+            interactable.update(deltaTime, player, enemies, state.CurrentLevel);
+        }
+
+        //cout << state.hasSpikes << endl;
+
+        if (enemies.size() == 0) {
+
+            if (player.getKeyState() == true) {
+                state.changeTile(22, 56);
+                state.changeTile(23, 57);
+                state.changeTile(24, 58);
+                state.changeTile(25, 53);
+                state.changeTile(26, 54);
+                state.changeTile(27, 55);
             }
 
-            sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
+            if (state.HasSpikes == true) {
+                state.changeTile(48, 49);
 
-            // Update hearts
-            state.drawHearts(player);
+                state.HasSpikes = false;
+            }
             state.loadLevel();
-
-            // Update enemies
-            for (auto& enemy : enemies) {
-                enemy->update(deltaTime, player, player.getSprite().getPosition(), state.CurrentLevel);
-                enemy->attackMove(deltaTime, player);
-            }
-            // Update player 
-            player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
-
-            //cout << state.hasSpikes << endl;
-
-            if (enemies.size() == 0) {
-
-                if (player.getKeyState() == true) {
-                    state.changeTile(22, 56);
-                    state.changeTile(23, 57);
-                    state.changeTile(24, 58);
-                    state.changeTile(25, 53);
-                    state.changeTile(26, 54);
-                    state.changeTile(27, 55);
-
-
-                    if (state.HasSpikes == true) {
-                        state.changeTile(48, 49);
-
-                        state.HasSpikes = false;
-                    }
-                    state.loadLevel();
-                }
-
-               /* if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) {
-                    state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies);
-                    state.loadLevel();
-                }*/
-
-
-
-                if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) { // go to new room
-                    state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies, interactables);
-                    // change keystate to false here
-                    // erase entire interactables vector
-                    interactables.erase( // Some genie code for erasing enemies from the vector
-                        std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
-                            interactables.begin(),
-                            interactables.end(),
-                            [&](auto& interactable) { return true; }
-                        ),
-                        interactables.end() // the 2nd parameter; tells where to end the erasing
-                    );
-                    state.loadLevel();
-                }
-
-                if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
-                    state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies, interactables);
-                    state.loadLevel();
-                }
-                player.setDamageDone(0);
-                //-------------------------------- UPDATE --------------------------------
-
-                //-------------------------------- DRAW --------------------------------
-                window.clear();
-
-                window.draw(state.Map);
-                for (const auto& enemy : enemies) {
-                    enemy->draw(window);
-                }
-                for (auto& interactable : interactables) {
-                    interactable.drawInteractable(window, state.CurrLevelName);
-                }
-                player.drawPlayer(window);
-
-                for (const auto& enemy : enemies) {
-                    if (enemy->isDead(enemy)) {
-                        player.changeAmmo(2); // add ammo for every enemy killed
-                        cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
-                    }
-                    player.setDamageDone(0);
-                    //-------------------------------- UPDATE --------------------------------
-
-                    enemies.erase( // Some genie code for erasing enemies from the vector
-                        std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
-                            enemies.begin(),
-                            enemies.end(),
-                            [&](const auto& enemy) { return enemy->isDead(enemy); }
-                        ),
-                        enemies.end() // the 2nd parameter; tells where to end the erasing
-                    );
-
-                    if (player.getHealth() <= 0) {
-                        break;
-                    }
-
-                    window.display();
-
-                    window.draw(state.Map);
-
-                    for (const auto& enemy : enemies) {
-                        enemy->draw(window);
-                    }
-
-                    player.drawPlayer(window);
-
-                    for (const auto& enemy : enemies) {
-                        if (enemy->isDead(enemy)) {
-                            player.changeAmmo(2); // add ammo for every enemy killed
-                            cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
-                        }
-                    }
-
-                    enemies.erase( // Some genie code for erasing enemies from the vector
-                        std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
-                            enemies.begin(),
-                            enemies.end(),
-                            [&](const auto& enemy) { return enemy->isDead(enemy); }
-                        ),
-                        enemies.end() // the 2nd parameter; tells where to end the erasing
-                    );
-
-                    if (player.getHealth() <= 0) {
-                        break;
-                    }
-
-                    window.display();
-
-                    //-------------------------------- DRAW --------------------------------
-                }
-            }
-
-            std::cout << "You died! " << endl;
-
-            return 0;
         }
+
+
+
+        if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) { // go to new room
+            state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies, interactables);
+            // change keystate to false here
+            // erase entire interactables vector
+            interactables.erase( // Some genie code for erasing enemies from the vector
+                std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
+                    interactables.begin(),
+                    interactables.end(),
+                    [&](auto& interactable) { return true; }
+                ),
+                interactables.end() // the 2nd parameter; tells where to end the erasing
+            );
+            state.loadLevel();
+        }
+
+        if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
+            state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies, interactables);
+            state.loadLevel();
+        }
+        player.setDamageDone(0);
+        //-------------------------------- UPDATE --------------------------------
+
+        //-------------------------------- DRAW --------------------------------
+        window.clear();
+
+        window.draw(state.Map);
+        for (const auto& enemy : enemies) {
+            enemy->draw(window);
+        }
+        for (auto& interactable : interactables) {
+            interactable.drawInteractable(window, state.CurrLevelName);
+        }
+        player.drawPlayer(window);
+
+        for (const auto& enemy : enemies) {
+            if (enemy->isDead(enemy)) {
+                player.changeAmmo(20); // add ammo for every enemy killed
+                cout << "Enemy killed! Your ammo is now:" << player.getAmmo() << endl;
+            }
+        }
+
+        enemies.erase( // Some genie code for erasing enemies from the vector
+            std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
+                enemies.begin(),
+                enemies.end(),
+                [&](const auto& enemy) { return enemy->isDead(enemy); }
+            ),
+            enemies.end() // the 2nd parameter; tells where to end the erasing
+        );
+
+        if (player.getHealth() <= 0) {
+            break;
+        }
+
+        window.display();
+
+        //-------------------------------- DRAW --------------------------------
     }
+    std::cout << "You died! " << endl;
+
+    return 0;
 }
