@@ -71,9 +71,8 @@ In-Game Screen:
  ## Screenshots
  > Screenshots of the input/output after running your application
  ## Installation/Usage
- > Instructions on installing and running your application
-> In order to install and run the application, we need to first 
+> In order to install and run the application, we need to first install Visual Studio, SFML, and the correct desktop extensions. Then we need to have all of the necessary files (we can clone the repository). Then we need to build the solution and then run it through the local windows debugger. The local windows debugger should be set to "Debug" and "x64". The game application will now run and the terminal should show up adjacently and display any necessary messages
  ## Testing
- > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
+
 > We tested and validated our project using unit tests and Valgrind. Visual Studio has an integrated Google test adapter. We are using the built-in Google test project for the unit tests.  
  
