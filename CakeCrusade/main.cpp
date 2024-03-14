@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::RenderWindow window(sf::VideoMode(1472, 896), "Cake Crusade", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(1472, 896), "Cave Crusade", sf::Style::Default, settings);
     window.setFramerateLimit(360);
     auto icon = sf::Image();
     if (!icon.loadFromFile("assets/icon.png"))
