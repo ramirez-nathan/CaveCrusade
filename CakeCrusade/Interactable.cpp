@@ -1,5 +1,8 @@
 #include "Interactable.hpp"
 #include "GameState.hpp"
+#include "SoundFx.hpp"
+
+SoundFx itemSound;
 
 Interactable::Interactable(string name)
 	: ItemName(name)
@@ -105,6 +108,7 @@ void Interactable::chestAnimation() {
 	if (ChestClock.getElapsedTime().asSeconds() > 0.20) {
 		if (ChestSpriteX == 4) {
 			ChestAnimationComplete = true;
+			itemSound.loadSound("sound/sounds/pickupItem.wav");
 		}
 		else {
 			ChestSpriteX++;

@@ -23,6 +23,7 @@ GameState::GameState(SoundFx& s)
     onMenu = true;
     isRunning = true;
     inCutscene = false;
+    isOver = false;
     s.loadMusic("sound/music/andthejourneybegins.wav");
 }
 
@@ -750,7 +751,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
         else if (levelName == "5a") { // change to 5b (boss room)
 
-            s.loadMusic("sound/music/DecisiveBattle.wav");
+            s.loadMusic("sound/music/finaloffantasy.wav");
 
             int* NewLevel = new int[23 * 14]
             {
@@ -766,7 +767,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 70, 71, 72, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 

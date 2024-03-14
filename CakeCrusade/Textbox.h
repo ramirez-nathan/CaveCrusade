@@ -37,15 +37,19 @@ public:
     }
 
 
-    void updateText(String UpdateText, String UpdateText2, String UpdateText3, Event& event)
+    void updateText(String UpdateText, String UpdateText2, String UpdateText3, String UpdateText4, Event& event)
     {
 
         if (event.type == event.KeyReleased)
         {
             if (event.key.code == Keyboard::Space || event.key.code == Keyboard::Enter)
             {
-                if (currentText <= 2)
+                if (currentText <= 3)
                     currentText++;
+
+                else {
+                    visible = false;
+                }
 
             }
         }
@@ -55,6 +59,7 @@ public:
         case 0: MessageBox_text.setString(UpdateText); break;
         case 1: MessageBox_text.setString(UpdateText2); break;
         case 2: MessageBox_text.setString(UpdateText3); break;
+        case 3: MessageBox_text.setString(UpdateText4); break;
         }
 
     };

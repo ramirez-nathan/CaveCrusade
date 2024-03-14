@@ -36,6 +36,7 @@ public:
     bool onMenu;
     bool isRunning;
     bool inCutscene;
+    bool isOver;
 
     string tileset;
     string CurrLevelName;

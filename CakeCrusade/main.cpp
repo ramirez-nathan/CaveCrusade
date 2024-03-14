@@ -22,8 +22,6 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    //::testing::InitGoogleTest(&argc, argv);
-    //return RUN_ALL_TESTS();
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
@@ -85,24 +83,16 @@ int main(int argc, char** argv)
     state.drawHearts(player);
     state.loadLevel();
 
-    // ------------------------------- TILEMAP ----------------------------------
-
-    // ---------------------------- TESTING -----------------------------
-
-
-
-    // ---------------------------- TESTING -----------------------------
-
     // ------------------------------------------ LOAD ---------------------------------
     sf::Clock GameStateClock;
 
-    Menu menu(window);
+    Menu menu(window, state.isOver);
     Cutscene boulder(window);
     MessageBox messageBox;
     MessageBox arrowCount;
     string arrowText = "Arrows: " + to_string(player.getAmmo());
 
-    messageBox.setText("", 790, 335, 40);
+    messageBox.setText("", 790, 335, 30);
 
     //main game loop
     while (state.isRunning == true)
@@ -117,7 +107,7 @@ int main(int argc, char** argv)
                     window.close();
                 }
 
-                else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
+                else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter && state.isOver == false)
                     state.onMenu = false;
 
 
@@ -125,7 +115,7 @@ int main(int argc, char** argv)
 
             window.clear(sf::Color(54, 30, 38));
 
-            Menu menu(window);
+            Menu menu(window, state.isOver);
 
             window.display();
         }
@@ -144,7 +134,7 @@ int main(int argc, char** argv)
                 }
 
                 if (state.CurrLevelName == "5b")
-                    messageBox.updateText("Fine. You win!", "I hope that makes you happy.", "Please get out of my house.", event);
+                    messageBox.updateText("So you've made it. \n \n I hope you're prepared for this...", "You win!", "You completely trashed the place. \n\n I hope that makes you happy.", "Please get out of my house.", event);
             }
 
             sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
@@ -260,12 +250,22 @@ int main(int argc, char** argv)
                 }
             }
 
+            if (state.CurrLevelName == "5b" && player.isTouchingEntry(state.CurrentLevel)) {
+                state.onMenu = true;
+                state.isOver = true;
+
+            }
+
+            if (player.getHalfHearts() == 0 && player.getGoldHalfHearts() == 0) {
+                state.onMenu = true;
+                state.isOver = true;
+            }
+
             window.display();
 
             //-------------------------------- DRAW --------------------------------
         }
-        std::cout << "You died! " << endl;
-
-        return 0;
     }
+
+    return 0;
 }

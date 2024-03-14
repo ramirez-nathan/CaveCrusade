@@ -1,6 +1,7 @@
 #include "Menu.hpp"
+#include "Textbox.h"
 
-Menu::Menu(sf::RenderWindow& window)
+Menu::Menu(sf::RenderWindow& window, bool isOver)
 {
 	sf::Sprite bg;
 	sf::Texture bgtexture;
@@ -15,8 +16,8 @@ Menu::Menu(sf::RenderWindow& window)
 	bg.setPosition(sf::Vector2f(0.f, 0.f));
 
 	drawMenu(window, bg);
-	
-	
+
+
 	sf::Sprite logo;
 	sf::Texture texture;
 
@@ -45,7 +46,15 @@ Menu::Menu(sf::RenderWindow& window)
 	start.setPosition(sf::Vector2f(640.f, 630.f));
 	start.scale(sf::Vector2f(6, 6));
 
-	drawMenu(window, start);
+	if (!isOver) {
+		drawMenu(window, start);
+	}
+
+	if (isOver) {
+		MessageBox gameover;
+		gameover.setText("GAME OVER", 510, 600, 70);
+		gameover.drawMessageBox(window);
+	}
 }
 
 Menu::~Menu()
