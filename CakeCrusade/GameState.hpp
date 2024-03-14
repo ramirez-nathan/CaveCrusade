@@ -2,6 +2,7 @@
 #include <string>
 #include "Player.hpp"
 #include "SoundFx.hpp"
+#include "Interactable.hpp"
 
 using namespace std;
 
@@ -10,9 +11,18 @@ public:
     GameState();
 
     bool loadLevel();
-    void changeLevel(string levelName, Player& p, string type, SoundFx& s, vector<unique_ptr<Enemy>>& enemies);
-    bool hasSpikes;
-    string tileset;
+    void changeLevel(string levelName, Player& p, string type, SoundFx& s, vector<unique_ptr<Enemy>>& enemies, vector<Interactable>& interactables);
+
+    bool HasSpikes;
+    bool OneCDone = false;
+    bool TwoCDone = false;
+    bool ThreeCDone = false;
+
+    bool OneCChestOpened = false;
+    bool TwoCChestOpened = false;
+    bool ThreeCChestOpened = false;
+
+    string Tileset;
     string CurrLevelName;
     void changeTile(int currTile, int newTile);
 

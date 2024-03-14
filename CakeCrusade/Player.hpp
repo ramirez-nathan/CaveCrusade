@@ -35,20 +35,58 @@ private:
 	bool ShootingAnimationComplete = true;
 	bool FinishedBowAnimation = false;
 
+	
+
 	int PlayerDirection = 0;
+
+	
 
 	//bool UpdateHandlingComplete = true;
 
 
 protected:
-	int Ammo = 0;
+	int Ammo = 100; // CHANGE BACK TO 0, THIS IS ONLY FOR TESTING
+	double HalfHeartCount = 6;
+	
+	double GoldHalfHeartCount = 0;
+	bool HasKey = true; // CHANGE WHEN KEY INTERACTABLE IS DONE
+
+	bool HasBow = false;
 
 public:
 	Player(float h, float dmg, float def, float spd);
 	~Player();
+	double HeartContainerCount = 3;
+	double GoldHeartContainerCount = 0;
+	double DamageDone = 0;
+
 	// ------------------ GETTERS/SETTERS --------------------
 	void changeAmmo(int ammo) { Ammo += ammo; }
 	int getAmmo() { return Ammo; }
+
+	int getDamageDone() { return DamageDone; }
+	void setDamageDone(int damage) { DamageDone = damage; }
+
+	bool getKeyState() { return HasKey; }
+	bool getBowState() { return HasBow; }
+
+	void setKeyState(bool state) { HasKey = state; }
+	void setBowState(bool state) { HasBow = state; }
+
+	virtual void setHeartContainer(int damage) override;
+	virtual void setGoldContainer(int damage) override;
+
+	virtual void changeHalfHearts(int damage) override;
+	virtual void changeGoldHalfHearts(int damage) override;
+
+
+	virtual double getGoldHeartContainer() override { return GoldHeartContainerCount; }
+	virtual double getHeartContainer() override { return HeartContainerCount; }
+		
+	virtual double getGoldHalfHearts() override { return GoldHalfHeartCount; }
+	virtual double getHalfHearts() override { return HalfHeartCount; }
+
+	
 	// ------------------ GETTERS/SETTERS --------------------
 
 	// --------------------------------- CORE FUNCTIONS --------------------------------

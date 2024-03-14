@@ -5,13 +5,11 @@
 
 class Enemy : public Entity {
 protected:
-	sf::Clock CollisionFreeze;
+	
 	sf::Clock EnemyIdleClock;
 	const float MaxAttackRate = 1000.f;
 	float AttackTimer = 0.0f;
-	const int spriteWidth = 48;
-	const int spriteHeight = 48;
-
+	
 public:
 	Enemy(float h, float dmg, float def, float spd);
 	virtual void attackMove(const double deltaTime, Entity& player) override;

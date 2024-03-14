@@ -2,7 +2,7 @@
 #include <iostream>
 
 Soldier::Soldier(float h, float dmg, float def, float spd, float rng)
-	: Enemy(h, dmg, def, spd), MaxSwingRate(500), SwingRateTimer(0)
+	: Enemy(h, dmg, def, spd), MaxSwingRate(1100), SwingRateTimer(0)
 {
 }
 
@@ -30,7 +30,9 @@ void Soldier::load() {
 void Soldier::update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[]) {
     if (Health > 0)
     {
+        sf::Vector2f playerDirection = player.getSprite().getPosition();
         UpdateHandlingComplete = false;
+
         Direction = Math::normalizeVector(target - Sprite.getPosition());
         if ((Direction.x == 0.f && Direction.y > 0.f) || (Direction.x != 0.f && Direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
             EntityDirection = 0;
@@ -46,12 +48,27 @@ void Soldier::update(double deltaTime, Entity& player, const sf::Vector2f& targe
         else if ((Direction.x == 0.f && Direction.y < 0.f) || (Direction.x != 0.f && Direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
             EntityDirection = 1;
         }
+        if (Math::didRectCollide(BoundingRectangle.getGlobalBounds(), player.getHitBox().getGlobalBounds())) {
+            CollisionFreeze.restart();
+            IsFrozen = true;
+            IsMoving = false;
+        }
+        if (CollisionFreeze.getElapsedTime().asSeconds() > 1.0f) {
+            IsFrozen = false;
+            IsMoving = true;
+            handleSword(deltaTime, player, playerDirection, level, Walls);
+        }
         handleMovement(deltaTime, Direction, SpriteX, SpriteY, EntityDirection, level, Walls);
         
-        sf::Vector2f playerDirection = player.getSprite().getPosition();
-
-        
-
+        if (!IsMoving) {
+            if (IdleClock.getElapsedTime().asSeconds() > 0.5f) {
+                if (IdleSpriteX == 1)
+                    IdleSpriteX = 0;
+                else
+                    IdleSpriteX += 1;
+                IdleClock.restart();
+            }
+        }
         handleSword(deltaTime, player, playerDirection, level, Walls);
         
         UpdateHandlingComplete = true;
@@ -64,9 +81,6 @@ void Soldier::update(double deltaTime, Entity& player, const sf::Vector2f& targe
                 //cout << "Sprite X value is " << SpriteX << endl;
                 //cout << "Sprite Y value is " << SpriteX << endl;
                 Sprite.setTextureRect(sf::IntRect(SpriteX * (getSizeX() + 16), SpriteY * (getSizeY() + 16), (getSizeX() + 16), (getSizeY() + 16)));
-            }
-            else if (IsMoving && canAttack(playerDirection)) {
-                makeAggressive(playerDirection);
             }
             else if (IsMoving) { // walking 
                 Sprite.setTexture(WalkingTexture);
@@ -82,32 +96,27 @@ void Soldier::update(double deltaTime, Entity& player, const sf::Vector2f& targe
         }
         IsMoving = false; // set it back to false after the movement to reset the bool for next loop
         //------------------------------------- LOAD CORRECT TEXTURE ----------------------------------- 
+        BoundingRectangle.setPosition(Sprite.getPosition());
     }
-    BoundingRectangle.setPosition(Sprite.getPosition());
-}
-
-
-void Soldier::attackMove(const double deltaTime, Entity& player) 
-{
-    cout << "HAVE AT THEE!!!" << endl;
 }
 
 void Soldier::handleSword(const double deltaTime, Entity& player, sf::Vector2f& playerPosition, int level[], vector<int>& walls) {
     SwingRateTimer += deltaTime;
     swingingAnimation();
+    //cout << (SwingRateTimer >= MaxSwingRate && canAttack(playerPosition)) << endl;
     if (SwingRateTimer >= MaxSwingRate && canAttack(playerPosition))
     {
         IsAttacking = true;
         if (IsAttacking) {
-            if (player.getHealth() > 0) {
-                if (player.getDefense() > 0) {
-                    player.changeDefense(-60); // Arrow dmg is 40
-                }
-                else {
-                    player.changeHealth(-60);
-                }
-                cout << "You were slashed by a soldier! Your Health is: " << player.getHealth() << endl;
+            if (player.getGoldHalfHearts() > 0) {
+                player.changeGoldHalfHearts(-1);
+                
+                cout << "You were slashed by a soldier! Your amount of gold half hearts is: " << player.getGoldHalfHearts() << endl;
+            }
+            else if (player.getHalfHearts() > 0) {
+                player.changeHalfHearts(-1);
 
+                cout << "You were slashed by a soldier! Your amount of half hearts is: " << player.getHalfHearts() << endl;
             }
             SwingRateTimer = 0;
         }
@@ -116,7 +125,7 @@ void Soldier::handleSword(const double deltaTime, Entity& player, sf::Vector2f& 
 
 
 
-bool Soldier::canAttack(const sf::Vector2f& playerPosition) const
+bool Soldier::canAttack(const sf::Vector2f& playerPosition) 
 {
     // Calculate the distance between the enemy and the player
     float Dx = Sprite.getPosition().x - playerPosition.x;
@@ -124,26 +133,30 @@ bool Soldier::canAttack(const sf::Vector2f& playerPosition) const
 
 
     // Check if the enemy is within the cone angle in each direction
-    if (AttackingSpriteY == 0) { // Looking Down, Looking Down Diagonally
-        if ((Dx >= -70 && Dx <= 70) && (Dy >= -100 && Dy <= 0)) {
+    if ((Direction.x == 0.f && Direction.y > 0.f) || (Direction.x != 0.f && Direction.y > 0.5f)) { // Looking Down, Looking Down Diagonally
+        AttackingSpriteY = 0;
+        if ((Dx >= -50 && Dx <= 50) && (Dy >= -70 && Dy <= 0)) {
             return true;
         }
         return false;
     }
-    else if (AttackingSpriteY == 3) { // Looking Right, Looking Right Diagonally
-        if ((Dy <= 70 && Dy >= -70) && (Dx >= -100 && Dx <= 0)) {
+    else if ((Direction.x > 0.f && Direction.y == 0.f) || (Direction.x > 0.f && (-0.50f <= Direction.y && Direction.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
+        AttackingSpriteY = 3;
+        if ((Dy <= 50 && Dy >= -50) && (Dx >= -70 && Dx <= 0)) {
             return true;
         }
         return false;
     }
-    else if (AttackingSpriteY == 2) { // Looking Left, Looking Left Diagonally
-        if ((Dy <= 70 && Dy >= -70) && (Dx <= 100 && Dx >= 0)) {
+    else if ((Direction.x < 0.f && Direction.y == 0.f) || (Direction.x < 0.f && (-0.5f <= Direction.y && Direction.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
+        AttackingSpriteY = 2;
+        if ((Dy <= 50 && Dy >= -50) && (Dx <= 70 && Dx >= 0)) {
             return true;
         }
         return false;
     }
-    else if (AttackingSpriteY == 1) { // Looking Up, Looking Up Diagonally
-        if ((Dx >= -70 && Dx <= 70) && (Dy <= 100 && Dy >= 0)) {
+    else if ((Direction.x == 0.f && Direction.y < 0.f) || (Direction.x != 0.f && Direction.y < -0.5f)) { // Looking Up, Looking Up Diagonally
+        AttackingSpriteY = 1;
+        if ((Dx >= -50 && Dx <= 50) && (Dy <= 70 && Dy >= 0)) {
             return true;
         }
         return false;
@@ -165,7 +178,7 @@ void Soldier::swingingAnimation() {
             AttackingSpriteY = 1;
         }
         AttackingAnimationComplete = false;
-        if (AttackClock.getElapsedTime().asSeconds() > 0.15f) {
+        if (AttackClock.getElapsedTime().asSeconds() > 0.10f) {
             if (AttackingSpriteX == 3) { // do nothing, just set shootingspritex up for the next time player shoots 
                 AttackingAnimationComplete = true;
                 IsAttacking = false;
@@ -176,6 +189,7 @@ void Soldier::swingingAnimation() {
             }
             AttackClock.restart();
         }
+
     }
 }
 
