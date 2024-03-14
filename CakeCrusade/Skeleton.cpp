@@ -178,11 +178,12 @@ void Skeleton::handleArrow(const double deltaTime, Entity& player, const sf::Vec
 void Skeleton::draw(sf::RenderWindow& window) {
     if (Health > 0)
     {
-        window.draw(Sprite);
-        window.draw(BoundingRectangle);
-
         for (size_t i = 0; i < SkellyArrows.size(); i++)
             SkellyArrows[i].drawArrow(window);
+        window.draw(Sprite);
+        //window.draw(BoundingRectangle);
+
+        
     }
 }
 

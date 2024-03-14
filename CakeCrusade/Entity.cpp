@@ -149,14 +149,10 @@ void Entity::draw(sf::RenderWindow& window)
     if (Health > 0)
     {
         window.draw(Sprite);
-        window.draw(BoundingRectangle);
+        //window.draw(BoundingRectangle);
     }
 }
 
-
-/*void Entity::draw(sf::RenderWindow& window) const {
-    window.draw(sprite);
-}*/
 
 
 void Entity::getKnockedBack(const sf::Vector2f& attackerPosition, int level[], vector<int>& walls) {

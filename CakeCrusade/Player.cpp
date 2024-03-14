@@ -266,7 +266,7 @@ void Player::handleSword(const double deltaTime, vector<unique_ptr<Enemy>>& enem
            sound.loadSound("sound/sounds/playerSlash.wav");
            for (size_t j = 0; j < enemies.size(); ++j) {
                if (enemies[j]->getHealth() > 0) {
-                   if (canAttack(enemies[j]->getSprite().getPosition(), 100, mousePosition)) {
+                   if ((canAttack(enemies[j]->getSprite().getPosition(), 100, mousePosition)) || Math::didRectCollide(BoundingRectangle.getGlobalBounds(), enemies[j]->getHitBox().getGlobalBounds())) {
                        if (enemies[j]->getDefense() > 0) {
                            enemies[j]->changeDefense(-150); 
                            if (enemies[j]->isKnockbackEnabled()) {
@@ -425,11 +425,11 @@ void Player::walkingAnimation(int direction) {
 void Player::drawPlayer(sf::RenderWindow& window)
 {
     if (Health > 0) {
+        for (size_t i = 0; i < Arrows.size(); i++)
+            Arrows[i].drawArrow(window);
         window.draw(Sprite);
         //window.draw(BoundingRectangle);
         // draw each arrow sprite in vector
-        for (size_t i = 0; i < Arrows.size(); i++)
-            Arrows[i].drawArrow(window);
     }
 }
 

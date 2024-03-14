@@ -98,7 +98,7 @@ void RockHandler::draw(sf::RenderWindow& window) {
 	if (Health > 0)
 	{
 		window.draw(Sprite);
-		window.draw(BoundingRectangle);
+		//window.draw(BoundingRectangle);
 
 		for (size_t i = 0; i < Rocks.size(); i++)
 			Rocks[i].drawRock(window);
