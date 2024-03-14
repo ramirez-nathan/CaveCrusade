@@ -16,7 +16,7 @@ GameState::GameState()
     LevelWidth = 23;
     Tileset = "assets/tilemap/tileset1.png";
     CurrLevelName = "1a";
-    hasSpikes = false;
+    HasSpikes = false;
     onMenu = true;
     isRunning = true;
 }

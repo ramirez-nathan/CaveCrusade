@@ -13,6 +13,8 @@ private:
 	//float MeleeRange;
 	float AttackCooldown = 1.0f;
 	const float aggressiveRange = 250.0f;
+	const int spriteWidth = 48;
+	const int spriteHeight = 48;
 
 	float MaxSwingRate;
 	double SwingRateTimer;
@@ -40,4 +42,6 @@ public:
 	virtual void handleSword(const double deltaTime, Entity& player, sf::Vector2f& mousePosition, int level[], vector<int>& walls);
 	
 	void swingingAnimation();
+	bool isAggressive(const sf::Vector2f& playerPosition) const;
+	void makeAggressive(const sf::Vector2f& playerPosition);
 };
