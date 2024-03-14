@@ -105,7 +105,6 @@ In-Game Screen:
 
  ## Testing
  
-In the process of developing and validating our project, we employed a comprehensive testing strategy that integrates both unit tests and memory leak checks to ensure robustness and reliability. Utilizing the integrated Google test adapter within Visual Studio, we constructed a Google test project specifically tailored for unit testing. This setup allowed us to meticulously design and implement a wide array of unit tests, meticulously covering every facet of our project to guarantee functionality and performance adherence to the highest standards.
+In order to test our project we created and looked over unit tests that took several classes and functions into consideration. We used Visual Studio's built-in Google Test framework in order to easily reference our classes and make sure we have good test coverage. 
 
-To complement our unit testing, we also leveraged Valgrind, a highly regarded tool for detecting memory leaks and monitoring memory management in real-time. Through extensive use of Valgrind, we were able to identify and rectify potential memory leaks, ensuring that our project remains efficient and stable over time. This dual-pronged approach, combining the thoroughness of unit testing with the precision of Valgrind memory checks, has played a crucial role in validating the integrity and reliability of our project, paving the way for a product that stands up to rigorous use and meets the expectations of our playerbase.
- 
+We also attempted to utilize Valgrind in the hopes of detecting any memory leaks and other memory-related issues. Our team hopes to be able to work with Valgrind in the future in order to make sure the project stays stable as well as reliable. 
