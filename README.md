@@ -90,7 +90,8 @@ Game Over Screen:
 
 
  ## Installation/Usage
- In order to install and run the application, we need to first install Visual Studio, SFML, and the correct desktop extensions. Then we need to have all of the necessary files (we can clone the repository). Then we need to build the solution and then run it through the local windows debugger. The local windows debugger should be set to "Debug" and "x64". The game application will now run and the terminal should show up adjacently and display any necessary messages
+ In order to install you can download the repository, unzip it, and in the main folder use the Cave Crusade shortcut. 
+ If you would like to edit and run the application, we need to first install Visual Studio, SFML, and the correct desktop extensions. Then you need to have all of the necessary files (you can clone the repository). Then you need to build the solution and then run it through the local windows debugger. The local windows debugger should be set to "Debug" and "x64". The game application will now run and the terminal should show up adjacently and display any necessary messages. 
 
  ## Testing
  
