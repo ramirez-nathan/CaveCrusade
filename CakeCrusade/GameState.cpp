@@ -24,6 +24,11 @@ GameState::GameState()
     inCutscene = false;
 }
 
+GameState::~GameState()
+{
+    delete[] CurrentLevel;
+}
+
 bool GameState::loadLevel() // Checks if the new level has been successfully loaded
 {
     if (!Map.load(tileset, sf::Vector2u(16, 16), CurrentLevel, LevelWidth, LevelHeight)) 

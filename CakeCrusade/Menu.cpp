@@ -48,6 +48,10 @@ Menu::Menu(sf::RenderWindow& window)
 	drawMenu(window, start);
 }
 
+Menu::~Menu()
+{
+}
+
 void Menu::drawMenu(sf::RenderWindow& window, sf::Sprite s)
 {
 	window.draw(s);

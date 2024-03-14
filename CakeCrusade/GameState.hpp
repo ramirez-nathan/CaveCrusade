@@ -10,6 +10,7 @@ using namespace std;
 class GameState {
 public:
     GameState();
+    ~GameState();
 
     bool loadLevel();
     void changeLevel(string levelName, Player& p, string type, SoundFx& s, vector<unique_ptr<Enemy>>& enemies);

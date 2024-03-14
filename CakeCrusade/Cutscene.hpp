@@ -13,6 +13,7 @@ class Cutscene {
 public:
 
 	Cutscene(sf::RenderWindow& window);
+	~Cutscene();
 	sf::Sprite boulder;
 	sf::Texture bouldertexture;
 	MessageBox messageBox;

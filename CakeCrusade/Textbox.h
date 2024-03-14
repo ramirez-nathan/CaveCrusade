@@ -17,6 +17,8 @@ public:
         MessageBox_text.setFont(Pixel);
     }
 
+    ~MessageBox() = default;
+
     void setText(String text, int x, int y, int size)
     {
         MessageBox_text.setFillColor(Color::White);

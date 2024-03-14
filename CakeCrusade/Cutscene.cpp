@@ -18,6 +18,11 @@ Cutscene::Cutscene(sf::RenderWindow& window)
 
 }
 
+Cutscene::~Cutscene()
+{
+
+}
+
 void Cutscene::drawCutscene(sf::RenderWindow& window)
 {
 	window.draw(boulder);
