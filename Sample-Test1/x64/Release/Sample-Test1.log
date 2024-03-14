@@ -1,0 +1,37 @@
+﻿  pch.cpp
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Player.hpp(62,31): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+  test.cpp
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Player.cpp(71,89): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Player.cpp(71,51): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Player.cpp(100,19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Player.cpp(201,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Player.cpp(290,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Player.cpp(427,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Player.cpp(439,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Arrow.cpp(35,77): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Arrow.cpp(58,19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Enemy.cpp(9,20): warning C4244: '+=': conversion from 'const double' to 'float', possible loss of data
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Entity.cpp(44,89): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Entity.cpp(44,51): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Entity.cpp(72,19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Entity.cpp(179,28): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Entity.cpp(180,28): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\Sample-Test1\test.cpp(16,5): warning C4002: too many arguments for function-like macro invocation 'EXPECT_TRUE'
+C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\CakeCrusade\Arrow.hpp(34): warning C4172: returning address of local variable or temporary
+  Sample-Test1.vcxproj -> C:\Users\amana\source\repos\final-project-amana032-rlee205-rly014-nrami112\x64\Release\Sample-Test1.exe
