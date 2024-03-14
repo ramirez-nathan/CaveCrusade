@@ -34,12 +34,13 @@ The project aims to captivate players through an immersive storyline, strategic 
 
 ### Screen Layouts
 Start Screen:
-
-
-Menu Screen: 
-
+![home page](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/3a4a98e1-0fb9-4123-8827-ccc4e3f329c3)
 
 In-Game Screen:
+![in-game-screen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/117fff29-f7d6-4bcb-a653-542f7f481f7f)
+
+Game Over Screen:
+![game over](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/3302e9b2-aec1-468d-9c47-49bf13b52025)
 
 
 ## Class Diagram
@@ -69,33 +70,21 @@ In-Game Screen:
  
  ## Screenshots
 
- Idle animation when doing nothing
-
- 
+![bow attack](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/ab6562dd-6ad8-4456-8e14-e587b8c833b4)
 
  Bow attack loads from clicking left-click
 
- 
+ ![sword attack](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/880a0052-b773-49ff-95fc-904cb93977f9)
 
  Sword attack loads when clicking right-click
 
- 
+![chest interactable](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/d32fbc32-854b-494f-9128-0a49e29c9a7d)
 
- View of the first room
+ Chest interactable
 
+![enemy variety](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/dac396e3-4347-4b94-9d23-b9614b3841bd)
 
-
- Moves to the door and the second room loads
-
- 
-
- Finishes first-world and loads second-world
-
- 
-
- Second room of the second-world
-
-
+ Enemy variety
 
 
 
