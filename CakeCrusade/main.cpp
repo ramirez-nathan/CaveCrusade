@@ -34,7 +34,7 @@ int main()
     try {
         //enemies.push_back(make_unique<Soldier>(2000.f, 50.f, 50.f, 0.15f, 40.0f));
         //enemies.push_back(make_unique<Soldier>(2000.f, 50.f, 50.f, 0.20f, 40.0f)); // give diff speeds to avoid complete overlapping
-        enemies.push_back(make_unique<Skeleton>(15000.f, 20.f, 20.f, 0.0f)); 
+        //enemies.push_back(make_unique<Skeleton>(15000.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.15f)); 
         //enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.02f)); */
