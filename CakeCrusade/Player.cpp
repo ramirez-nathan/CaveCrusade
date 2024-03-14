@@ -3,7 +3,9 @@
 #include <math.h>
 #include <ostream>
 #include <algorithm>    // std::find
+#include "SoundFx.hpp"
 
+SoundFx sound;
 
 Player::Player(float h, float dmg, float def, float spd) 
    : Entity(h, dmg, def, spd), MaxFireRate(500), FireRateTimer(0), MaxSwingRate(200), SwingRateTimer(0)
@@ -203,6 +205,7 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
             Ammo--;
             cout << "Your Ammo is: " << Ammo << endl;
             FireRateTimer = 0; 
+            sound.loadSound("sound/sounds/shootArrow.wav");
         } 
     } 
     else { 
@@ -225,6 +228,7 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
             if (enemies[j]->getHealth() > 0) {
                 if (Math::didRectCollide(Arrows[i - 1].getArrowGlobalBounds(), enemies[j]->getHitBox().getGlobalBounds()))
                 {
+                    sound.loadSound("sound/sounds/enemyHurt.wav");
                     if (enemies[j]->getDefense() > 0) {
                         enemies[j]->changeDefense(-50); // Arrow dmg is 40
                         enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
@@ -253,6 +257,8 @@ void Player::handleSword(const double deltaTime, vector<unique_ptr<Enemy>>& enem
     {
         IsAttacking = true;
         if (IsAttacking) {
+            
+           sound.loadSound("sound/sounds/playerSlash.wav");
            for (size_t j = 0; j < enemies.size(); ++j) {
                if (enemies[j]->getHealth() > 0) {
                    if (canAttack(enemies[j]->getSprite().getPosition(), 100, mousePosition)) {
@@ -264,7 +270,7 @@ void Player::handleSword(const double deltaTime, vector<unique_ptr<Enemy>>& enem
                            enemies[j]->changeHealth(-200);
                            enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                        }
-
+                       sound.loadSound("sound/sounds/enemyHurt.wav");
                        cout << "You Slashed an Enemy! Enemy #" << j << "'s health is : " << enemies[j]->getHealth() << endl;
                    }
                }

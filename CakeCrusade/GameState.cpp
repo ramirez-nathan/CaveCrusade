@@ -12,22 +12,25 @@
 
 using namespace std;
 
-GameState::GameState()
+GameState::GameState(SoundFx& s)
 { 
     LevelHeight = 14;
     LevelWidth = 23;
     tileset = "assets/tilemap/tileset1.png";
-    CurrLevelName = "3d";
+    CurrLevelName = "1a";
     hasSpikes = false;
     onMenu = true;
     isRunning = true;
     inCutscene = false;
+    s.loadMusic("sound/music/andthejourneybegins.wav");
 }
 
+/*
 GameState::~GameState()
 {
     delete[] CurrentLevel;
 }
+*/
 
 bool GameState::loadLevel() // Checks if the new level has been successfully loaded
 {

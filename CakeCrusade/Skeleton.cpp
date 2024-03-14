@@ -1,4 +1,7 @@
 #include "Skeleton.hpp"
+#include "SoundFx.hpp"
+
+SoundFx soundSkeleton;
 
 Skeleton::Skeleton(float h, float dmg, float def, float spd)
 	: Enemy(h, dmg, def, spd), MaxFireRate(1800.f), FireRateTimer(0) {}
@@ -91,6 +94,7 @@ void Skeleton::handleArrow(const double deltaTime, Entity& player, const sf::Vec
                 // erase the arrow from the vector
                 SkellyArrows.erase(SkellyArrows.begin() + (i - 1));
                 
+                soundSkeleton.loadSound("sound/sounds/playerHurt.wav");
                 cout << "Player's half hearts is: " << player.getHalfHearts() << ", gold half hearts is: " << player.getGoldHalfHearts() << endl;
             }
         }

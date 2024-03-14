@@ -9,8 +9,8 @@ using namespace std;
 
 class GameState {
 public:
-    GameState();
-    ~GameState();
+    GameState(SoundFx& s);
+    ~GameState() = default;
 
     bool loadLevel();
     void changeLevel(string levelName, Player& p, string type, SoundFx& s, vector<unique_ptr<Enemy>>& enemies);
@@ -26,6 +26,8 @@ public:
     void drawHearts(Player& p);
 
     TileMap Map;
+
+    
 
     int CurrentLevel[23 * 14] =
     {

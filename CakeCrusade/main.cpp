@@ -18,8 +18,11 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char** argv) 
 {
+    //::testing::InitGoogleTest(&argc, argv);
+    //return RUN_ALL_TESTS();
+    
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(1472, 896), "Cake Crusade", sf::Style::Default, settings);
@@ -72,7 +75,8 @@ int main()
     // ------------------------------- TILEMAP ----------------------------------
     // define the level with an array of tile indices
     
-    GameState state;
+    SoundFx musicState;
+    GameState state(musicState);
     state.drawHearts(player);
     state.loadLevel();
 
@@ -86,9 +90,6 @@ int main()
 
     // ------------------------------------------ LOAD ---------------------------------
     sf::Clock GameStateClock;
-    
-
-    SoundFx musicState;
 
     Menu menu(window);
     Cutscene boulder(window);
