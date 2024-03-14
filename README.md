@@ -5,7 +5,7 @@
             [Rachel Lee](https://github.com/rache11ee)
 
 ## Project Description
- **Cake Crusade: Rise of the Pastry Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of delicious monsters to defeat Baker the Wizard, an evil magician who plans to take over the kingdom with an army of mouthwatering monsters! Fight your way to the end of his dungeon using an array of weapons to recover the Whisk of Wonder that was stolen from your kingdom! 
+ **Cave Crusade: Rise of the Shadow Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of evil monsters to defeat Boulder the Wizard, an evil rock who plans to take over the kingdom with an army of despicable monsters! Fight your way to the end of his dungeon using an array of weapons to recover the Box of Wonder that was stolen from your kingdom! 
 
 The project aims to captivate players through an immersive storyline, strategic gameplay, and a visually appealing environment.
 
@@ -33,16 +33,16 @@ The project aims to captivate players through an immersive storyline, strategic 
 
 ### Screen Layouts
 Start Screen:
-![CakeCrusadeStartScreen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/04672150-48c8-4f90-b208-026b84f8847f)
+![CaveCrusadeStartScreen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/04672150-48c8-4f90-b208-026b84f8847f)
 
 Menu Screen: 
-![CakeCrusadeMenuScreen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/99c0eaeb-a8a6-4b30-8d0e-24a48d2c6bed)
+![CaveCrusadeMenuScreen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/99c0eaeb-a8a6-4b30-8d0e-24a48d2c6bed)
 
 In-Game Screen:
-![CakeCrusadeInGameScreen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/6cd9e566-1971-4390-891e-0a0d6bc4eecc)
+![CaveCrusadeInGameScreen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/6cd9e566-1971-4390-891e-0a0d6bc4eecc)
 
 ## Class Diagram
-![CakeCrusadeUML](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/da454239-e67f-4412-91af-c28893160b8a)
+![CaveCrusadeUML](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/da454239-e67f-4412-91af-c28893160b8a)
 
 | Class | Description |
 | --- | --- |
