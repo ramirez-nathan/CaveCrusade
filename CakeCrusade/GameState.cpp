@@ -18,7 +18,7 @@ GameState::GameState(SoundFx& s)
     LevelHeight = 14;
     LevelWidth = 23;
     Tileset = "assets/tilemap/tileset1.png";
-    CurrLevelName = "4c";
+    CurrLevelName = "1a";
     HasSpikes = false;
     onMenu = true;
     isRunning = true;
