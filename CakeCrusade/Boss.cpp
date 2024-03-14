@@ -78,7 +78,7 @@ void Boss::handleRocks(const double deltaTime, Entity& player, const sf::Vector2
 	{
 		if (Rocks[i - 1].didRockHitWall(deltaTime, walls, level))
 		{
-			// if an arrow hits a wall, erase it from the vector
+			// if an rock hits a wall, erase it from the vector
 			Rocks.erase(Rocks.begin() + (i - 1));
 			continue;
 		}
@@ -96,19 +96,13 @@ void Boss::handleRocks(const double deltaTime, Entity& player, const sf::Vector2
 					player.changeHealth(-25);
 				}
 
-				// erase the arrow from the vector
+				// erase the rock from the vector
 				Rocks.erase(Rocks.begin() + (i - 1));
 				cout << "You've been hit by a load of rocks!" << endl;
 				cout << "Player's health is: " << player.getHealth() << endl;
 			}
 		}
 	}
-	sf::Vector2f position(55.5, 55.5);
-
-	if (player.getHealth() > 0) {
-		sf::Vector2f newPosition = position;
-	}
-	
 }
 
 void Boss::update(double deltaTime, Entity& player, const sf::Vector2f& target, int level[]){
@@ -121,39 +115,31 @@ void Boss::update(double deltaTime, Entity& player, const sf::Vector2f& target, 
 
 		BoundingRectangle.setPosition(Sprite.getPosition());
 	}
+	if (Health < 250) {
+		transparency(deltaTime);
+	}
 }
 
 void Boss::transparency(double deltaTime) {
 	static double currentVisibility = 255.0f;
-	const double targetVisibility = 0.0f;
-	const double fadeSpeed = 40.0f;
+	const double targetVisibility = 150.0f;
+	const double fadeSpeed = 0.5f;
 
-	if (currentVisibility > targetVisibility) {
-		currentVisibility -= fadeSpeed * deltaTime;
-		if (currentVisibility <= targetVisibility) {
-			currentVisibility = targetVisibility;
-		}
-	}
+	double timeTracker = 0.0;
+	timeTracker += deltaTime;
+	
 
-	sf::Color color = Sprite.getColor();
-	color.a = static_cast<sf::Uint8>(currentVisibility);
-	Sprite.setColor(color);
-}
+	if (timeTracker >= deltaTime) {
+		if (currentVisibility > targetVisibility) {
+			currentVisibility -= fadeSpeed;
 
-void Boss::handleBat(const double deltaTime, Entity& player, const sf::Vector2f& target, double& speedRateTimer, const float& maxSpeed, int level[], vector<int>& walls) {
-	speedRateTimer += deltaTime;
+			sf::Color color = Sprite.getColor();
+			color.a = static_cast<sf::Uint8>(currentVisibility);
+			Sprite.setColor(color);
 
-	if (player.getHealth() > 0) {
-		if (Math::didRectCollide (player.getHitBox().getGlobalBounds(), player.getHitBox().getGlobalBounds())) {
-			if (player.getDefense() > 0) {
-				player.changeDefense(-50);
+			if (currentVisibility <= targetVisibility) {
+				currentVisibility = targetVisibility;
 			}
-			else {
-				player.changeHealth(-25);
-			}
-
-			cout << "You've been bonked by a bat!" << endl;
-			cout << "Player's health is: " << player.getHealth() << endl;
 		}
 	}
 }
@@ -171,9 +157,6 @@ void Boss::draw(sf::RenderWindow& window) {
 
 
 
-//when boss is at like 75% health, push more enemies into enemy vectors
-//draw the enemies
-//take enemies as reference
 
 
 

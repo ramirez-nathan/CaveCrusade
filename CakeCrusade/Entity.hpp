@@ -1,4 +1,7 @@
 #pragma once
+#ifndef ENTITY_HPP
+#define ENTITY_HPP
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <math.h>
@@ -76,3 +79,5 @@ public:
     //virtual void draw(sf::RenderWindow& window) = 0;
 
 };
+
+#endif
