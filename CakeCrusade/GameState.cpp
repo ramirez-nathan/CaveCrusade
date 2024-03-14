@@ -762,15 +762,19 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                     enemy->load();
                 }
             }
-            if (!OneCChestOpened) { // WIP SPAWNING INTERACTABLES
+            if (!OneCChestOpened) { // SPAWNING INTERACTABLES
                 try {
                     interactables.push_back(Interactable("Chest"));
+                    interactables.push_back(Interactable("Key"));
+                    interactables.push_back(Interactable("Gold Heart"));
                 }
                 catch (const bad_alloc& e) {
                     std::cerr << "Memory allocation failed: " << e.what() << std::endl;
                 }
                 vector<sf::Vector2f> chestPosition1c = {
-                    sf::Vector2f(1218.f, 670.f), // Chest position 
+                    sf::Vector2f(1217.f, 670.f), // Chest position 
+                    sf::Vector2f(1217.f, 738.f), // Key position
+                    sf::Vector2f(1153.f, 686.f) // Gold Heart position
                 };
                 for (size_t i = 0; i < interactables.size(); i++)
                 {
@@ -821,7 +825,13 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         /*---------------------------------------------- Level 2 -------------------------------------------------*/
 
         else if (levelName == "2c") { // go back to 2b
-
+            for (auto& interactable : interactables) {
+                if (interactable.getItemName() == "Chest") {
+                    if (interactable.isChestOpened()) {
+                        TwoCChestOpened = true;
+                    }
+                }
+            }
             int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -884,15 +894,40 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 catch (const bad_alloc& e) {
                     std::cerr << "Memory allocation failed: " << e.what() << std::endl;
                 }
-                vector<sf::Vector2f> enemyPositions1b = {
+                vector<sf::Vector2f> enemyPositions2c = {
                     sf::Vector2f(544.f, 471.f) // Slime1 position 
                 };
                 for (size_t i = 0; i < enemies.size(); ++i) {
-                    enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
+                    enemies[i]->changePosition(enemyPositions2c[i].x, enemyPositions2c[i].y);
                 }
                 for (auto& enemy : enemies) {
                     enemy->initialize();
                     enemy->load();
+                }
+            }
+            if (!TwoCChestOpened) { // spawning interactables
+                try {
+                    interactables.push_back(Interactable("Chest")); // Chest
+                    interactables.push_back(Interactable("Key")); // Key
+                    interactables.push_back(Interactable("Gold Heart")); // Gold Heart
+                    interactables.push_back(Interactable("Red Heart")); // Red Heart
+                }
+                catch (const bad_alloc& e) {
+                    std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                }
+                vector<sf::Vector2f> chestPosition2c = {
+                    sf::Vector2f(226.f, 476.f), // Chest position 
+                    sf::Vector2f(226.f, 552.f), // Key position
+                    sf::Vector2f(162.f, 500.f), // Gold Heart position
+                    sf::Vector2f(292.f, 500.f) // Red Heart position
+                };
+                for (size_t i = 0; i < interactables.size(); i++)
+                {
+                    interactables[i].changePosition(chestPosition2c[i].x, chestPosition2c[i].y);
+                }
+                for (auto& interactable : interactables) {
+                    interactable.initialize();
+                    interactable.load();
                 }
             }
         }

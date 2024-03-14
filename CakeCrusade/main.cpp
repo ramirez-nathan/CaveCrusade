@@ -192,14 +192,6 @@ int main()
             ),
             enemies.end() // the 2nd parameter; tells where to end the erasing
         );
-        /*interactables.erase( // Some genie code for erasing enemies from the vector
-            std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
-                interactables.begin(),
-                interactables.end(),
-                [&](auto& interactable) { return interactable.isTouched(); }
-            ),
-            interactables.end() // the 2nd parameter; tells where to end the erasing
-        );*/
         
         if (player.getHealth() <= 0) {
             break;

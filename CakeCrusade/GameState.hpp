@@ -21,7 +21,7 @@ public:
     bool OneCChestOpened = false;
     bool TwoCChestOpened = false;
     bool ThreeCChestOpened = false;
-  
+
     string Tileset;
     string CurrLevelName;
     void changeTile(int currTile, int newTile);
