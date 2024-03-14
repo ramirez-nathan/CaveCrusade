@@ -256,6 +256,11 @@ int main(int argc, char** argv)
 
             }
 
+            if (player.getHalfHearts() == 0 && player.getGoldHalfHearts() == 0) {
+                state.onMenu = true;
+                state.isOver = true;
+            }
+
             window.display();
 
             //-------------------------------- DRAW --------------------------------

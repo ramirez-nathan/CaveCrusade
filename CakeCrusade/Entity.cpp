@@ -24,8 +24,8 @@ void Entity::changePosition(float x, float y)
 void Entity::initialize()
 {
     BoundingRectangle.setFillColor(sf::Color::Transparent);
-    BoundingRectangle.setOutlineColor(sf::Color::Red);
-    BoundingRectangle.setOutlineThickness(1);
+    //BoundingRectangle.setOutlineColor(sf::Color::Red);
+    //BoundingRectangle.setOutlineThickness(1);
 
     Size = sf::Vector2i(32, 32);
 }
