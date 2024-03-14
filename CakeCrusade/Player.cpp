@@ -6,7 +6,7 @@
 
 
 Player::Player(float h, float dmg, float def, float spd) 
-   : Entity(h, dmg, def, spd), MaxFireRate(500), FireRateTimer(0), MaxSwingRate(400), SwingRateTimer(0)
+   : Entity(h, dmg, def, spd), MaxFireRate(500), FireRateTimer(0), MaxSwingRate(600), SwingRateTimer(0)
 {
 }
 
@@ -425,7 +425,7 @@ bool Player::isTouchingDoor(int level[])
     
     int currPos = floor(position.y / 64) * 23 + floor(position.x / 64);
 
-    if ((level[currPos] == 53 || level[currPos] == 54 || level[currPos] == 55) && HasKey) {
+    if ((level[currPos] == 53 || level[currPos] == 54 || level[currPos] == 55)) {
         return true;
     }
     return false;

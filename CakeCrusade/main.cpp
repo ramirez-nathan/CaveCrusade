@@ -83,7 +83,6 @@ int main()
 
     // ------------------------------------------ LOAD ---------------------------------
     sf::Clock GameStateClock;
-    
 
     SoundFx musicState;
 
@@ -117,14 +116,14 @@ int main()
         // Update player 
         player.playerUpdate(deltaTime, enemies, mousePosition, state.CurrentLevel);
         for (auto& interactable : interactables) {
-            interactable.update(deltaTime, player, enemies, state.CurrentLevel);
+            interactable.update(deltaTime, player, enemies, state.CurrentLevel, state);
         }
         
         //cout << state.hasSpikes << endl;
 
         if (enemies.size() == 0) {
 
-            if (player.getKeyState() == true) { 
+            if (state.PlayerHasKey) { 
                 state.changeTile(22, 56);
                 state.changeTile(23, 57);
                 state.changeTile(24, 58);
@@ -140,24 +139,26 @@ int main()
             }
             state.loadLevel();
         }
-
-
-
-        if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel)) { // go to new room
+        
+        if (enemies.size() == 0 && player.isTouchingDoor(state.CurrentLevel) && state.PlayerHasKey) { // go to new room
             state.changeLevel(state.CurrLevelName, player, "door", musicState, enemies, interactables);
             // change keystate to false here
             // erase entire interactables vector
-            interactables.erase( // Some genie code for erasing enemies from the vector
-                std::remove_if( // the first parameter of erase; returns an iterator (place to begin erasing) at the dead element (enemy that is dead)
-                    interactables.begin(),
-                    interactables.end(),
-                    [&](auto& interactable) { return true; }
-                ),
-                interactables.end() // the 2nd parameter; tells where to end the erasing
-            );
+            if (state.CurrLevelName != "5a" && state.CurrLevelName != "4b") {
+                interactables.erase(
+                    std::remove_if(
+                        interactables.begin(),
+                        interactables.end(),
+                        [&](auto& interactable) { return true; }
+                    ),
+                    interactables.end()
+                );
+            }
+            state.ItemsReadyToSpawn = false;
+            state.ChestIsOpened = false;
             state.loadLevel();
         }
-
+        cout << interactables.size() << endl;
         if (enemies.size() == 0 && player.isTouchingStair(state.CurrentLevel)) {
             state.changeLevel(state.CurrLevelName, player, "stair", musicState, enemies, interactables);
             state.loadLevel();
@@ -173,7 +174,7 @@ int main()
             enemy->draw(window);
         }
         for (auto& interactable : interactables) {
-            interactable.drawInteractable(window, state.CurrLevelName);
+            interactable.drawInteractable(window, state);
         }
         player.drawPlayer(window);
 

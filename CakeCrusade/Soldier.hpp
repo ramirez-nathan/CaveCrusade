@@ -10,7 +10,6 @@ using namespace std;
 class Soldier : public Enemy
 {
 private:
-	//float MeleeRange;
 	float AttackCooldown = 1.0f;
 	const float aggressiveRange = 250.0f;
 

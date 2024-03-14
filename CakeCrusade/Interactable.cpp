@@ -1,4 +1,5 @@
 #include "Interactable.hpp"
+#include "GameState.hpp"
 
 Interactable::Interactable(string name)
 	: ItemName(name)
@@ -52,29 +53,32 @@ void Interactable::load()
 	// wrap the hitbox around the player
 	BoundingRectangle.setSize(sf::Vector2f(Size.x * (Sprite.getScale().x - 1.2), Size.y * (Sprite.getScale().y - 1.2)));
 	// set hitbox origin to middle
-	BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f + 13);
+	BoundingRectangle.setOrigin(BoundingRectangle.getSize().x / 2.f, BoundingRectangle.getSize().y / 2.f + 25);
 }
 
-void Interactable::update(const double deltaTime, Player& player, vector<unique_ptr<Enemy>>& enemies, int level[])
+void Interactable::update(const double deltaTime, Player& player, vector<unique_ptr<Enemy>>& enemies, int level[], GameState& state)
 {
-	if (!ReadyToSpawn) {
-		if (ChestIsOpened) {
-			ReadyToSpawn = true;
+	if (!state.ItemsReadyToSpawn) {
+		if (state.ChestIsOpened) {
+			state.ItemsReadyToSpawn = true;
 		}
 	}
-	if (ReadyToSpawn && ItemName != "Chest") {
+	if (state.ItemsReadyToSpawn && ItemName != "Chest") {
 		SpriteX = 0;
 		if (!IsTouched) {
 			if (Math::didRectCollide(player.getHitBox().getGlobalBounds(), BoundingRectangle.getGlobalBounds())) {
 				IsTouched = true;
 				if (ItemName == "Red Heart") {
 					player.changeHalfHearts(2);
+					cout << "You picked up a Red Heart! Your amount of half hearts is: " << player.getHalfHearts() << "Your amount of gold half hearts is : " << player.getGoldHalfHearts() << endl;
 				}
 				else if (ItemName == "Gold Heart") {
 					player.changeGoldHalfHearts(2);
+					cout << "You picked up a Gold Heart! Your amount of half hearts is: " << player.getHalfHearts() << "Your amount of gold half hearts is : " << player.getGoldHalfHearts() << endl;
 				}
 				else if (ItemName == "Key") {
-					player.setKeyState(true);
+					state.PlayerHasKey = true;
+					cout << "You picked up a Key!" << endl;
 				}
 				else if (ItemName == "Bow") {
 					player.setBowState(true);
@@ -84,10 +88,10 @@ void Interactable::update(const double deltaTime, Player& player, vector<unique_
 		}
 	}
 	if (ItemName == "Chest") {
-		if (enemies.size() == 0 && !ChestIsOpened) {
+		if (enemies.size() == 0 && !state.ChestIsOpened) {
 			chestAnimation();
 			if (ChestAnimationComplete) {
-				ChestIsOpened = true;
+				state.ChestIsOpened = true;
 			}
 			SpriteX = ChestSpriteX;
 		}
@@ -120,13 +124,13 @@ bool Interactable::isTouched() {
 	}
 }
 
-void Interactable::drawInteractable(sf::RenderWindow& window, string currLevelName) {
-	cout << (ChestIsOpened && !IsTouched && ItemName != "Chest") << endl;
-	if (ItemName == "Chest" && (currLevelName == "1c" || currLevelName == "2c" || currLevelName == "3c" || currLevelName == "4b" || currLevelName == "5a")) {
+void Interactable::drawInteractable(sf::RenderWindow& window, GameState& state) {
+	//cout << (ItemName == "Chest" && (state.CurrLevelName == "1c" || state.CurrLevelName == "2c" || state.CurrLevelName == "3c" || state.CurrLevelName == "4b" || state.CurrLevelName == "5a")) << endl;
+	if (ItemName == "Chest" && (state.CurrLevelName == "1c" || state.CurrLevelName == "2c" || state.CurrLevelName == "3c" || state.CurrLevelName == "4b" || state.CurrLevelName == "5a")) {
 		window.draw(Sprite);
 	}
-	else if (ChestIsOpened && !IsTouched && ItemName != "Chest") {
+	else if (state.ItemsReadyToSpawn && !IsTouched && ItemName != "Chest" && (state.CurrLevelName == "1c" || state.CurrLevelName == "2c" || state.CurrLevelName == "3c" || state.CurrLevelName == "4b" || state.CurrLevelName == "5a")) {
 		window.draw(Sprite);
-		window.draw(BoundingRectangle);
+		//window.draw(BoundingRectangle);
 	}
 }
