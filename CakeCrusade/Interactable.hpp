@@ -12,6 +12,8 @@
 
 using namespace std;
 
+class GameState;
+
 class Interactable
 {
 protected:
@@ -19,12 +21,12 @@ protected:
 	string TexturePath = "";
 
 	bool IsTouched = false;
-	bool ReadyToSpawn = false;
+	//bool ReadyToSpawn = false;
 	bool IdleAnimationComplete = true;
 
 
 	sf::Clock ChestClock;
-	bool ChestIsOpened = false;
+	//bool ChestIsOpened = false;
 	bool ChestAnimationComplete = true;
 	bool IsFinished = false;
 
@@ -49,16 +51,16 @@ public:
 	
 	void initialize();
 	void load();
-	void update(const double deltaTime, Player& player, vector<unique_ptr<Enemy>>& enemies, int level[]);
+	void update(const double deltaTime, Player& player, vector<unique_ptr<Enemy>>& enemies, int level[], GameState& state);
 
 
 	void chestAnimation();
 
-	void drawInteractable(sf::RenderWindow& window, string currLevelName);
+	void drawInteractable(sf::RenderWindow& window, GameState& state);
 
 	string& getItemName() { return ItemName; }
 
-	bool isChestOpened() { return ChestIsOpened; }
+	//bool isChestOpened() { return ChestIsOpened; }
 
 	bool isTouched();
 

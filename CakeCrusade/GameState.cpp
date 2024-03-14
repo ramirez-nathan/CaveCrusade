@@ -2,11 +2,11 @@
 #include <string> 
 #include <algorithm>
 #include "Enemy.hpp"
-#include "Player.hpp"
 #include "Soldier.hpp"
 #include "Enemy.hpp"
 #include "Slime.hpp"
 #include "Skeleton.hpp"
+#include "Interactable.hpp"
 
 using namespace std;
 
@@ -36,7 +36,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
     
     if (type == "door") {
         if (levelName == "debug") {
-            int* NewLevel = new int[23 * 14]
+            int* NewLevel = new int[23 * 14] 
             {
                  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                  18,  6,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
@@ -59,23 +59,24 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             delete[] NewLevel;
         }
 
-        else if (levelName == "1a") {
+        else if (levelName == "1a") { // changes to 1b
+            PlayerHasKey = false;
             int* NewLevel = new int[23 * 14]
                 {
                     18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
-                    18,  6,  7, 22, 23, 24,  7,  7,  7,  7,  7, 44,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
-                    18,  9,  0, 25, 26, 27,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                    18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                    18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                    18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                    18,  6,  7,  7,  7,  7,  7, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                    18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                    18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                    18,  9,  0,  0, 43,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                    18,  9,  2,  3, 43,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                    18,  9,  4,  5, 43,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                    18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 13, 18,
-                    60, 62, 18, 59, 63, 18, 61, 64, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                        18, 6, 7, 22, 23, 24, 7, 7, 7, 7, 7, 44, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 18,
+                        18, 9, 0, 25, 26, 27, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 6, 7, 7, 7, 7, 7, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 0, 0, 43, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 2, 3, 43, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 9, 4, 5, 43, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
+                        18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 13, 18,
+                        60, 62, 18, 59, 63, 18, 61, 64, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                 };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -102,7 +103,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 enemy->load();
             }
         }
-            
+        
 
 
         else if (levelName == "1b") {
@@ -204,7 +205,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         }
 
         else if (levelName == "2a") { // change to 2b 
-
+            PlayerHasKey = false;
             int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -354,7 +355,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         }
 
         else if (levelName == "3a") { // changes to 3b
-
+            PlayerHasKey = false;
             int* NewLevel = new int[23 * 14]
             {
                  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18,
@@ -434,7 +435,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         }
 
         else if (levelName == "3b") { // changes to 3d
-
+            
             int* NewLevel = new int[23 * 14]
             {
                  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -537,7 +538,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
         }
 
-        else if (levelName == "4a") { // change to 4b
+        else if (levelName == "4a") { // change to 4b 
 
             int* NewLevel = new int[23 * 14]
             {
@@ -585,6 +586,30 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 enemy->initialize();
                 enemy->load();
             }
+            try {
+                interactables.push_back(Interactable("Chest"));
+                interactables.push_back(Interactable("Red Heart"));
+                interactables.push_back(Interactable("Red Heart"));
+                interactables.push_back(Interactable("Gold Heart"));
+            }
+            catch (const bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+            }
+            vector<sf::Vector2f> chestPositions4b = {
+                sf::Vector2f(1217.f, 251.f), 
+                sf::Vector2f(1153.f, 269.f),
+                sf::Vector2f(1282.f, 269.f),
+                sf::Vector2f(1217.f, 339.f)
+            };
+            for (size_t i = 0; i < interactables.size(); i++)
+            {
+                interactables[i].changePosition(chestPositions4b[i].x, chestPositions4b[i].y);
+            }
+            for (auto& interactable : interactables) {
+                interactable.initialize();
+                interactable.load();
+            }
+            cout << interactables.size() << endl;
         }
 
         else if (levelName == "4b") { // change to 4c
@@ -674,7 +699,33 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             CurrLevelName = "5a";
             p.changePosition(739.f, 750.f);
-
+            try {
+                interactables.push_back(Interactable("Chest"));
+                interactables.push_back(Interactable("Red Heart"));
+                interactables.push_back(Interactable("Red Heart"));
+                interactables.push_back(Interactable("Red Heart"));
+                interactables.push_back(Interactable("Gold Heart"));
+                interactables.push_back(Interactable("Gold Heart"));
+            }
+            catch (const bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+            }
+            vector<sf::Vector2f> chestPositions5a = {
+                sf::Vector2f(736.f, 441.f), // Chest1 position 
+                sf::Vector2f(675.f, 428.f),
+                sf::Vector2f(803.f, 428.f),
+                sf::Vector2f(740.f, 523.f),
+                sf::Vector2f(675.f, 460.f),
+                sf::Vector2f(803.f, 460.f)
+            };
+            for (size_t i = 0; i < interactables.size(); i++)
+            {
+                interactables[i].changePosition(chestPositions5a[i].x, chestPositions5a[i].y);
+            }
+            for (auto& interactable : interactables) {
+                interactable.initialize();
+                interactable.load();
+            }
         }
 
         else if (levelName == "5a") { // change to 5b (boss room)
@@ -718,7 +769,6 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
 
     else if (type == "stair") {
-
         if (levelName == "1b") {
             int* NewLevel = new int[23 * 14]
             {
@@ -790,13 +840,16 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         }
 
         else if (levelName == "1c") {
-            for (auto& interactable : interactables) {
+            if (ChestIsOpened) {
+                OneCChestOpened = true;
+            }
+            /*for (auto& interactable : interactables) {
                 if (interactable.getItemName() == "Chest") {
                     if (interactable.isChestOpened()) {
                         OneCChestOpened = true;
                     }
                 }
-            }
+            }*/
             int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -827,13 +880,16 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         /*---------------------------------------------- Level 2 -------------------------------------------------*/
 
         else if (levelName == "2c") { // go back to 2b
-            for (auto& interactable : interactables) {
+            if (ChestIsOpened) {
+                TwoCChestOpened = true;
+            }
+            /*for (auto& interactable : interactables) {
                 if (interactable.getItemName() == "Chest") {
                     if (interactable.isChestOpened()) {
                         TwoCChestOpened = true;
                     }
                 }
-            }
+            }*/
             int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -862,7 +918,6 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         }
 
         else if (levelName == "2b") { // change to 2c
-
             int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -939,7 +994,9 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
 
         else if (levelName == "3c") {
-
+            if (ChestIsOpened) {
+                ThreeCChestOpened = true;
+            }
             int* NewLevel = new int[23 * 14]
             {
                  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18,
@@ -968,7 +1025,6 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         }
 
         else if (levelName == "3b") { // changes to 3c
-
             int* NewLevel = new int[23 * 14]
             {
                     18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -1013,6 +1069,33 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 for (auto& enemy : enemies) {
                     enemy->initialize();
                     enemy->load();
+                }
+            }
+            if (!ThreeCChestOpened) {
+                try {
+                    interactables.push_back(Interactable("Chest"));
+                    interactables.push_back(Interactable("Key"));
+                    interactables.push_back(Interactable("Red Heart"));
+                    interactables.push_back(Interactable("Gold Heart"));
+                    interactables.push_back(Interactable("Gold Heart"));
+                }
+                catch (const bad_alloc& e) {
+                    std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                }
+                vector<sf::Vector2f> chestPositions3c = {
+                    sf::Vector2f(1215.f, 255.f), 
+                    sf::Vector2f(1215.f, 329.f),
+                    sf::Vector2f(1153.f, 271.f),
+                    sf::Vector2f(1280.f, 269.f),
+                    sf::Vector2f(1222.f, 198.f),
+                };
+                for (size_t i = 0; i < interactables.size(); i++)
+                {
+                    interactables[i].changePosition(chestPositions3c[i].x, chestPositions3c[i].y);
+                }
+                for (auto& interactable : interactables) {
+                    interactable.initialize();
+                    interactable.load();
                 }
             }
         }

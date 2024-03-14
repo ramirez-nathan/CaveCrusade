@@ -4,9 +4,11 @@
 #include <string>
 #include "Player.hpp"
 #include "SoundFx.hpp"
-#include "Interactable.hpp"
+
 
 using namespace std;
+
+class Interactable;
 
 class GameState {
 public:
@@ -23,6 +25,11 @@ public:
     bool OneCChestOpened = false;
     bool TwoCChestOpened = false;
     bool ThreeCChestOpened = false;
+
+    bool PlayerHasKey = true;
+
+    bool ItemsReadyToSpawn = false;
+    bool ChestIsOpened = false;
 
     string Tileset;
     bool onMenu;
@@ -58,3 +65,4 @@ private:
     unsigned int LevelHeight;
 
 };
+#endif
