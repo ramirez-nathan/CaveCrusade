@@ -1,4 +1,7 @@
 #include "Enemy.hpp"
+#include "SoundFx.hpp"
+
+
 
 Enemy::Enemy(float h, float dmg, float def, float spd) : Entity(h, dmg, def, spd) {
     // Constructor implementation can initialize any additional members here
@@ -6,14 +9,17 @@ Enemy::Enemy(float h, float dmg, float def, float spd) : Entity(h, dmg, def, spd
 
 void Enemy::attackMove(const double deltaTime, Entity& player) 
 { 
+    SoundFx sound;
     AttackTimer += deltaTime;
-    if (canAttack(player.getSprite().getPosition(), 50) && AttackTimer >= MaxAttackRate) {
-        player.changeHealth(-Damage);
+    if (canAttack(player.getSprite().getPosition(), 70) && AttackTimer >= MaxAttackRate) {
+        player.changeHalfHearts(-1);
+        
         cout << "You've been hit!" << endl;
-        cout << "Player's health is now " << player.getHealth() << endl;
+        cout << "Player's half hearts is now " << player.getHalfHearts() << endl;
+        sound.loadSound("sound/sounds/playerHurt.wav");
         AttackTimer = 0;
     }
-} 
+}
 
 bool Enemy::canAttack(const sf::Vector2f& playerPosition, float attackRange) const
 {

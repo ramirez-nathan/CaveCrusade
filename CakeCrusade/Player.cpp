@@ -3,16 +3,42 @@
 #include <math.h>
 #include <ostream>
 #include <algorithm>    // std::find
+#include "SoundFx.hpp"
 
+SoundFx sound;
 
 Player::Player(float h, float dmg, float def, float spd) 
-   : Entity(h, dmg, def, spd), MaxFireRate(500), FireRateTimer(0), MaxSwingRate(200), SwingRateTimer(0)
+   : Entity(h, dmg, def, spd), MaxFireRate(500), FireRateTimer(0), MaxSwingRate(600), SwingRateTimer(0)
 {
 }
 
 Player::~Player()
 {
 }
+
+void Player::setHeartContainer(int value) {
+    HeartContainerCount = value;
+}
+void Player::setGoldContainer(int value) {
+    GoldHeartContainerCount = value;
+}
+
+void Player::changeHalfHearts(int damage) {
+    HalfHeartCount += damage;
+    DamageDone += damage;
+    if (HalfHeartCount < 0) {
+        HalfHeartCount = 0;
+    }
+}
+
+void Player::changeGoldHalfHearts(int damage) {
+    GoldHalfHeartCount += damage;
+    DamageDone += damage;
+    if (GoldHalfHeartCount < 0) {
+        GoldHalfHeartCount = 0;
+    }
+}
+
 
 void Player::initialize()
 {
@@ -123,7 +149,7 @@ void Player::playerUpdate(const double deltaTime, vector<unique_ptr<Enemy>>& ene
                 PlayerIdleClock.restart();
             }
         }
-        
+
 
         handleSword(deltaTime, enemies, mousePosition, SwingRateTimer, MaxSwingRate, level, Walls);
         //---------------------------------------------- ARROWS -------------------------------------------------
@@ -179,6 +205,7 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
             Ammo--;
             cout << "Your Ammo is: " << Ammo << endl;
             FireRateTimer = 0; 
+            sound.loadSound("sound/sounds/shootArrow.wav");
         } 
     } 
     else { 
@@ -201,15 +228,16 @@ void Player::handleArrow(const double deltaTime, vector<unique_ptr<Enemy>>& enem
             if (enemies[j]->getHealth() > 0) {
                 if (Math::didRectCollide(Arrows[i - 1].getArrowGlobalBounds(), enemies[j]->getHitBox().getGlobalBounds()))
                 {
+                    sound.loadSound("sound/sounds/enemyHurt.wav");
                     if (enemies[j]->getDefense() > 0) {
-                        enemies[j]->changeDefense(-50); // Arrow dmg is 40
+                        enemies[j]->changeDefense(-80); // Arrow dmg is 80
                         if (enemies[j]->isKnockbackEnabled()) {
                             enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                         }
                         
                     }
                     else {
-                        enemies[j]->changeHealth(-50);
+                        enemies[j]->changeHealth(-80);
                         if (enemies[j]->isKnockbackEnabled()) {
                             enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                         }
@@ -234,22 +262,24 @@ void Player::handleSword(const double deltaTime, vector<unique_ptr<Enemy>>& enem
     {
         IsAttacking = true;
         if (IsAttacking) {
+            
+           sound.loadSound("sound/sounds/playerSlash.wav");
            for (size_t j = 0; j < enemies.size(); ++j) {
                if (enemies[j]->getHealth() > 0) {
                    if (canAttack(enemies[j]->getSprite().getPosition(), 100, mousePosition)) {
                        if (enemies[j]->getDefense() > 0) {
-                           enemies[j]->changeDefense(-200); 
+                           enemies[j]->changeDefense(-150); 
                            if (enemies[j]->isKnockbackEnabled()) {
                                enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                            }
                        }
                        else {
-                           enemies[j]->changeHealth(-200);
+                           enemies[j]->changeHealth(-150);
                            if (enemies[j]->isKnockbackEnabled()) {
                                enemies[j]->getKnockedBack(Sprite.getPosition(), level, walls);
                            }
                        }
-
+                       sound.loadSound("sound/sounds/enemyHurt.wav");
                        cout << "You Slashed an Enemy! Enemy #" << j << "'s health is : " << enemies[j]->getHealth() << endl;
                    }
                }
@@ -257,6 +287,7 @@ void Player::handleSword(const double deltaTime, vector<unique_ptr<Enemy>>& enem
            SwingRateTimer = 0;
         }
     }
+
 }
 
 void Player::attackMove(const double deltaTime, Entity& enemy) {
@@ -270,34 +301,32 @@ bool Player::canAttack(const sf::Vector2f& enemyPosition, float attackRange, sf:
     // Calculate the distance between the enemy and the player
     float Dx = Sprite.getPosition().x - enemyPosition.x;
     float Dy = Sprite.getPosition().y - enemyPosition.y;
-    
 
     // Check if the enemy is within the cone angle in each direction
     if (AttackingSpriteY == 0) { // Looking Down, Looking Down Diagonally
-        if ((Dx >= -90 && Dx <= 90) && (Dy >= -130 && Dy <= 0)) {
+        if ((Dx >= -110 && Dx <= 110) && (Dy >= -160 && Dy <= 0)) {
             return true;
         }
-        return false;
     }
-    else if (AttackingSpriteY == 3) { // Looking Right, Looking Right Diagonally
-        if ((Dy <= 90 && Dy >= -90) && (Dx >= -130 && Dx <= 0)) {
+    else if (AttackingSpriteY == 2) { // Looking Right, Looking Right Diagonally
+        if ((Dy <= 110 && Dy >= -110) && (Dx >= -160 && Dx <= 0)) {
             return true;
         }
-        return false;
     }
-    else if (AttackingSpriteY == 2) { // Looking Left, Looking Left Diagonally
-        if ((Dy <= 90 && Dy >= -90) && (Dx <= 130 && Dx >= 0)) {
+    else if (AttackingSpriteY == 3) { // Looking Left, Looking Left Diagonally
+        if ((Dy <= 110 && Dy >= -110) && (Dx <= 160 && Dx >= 0)) {
             return true;
         }
-        return false;
     }
     else if (AttackingSpriteY == 1) { // Looking Up, Looking Up Diagonally
-        if ((Dx >= -90 && Dx <= 90) && (Dy <= 130 && Dy >= 0)) {
+        if ((Dx >= -110 && Dx <= 110) && (Dy <= 160 && Dy >= 0)) {
             return true;
         }
-        return false;
     }
+
+    return false;
 }
+
 
 void Player::swingingAnimation(sf::Vector2f mouseDirection) {
     mouseDirection = Math::normalizeVector(mouseDirection - Sprite.getPosition());
@@ -306,16 +335,16 @@ void Player::swingingAnimation(sf::Vector2f mouseDirection) {
             AttackingSpriteY = 0;
         }
         else if ((mouseDirection.x > 0.f && mouseDirection.y == 0.f) || (mouseDirection.x > 0.f && (-0.50f <= mouseDirection.y && mouseDirection.y <= 0.5f))) { // Looking Right, Looking Right Diagonally
-            AttackingSpriteY = 3;
+            AttackingSpriteY = 2;
         }
         else if ((mouseDirection.x < 0.f && mouseDirection.y == 0.f) || (mouseDirection.x < 0.f && (-0.5f <= mouseDirection.y && mouseDirection.y <= 0.5f))) { // Looking Left, Looking Left Diagonally
-            AttackingSpriteY = 2; // ----------------- CHANGE WHEN FIXED ----------------
+            AttackingSpriteY = 3; // ----------------- CHANGE WHEN FIXED ----------------
         }
         else if ((mouseDirection.x == 0.f && mouseDirection.y < 0.f) || (mouseDirection.x != 0.f && mouseDirection.y < -0.5f)) { // Looking Up, Looking Up Diagonally
             AttackingSpriteY = 1;
         }
         AttackingAnimationComplete = false;
-        if (PlayerAttackingClock.getElapsedTime().asSeconds() > 0.15f) {
+        if (PlayerAttackingClock.getElapsedTime().asSeconds() > 0.10f) {
             if (AttackingSpriteX == 3) { // do nothing, just set shootingspritex up for the next time player shoots 
                 AttackingAnimationComplete = true;
                 IsAttacking = false;
@@ -397,7 +426,7 @@ void Player::drawPlayer(sf::RenderWindow& window)
 {
     if (Health > 0) {
         window.draw(Sprite);
-        window.draw(BoundingRectangle);
+        //window.draw(BoundingRectangle);
         // draw each arrow sprite in vector
         for (size_t i = 0; i < Arrows.size(); i++)
             Arrows[i].drawArrow(window);
@@ -410,7 +439,7 @@ bool Player::isTouchingDoor(int level[])
     
     int currPos = floor(position.y / 64) * 23 + floor(position.x / 64);
 
-    if (level[currPos] == 53 || level[currPos] == 54 || level[currPos] == 55) {
+    if ((level[currPos] == 53 || level[currPos] == 54 || level[currPos] == 55)) {
         return true;
     }
     return false;
@@ -423,6 +452,19 @@ bool Player::isTouchingStair(int level[])
     int currPos = floor(position.y / 64) * 23 + floor(position.x / 64);
 
     if (level[currPos] == 2 || level[currPos] == 3 || level[currPos] == 4 || level[currPos] == 5) {
+        return true;
+    }
+
+    return false;
+}
+
+bool Player::isTouchingEntry(int level[])
+{
+    sf::Vector2f position = Sprite.getPosition();
+
+    int currPos = floor(position.y / 64) * 23 + floor(position.x / 64);
+
+    if (level[currPos] == 70 || level[currPos] == 71 || level[currPos] == 72) {
         return true;
     }
 

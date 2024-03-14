@@ -14,10 +14,15 @@ private:
 	const string SkeletonArrowPath = "assets/enemies/skelly/attacking/arrow.png";
 	float MaxFireRate;
 	double FireRateTimer;
+	sf::Texture AttackTexture;
+
+	sf::Clock AttackClock;
 
 	bool ShootingArrow = false;
 	bool ShootingAnimationComplete = true;
 	bool FinishedBowAnimation = false;
+
+	int SkeletonDirection;
 
 public:
 	Skeleton(float h,float dmg,float def,float spd);
@@ -28,5 +33,6 @@ public:
 	virtual void update(const double deltaTime, Entity& player, const sf::Vector2f& target, int level[]) override;
 	virtual void draw(sf::RenderWindow& window) override;
 	virtual void attackAnimation(const sf::Vector2f& playerPosition) override;
+	virtual void attackMove(const double deltaTime, Entity& player) override { /* no melee attack for skeleton */ }
 	bool isKnockbackEnabled() const override {return false;} // Skeletons do not get knocked back
 };

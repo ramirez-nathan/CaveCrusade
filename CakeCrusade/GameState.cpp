@@ -2,39 +2,54 @@
 #include <string> 
 #include <algorithm>
 #include "Enemy.hpp"
-#include "Player.hpp"
 #include "Soldier.hpp"
 #include "Enemy.hpp"
 #include "Slime.hpp"
 #include "Skeleton.hpp"
+#include "Cutscene.hpp"
+#include "RockHandler.hpp"
+#include "Interactable.hpp"
+#include "Knight.hpp"
 
 using namespace std;
 
-GameState::GameState()
+GameState::GameState(SoundFx& s)
 { 
     LevelHeight = 14;
     LevelWidth = 23;
-    tileset = "assets/tilemap/tileset1.png";
+    Tileset = "assets/tilemap/tileset1.png";
     CurrLevelName = "1a";
-    hasSpikes = false;
+    HasSpikes = false;
+    onMenu = true;
+    isRunning = true;
+    inCutscene = false;
+    isOver = false;
+    s.loadMusic("sound/music/andthejourneybegins.wav");
 }
+
+/*
+GameState::~GameState()
+{
+    delete[] CurrentLevel;
+}
+*/
 
 bool GameState::loadLevel() // Checks if the new level has been successfully loaded
 {
-    if (!Map.load(tileset, sf::Vector2u(16, 16), CurrentLevel, LevelWidth, LevelHeight)) 
+    if (!Map.load(Tileset, sf::Vector2u(16, 16), CurrentLevel, LevelWidth, LevelHeight)) 
         return false;
     else 
         return true;
 }
 
 
-void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s, vector<unique_ptr<Enemy>>& enemies) // Changes the level based on door type and current level
+void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s, vector<unique_ptr<Enemy>>& enemies, vector<Interactable>& interactables) // Changes the level based on door type and current level
 {
     /*---------------------------------------------- Level 1 -------------------------------------------------*/
     
     if (type == "door") {
         if (levelName == "debug") {
-            int* NewLevel = new int[23 * 14]
+            int* NewLevel = new int[23 * 14] 
             {
                  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                  18,  6,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
@@ -49,7 +64,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -57,23 +72,24 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             delete[] NewLevel;
         }
 
-        else if (levelName == "1a") {
+        else if (levelName == "1a") { // changes to 1b
+            PlayerHasKey = false;
             int* NewLevel = new int[23 * 14]
                 {
                     18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
-                        18, 6, 7, 22, 23, 24, 7, 7, 7, 7, 7, 44, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 18,
-                        18, 9, 0, 25, 26, 27, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
-                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
-                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
-                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
-                        18, 6, 7, 7, 7, 7, 7, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
-                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
-                        18, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
-                        18, 9, 0, 0, 43, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
-                        18, 9, 2, 3, 43, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
-                        18, 9, 4, 5, 43, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 18,
-                        18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 13, 18,
-                        18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                    18,  6,  7, 22, 23, 24,  7,  7,  7,  7,  7, 44,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
+                    18,  9,  0, 25, 26, 27,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18,  6,  7,  7,  7,  7,  7, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18,  9,  0,  0, 43,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18,  9,  2,  3, 43,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18,  9,  4,  5, 43,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
+                    18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 13, 18,
+                    60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
                 };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -83,7 +99,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             p.changePosition(1250.f, 750.f);
             try {
                 enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // give diff speeds to avoid complete overlapping
-                enemies.push_back(make_unique<Skeleton>(15000.f, 20.f, 20.f, 0.0f));
+                enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
             }
             catch (const bad_alloc& e) {
                 std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -100,7 +116,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 enemy->load();
             }
         }
-            
+        
 
 
         else if (levelName == "1b") {
@@ -119,7 +135,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -153,7 +169,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         /*---------------------------------------------- Level 2 -------------------------------------------------*/
 
         else if (levelName == "1d") { // change to 2a
-            tileset = "assets/tilemap/tileset2.png"; // changes level color !! :) 
+            Tileset = "assets/tilemap/tileset2.png"; // changes level color !! :) 
 
             s.loadMusic("sound/music/icycave.wav");
             
@@ -172,7 +188,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,   0,  0,  0,  0,  0,  0,  0,  0, 10, 18,  9,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,   0,  0,  0,  0,  0,  0,  0,  0, 10, 18,  9,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  11, 12, 45, 46, 47, 12, 12, 12, 12, 13, 18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -202,7 +218,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         }
 
         else if (levelName == "2a") { // change to 2b 
-
+            PlayerHasKey = false;
             int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -218,10 +234,10 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,   0,  0,  0,  0, 48,  0,  0,  0,  0,  0,  0,  0,  0,  0, 18, 18, 18, 34, 18, 50, 18,
                  18,  9,   0,  0,  0,  0, 48,  0,  0,  0,  0,  0,  0,  0,  0,  0, 34, 18, 18, 18, 18, 50, 18,
                  18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
-            hasSpikes = true;
+            HasSpikes = true;
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
 
@@ -266,7 +282,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -302,7 +318,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             /*---------------------------------------------- Level 3 -------------------------------------------------*/
 
         else if (levelName == "2d") { // change to 3a
-            tileset = "assets/tilemap/tileset3.png"; // changes level color !! :)
+            Tileset = "assets/tilemap/tileset3.png"; // changes level color !! :)
 
             s.loadMusic("sound/music/MysteriousDungeon.wav");
 
@@ -321,7 +337,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -352,7 +368,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         }
 
         else if (levelName == "3a") { // changes to 3b
-
+            PlayerHasKey = false;
             int* NewLevel = new int[23 * 14]
             {
                  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18,
@@ -368,22 +384,22 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 48,  0,  0,  0,  0,  2,  3, 10, 18,
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 48,  0,  0,  0,  0,  4,  5, 10, 18,
                  18, 11, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
 
             delete[] NewLevel;
 
-            hasSpikes = true;
+            HasSpikes = true;
 
             CurrLevelName = "3b";
             p.changePosition(226.f, 750.f);
-            try {
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f));
+            try { 
+                enemies.push_back(make_unique<Knight>(300.f, 50.f, 50.f, 0.1f, 0.5f)); 
                 enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // give diff speeds to avoid complete overlapping
-                enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
-            }
+                enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); 
+            } 
             catch (const bad_alloc& e) {
                 std::cerr << "Memory allocation failed: " << e.what() << std::endl;
             }
@@ -418,8 +434,8 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,  0,  0, 18, 18, 34, 18,  0,  0,  0,  0,  0,  0,  0, 18, 18, 18, 33,  0,  0, 10, 18,
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                 18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -432,7 +448,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
         }
 
         else if (levelName == "3b") { // changes to 3d
-
+            
             int* NewLevel = new int[23 * 14]
             {
                  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -448,7 +464,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -458,7 +474,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             CurrLevelName = "3d";
             p.changePosition(739.f, 750.f);
 
-            hasSpikes = true;
+            HasSpikes = true;
             try {
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
@@ -484,7 +500,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
         else if (levelName == "3d") { // changes to 4a
 
-            tileset = "assets/tilemap/tileset4.png"; // changes level color !! :)
+            Tileset = "assets/tilemap/tileset4.png"; // changes level color !! :)
 
             s.loadMusic("sound/music/ExploringTheUnknown.wav");
 
@@ -503,7 +519,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10,  9,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10,  9,  0,  0,  0,  0,  0, 10, 18,
                  18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 11, 12, 45, 46, 47, 12, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60,  62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -513,9 +529,11 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             CurrLevelName = "4a";
             p.changePosition(1185.f, 750.f);
             try {
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f));
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f));
+                enemies.push_back(make_unique<Knight>(300.f, 50.f, 50.f, 0.1f, 0.5f));
+                enemies.push_back(make_unique<Knight>(300.f, 50.f, 50.f, 0.13f, 0.5f));
                 enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.20f));
+
+                enemies.push_back(make_unique<RockHandler>(350.f, 30.f, 30.f, 0.2f));
             }
             catch (const bad_alloc& e) {
                 std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -523,7 +541,9 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             vector<sf::Vector2f> enemyPositions1b = {
                 sf::Vector2f(1184.f, 220.f), // Knight1 position
                 sf::Vector2f(640.f, 220.f), // Knight2 position
-                sf::Vector2f(417.f, 696.f) // Slime1 position
+                sf::Vector2f(417.f, 696.f), // Slime1 position
+                sf::Vector2f(700.f, 350.0f) // Rock position
+
             };
             for (size_t i = 0; i < enemies.size(); ++i) {
                 enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
@@ -535,7 +555,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
         }
 
-        else if (levelName == "4a") { // change to 4b
+        else if (levelName == "4a") { // change to 4b 
 
             int* NewLevel = new int[23 * 14]
             {
@@ -552,7 +572,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -562,11 +582,12 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             CurrLevelName = "4b";
             p.changePosition(739.f, 750.f);
 
-            hasSpikes = true;
+            HasSpikes = true;
             try {
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f)); 
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f));
+                enemies.push_back(make_unique<Knight>(300.f, 50.f, 50.f, 0.1f, 0.5f)); 
+                enemies.push_back(make_unique<Knight>(300.f, 50.f, 50.f, 0.13f, 0.5f));
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f));
+                enemies.push_back(make_unique<RockHandler>(350.f, 30.f, 30.f, 0.2f));
             }
             catch (const bad_alloc& e) {
                 std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -574,7 +595,8 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             vector<sf::Vector2f> enemyPositions1b = {
                 sf::Vector2f(1217.f, 381.f), // Knight1 position
                 sf::Vector2f(224.f, 316.f), // Knight2 position
-                sf::Vector2f(739.f, 250.f) // Skeleton1 position
+                sf::Vector2f(739.f, 250.f), // Skeleton1 position
+                sf::Vector2f(700.f, 350.0f) // Rock position
             };
             for (size_t i = 0; i < enemies.size(); ++i) {
                 enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
@@ -583,6 +605,30 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 enemy->initialize();
                 enemy->load();
             }
+            try {
+                interactables.push_back(Interactable("Chest"));
+                interactables.push_back(Interactable("Red Heart"));
+                interactables.push_back(Interactable("Red Heart"));
+                interactables.push_back(Interactable("Gold Heart"));
+            }
+            catch (const bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+            }
+            vector<sf::Vector2f> chestPositions4b = {
+                sf::Vector2f(1217.f, 251.f), 
+                sf::Vector2f(1153.f, 269.f),
+                sf::Vector2f(1282.f, 269.f),
+                sf::Vector2f(1217.f, 339.f)
+            };
+            for (size_t i = 0; i < interactables.size(); i++)
+            {
+                interactables[i].changePosition(chestPositions4b[i].x, chestPositions4b[i].y);
+            }
+            for (auto& interactable : interactables) {
+                interactable.initialize();
+                interactable.load();
+            }
+            //cout << interactables.size() << endl;
         }
 
         else if (levelName == "4b") { // change to 4c
@@ -601,7 +647,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 48,  0,  0, 10, 18,
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 48,  0,  0, 10, 18,
                  18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -611,14 +657,15 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
             CurrLevelName = "4c";
             p.changePosition(739.f, 750.f);
 
-            hasSpikes = true;
+            HasSpikes = true;
             try {
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); // Knight1
                 enemies.push_back(make_unique<Skeleton>(150.f, 20.f, 20.f, 0.0f)); // Knight2
                 enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.12f)); // Slime1
                 enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.14f)); // Slime2
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.15f, 0.5f)); // Skeleton1
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // Skeleton2
+                enemies.push_back(make_unique<Knight>(300.f, 0.f, 50.f, 0.1f, 0.5f)); // Skeleton1
+                enemies.push_back(make_unique<Knight>(300.f, 0.f, 50.f, 0.13f, 0.5f)); // Skeleton2
+                enemies.push_back(make_unique<RockHandler>(350.f, 30.f, 30.f, 0.2f)); // Rocks
             }
             catch (const bad_alloc& e) {
                 std::cerr << "Memory allocation failed: " << e.what() << std::endl;
@@ -630,6 +677,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 sf::Vector2f(1188.f, 251.f), // Slime2 position
                 sf::Vector2f(611.f, 189.f), // Knight1 position
                 sf::Vector2f(866.f, 189.f), // Knight2 position
+                sf::Vector2f(700.f, 350.0f) // Rock position
             };
             for (size_t i = 0; i < enemies.size(); ++i) {
                 enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
@@ -644,7 +692,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
         else if (levelName == "4c") { // change to 5a (pre-boss room)
 
-            tileset = "assets/tilemap/tileset5.png"; // changes level color !! :)
+            Tileset = "assets/tilemap/tileset5.png"; // changes level color !! :)
 
             s.music.stop();
 
@@ -663,7 +711,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  50, 18, 18, 18, 18, 18,  0,  0,  0,  0,  0,  0,  0,  0,  0, 18, 18, 18, 34, 18, 50, 18,
                  18,  50, 18, 34, 18, 18, 18,  0,  0,  0,  0,  0,  0,  0,  0,  0, 34, 18, 18, 18, 18, 50, 18,
                  18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60,  62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -672,12 +720,38 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             CurrLevelName = "5a";
             p.changePosition(739.f, 750.f);
-
+            try {
+                interactables.push_back(Interactable("Chest"));
+                interactables.push_back(Interactable("Red Heart"));
+                interactables.push_back(Interactable("Red Heart"));
+                interactables.push_back(Interactable("Red Heart"));
+                interactables.push_back(Interactable("Gold Heart"));
+                interactables.push_back(Interactable("Gold Heart"));
+            }
+            catch (const bad_alloc& e) {
+                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+            }
+            vector<sf::Vector2f> chestPositions5a = {
+                sf::Vector2f(736.f, 441.f), // Chest1 position 
+                sf::Vector2f(675.f, 428.f),
+                sf::Vector2f(803.f, 428.f),
+                sf::Vector2f(740.f, 523.f),
+                sf::Vector2f(675.f, 460.f),
+                sf::Vector2f(803.f, 460.f)
+            };
+            for (size_t i = 0; i < interactables.size(); i++)
+            {
+                interactables[i].changePosition(chestPositions5a[i].x, chestPositions5a[i].y);
+            }
+            for (auto& interactable : interactables) {
+                interactable.initialize();
+                interactable.load();
+            }
         }
 
         else if (levelName == "5a") { // change to 5b (boss room)
 
-            s.loadMusic("sound/music/DecisiveBattle.wav");
+            s.loadMusic("sound/music/finaloffantasy.wav");
 
             int* NewLevel = new int[23 * 14]
             {
@@ -693,8 +767,8 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-                18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 70, 71, 72, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
+                60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -716,7 +790,6 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
 
     else if (type == "stair") {
-
         if (levelName == "1b") {
             int* NewLevel = new int[23 * 14]
             {
@@ -733,7 +806,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60,  62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -742,27 +815,62 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             CurrLevelName = "1c";
             p.changePosition(290.f, 180.f);
-            try {
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // give diff speeds to avoid complete overlapping
-                enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.13f, 0.5f));
+            if (!OneCDone) {
+                try {
+                    enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.17f, 0.5f)); // give diff speeds to avoid complete overlapping
+                    enemies.push_back(make_unique<Soldier>(200.f, 50.f, 50.f, 0.13f, 0.5f));
+                }
+                catch (const bad_alloc& e) {
+                    std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                }
+                vector<sf::Vector2f> enemyPositions1c = {
+                    sf::Vector2f(258.f, 687.f), // Soldier1 position 
+                    sf::Vector2f(1220.f, 243.f) // Soldier2 position
+                };
+                for (size_t i = 0; i < enemies.size(); ++i) {
+                    enemies[i]->changePosition(enemyPositions1c[i].x, enemyPositions1c[i].y);
+                }
+                for (auto& enemy : enemies) {
+                    enemy->initialize();
+                    enemy->load();
+                }
             }
-            catch (const bad_alloc& e) {
-                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
-            }
-            vector<sf::Vector2f> enemyPositions1b = {
-                sf::Vector2f(258.f, 687.f), // Soldier1 position 
-                sf::Vector2f(1220.f, 243.f) // Soldier2 position
-            };
-            for (size_t i = 0; i < enemies.size(); ++i) {
-                enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
-            }
-            for (auto& enemy : enemies) {
-                enemy->initialize();
-                enemy->load();
+            if (!OneCChestOpened) { // SPAWNING INTERACTABLES
+                try {
+                    interactables.push_back(Interactable("Chest"));
+                    interactables.push_back(Interactable("Key"));
+                    interactables.push_back(Interactable("Gold Heart"));
+                }
+                catch (const bad_alloc& e) {
+                    std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                }
+                vector<sf::Vector2f> chestPosition1c = {
+                    sf::Vector2f(1217.f, 670.f), // Chest position 
+                    sf::Vector2f(1217.f, 738.f), // Key position
+                    sf::Vector2f(1153.f, 686.f) // Gold Heart position
+                };
+                for (size_t i = 0; i < interactables.size(); i++)
+                {
+                    interactables[i].changePosition(chestPosition1c[i].x, chestPosition1c[i].y);
+                }
+                for (auto& interactable : interactables) {
+                    interactable.initialize();
+                    interactable.load();
+                }
             }
         }
 
         else if (levelName == "1c") {
+            if (ChestIsOpened) {
+                OneCChestOpened = true;
+            }
+            /*for (auto& interactable : interactables) {
+                if (interactable.getItemName() == "Chest") {
+                    if (interactable.isChestOpened()) {
+                        OneCChestOpened = true;
+                    }
+                }
+            }*/
             int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -778,7 +886,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,   2,  3, 43,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,   4,  5, 43,  0,  0,  0,  0,  0,  0, 43,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60,  62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -787,12 +895,22 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             CurrLevelName = "1b";
             p.changePosition(193.f, 616.f);
+            OneCDone = true;
         }
 
         /*---------------------------------------------- Level 2 -------------------------------------------------*/
 
         else if (levelName == "2c") { // go back to 2b
-
+            if (ChestIsOpened) {
+                TwoCChestOpened = true;
+            }
+            /*for (auto& interactable : interactables) {
+                if (interactable.getItemName() == "Chest") {
+                    if (interactable.isChestOpened()) {
+                        TwoCChestOpened = true;
+                    }
+                }
+            }*/
             int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -808,7 +926,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,   0,  0,  0,  0, 49,  0,  0,  0,  0,  0,  0,  0,  0,  0, 18, 18, 18, 34, 18, 50, 18,
                  18,  9,   0,  0,  0,  0, 49,  0,  0,  0,  0,  0,  0,  0,  0,  0, 34, 18, 18, 18, 18, 50, 18,
                  18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60,  62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -817,11 +935,10 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             CurrLevelName = "2b";
             p.changePosition(284.f, 456.f);
-
+            TwoCDone = true;
         }
 
         else if (levelName == "2b") { // change to 2c
-
             int* NewLevel = new int[23 * 14]
             {
                  18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -837,10 +954,10 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,   0,  0,  0,  0, 48,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,   0,  0,  0,  0, 48,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60,  62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
-            hasSpikes = true; 
+            HasSpikes = true; 
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
 
@@ -848,21 +965,48 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             CurrLevelName = "2c";
             p.changePosition(1187.f, 456.f);
-            try {
-                enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.20f)); // give diff speeds to avoid complete overlapping
+            if (!TwoCDone) {
+                try {
+                    enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.20f)); // give diff speeds to avoid complete overlapping
+                }
+                catch (const bad_alloc& e) {
+                    std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                }
+                vector<sf::Vector2f> enemyPositions2c = {
+                    sf::Vector2f(544.f, 471.f) // Slime1 position 
+                };
+                for (size_t i = 0; i < enemies.size(); ++i) {
+                    enemies[i]->changePosition(enemyPositions2c[i].x, enemyPositions2c[i].y);
+                }
+                for (auto& enemy : enemies) {
+                    enemy->initialize();
+                    enemy->load();
+                }
             }
-            catch (const bad_alloc& e) {
-                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
-            }
-            vector<sf::Vector2f> enemyPositions1b = {
-                sf::Vector2f(544.f, 471.f) // Slime1 position 
-            };
-            for (size_t i = 0; i < enemies.size(); ++i) {
-                enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
-            }
-            for (auto& enemy : enemies) {
-                enemy->initialize();
-                enemy->load();
+            if (!TwoCChestOpened) { // spawning interactables
+                try {
+                    interactables.push_back(Interactable("Chest")); // Chest
+                    interactables.push_back(Interactable("Key")); // Key
+                    interactables.push_back(Interactable("Gold Heart")); // Gold Heart
+                    interactables.push_back(Interactable("Red Heart")); // Red Heart
+                }
+                catch (const bad_alloc& e) {
+                    std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                }
+                vector<sf::Vector2f> chestPosition2c = {
+                    sf::Vector2f(226.f, 476.f), // Chest position 
+                    sf::Vector2f(226.f, 552.f), // Key position
+                    sf::Vector2f(162.f, 500.f), // Gold Heart position
+                    sf::Vector2f(292.f, 500.f) // Red Heart position
+                };
+                for (size_t i = 0; i < interactables.size(); i++)
+                {
+                    interactables[i].changePosition(chestPosition2c[i].x, chestPosition2c[i].y);
+                }
+                for (auto& interactable : interactables) {
+                    interactable.initialize();
+                    interactable.load();
+                }
             }
         }
 
@@ -871,7 +1015,9 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
 
         else if (levelName == "3c") {
-
+            if (ChestIsOpened) {
+                ThreeCChestOpened = true;
+            }
             int* NewLevel = new int[23 * 14]
             {
                  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 20, 21, 18, 18, 18,
@@ -887,7 +1033,7 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0,  0,  0,  2,  3, 10, 18,
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0,  0,  0,  4,  5, 10, 18,
                  18, 11, 45, 46, 47, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
@@ -896,11 +1042,10 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             CurrLevelName = "3b";
             p.changePosition(1282.f, 627.f);
-
+            ThreeCDone = true;
         }
 
         else if (levelName == "3b") { // changes to 3c
-
             int* NewLevel = new int[23 * 14]
             {
                     18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
@@ -916,10 +1061,10 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                     18,  9,   0,  0,  0,  0,  0,  0,  0, 10, 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                     18,  9,   0,  0,  0,  0,  0,  0,  0, 10, 18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                     18,  11, 12, 12, 12, 12, 12, 12, 12, 13, 18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                    18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                    60,  62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
-            hasSpikes = true;
+            HasSpikes = true;
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
 
@@ -927,23 +1072,52 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
 
             CurrLevelName = "3c";
             p.changePosition(193.f, 311.f);
-            try {
-                enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); // give diff speeds to avoid complete overlapping
-                enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.020f));
+            if (!ThreeCDone) {
+                try {
+                    enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.035f)); // give diff speeds to avoid complete overlapping
+                    enemies.push_back(make_unique<Slime>(300.f, 10.f, 5.f, 0.020f));
+                }
+                catch (const bad_alloc& e) {
+                    std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                }
+                vector<sf::Vector2f> enemyPositions1b = {
+                    sf::Vector2f(353.f, 733.f), // Slime1 position 
+                    sf::Vector2f(995.f, 733.f)
+                };
+                for (size_t i = 0; i < enemies.size(); ++i) {
+                    enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
+                }
+                for (auto& enemy : enemies) {
+                    enemy->initialize();
+                    enemy->load();
+                }
             }
-            catch (const bad_alloc& e) {
-                std::cerr << "Memory allocation failed: " << e.what() << std::endl;
-            }
-            vector<sf::Vector2f> enemyPositions1b = {
-                sf::Vector2f(353.f, 733.f), // Slime1 position 
-                sf::Vector2f(995.f, 733.f)
-            };
-            for (size_t i = 0; i < enemies.size(); ++i) {
-                enemies[i]->changePosition(enemyPositions1b[i].x, enemyPositions1b[i].y);
-            }
-            for (auto& enemy : enemies) {
-                enemy->initialize();
-                enemy->load();
+            if (!ThreeCChestOpened) {
+                try {
+                    interactables.push_back(Interactable("Chest"));
+                    interactables.push_back(Interactable("Key"));
+                    interactables.push_back(Interactable("Red Heart"));
+                    interactables.push_back(Interactable("Gold Heart"));
+                    interactables.push_back(Interactable("Gold Heart"));
+                }
+                catch (const bad_alloc& e) {
+                    std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+                }
+                vector<sf::Vector2f> chestPositions3c = {
+                    sf::Vector2f(1215.f, 255.f), 
+                    sf::Vector2f(1215.f, 329.f),
+                    sf::Vector2f(1153.f, 271.f),
+                    sf::Vector2f(1280.f, 269.f),
+                    sf::Vector2f(1222.f, 198.f),
+                };
+                for (size_t i = 0; i < interactables.size(); i++)
+                {
+                    interactables[i].changePosition(chestPositions3c[i].x, chestPositions3c[i].y);
+                }
+                for (auto& interactable : interactables) {
+                    interactable.initialize();
+                    interactable.load();
+                }
             }
         }
 
@@ -965,26 +1139,13 @@ void GameState::changeLevel(string levelName, Player& p, string type, SoundFx& s
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
                  18, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-                 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+                 60, 62, 18, 59, 63, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
             };
 
             std::copy(NewLevel, NewLevel + (23 * 14), CurrentLevel);
 
             delete[] NewLevel;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
@@ -999,28 +1160,66 @@ void GameState::changeTile(int currTile, int newTile)
     }
 }
 
+// False positives
+#pragma warning(push)
+#pragma warning(disable:6385)
+#pragma warning(disable:6386)
 
-/*
-int NewLevel[23 * 14] =
-        {
-             18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
-             18,  6,   7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  8, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  9,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 18,
-             18,  11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 18,
-             18,  18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
-        };
+void GameState::drawHearts(Player& p) // 
+{
+    for (int i = 0; i < p.HeartContainerCount; i++) { // Draw every full heart needed
+        CurrentLevel[i] = 67; // 67 is the full tile
+    }
 
+    if (p.HalfHeartCount / 2 != p.HeartContainerCount) { // If damage has been taken
+        int counter = 1; // counter represents the current heart
 
+        for (int i = (p.HeartContainerCount * 2) - p.HalfHeartCount; i > 0; i) { // i = every half heart lost
 
-*/
+            if (CurrentLevel[int(p.HeartContainerCount) - counter] != 65) { // If the current heart isnt empty
+                if (CurrentLevel[int(p.HeartContainerCount) - counter] == 67) { // If the current heart is full, make it half
+                    CurrentLevel[int(p.HeartContainerCount) - counter] = 66;
+                    i--; // one less half heart to create
 
+                    if (i >= 1) { // if we need to change the half heart sprite -> empty
+                        CurrentLevel[int(p.HeartContainerCount) - counter] = 65;
+                        i--; // one less half heart to create
+                    }
 
+                    counter++; // we have finished modifying the current heart, move to the next
+
+                }
+            }
+        }
+    }
+
+    for (int i = 0; i < p.GoldHeartContainerCount; i++) { // Draw enemy gold hearts as needed
+        CurrentLevel[i + int(p.HeartContainerCount)] = 69;
+    }
+
+    if (p.GoldHalfHeartCount / 2 != p.GoldHeartContainerCount) { // If damage has been taken
+        int counter = 1; // counter represents current heart
+        int offset = int(p.HeartContainerCount + p.GoldHeartContainerCount); // Gold heart offset, as they are drawn after red heart containers
+
+        for (int i = int(p.GoldHeartContainerCount * 2 - p.GoldHalfHeartCount); i > 0; i) { // i = every half heart lost
+
+            if (CurrentLevel[offset - counter] != 18) { // if gold container exists
+                if (CurrentLevel[offset - counter] == 69) { // if full heart, make half
+                    CurrentLevel[offset - counter] = 68;
+                    i--; // one less heart to draw
+
+                    if (i >= 1) { // if half hearts are leftover
+                        CurrentLevel[offset - counter] = 18; // if half heart, make empty
+                        i--;
+                    }
+
+                    counter++; // move to next heart
+
+                }
+            }
+        }
+    }
+
+}
+
+#pragma warning(pop)
