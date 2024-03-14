@@ -155,6 +155,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="GameState.hpp" />
+    <ClInclude Include="Knight.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="Interactable.hpp" />
     <ClInclude Include="Menu.hpp" />
