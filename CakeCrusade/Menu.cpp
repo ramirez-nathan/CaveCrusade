@@ -1,4 +1,5 @@
 #include "Menu.hpp"
+#include "Textbox.h"
 
 Menu::Menu(sf::RenderWindow& window, bool isOver)
 {
@@ -47,6 +48,12 @@ Menu::Menu(sf::RenderWindow& window, bool isOver)
 
 	if (!isOver) {
 		drawMenu(window, start);
+	}
+
+	if (isOver) {
+		MessageBox gameover;
+		gameover.setText("GAME OVER", 510, 600, 70);
+		gameover.drawMessageBox(window);
 	}
 }
 
