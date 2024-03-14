@@ -67,19 +67,30 @@ In-Game Screen:
  
  
  ## Screenshots
- > Screenshots of the input/output after running your application
 > ![caveIdle](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156261930/933f54ef-bab4-4797-9e4c-b56ac38a5444)
 > Idle animation when doing nothing
+>
+> 
 > ![caveLeftclick](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156261930/3b78b636-ab57-429c-ab3f-a9f207134d99)
 > Bow attack loads from clicking left-click
+>
+> 
 > ![caveRightclick](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156261930/b5be76a1-4bef-4031-8d90-38e760646f65)
 > Sword attack loads when clicking right-click
+>
+> 
 > ![caveRoom1](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156261930/627824f2-6f82-4555-98f0-087027e6e221)
 > View of the first room
+>
+> 
 > ![caveRoom2](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156261930/268a7f72-ca3c-45fc-ba52-0fc43fccd2f8)
 > Moves to the door and the second room loads
+>
+> 
 > ![caveWorld2 1](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156261930/6ada7dbe-0046-4f45-b167-6085b4b61509)
 > Finishes first-world and loads second-world
+>
+> 
 > ![caveWorld2](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156261930/0c534900-1303-45f8-9ae8-248941bd6ef2)
 > Second room of the second-world
 
