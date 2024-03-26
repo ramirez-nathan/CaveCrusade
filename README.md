@@ -1,36 +1,35 @@
 # Cave Crusade: Rise of the Shadow Master
- Authors: [Nathan Ramirez](https://github.com/ramirez-nathan), 
+ Developers: [Nathan Ramirez](https://github.com/ramirez-nathan), 
             [Russell Ly](https://github.com/Ampherost), 
             [Alexis Manalastas](https://github.com/amana032), 
             [Rachel Lee](https://github.com/rache11ee)
 
 ## Project Description
- **Cave Crusade: Rise of the Shadow Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of evil monsters to defeat Boulder the Wizard, an evil rock who plans to take over the kingdom with an army of despicable monsters! Fight your way to the end of his dungeon using an array of weapons to recover the Box of Wonder that was stolen from your kingdom! 
+ **Cave Crusade: Rise of the Shadow Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of evil monsters in hopes of making it out alive!<!--  Boulder the Wizard, an evil rock who plans to take over the kingdom with an army of despicable monsters! --> Fight your way to the end using your trusty weapons and see what lies at the end of the cave... if you can even make it there! <!-- to recover the Box of Wonder that was stolen from your kingdom! -->
 
-The project aims to captivate players through an immersive storyline, strategic gameplay, and a visually appealing environment.
+Our project aims to captivate players through <!-- an immersive storyline, -->strategic gameplay and a visually appealing environment.
 
  Tools & Technologies:
 * Visual Studio Community
 * SFML C++ Library
 
  Inputs:
-* Keyboard input for player movement and actions
-* Mouse input for navigating menus and interacting with in game elements
+* Keyboard input for player movement, actions, and interacting with in game elements
+* Mouse input for navigating menus and attacking
 
  Outputs:
 * Rendered graphics and animations displayed on the game window using SFML
 * Game sound effects and music
-* Information about player's status, like health and weapon equipped
-* In-game text for dialogue and game events 
+* Information about player's status, like health, ammo, and weapons available
+* In-game text for dialogue and game events
 
  Features:
- * Immersive movement and combat system --> Movement will be done using WASD controls to get around the tile map(s) and the player will be able to fight against the opponent with a weapon of choice.
+ * Immersive movement and combat system --> Movement will be done using WASD controls to get around the tile map(s) and the player will be able to fight against the opponent close and personal by using their sword, or from afar using their bow
  * Unique monsters and bosses --> Enemies and the Boss will be distinguishable in terms of their looks as well as what types of attacks will be executed against the player.
- * Dungeon-crawling gameplay --> The hero encounters and fights against opponents in a dungeon environment to advance through different rooms to get the Whisk of Wonder.
+ * Dungeon-crawling gameplay --> The player encounters and fights against opponents in a dungeon environment to advance to the next room and progress through the cave.
 
 ### Navigation Diagram
 ![caveNav](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156261930/e50224f3-62bc-40a0-8f93-a95e0ea631a8)
-
 
 ### Screen Layouts
 Start Screen:
@@ -41,7 +40,6 @@ In-Game Screen:
 
 Game Over Screen:
 ![game over](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/3302e9b2-aec1-468d-9c47-49bf13b52025)
-
 
 ## Class Diagram
 ![CakeCrusadeClassDiagram](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/d2a5c061-6ec1-4a4d-84b2-7e3b3b2f16b1)
