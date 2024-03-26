@@ -5,7 +5,7 @@
             [Rachel Lee](https://github.com/rache11ee)
 
 ## Project Description
- **Cave Crusade: Rise of the Shadow Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of evil monsters in hopes of making it out alive!<!--  Boulder the Wizard, an evil rock who plans to take over the kingdom with an army of despicable monsters! --> Fight your way to the end using your trusty weapons and see what lies at the end of the cave... if you can even make it that far! <!-- to recover the Box of Wonder that was stolen from your kingdom! -->
+ **Cave Crusade: Rise of the Shadow Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of evil monsters in hopes of making it out alive!<!--  Boulder the Wizard, an evil rock who plans to take over the kingdom with an army of despicable monsters! --> Fight your way to the end using your trusty weapons and see what lies at the end of the cave... if you can even make it there! <!-- to recover the Box of Wonder that was stolen from your kingdom! -->
 
 Our project aims to captivate players through <!-- an immersive storyline, -->strategic gameplay and a visually appealing environment.
 
