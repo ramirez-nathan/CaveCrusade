@@ -29,20 +29,20 @@ Our project aims to captivate players through <!-- an immersive storyline, -->st
  * Dungeon-crawling gameplay --> The player encounters and fights against opponents in a dungeon environment to advance to the next room and progress through the cave.
 
 ### Navigation Diagram
-![caveNav](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156261930/e50224f3-62bc-40a0-8f93-a95e0ea631a8)
+![CaveCrusadeNavigationDiagram](https://github.com/user-attachments/assets/cad7f079-2842-4067-9c82-fc7e3e7a014f)
 
 ### Screen Layouts
 Start Screen:
-![home page](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/3a4a98e1-0fb9-4123-8827-ccc4e3f329c3)
+![CCStartScreen](https://github.com/user-attachments/assets/8149608f-3092-488b-9a96-6489d7c40afd)
 
 In-Game Screen:
-![in-game-screen](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/117fff29-f7d6-4bcb-a653-542f7f481f7f)
+![CCInGameScreen](https://github.com/user-attachments/assets/8bc4d1f5-3721-4b2d-bb96-bf8f2c031cd5)
 
 Game Over Screen:
-![game over](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/3302e9b2-aec1-468d-9c47-49bf13b52025)
+![CCGameOverScreen](https://github.com/user-attachments/assets/2b2edb44-72d1-46da-9373-7b83038af5eb)
 
 ## Class Diagram
-![CakeCrusadeClassDiagram](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/136412424/d2a5c061-6ec1-4a4d-84b2-7e3b3b2f16b1)
+![CaveCrusadeClassDiagram](https://github.com/user-attachments/assets/58ce9731-5ec3-4256-a852-1d5ce5682248)
 
 | Class | Description |
 | --- | --- |
@@ -68,19 +68,19 @@ Game Over Screen:
  
  ## Screenshots
 
-![bow attack](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/ab6562dd-6ad8-4456-8e14-e587b8c833b4)
+![CCScreenshot1](https://github.com/user-attachments/assets/7b00a17d-a184-44f4-a4ae-f548b160e2e3)
 
  Bow attack loads from clicking left-click
 
- ![sword attack](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/880a0052-b773-49ff-95fc-904cb93977f9)
+![CCScreenshot2](https://github.com/user-attachments/assets/cd51afca-ce44-46e0-8941-9bc163d33b5e)
 
  Sword attack loads when clicking right-click
 
-![chest interactable](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/d32fbc32-854b-494f-9128-0a49e29c9a7d)
+![CCScreenshot3](https://github.com/user-attachments/assets/124e918d-3f31-4cbd-8621-9f9f9f132209)
 
  Chest interactable
 
-![enemy variety](https://github.com/cs100/final-project-amana032-rlee205-rly014-nrami112/assets/156156677/dac396e3-4347-4b94-9d23-b9614b3841bd)
+![CCScreenshot4](https://github.com/user-attachments/assets/03da3bf6-7f50-4881-8676-c85b1eff63d4)
 
  Enemy variety
 
