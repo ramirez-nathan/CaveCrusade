@@ -18,14 +18,14 @@ Our project aims to captivate players through <!-- an immersive storyline, -->st
 * Mouse input for navigating menus and attacking
 
  Outputs:
-* Rendered graphics and animations displayed on the game window using SFML
+* Rendered graphics and animations displayed on the game window using SFML's api
 * Game sound effects and music
 * Information about player's status, like health, ammo, and weapons available
 * In-game text for dialogue and game events
 
  Features:
- * Immersive movement and combat system --> Movement will be done using WASD controls to get around the tile map(s) and the player will be able to fight against the opponent close and personal by using their sword, or from afar using their bow
- * Unique monsters and bosses --> Enemies and the Boss will be distinguishable in terms of their looks as well as what types of attacks will be executed against the player.
+ * Movement and combat system --> Movement will be done using WASD controls to get around the tile map(s) and the player will be able to fight against the opponent close and personal by using their sword, or from afar using their bow
+ * Monsters and Boss --> Enemies and the Boss will be distinguishable in terms of their looks as well as what types of attacks will be executed against the player.
  * Dungeon-crawling gameplay --> The player encounters and fights against opponents in a dungeon environment to advance to the next room and progress through the cave.
 
 ### Navigation Diagram
