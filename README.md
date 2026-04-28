@@ -4,6 +4,9 @@
             [Alexis Manalastas](https://github.com/amana032), 
             [Rachel Lee](https://github.com/rache11ee)
 
+## INSTALLATION/USAGE 
+ In order to install you can download the repository as a zip, extract it, and in the main folder use the Cave Crusade executable. Thats all!
+
 ## Project Description
  **Cave Crusade: Rise of the Shadow Master** is a whimsical dungeon-crawler RPG that will have you battling through swarms of evil monsters in hopes of making it out alive!<!--  Boulder the Wizard, an evil rock who plans to take over the kingdom with an army of despicable monsters! --> Fight your way to the end using your trusty weapons and see what lies at the end of the cave... if you can even make it there! <!-- to recover the Box of Wonder that was stolen from your kingdom! -->
 
@@ -86,11 +89,9 @@ Game Over Screen:
 
 
 
-
- ## Installation/Usage
- In order to install you can download the repository as a zip, extract it, and in the main folder use the Cave Crusade executable. 
- If you would like to edit and run the application, we need to first install Visual Studio, SFML, and the correct desktop extensions. Then you need to have all of the necessary files (you can clone the repository). Then you need to build the solution and then run it through the local windows debugger. The local windows debugger should be set to "Debug" and "x64". The game application will now run and the terminal should show up adjacently and display any necessary messages. 
-
+ ## Editing
+ If you would like to edit the project, you need to first install Visual Studio, SFML, and the correct desktop extensions. Then you need to have all of the necessary files (you can clone the repository). If its your first time linking a library, we wish you luck soldier 🫡. Then you need to build the solution and then run it through the local windows debugger. The local windows debugger should be set to "Debug" and "x64". The game application will now run and the terminal should show up adjacently and display any necessary messages. 
+ 
  ## Testing
  
 In order to test our project we created and looked over unit tests that took several classes and functions into consideration. We used Visual Studio's built-in Google Test framework in order to easily reference our classes and make sure we have good test coverage. 
